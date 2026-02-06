@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/c4b356fc4f.js" crossorigin="anonymous"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app">
+        <main class="main">
+            <header class="topbar">
+                <h1>Security Automation tool - AI Enhancement</h1>
+                <button id="submit" class="primary-btn">Analyze Code</button>
+            </header>
+            <section class="code-grid">
+                <div class="code-card">
+                    <h3>Source Code</h3>
+                    <textarea id="msgBox" placeholder="Paste vulnerable code here..."></textarea>
+                </div>
+                <div class="code-card success">
+                    <h3>Fixed Code</h3>
+                    <textarea id="out" readonly placeholder="Secure code output..."></textarea>
+                </div>
+            </section>
+            <section class="quiz-box">
+                <h2>solution</h2>
+                <textarea readonly placeholder="recommends..."></textarea>
+            </section>
+            <section class="quiz-box">
+                <h2>Ready to test your security knowledge?</h2>
+                <p>Take on the security challenge to practice your skills and track your progress.</p>
+                <button id="goQuiz" class="quiz-btn">Start Quiz&nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Page</title>
+    <link rel="stylesheet" href="Quizstyle.css">
+    <script src="https://kit.fontawesome.com/c4b356fc4f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app">
+        <main class="main">
+            <header class="topbar">
+                <button id="submit" class="primary-btn"><i class="fa-solid fa-arrow-left"></i><b>&nbsp;Back</b></button>
+                <h1>Security Automation tool - AI Enhancement</h1>
+            </header>
+            <section class="quiz-box">
+                <h2>Question</h2>
+                <textarea readonly placeholder="Question..."></textarea>
+            </section>
+            <section class="code-grid">
+                <div class="code-card">
+                    <h3>Option 1</h3>
+                    <textarea id="option1" readonly placeholder="Option 1..."></textarea>
+                </div>
+                <div class="code-card">
+                    <h3>Option 2</h3>
+                    <textarea id="option2" readonly placeholder="Option 2..."></textarea>
+                </div>
+            </section>
+            <section class="code-grid">
+                <div class="code-card">
+                    <h3>Option 3</h3>
+                    <textarea id="option3" readonly placeholder="Opetion 3..."></textarea>
+                </div>
+                <div class="code-card">
+                    <h3>Option 4</h3>
+                    <textarea id="option4" readonly placeholder="Option 4..."></textarea>
+                </div>
+            </section>
+            <section class="submit-box">
+                <button id="goQuiz" class="quiz-btn">Submit</button>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
