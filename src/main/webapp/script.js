@@ -9,7 +9,9 @@ document.getElementById("submit").addEventListener("click",()=>{
     }).then(res=>res.json())
     .then(result=>{
         console.log(result.response);
-		document.getElementById("out").innerText = result.response;
+		const [Output, Explanation] = result.response.split("␟");
+		document.getElementById("out").innerText = Output;
+		document.getElementById("commend").innerText = Explanation;
     })
     .catch(err=>{
         console.log(err);

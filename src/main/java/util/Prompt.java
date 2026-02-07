@@ -12,7 +12,12 @@ public class Prompt {
 		for(String key:Pattern.payloads().keySet()){
 			prompt+="\nIssue: \n"+key+"\nFix:\n"+Pattern.payloads().get(key)+"\n";
 		}
-		prompt+="Input:\n"+code+"\n\nOutput:\n<ONLY_FIXED_LINE>";
+		prompt +="Input:\n" + code +
+				  "\n\nOutput:\n<ONLY_FIXED_LINE>" +
+				  "\n\nYou MUST print this split character on its own line:\n" +
+				  "␟\n" +
+				  "After the split character, explain what the output does in exactly two short lines.\n" +
+				  "Do not add anything else.";
 		return prompt;
 	}
 }
