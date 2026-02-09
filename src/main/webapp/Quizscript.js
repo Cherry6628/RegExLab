@@ -4,8 +4,9 @@ let codeCard = document.querySelectorAll('.code-card');
 let question = document.getElementById("question");
 document.addEventListener("DOMContentLoaded", ()=>{
 	const code = new URL(location.href).searchParams.get("code");
+	console.log(code);
 	if (code){
-		question.value = code;
+		question.innerText = code;
 	}
 })
 submit.disabled = true;
