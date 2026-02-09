@@ -1,7 +1,5 @@
 package util;
-
 import java.util.HashMap;
-
 public class Pattern {
 	public static HashMap<String, String> payloads() {
 		HashMap<String, String> patterns = new HashMap<>();

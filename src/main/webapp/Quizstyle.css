@@ -31,9 +31,6 @@ body{
     border-radius: 8px;
     cursor: pointer;
 }
-.primary-btn:hover{
-    background: #2563eb;
-}
 .code-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -83,15 +80,15 @@ section{
     cursor: pointer;
     width:200px;
 }
-.quiz-btn:hover{
-    background: #2563eb;
-}
 .submit-box{
     margin-top: 40px;
-    /* background: linear-gradient(135deg, #111827, #0b1220); */
     padding: 30px;
     border-radius: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/*:focus{
+	background-color: pink;
+}*/

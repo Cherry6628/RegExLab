@@ -31,9 +31,6 @@ body{
     border-radius: 8px;
     cursor: pointer;
 }
-.primary-btn:hover{
-    background: #2563eb;
-}
 .code-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -85,7 +82,4 @@ textarea{
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-}
-.quiz-btn:hover{
-    background: #2563eb;
 }

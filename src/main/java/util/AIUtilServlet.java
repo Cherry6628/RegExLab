@@ -31,7 +31,9 @@ public class AIUtilServlet extends HttpServlet {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest req = HttpRequest.newBuilder().uri(URI.create("http://usha-0177-ait.csez.zohocorpin.com:11434/api/generate")).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
 		try {
+			System.out.println(1);
 			HttpResponse<String> apiResponse = client.send(req, HttpResponse.BodyHandlers.ofString());
+			System.out.println(2);
 			response.setContentType("application/json");
 			response.setStatus(apiResponse.statusCode());
 			response.getWriter().write(apiResponse.body());
@@ -41,5 +43,6 @@ public class AIUtilServlet extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write("{\"error\":\"Failed to call external API\"}");
 		}
+		client.close();
 	}
 }
