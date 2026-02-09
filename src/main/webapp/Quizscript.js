@@ -8,19 +8,24 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	if (code){
 		question.innerText = code;
 	}
-	fetch("QuizServlet", {
-	     method: "POST",
-	     headers: {
+	fetch("quiz", {
+	    method: "POST",
+	    headers: {
 	        "Content-Type": "application/json"
-	     },
-	     body: JSON.stringify({ msg: code })
-	 }).then(res => res.json())
-	 .then(result => {
-	      console.log(result.response);
-	 })
-	 .catch(err => {
-	      console.log(err);
-	 })
+	    },
+	    body: JSON.stringify({ msg: code })
+	}).then(res => res.json())
+	    .then(result => {
+	        console.log(result.response);
+			let arrIn = result.response.split("\n");
+			document.getElementById("option1").innerText = arrIn[1];
+			document.getElementById("option2").innerText = arrIn[2];
+			document.getElementById("option3").innerText = arrIn[3];
+			document.getElementById("option4").innerText = arrIn[4];
+	    })
+	    .catch(err => {
+	        console.log(err);
+	    })
 })
 submit.disabled = true;
 submit.style.cursor = 'not-allowed';

@@ -11,8 +11,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import org.json.JSONObject;
-@WebServlet("/QuizServelet")
-public class QuizServelet extends HttpServlet {
+@WebServlet("/quiz")
+public class QuizServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StringBuilder sb = new StringBuilder();
 		BufferedReader reader = request.getReader();
@@ -22,8 +23,9 @@ public class QuizServelet extends HttpServlet {
 		}
 		JSONObject obj = new JSONObject(sb.toString());
 		String msg = obj.getString("msg");
+		System.out.print(msg);
 		JSONObject payload = new JSONObject();
-		payload.put("prompt", "");
+		payload.put("prompt", QuizPrompt.prompt(msg));
 		payload.put("stream", false);
 		payload.put("model", "qwen3:30b-instruct");
 		String json = payload.toString();
