@@ -35,10 +35,7 @@ INPUT:
 """ + code + """
 
 OUTPUT:
-<ONLY_ONE_FIXED_LINE>
-
-␟
-After the split character, explain what the output does in exactly two short lines.
+<ONLY_ONE_FIXED_LINE><SPLIT CHARACTER ␟><EXPLANATION - After the split character, explain what the output does in exactly two short lines.>
 Do not add anything else.
 """;
 

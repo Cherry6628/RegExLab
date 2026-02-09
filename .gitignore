@@ -63,3 +63,4 @@ credentials/
 
 .DS_Store
 Thumbs.db
+bin/
