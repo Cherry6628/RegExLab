@@ -8,6 +8,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	if (code){
 		question.innerText = code;
 	}
+	fetch("QuizServlet", {
+	     method: "POST",
+	     headers: {
+	        "Content-Type": "application/json"
+	     },
+	     body: JSON.stringify({ msg: code })
+	 }).then(res => res.json())
+	 .then(result => {
+	      console.log(result.response);
+	 })
+	 .catch(err => {
+	      console.log(err);
+	 })
 })
 submit.disabled = true;
 submit.style.cursor = 'not-allowed';
