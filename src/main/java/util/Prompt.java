@@ -1,9 +1,6 @@
 package util;
-
 public class Prompt {
-
 	public static String prompt(String code) {
-
 		String prompt = """
 You are a code correction assistant.
 

@@ -1,18 +1,18 @@
 let msg = document.getElementById("msgBox");
 let Quiz = document.getElementById("goQuiz");
 let submit = document.getElementById("submit");
-const isEmpty = msg.value.trim() === "";
-Quiz.disabled = isEmpty;
-submit.disabled = isEmpty;
-if (isEmpty) {
-    Quiz.style.cursor = "not-allowed";
-    submit.style.cursor = "not-allowed";
-}
-document.addEventListener("DOMContentLoaded", ()=>{
-	const code = new URL(location.href).searchParams.get("code");
-	if (code){
-		msg.value=decodeURIComponent(code);
-	}
+document.addEventListener("DOMContentLoaded", () => {
+    const code = new URL(location.href).searchParams.get("code");
+    if (code) {
+        msg.value = code;
+    }
+    const isEmpty = msg.value.trim() === "";
+    Quiz.disabled = isEmpty;
+    submit.disabled = isEmpty;
+    if (isEmpty) {
+        Quiz.style.cursor = "not-allowed";
+        submit.style.cursor = "not-allowed";
+    }
 })
 msg.addEventListener("input", function() {
     const isEmpty = msg.value.trim() === "";
@@ -37,7 +37,7 @@ msg.addEventListener("input", function() {
         Quiz.addEventListener('mouseenter', () => {
             Quiz.style.background = '#2563eb';
         });
-		
+
         Quiz.addEventListener('mouseleave', () => {
             Quiz.style.background = '#3b82f6';
         });
@@ -47,10 +47,7 @@ msg.addEventListener("input", function() {
     }
 })
 submit.addEventListener("click", () => {
-	/*const urlnew = new URL(location.href)
-	urlnew.searchParams.set("code", encodeURIComponent(msg.value));
-	location.href=urlnew.toString();*/
-    fetch("http://localhost:8082/RegExLab/suggest", {
+    fetch("suggest", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -68,5 +65,7 @@ submit.addEventListener("click", () => {
         })
 })
 Quiz.addEventListener("click", () => {
-    window.location.href = "http://localhost:8082/RegExLab/Quiz.html?code=" + encodeURIComponent(msg.value);
+    window.location.href =
+        "/RegExLab/Quiz.html?code=" +
+        encodeURIComponent(msg.value);
 })

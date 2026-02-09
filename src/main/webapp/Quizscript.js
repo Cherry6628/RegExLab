@@ -1,6 +1,13 @@
 let back = document.getElementById("back");
 let submit = document.getElementById("submit");
 let codeCard = document.querySelectorAll('.code-card');
+let question = document.getElementById("question");
+document.addEventListener("DOMContentLoaded", ()=>{
+	const code = new URL(location.href).searchParams.get("code");
+	if (code){
+		question.value = code;
+	}
+})
 submit.disabled = true;
 submit.style.cursor = 'not-allowed';
 back.addEventListener('mouseenter', () => {
@@ -40,5 +47,7 @@ submit.addEventListener("click", () => {
     console.loh("hi");
 })
 back.addEventListener("click", () => {
-    window.location.href = "http://localhost:8082/RegExLab/index.html?code="+(new URL(location.href).searchParams.get("code"));
+	window.location.href =
+	    "/RegExLab/index.html?code=" +
+	    new URL(window.location.href).searchParams.get("code");
 })

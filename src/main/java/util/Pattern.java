@@ -1,7 +1,5 @@
 package util;
-
 import java.util.HashMap;
-
 public class Pattern {
 	public static HashMap<String, String> patterns = new HashMap<>();
 
@@ -130,7 +128,6 @@ public class Pattern {
 				"el.innerHTML = <DBVAL>",
 				"el.innerHTML = encodeHTML(<DBVAL>)");
 	}
-
 	public static HashMap<String, String> payloads() {
 		return patterns;
 	}
