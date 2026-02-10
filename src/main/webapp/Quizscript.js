@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	if (code){
 		question.innerText = code;
 	}
-	fetch("http://localhost:8082/RegExLab/quiz", {
+	fetch("quiz", {
 	    method: "POST",
 	    headers: {
 	        "Content-Type": "application/json"

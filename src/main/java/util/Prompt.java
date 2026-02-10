@@ -33,9 +33,9 @@ Rules:
         You should encode variables from objects too, like obj.key, and abcd.ddfas.asdf.  I mean anything comes with this pattern (variable dot variable dot ..... ) this will be considered to be an variable. For Example: innerHTML = obj.d; this should be encoded to innerHTML = encodeHTML(obj.d); and innerHTML = obj.x.asdf; this should be encoded to innerHTML = encodeHTML(obj.x.asdf);
         Also, getting data from localstorage, sessionstorage and user manipulatable properties, you should encode them.  
         To be simple, EVERYTHING THAT IS NOT A STRING LITERAL IS ALWAYS CONSIDERED TO BE VARIABLES  AND YOU MUST ALWAYS ENCODE THEM. For example, obj.x.asdf, localStorage.getItem("asdf"), variablename, hello, items.first.name - all of these are variables.
-        Sometimes, there may be no fix needed, then leave it as it is, and dont add encoding methods.  For example, querySelector(xyz) should remain querySelector(xyz) and no need for encoding.  querySelector(), innerText = , textContent = , text() for cases like these, there is no need for encoding
-        Also, no need to encode HTML Attribute id=""
-		Note: SOMETIMES THERE MAY BE variable but as string (Example: "variable", "var", "VARIABLE", "var"); Dont encode them.
+        Sometimes, there may be no fix needed, then leave it as it is, and dont add encoding methods.  For example, querySelector(xyz) should remain querySelector(xyz) and no need for encoding.  querySelector(), text(), innerText = , textContent = , for cases like these, there is no need for encoding
+        VERY IMPORTANT RULE 1: Also, no need to encode HTML Attribute id="". Even if variable is assigned to id attribute, dont encode it.
+		VERY IMPORTANT RULE 2: SOMETIMES THERE MAY BE variable but as string (Example: "variable", "var", "VARIABLE", "var"); Dont encode them.
 
 Input: 
 """ + code + """
