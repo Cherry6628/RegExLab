@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	if (code){
 		question.innerText = code;
 	}
-	fetch("http://localhost:8082/RegExLab/quiz", {
+	fetch("quiz", {
 	    method: "POST",
 	    headers: {
 	        "Content-Type": "application/json"
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 			document.getElementById("option2").innerText = arrIn[2];
 			document.getElementById("option3").innerText = arrIn[3];
 			document.getElementById("option4").innerText = arrIn[4];
-			answer = arrIn[6];
+			answer = arrIn[7];
 	    })
 	    .catch(err => {
 	        console.log(err);
@@ -73,7 +73,6 @@ codeCard.forEach(card=>{
 submit.addEventListener("mousedown", () => {
 	console.log(codeCard);
 	console.log(userElement);
-	console.log(option[1].id);
 	if(userAnswer == answer){
 		for(let i=0;i<option.length;i++){
 			if(option[i].id == userElement){
