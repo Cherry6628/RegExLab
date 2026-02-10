@@ -65,7 +65,5 @@ submit.addEventListener("click", () => {
         })
 })
 Quiz.addEventListener("click", () => {
-    window.location.href =
-        "/RegExLab/Quiz.html?code=" +
-        encodeURIComponent(msg.value);
+    window.location.href ="/RegExLab/Quiz.html?code=" +encodeURIComponent(msg.value);
 })

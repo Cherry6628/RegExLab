@@ -21,10 +21,14 @@ public class QuizPrompt {
 		- Identify the closest matching issue pattern.
 		- Determine the ONE correct fixed line (or unchanged line if already secure).
 		- Create THREE additional plausible but incorrect options.
-		- Randomly shuffle all FOUR options every time.
+		- Randomly shuffle all FOUR options every time Randomly.
 		- Do NOT change the meaning of any option.
 		- Output ONLY in the specified format.
 		- Do NOT add explanations before the output.
+		
+		NOTE :
+		
+		change the all option in random position in every time.
 
 		SAMPLE DATA:
 		""";

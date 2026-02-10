@@ -23,7 +23,6 @@ public class QuizServlet extends HttpServlet {
 		}
 		JSONObject obj = new JSONObject(sb.toString());
 		String msg = obj.getString("msg");
-		System.out.print(msg);
 		JSONObject payload = new JSONObject();
 		payload.put("prompt", QuizPrompt.prompt(msg));
 		payload.put("stream", false);
