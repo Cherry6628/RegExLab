@@ -47,7 +47,10 @@ public class QuizPrompt {
 		A) <code line>
 		B) <code line>
 		C) <code line>
-		D) <code line>""";
+		D) <code line>
+		
+		<Correct Answer>
+		""";
 		return prompt;
 	}
 }
