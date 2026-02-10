@@ -89,10 +89,12 @@ submit.addEventListener("mousedown", () => {
 		console.log("correct");
 	}
 	else{
+		document.activeElement.style.backgroundColor = " #ffcdd2";
+		let useAns;
 		console.log("wrong");
 		for(let i=0;i<option.length;i++){
-			console.log(document.getElementById(`option${i}`).innerText);
-			if(option[i].id != answer){
+			useAns = document.getElementById(`option${i+1}`).value;
+			if(useAns != answer){
 				option[i].style.color = "red";
 				option[i].style.border = "3px solid red";							
 			}
