@@ -34,8 +34,7 @@ public class QuizPrompt {
 		""";
 
 		for (String key : Pattern.payloads().keySet()) {
-			prompt += "\nIssue:\n" + key +
-			          "\nFix:\n" + Pattern.payloads().get(key) + "\n";
+			prompt += "\nIssue:\n" + key + "\nFix:\n" + Pattern.payloads().get(key) + "\n";
 		}
 
 		prompt += """

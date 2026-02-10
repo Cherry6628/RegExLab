@@ -5,7 +5,7 @@
 .project
 .idea/
 *.iml
-.vscode/*
+.vscode/
 
 node_modules/
 dist/
