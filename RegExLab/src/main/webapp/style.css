@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+      overflow:hidden;
 }
 body{
     width:100vw;
@@ -9,6 +10,7 @@ body{
     font-family: Inter, system-ui, sans-serif;
     background: #0e141b;
     color: #e5e7eb;
+  
 }
 .app{
     display: flex;
@@ -16,14 +18,19 @@ body{
 .main{
     flex:1;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .topbar{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+    width:1320px;
 }
-.primary-btn{
+.primaryBtn{
     background: #3b82f6;
     border: none;
     padding: 10px 16px;
@@ -31,23 +38,22 @@ body{
     border-radius: 8px;
     cursor: pointer;
 }
-.code-grid{
+.grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
-.code-card{
+.card{
     background: #111827;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
-.code-card h3{
+.card h3{
     margin-bottom: 12px;
     font-size: 1rem;
     color: #93c5fd;
 }
-.code-card.success h3{
+.card.success h3{
     color: #4ade80;
 }
 textarea{
@@ -61,20 +67,20 @@ textarea{
     resize: none;
     font-family: monospace;
 }
-.quiz-box{
+.quizBox{
     margin-top: 40px;
     background: linear-gradient(135deg, #111827, #0b1220);
     padding: 30px;
     border-radius: 16px;
 }
-.quiz-box h2{
+.quizBox h2{
     margin-bottom: 8px;
 }
-.quiz-box p{
+.quizBox p{
     color: #9ca3af;
-    margin-bottom: 10px;
+    margin: 15px 0 35px;
 }
-.quiz-btn{
+.quizBtn{
     background: #3b82f6;
     border: none;
     padding: 14px 24px;
@@ -82,4 +88,7 @@ textarea{
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
+}
+section{
+    width:1320px;
 }

@@ -13,26 +13,26 @@
         <main class="main">
             <header class="topbar">
                 <h1>Security Automation tool</h1>
-                <button id="submit" class="primary-btn">Analyze Code</button>
+                <button id="submit" class="primaryBtn">Analyze Code</button>
             </header>
-            <section class="code-grid">
-                <div class="code-card">
+            <section class="grid">
+                <div class="card">
                     <h3>Source Code</h3>
                     <textarea id="msgBox" placeholder="Paste vulnerable code here..."></textarea>
                 </div>
-                <div class="code-card success">
+                <div class="card success">
                     <h3>Fixed Code</h3>
-                    <textarea id="out" readonly placeholder="Secure code output..."></textarea>
+                    <textarea id="out" onfocus="this.blur()" readonly placeholder="Secure code output..."></textarea>
                 </div>
             </section>
-            <section class="quiz-box">
+            <section class="quizBox">
                 <h2>solution</h2>
-                <textarea id="commend" readonly placeholder="recommends..."></textarea>
+                <textarea id="commend" readonly onfocus="this.blur()" placeholder="recommends..."></textarea>
             </section>
-            <section class="quiz-box">
+            <section class="quizBox">
                 <h2>Ready to test your security knowledge?</h2>
                 <p>Take on the security challenge to practice your skills and track your progress.</p>
-                <button id="goQuiz" class="quiz-btn">Start Quiz&nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+                <button id="goQuiz" class="quizBtn">Start Quiz&nbsp;<i class="fa-solid fa-arrow-right"></i></button>
             </section>
         </main>
     </div>
