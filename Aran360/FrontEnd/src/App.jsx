@@ -8,5 +8,5 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import LearningPage from "./pages/LearningPage/LearningPage";
 
 export default function App() {
-  return <></>;
+    return <></>;
 }

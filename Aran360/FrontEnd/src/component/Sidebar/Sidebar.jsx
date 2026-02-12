@@ -16,9 +16,6 @@ const Sidebar = () => {
 
   return (
     <aside className="sidebar">
-      <header className="sidebar-header">
-        <Logo></Logo>
-      </header>
 
       <nav className="sidebar-nav">
         {OWASP_DATA.map((item) => (
