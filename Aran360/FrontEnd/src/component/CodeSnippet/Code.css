@@ -1,0 +1,26 @@
+.wrapper{
+    border-radius: 12px;
+    border: 1px solid var( --border-light);
+    font-family: Inter, monospace;
+    overflow: hidden;
+ }
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--secondary-bgcolor);
+    font-size: 20px;
+    color: var(--text-dim);
+    border-bottom: 1px solid var( --border-light);
+}
+.fileName{
+    font-weight: 500;
+}
+.language{
+    opacity: 0.7;
+}
+.codeBlock{
+    margin: 0 !important;
+    padding: 20px !important;
+    background: var(--primary-bgcolor) !important;
+}
