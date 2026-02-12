@@ -7,8 +7,10 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 export default function App() {
     return (
         <>
-            {/* <Sidebar/> */}
-            <Quiz></Quiz>
+        {/* <div style={{display: "flex"}}>
+                <Sidebar/>
+                <Quiz></Quiz>
+        </div> */}
             <AuthPage />
         </>
     );

@@ -51,6 +51,7 @@
     cursor: pointer;
     text-align: left;
     transition: all 0.2s ease;
+    justify-content: flex-start;
 }
 
 .nav-item .label {
