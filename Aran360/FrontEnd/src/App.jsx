@@ -7,9 +7,11 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 export default function App() {
     return (
         <>
-            {/* <Sidebar/> */}
+        <div className="quizPage">
+            <Sidebar/>
             <Quiz></Quiz>
-            <AuthPage />
+        </div>
+            {/* <AuthPage /> */}
         </>
     );
 }

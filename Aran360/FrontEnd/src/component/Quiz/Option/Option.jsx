@@ -1,9 +1,9 @@
 import './Option.css';
-export default function Option(){
+export default function Option({children, name}){
     return(
         <div className="box">
-            <p>input.innerHTML = "userInput";</p>
-            <div className='click'></div>
+            <p>{children}</p>
+            <input name={name} type="radio" className='click'/>
         </div>
     );
 }
