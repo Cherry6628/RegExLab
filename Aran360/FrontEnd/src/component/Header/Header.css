@@ -2,5 +2,39 @@
     height: 100px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    background-color:var(--primary-bgcolor);
+}
+.header-nav-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navlist{
+    display: flex;
+    gap:40px;
+    color:white;
+}
+li{
+    list-style: none;
+}
+.navitem{
+    padding:10px;
+    border: 3px solid transparent;
+    font-weight: bold;
+    cursor: pointer;
+}
+.navitem:hover{
+    color:var( --action-color);
+    border-bottom:3px solid var( --action-color);
+}
+.navipro{
+    padding:10px;
+    border: 3px solid transparent;
+    border-radius: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.navipro:hover{
+    border:3px solid white;
 }
