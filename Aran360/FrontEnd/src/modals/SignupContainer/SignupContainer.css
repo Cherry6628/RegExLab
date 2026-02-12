@@ -1,0 +1,120 @@
+.signup-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--primary-bgcolor);
+    padding: 40px;
+    border-radius: 32px;
+    box-shadow: 0 20px 50px var(--shadow-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.signup-header {
+    text-align: left;
+}
+
+.signup-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.signup-subtitle {
+    color: var(--text-dim);
+    font-size: 16px;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signup-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.signup-input-group label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.signup-input-group input {
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border-light);
+    background-color: var(--card-white);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.signup-input-group input:focus {
+    border-color: var(--action-color);
+}
+
+.signup-input-hint {
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.signup-primary-btn {
+    background-color: var(--action-color);
+    color: var(--action-color2);
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: none;
+}
+
+.signup-primary-btn:hover {
+    opacity: 0.9;
+}
+
+.signup-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.signup-divider::before, .signup-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-light);
+}
+::placeholder{
+}
+.signup-divider span {
+    padding: 0 15px;
+}
+
+.signup-footer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.signup-footer a {
+    color: var(--action-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+.signup-container input{
+    color: var(--text-main);
+}

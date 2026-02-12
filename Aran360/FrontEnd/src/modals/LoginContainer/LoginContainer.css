@@ -1,0 +1,147 @@
+.login-container {
+    width: 100%;
+    max-width: 480px;
+    background: var(--card-white);
+    padding: 40px;
+    border-radius: 32px;
+    box-shadow: 0 20px 50px var(--shadow-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.login-header {
+    text-align: left;
+}
+
+.login-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    color: var(--text-dim);
+    font-size: 16px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-forgot-link {
+    font-size: 13px;
+    color: var(--action-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.login-input-group label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.login-input-group input {
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border-light);
+    background-color: var(--card-white);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.login-input-group input:focus {
+    border-color: var(--action-color);
+}
+
+.login-primary-btn {
+    background-color: var(--action-color);
+    color: white;
+    padding: 16px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+.login-primary-btn:hover {
+    opacity: 0.9;
+}
+
+.login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.login-divider::before, .login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.login-divider span {
+    padding: 0 15px;
+}
+
+.login-secondary-btn {
+    background-color: transparent;
+    border: 1.5px solid var(--border-light);
+    padding: 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-secondary-btn:hover {
+    background-color: var(--primary-bgcolor);
+}
+
+.login-secondary-btn span {
+    color: var(--action-color);
+}
+
+.login-footer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+.login-footer a {
+    color: var(--action-color);
+    text-decoration: none;
+    font-weight: 700;
+}

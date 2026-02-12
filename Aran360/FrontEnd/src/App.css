@@ -12,7 +12,24 @@
     box-sizing: border-box;
 }
 :root {
+    --action-color: #137fec;
+    --action-color2: #ffffff;
 
+    --primary-bgcolor: #111418;
+    --secondary-bgcolor: #101922;
+
+    --text-main: #f9f9fa;
+    --text-dim: #94a3b8;
+    --text-muted: #70a1a8;
+
+    --border-light: #334155;
+    --shadow-dark: rgba(0, 0, 0, 0.4);
+
+    --error-red: #e11d48;
+    --error-bg: #2d161a;
+    --error-border: #881337;
+
+    --danger-red: var(--error-red);
 }
 
 
