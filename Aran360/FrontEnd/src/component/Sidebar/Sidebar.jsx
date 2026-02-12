@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Sidebar.css';
+import Logo from '../Logo/Logo';
 
 const OWASP_DATA = [
   { id: 'A01', name: 'Access Control', icon: 'shield' },
@@ -16,8 +17,7 @@ const Sidebar = () => {
   return (
     <aside className="owasp-sidebar">
       <header className="owasp-header">
-        <h1>OWASP Top 10</h1>
-        {/* <p>Vulnerability Categories</p> */}
+        <Logo></Logo>
       </header>
 
       <nav className="owasp-nav">
