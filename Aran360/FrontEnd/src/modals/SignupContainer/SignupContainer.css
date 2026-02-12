@@ -93,13 +93,13 @@
     letter-spacing: 1px;
 }
 
-.signup-divider::before, .signup-divider::after {
-    content: '';
+.signup-divider::before,
+.signup-divider::after {
+    content: "";
     flex: 1;
     border-bottom: 1px solid var(--border-light);
 }
-::placeholder{
-}
+
 .signup-divider span {
     padding: 0 15px;
 }
@@ -115,6 +115,6 @@
     text-decoration: none;
     font-weight: 700;
 }
-.signup-container input{
+.signup-container input {
     color: var(--text-main);
 }
