@@ -15,7 +15,7 @@
 }
 
 .signup-title {
-    font-size: 32px;
+    font-size: var(--large-size);
     font-weight: 800;
     color: var(--text-main);
     margin-bottom: 8px;
@@ -49,7 +49,7 @@
     border-radius: 12px;
     border: 1.5px solid var(--border-light);
     background-color: var(--card-white);
-    font-size: 15px;
+    font-size: var(--label-size);
     outline: none;
     transition: border-color 0.2s;
 }
@@ -59,7 +59,7 @@
 }
 
 .signup-input-hint {
-    font-size: 12px;
+    font-size: var(--small-size);
     color: var(--text-dim);
 }
 
@@ -69,7 +69,7 @@
     align-items: center;
     text-align: center;
     color: var(--text-dim);
-    font-size: 11px;
+    font-size: var(--small-size);
     font-weight: 700;
     letter-spacing: 1px;
 }
