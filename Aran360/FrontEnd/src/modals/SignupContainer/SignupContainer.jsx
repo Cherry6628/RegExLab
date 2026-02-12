@@ -48,7 +48,7 @@ export default function SignupContainer({ setModal }) {
                 </div>
 
                 
-                <Button onClick={signup} icon="login"/>
+                <Button onClick={signup} icon="login">Sign Up</Button>
             </form>
 
             <div className="signup-divider">

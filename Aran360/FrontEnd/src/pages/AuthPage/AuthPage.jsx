@@ -31,7 +31,7 @@ export default function AuthPage() {
                     </div>
                     <div className="auth-branding-text">
                         <h2>The Art of Digital Defense</h2>
-                        <p>Learn to defend</p>
+                        <p>Learn the art of digital defense</p>
                     </div>
                 </div>
 
