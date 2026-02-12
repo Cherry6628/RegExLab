@@ -33,6 +33,10 @@
 
     --label-size: 14px;
     --default-size: 16px;
+    --small-size: 13px;
+    --normal-size: 20px;
+    --large-size: 35px;
+    --extra-large-size: 50px;
 }
 .quizPage{
     width: 100vw;

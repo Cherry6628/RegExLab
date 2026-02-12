@@ -10,11 +10,6 @@
     box-sizing: border-box;
 }
 
-.sidebar .sidebar-header {
-    padding: 0 8px 32px 8px;
-}
-
-
 .sidebar .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -42,7 +37,7 @@
 }
 
 .sidebar .nav-item .icon {
-    font-size: 20px;
+    font-size: var(--normal-size);
     margin-right: 12px;
     color: #1a73e8;
 }

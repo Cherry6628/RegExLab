@@ -15,7 +15,7 @@
 }
 
 .login-title {
-    font-size: 32px;
+    font-size: var(--large-size);
     font-weight: 800;
     color: var(--text-main);
     margin-bottom: 8px;
@@ -45,7 +45,7 @@
 }
 
 .login-forgot-link {
-    font-size: 13px;
+    font-size: var(--small-size);
     color: var(--action-color);
     text-decoration: none;
     font-weight: 700;
@@ -62,7 +62,7 @@
     border-radius: 12px;
     border: 1.5px solid var(--border-light);
     background-color: var(--card-white);
-    font-size: 15px;
+    font-size: var(--label-size);
     outline: none;
     transition: border-color 0.2s;
 }
@@ -76,7 +76,7 @@
     align-items: center;
     text-align: center;
     color: var(--text-dim);
-    font-size: 11px;
+    font-size: var(--small-size);
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -101,4 +101,7 @@
     color: var(--action-color);
     text-decoration: none;
     font-weight: 700;
+}
+.login-container input {
+    color: var(--text-main);
 }

@@ -24,7 +24,7 @@ export default function Logo({ showTitle = true, showTagline = true }) {
                     {showTitle && (
                         <span
                             style={{
-                                fontSize: "22px",
+                                fontSize: "var(--normal-size)",
                                 fontWeight: "800",
                                 color: "var(--text-main)",
                                 letterSpacing: "-0.5px",
@@ -37,7 +37,7 @@ export default function Logo({ showTitle = true, showTagline = true }) {
                     {showTagline && (
                         <span
                             style={{
-                                fontSize: "12px",
+                                fontSize: "var(--small-size)",
                                 fontWeight: "600",
                                 color: "var(--text-dim)",
                                 opacity: "0.8",
