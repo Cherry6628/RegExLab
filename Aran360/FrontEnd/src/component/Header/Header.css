@@ -1,8 +1,10 @@
 .header-navbar {
     height: 100px;
+    padding-right: 50px;
+    padding-left: 30px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color:var(--primary-bgcolor);
 }
 .header-nav-logo{
