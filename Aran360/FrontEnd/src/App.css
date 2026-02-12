@@ -31,3 +31,8 @@
 
     --danger-red: var(--error-red);
 }
+.quizPage{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}

@@ -1,17 +1,32 @@
 .box{
     background-color: var(--primary-bgcolor);
-    border:1px solid var( --border-light);
+    border: 1px solid var(--border-light);
     border-radius: 12px;
-    width:500px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:30px;
+    padding: 15px;
 }
-.click{
+.click {
+    appearance: none;
+    -webkit-appearance: none;
     background-color: var(--primary-bgcolor);
-    border: 1px solid var( --border-light);
+    border: 1px solid var(--border-light);
     border-radius: 50%;
-    height:40px;
-    width:40px;
+    height: 30px;
+    width: 30px;
+    position: relative;
+}
+.click:checked {
+    background-color: var(--action-color);
+    border-color: var(--action-color);
+}
+.click:checked::after {
+    content: "✔";
+    color: var(--action-color2);
+    font-size: 250%;
+    position: absolute;
+    bottom: -25%;
+    left: 3%
 }
