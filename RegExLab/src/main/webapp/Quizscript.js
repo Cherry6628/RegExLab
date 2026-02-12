@@ -1,6 +1,6 @@
 let back = document.getElementById("back");
 let submit = document.getElementById("submit");
-let codeCard = document.querySelectorAll('.code-card');
+let codeCard = document.querySelectorAll('.card');
 let question = document.getElementById("question");
 let answer;
 let userAnswer;

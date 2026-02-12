@@ -63,6 +63,10 @@ textarea{
     padding: 12px;
     resize: none;
     font-family: monospace;
+    font-weight:bold;
+    text-align : center;
+    font-size:18px;
+    padding-top:50px;
 }
 section{
     margin-top: 20px;
