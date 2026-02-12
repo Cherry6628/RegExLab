@@ -15,12 +15,12 @@ const Sidebar = () => {
   const [activeId, setActiveId] = useState('A03');
 
   return (
-    <aside className="owasp-sidebar">
-      <header className="owasp-header">
+    <aside className="sidebar">
+      <header className="sidebar-header">
         <Logo></Logo>
       </header>
 
-      <nav className="owasp-nav">
+      <nav className="sidebar-nav">
         {OWASP_DATA.map((item) => (
           <button
             key={item.id}

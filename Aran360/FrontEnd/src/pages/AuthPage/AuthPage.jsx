@@ -12,7 +12,7 @@ export default function AuthPage() {
             <main className="auth-main-content">
                 <div className="auth-branding-section">
                     <div className="auth-illustration-container" style={{position:"relative", zIndex: 0}}>
-                        <span class="material-symbols-outlined" style={{position: "absolute", transform: "scale(19)", zIndex: -1, color: "var(--action-color)"}}>
+                        <span class="material-symbols-outlined" style={{position: "absolute", transform: "scale(19)", zIndex: -1, color: "var(--action-color2)"}}>
                             fingerprint
                         </span>
                         <div className="auth-mockup-card" style={{zIndex: 1}}>

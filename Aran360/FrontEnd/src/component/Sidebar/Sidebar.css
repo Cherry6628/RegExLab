@@ -1,11 +1,4 @@
-.material-symbols-outlined {
-    font-variation-settings:
-        "FILL" 0,
-        "wght" 400,
-        "GRAD" 0,
-        "opsz" 24;
-}
-.owasp-sidebar {
+.sidebar {
     width: 280px;
     height: 100vh;
     background-color: #0b0e14;
@@ -17,30 +10,18 @@
     box-sizing: border-box;
 }
 
-.owasp-header {
+.sidebar .sidebar-header {
     padding: 0 8px 32px 8px;
 }
 
-.owasp-header h1 {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-}
 
-.owasp-header p {
-    color: #bbbbbb;
-    font-size: 13px;
-    margin: 4px 0 0 0;
-}
-
-.owasp-nav {
+.sidebar .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.nav-item {
+.sidebar .nav-item {
     display: flex;
     align-items: center;
     width: 100%;
@@ -54,31 +35,31 @@
     justify-content: flex-start;
 }
 
-.nav-item .label {
-    font-size: 14px;
+.sidebar .nav-item .label {
+    font-size: var(--label-size);
     font-weight: 500;
     color: #b4b3b8;
 }
 
-.nav-item .icon {
+.sidebar .nav-item .icon {
     font-size: 20px;
     margin-right: 12px;
     color: #1a73e8;
 }
 
-.nav-item.active {
+.sidebar .nav-item.active {
     background-color: #1a73e8;
 }
 
-.nav-item.active .label,
-.nav-item.active .icon {
+.sidebar .nav-item.active .label,
+.sidebar .nav-item.active .icon {
     color: #ffffff;
 }
 
-.nav-item:hover:not(.active) {
+.sidebar .nav-item:hover:not(.active) {
     background-color: #161b22;
 }
 
-.nav-item:hover:not(.active) .label {
+.sidebar .nav-item:hover:not(.active) .label {
     color: #ffffff;
 }

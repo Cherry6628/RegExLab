@@ -1,3 +1,4 @@
+import Button from "../../component/Button/Button";
 import "./SignupContainer.css";
 
 export default function SignupContainer({ setModal }) {
@@ -46,14 +47,8 @@ export default function SignupContainer({ setModal }) {
                     </span>
                 </div>
 
-                <button
-                    type="submit"
-                    className="signup-primary-btn"
-                    onClick={signup}
-                >
-                    Create Account
-                    <span className="material-symbols-outlined">login</span>
-                </button>
+                
+                <Button onClick={signup} icon="login"/>
             </form>
 
             <div className="signup-divider">
