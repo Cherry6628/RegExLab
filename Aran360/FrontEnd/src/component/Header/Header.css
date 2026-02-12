@@ -35,6 +35,7 @@ li{
     font-weight: bold;
     cursor: pointer;
 }
+
 .nav-profile:hover{
     border:3px solid white;
 }
