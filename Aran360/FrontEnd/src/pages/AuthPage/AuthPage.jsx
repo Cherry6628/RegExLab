@@ -7,12 +7,15 @@ import Header from "../../component/Header/Header.jsx";
 export default function AuthPage() {
     return (
         <div className="auth-page-wrapper">
-            <Header></Header>
+            <Header/>
 
             <main className="auth-main-content">
                 <div className="auth-branding-section">
-                    <div className="auth-illustration-container">
-                        <div className="auth-mockup-card">
+                    <div className="auth-illustration-container" style={{position:"relative", zIndex: 0}}>
+                        <span class="material-symbols-outlined" style={{position: "absolute", transform: "scale(19)", zIndex: -1, color: "var(--action-color)"}}>
+                            fingerprint
+                        </span>
+                        <div className="auth-mockup-card" style={{zIndex: 1}}>
                             <div className="auth-mockup-check">
                                 <Logo
                                     showTitle={false}
