@@ -30,6 +30,9 @@
     --error-border: #881337;
 
     --danger-red: var(--error-red);
+
+    --label-size: 14px;
+    --default-size: 16px;
 }
 .quizPage{
     width: 100vw;

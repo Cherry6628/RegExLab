@@ -1,5 +1,5 @@
 import "./LoginContainer.css";
-
+import Button from "../../component/Button/Button";
 export default function LoginContainer({ setModal }) {
     function login() {
         console.log("login");
@@ -39,14 +39,7 @@ export default function LoginContainer({ setModal }) {
                     </a>
                 </div>
 
-                <button
-                    type="submit"
-                    className="login-primary-btn"
-                    onClick={login}
-                >
-                    Sign In
-                    <span className="material-symbols-outlined">login</span>
-                </button>
+                <Button onClick={login} icon="login">Sign In</Button>
             </form>
 
             <div className="login-divider">

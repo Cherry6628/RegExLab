@@ -1,10 +1,10 @@
-button {
+.button-component {
   background-color: var(--action-color);
   color: var(--action-color2);
   padding: 16px;
   border-radius: 14px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--default-size);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,4 +12,7 @@ button {
   cursor: pointer;
   transition: opacity 0.2s;
   border: none;
+}
+.button-component::hover{
+  opacity: 0.9;
 }

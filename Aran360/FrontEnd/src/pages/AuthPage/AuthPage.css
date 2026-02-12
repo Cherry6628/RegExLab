@@ -30,7 +30,7 @@
     width: 100%;
     max-width: 440px;
     aspect-ratio: 1 / 1;
-    background-color: var(--action-color2);
+    background-color: var(--action-color);
     border-radius: 40px;
     display: flex;
     justify-content: center;
@@ -82,7 +82,7 @@
 .auth-branding-text p {
     color: var(--text-dim);
     line-height: 1.6;
-    font-size: 16px;
+    font-size: var(--default-size);
     max-width: 420px;
 }
 
