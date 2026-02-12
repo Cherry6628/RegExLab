@@ -1,8 +1,7 @@
 .box{
-    background-color: #111418;
-    border: 2px solid #1E293B;
+    background-color: var(--primary-bgcolor);
+    border:1px solid var( --border-light);
     border-radius: 12px;
-    height:100px;
     width:500px;
     display: flex;
     justify-content: space-between;
@@ -10,8 +9,8 @@
     padding:30px;
 }
 .click{
-    background-color: #111418;
-    border: 2px solid #1E293B;
+    background-color: var(--primary-bgcolor);
+    border: 1px solid var( --border-light);
     border-radius: 50%;
     height:40px;
     width:40px;
