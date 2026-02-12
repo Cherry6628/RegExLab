@@ -1,0 +1,18 @@
+.Quiz{
+    background-color: #101922;
+    color:white;
+}
+h1{
+    font-weight: bold;
+    font-size: 40px;
+}
+body{
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+.describe{
+    font-size: 20px;
+    opacity: 0.7;
+}
+.question{
+    font-size: 20px;
+}
