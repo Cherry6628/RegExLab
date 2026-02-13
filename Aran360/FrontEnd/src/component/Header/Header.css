@@ -1,15 +1,24 @@
 .header-navbar {
+    position: fixed;
+    width:100vw;
     height: 100px;
     padding: 0 50px 0 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: var(--primary-bgcolor);
-    position: relative;
+    /* position: relative; */
     color: white;
     z-index: 100;
+    top: 0;
 }
+#clear-header-position{
+    height: 100px;
+    top: 0;
+    position: relative;
+    z-index: -1000;
 
+}
 .header-navbar .header-nav-logo {
     display: flex;
     justify-content: center;
