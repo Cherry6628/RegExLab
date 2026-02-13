@@ -11,7 +11,9 @@ import LearningPage from "./pages/LearningPage/LearningPage";
 export default function App() {
     return (
         <>
-            <ContextProvider></ContextProvider>
+            <ContextProvider>
+                <LearningPage/>
+            </ContextProvider>
         </>
     );
 }
