@@ -3,44 +3,47 @@
     padding:0;
     box-sizing: border-box;
 }
-#app{
+#xss{
     background-color: var( --primary-bgcolor);
     width:100vw;
 }
-img {
+#xss img {
     width: 1100px;
     height: auto;
 }
-section p, li{
-    font-size: 20px;
+#xss section p, #xss li{
+    font-size: var(--normal-size);
     color: var(--text-dim);
     line-height: 29px;
 }
-section h1{
-    font-size: 30px;
+#xss section h1{
+    font-size: var( --large-size);
     margin-bottom: 15px;
     margin-top: 20px;
     color: var(--text-main);
 }
-.mainbar{
+#xss .mainbar{
     width:1400px;
     padding-left:80px;
     padding-right:80px;
 }
-section ul{
+#xss section ul{
     margin-top: 20px;
     margin-left: 100px;
 }
-.box{
+#xss .labbox{
     background-color: #F7F9FD;
-    color:#5C5C5B;
     border-left: 10px solid #001350;
     border-radius: 12px;
     padding:20px;
     margin-top: 20px;
     margin-bottom: 20px;
+
 }
-.code{
+#xss .labbox h1{
+    color: black;
+}
+#xss .code{
     background-color: #EBF0F2;
     color:black;
     padding:20px;
@@ -48,9 +51,9 @@ section ul{
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.code p{
+#xss .code p{
     color:black;
 }
-ul li::marker {
-    color: #FF7648;
+#xss ul li::marker {
+    color: white;
 }

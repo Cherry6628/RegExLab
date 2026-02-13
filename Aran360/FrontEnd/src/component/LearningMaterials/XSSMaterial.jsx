@@ -2,7 +2,7 @@ import './XSSMaterial.css';
 export default function XSSMaterial() {
   return (
     <>
-      <div id="app">
+      <div id="xss">
         <main className="content">
             <section className="mainbar">
               <section>
@@ -39,7 +39,7 @@ export default function XSSMaterial() {
                   application.
                 </p>
                 <img src="https://miro.medium.com/v2/resize:fit:1400/1*Tkb7AIaIeYJngZ3Clbo1Xg.jpeg" />
-                <div className="box">
+                <div className="labbox">
                   <h1>Labs</h1>
                   <p>
                     If you're already familiar with the basic concepts behind
@@ -129,7 +129,7 @@ export default function XSSMaterial() {
                   point, the script can carry out any action, and retrieve any
                   data, to which the user has access.
                 </p>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>Reflected cross-site scripting</li>
@@ -173,7 +173,7 @@ export default function XSSMaterial() {
                     */&lt;/script&gt;&lt;/p&gt;
                   </p>
                 </div>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>Stored cross-site scripting</li>
@@ -214,7 +214,7 @@ export default function XSSMaterial() {
                   parameter, allowing the attacker to deliver an attack using a
                   malicious URL, in the same manner as reflected XSS.
                 </p>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>DOM-based cross-site scripting</li>
@@ -261,7 +261,7 @@ export default function XSSMaterial() {
                     application and compromise all users and their data.
                   </li>
                 </ul>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>Exploiting cross-site scripting vulnerabilities</li>
@@ -300,7 +300,7 @@ export default function XSSMaterial() {
                   JavaScript to reliably automate the detection of DOM-based
                   vulnerabilities.
                 </p>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>Cross-site scripting contexts</li>
@@ -316,7 +316,7 @@ export default function XSSMaterial() {
                   circumvented to enable exploitation of the underlying
                   vulnerability.
                 </p>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>Content security policy</li>
@@ -332,7 +332,7 @@ export default function XSSMaterial() {
                   including CSRF tokens that can be used to perform unauthorized
                   actions on behalf of the user.
                 </p>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>Dangling markup injection</li>
@@ -374,7 +374,7 @@ export default function XSSMaterial() {
                     any XSS vulnerabilities that still occur.
                   </li>
                 </ul>
-                <div className="box">
+                <div className="labbox">
                   <h1>Read more</h1>
                   <ul>
                     <li>How to prevent XSS</li>
@@ -384,44 +384,7 @@ export default function XSSMaterial() {
                     </li>
                   </ul>
                 </div>
-                <h1>Common questions about cross-site scripting</h1>
-                <p>
-                  How common are XSS vulnerabilities? XSS vulnerabilities are
-                  very common, and XSS is probably the most frequently occurring
-                  web security vulnerability.
-                </p>
-                <p>
-                  How common are XSS attacks? It is difficult to get reliable
-                  data about real-world XSS attacks, but it is probably less
-                  frequently exploited than other vulnerabilities.
-                </p>
-                <p>
-                  What is the difference between XSS and CSRF? XSS involves
-                  causing a web site to return malicious JavaScript, while CSRF
-                  involves inducing a victim user to perform actions they do not
-                  intend to do.
-                </p>
-                <p>
-                  What is the difference between XSS and SQL injection? XSS is a
-                  client-side vulnerability that targets other application
-                  users, while SQL injection is a server-side vulnerability that
-                  targets the application's database.
-                </p>
-                <p>
-                  How do I prevent XSS in PHP? Filter your inputs with a
-                  whitelist of allowed characters and use type hints or type
-                  casting. Escape your outputs with htmlentities and ENT_QUOTES
-                  for HTML contexts, or JavaScript Unicode escapes for
-                  JavaScript contexts.
-                </p>
-                <p>
-                  How do I prevent XSS in Java? Filter your inputs with a
-                  whitelist of allowed characters and use a library such as
-                  Google Guava to HTML-encode your output for HTML contexts, or
-                  use JavaScript Unicode escapes for JavaScript contexts.
-                </p>
               </section>
-            {/* </section> */}
           </section>
         </main>
       </div>
