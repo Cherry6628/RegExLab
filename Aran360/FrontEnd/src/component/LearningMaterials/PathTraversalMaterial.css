@@ -1,0 +1,86 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+#path img {
+    width: 1100px;
+    height: auto;
+}
+#path section p, #path li{
+    font-size: 20px;
+    color: #5C5C5B;
+    line-height: 29px;
+}
+#path section h1{
+    font-size: 30px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    color: #001350;
+}
+#path .mainbar{
+    width:1400px;
+    padding-left:80px;
+    padding-right:80px;
+}
+#path section ul{
+    margin-top: 20px;
+    margin-left: 100px;
+}
+#path .labbox{
+    background-color: #F7F9FD;
+    color:#5C5C5B;
+    border-left: 10px solid #001350;
+    border-radius: 12px;
+    padding:20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#path .code{
+    background-color: #EBF0F2;
+    color:black;
+    padding:20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#path .code p{
+    color:black;
+}
+#path ul li::marker {
+    color: #FF7648;
+}
+#path .practice{
+    border-radius: 50px;
+    border:2px solid black;
+    display: flex;
+}
+#path .leftColor{
+    padding:20px;
+    width:300px;
+    color:white;
+    font-weight: bold;
+    font-size: 25px;
+    background-color: #001350;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+#path .rightColor{
+    padding-left: 30px;
+}
+#path .beginner{
+    color:white;
+    background-color: #39D662;
+    width:150px;
+    font-weight: bold;
+}
+#path .medium{
+    color:white;
+    background-color: #4CC1FF;
+    width:150px;
+    font-weight: bold;
+}
