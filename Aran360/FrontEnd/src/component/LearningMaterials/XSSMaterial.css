@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 #xss{
-    background-color: var( --primary-bgcolor);
+    background-color: var( --secondary-bgcolor);
     width:100vw;
 }
 #xss img {
@@ -33,7 +33,7 @@
 }
 #xss .labbox{
     background-color: #F7F9FD;
-    border-left: 10px solid #001350;
+    border-left: 10px solid var(--border-dark);
     border-radius: 12px;
     padding:20px;
     margin-top: 20px;

@@ -15,14 +15,15 @@
     --action-color: #137fec;
     --action-color2: #ffffff;
 
-    --primary-bgcolor: #111418;
     --secondary-bgcolor: #101922;
+    --primary-bgcolor: #111418;
 
     --text-main: #f9f9fa;
     --text-dim: #94a3b8;
     --text-muted: #70a1a8;
 
     --border-light: #334155;
+    --border-dark: #001350;
     --shadow-dark: rgba(0, 0, 0, 0.4);
 
     --error-red: #e11d48;

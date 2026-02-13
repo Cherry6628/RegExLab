@@ -28,6 +28,7 @@ export default function Header() {
         console.log("login");
     }
     return (
+        <>
         <header className="header-navbar">
             <div className="header-nav-logo">
                 <Logo />
@@ -70,5 +71,7 @@ export default function Header() {
                 </ul>
             </nav>
         </header>
+        <div id="clear-header-position"></div>
+        </>
     );
 }

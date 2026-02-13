@@ -1,7 +1,7 @@
 .sidebar {
     width: 280px;
     height: 100vh;
-    background-color: #0b0e14;
+    background-color: var(--primary-bgcolor);
     padding: 24px 16px;
     font-family:
         "Inter",
@@ -33,13 +33,13 @@
 .sidebar .nav-item .label {
     font-size: var(--label-size);
     font-weight: 500;
-    color: #b4b3b8;
+    color: var(--text-dim);
 }
 
 .sidebar .nav-item .icon {
     font-size: var(--normal-size);
     margin-right: 12px;
-    color: #1a73e8;
+    color: var(--action-color);
 }
 
 .sidebar .nav-item.active {
@@ -48,7 +48,7 @@
 
 .sidebar .nav-item.active .label,
 .sidebar .nav-item.active .icon {
-    color: #ffffff;
+    color:var(--action-color2);
 }
 
 .sidebar .nav-item:hover:not(.active) {
