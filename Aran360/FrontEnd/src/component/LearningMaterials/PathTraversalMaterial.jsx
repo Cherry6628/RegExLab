@@ -111,11 +111,9 @@ export default function PathTraversalMaterial() {
               <span class="material-symbols-outlined">experiment</span>LAB
               </div>
               <div class="rightColor">
-                <p class="beginner">APPRENTICE</p>
                 <p>
-                  File path traversal, simple case{" "}
+                  File path traversal, simple case{" "}</p>
                   <span class="material-symbols-outlined">trending_flat</span>
-                </p>
               </div>
             </div>
           </section>
@@ -143,12 +141,10 @@ export default function PathTraversalMaterial() {
                 <span class="material-symbols-outlined">experiment</span>LAB
               </div>
               <div class="rightColor">
-                <p class="medium">PRACTITIONER</p>
                 <p>
                   File path traversal, traversal sequences blocked with absolute
-                  path bypa{" "}
+                  path bypa{" "} </p>
                   <span class="material-symbols-outlined">trending_flat</span>
-                </p>
               </div>
             </div>
             <p>
@@ -161,12 +157,10 @@ export default function PathTraversalMaterial() {
               <span class="material-symbols-outlined">experiment</span>LAB
               </div>
               <div class="rightColor">
-                <p class="medium">PRACTITIONER</p>
                 <p>
                   File path traversal, traversal sequences stripped
-                  non-recursively{" "}
+                  non-recursively{" "}</p>
                   <span class="material-symbols-outlined">trending_flat</span>
-                </p>
               </div>
             </div>
             <p>
@@ -189,12 +183,10 @@ export default function PathTraversalMaterial() {
               <span class="material-symbols-outlined">experiment</span>LAB
               </div>
               <div class="rightColor">
-                <p class="medium">PRACTITIONER</p>
                 <p>
                   File path traversal, traversal sequences stripped with
-                  superfluous URL-decode{" "}
+                  superfluous URL-decode{" "}</p>
                   <span class="material-symbols-outlined">trending_flat</span>
-                </p>
               </div>
             </div>
             <p>
@@ -209,11 +201,9 @@ export default function PathTraversalMaterial() {
               <span class="material-symbols-outlined">experiment</span>LAB
               </div>
               <div class="rightColor">
-                <p class="medium">PRACTITIONER</p>
                 <p>
-                  File path traversal, validation of start of path{" "}
+                  File path traversal, validation of start of path{" "} </p>
                   <span class="material-symbols-outlined">trending_flat</span>
-                </p>
               </div>
             </div>
             <p>
@@ -228,12 +218,10 @@ export default function PathTraversalMaterial() {
               <span class="material-symbols-outlined">experiment</span>LAB
               </div>
               <div class="rightColor">
-                <p class="medium">PRACTITIONER</p>
                 <p>
                   File path traversal, validation of file extension with null
-                  byte bypass{" "}
+                  byte bypass{" "}</p>
                   <span class="material-symbols-outlined">trending_flat</span>
-                </p>
               </div>
             </div>
           </section>
