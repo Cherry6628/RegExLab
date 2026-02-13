@@ -11,7 +11,7 @@ export default function Logo({ showTitle = true, showTagline = true }) {
                 userSelect: "none",
             }}
         >
-            <Icon size="40px" />
+            <Icon size="var(--large-size)" />
 
             {(showTagline || showTitle) && (
                 <div
