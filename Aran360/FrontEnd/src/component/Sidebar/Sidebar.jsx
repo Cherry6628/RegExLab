@@ -14,9 +14,8 @@ const OWASP_DATA = [
 const Sidebar = () => {
   const [activeId, setActiveId] = useState('A03');
 
-  return (
+  return (<>
     <aside className="sidebar">
-
       <nav className="sidebar-nav">
         {OWASP_DATA.map((item) => (
           <button
@@ -30,6 +29,8 @@ const Sidebar = () => {
         ))}
       </nav>
     </aside>
+    <div id="clear-sidebar-position"></div>
+    </>
   );
 };
 

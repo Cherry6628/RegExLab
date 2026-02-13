@@ -7,9 +7,15 @@
     background-color: var( --secondary-bgcolor);
     width:100vw;
 }
-#xss img {
-    width: 1100px;
-    height: auto;
+html, body{
+    scrollbar-width: none;
+}
+#xss img{
+    width: min(1100px, 100%);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+    margin: 0 auto;      
 }
 #xss section p, #xss li{
     font-size: var(--normal-size);
@@ -23,8 +29,8 @@
     color: var(--text-main);
 }
 #xss .mainbar{
-    width:1400px;
-    padding-left:80px;
+    padding:30px;
+    padding-left:60px;
     padding-right:80px;
 }
 #xss section ul{
@@ -32,16 +38,18 @@
     margin-left: 100px;
 }
 #xss .labbox{
-    background-color: #F7F9FD;
-    border-left: 10px solid var(--border-dark);
+    background-color: var(--secondary-bgcolor);
+    border-left: 15px solid var(--action-color) !important;
     border-radius: 12px;
     padding:20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    border:1px solid var(--border-light);
 
 }
 #xss .labbox h1{
-    color: black;
+    margin-top: 5px !important;
+    color: var(--text-main);
 }
 #xss .code{
     background-color: #EBF0F2;
@@ -56,4 +64,7 @@
 }
 #xss ul li::marker {
     color: white;
+}
+#xss .labbox ul li::marker {
+    color: var(--text-main);
 }
