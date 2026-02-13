@@ -7,7 +7,6 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--primary-bgcolor);
-    /* position: relative; */
     color: white;
     z-index: 100;
     top: 0;
