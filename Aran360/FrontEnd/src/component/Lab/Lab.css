@@ -1,0 +1,37 @@
+#lab .practice{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border:1px solid var(--border-light);
+    border-radius: 35px;
+    display: flex;
+}
+#lab .leftColor{
+    padding:15px 30px;
+    color:white;
+    font-weight: bold;
+    font-size: var(--default-size);
+    background-color: var(--action-color);
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#lab .rightColor{
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap:20px;
+    padding-right: 20px;
+    min-width: 0;
+}
+#lab .rightColor p{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#lab .rightColor span{
+    color:var(--text-dim);
+}
