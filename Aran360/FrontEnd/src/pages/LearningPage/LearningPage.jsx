@@ -10,7 +10,8 @@ export default function LearningPage(){
         </div>
         <div className="quizPage" style={{ width: "100vw", display: "flex", justifyContent: "center"}}>
             <Sidebar></Sidebar>
-            <PathTraversalMaterial></PathTraversalMaterial>
+            {/* <PathTraversalMaterial></PathTraversalMaterial> */}
+            <XSSMaterial/>
         </div>
     </>);
 }

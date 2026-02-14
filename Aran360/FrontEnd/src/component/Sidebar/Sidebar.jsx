@@ -1,14 +1,21 @@
 import { useState } from 'react';
 import './Sidebar.css';
-import Logo from '../Logo/Logo';
 
 const OWASP_DATA = [
-  { id: 'A01', name: 'Access Control', icon: 'shield' },
-  { id: 'A02', name: 'Crypto Failures', icon: 'key' },
-  { id: 'A03', name: 'Injection', icon: 'terminal' },
-  { id: 'A04', name: 'Insecure Design', icon: 'palette' },
-  { id: 'A05', name: 'Security Misconfig', icon: 'settings' },
-  { id: 'A06', name: 'Vulnerable Comp.', icon: 'bug_report' },
+  { name: 'What is XSS'},
+  { name: 'How does XSS works?'},
+  { name: 'Impact of an attack'},
+  { name: 'Proof of Concept'},
+  { name: 'Testing'},
+  { name: 'Reflected XSS'},
+  { name: 'Stored XSS'},
+  { name: 'DOM-based XSS'},
+  { name: 'XSS Contexts'},
+  { name: 'Exploiting XSS Vulnerabilities'},
+  { name: 'Dangling Markup Injection'},
+  { name: 'Content Security Policy (CSP)'},
+  { name: 'Preventing XSS Attacks'},
+  { name: 'View All XSS Labs'},
 ];
 
 const Sidebar = () => {
@@ -17,14 +24,14 @@ const Sidebar = () => {
   return (<>
     <aside className="sidebar">
       <nav className="sidebar-nav">
-        {OWASP_DATA.map((item) => (
+        {OWASP_DATA.map((item, index) => (
           <button
-            key={item.id}
+            key={index}
             className={`nav-item ${activeId === item.id ? 'active' : ''}`}
             onClick={() => setActiveId(item.id)}
           >
-            <span className="material-symbols-outlined icon">{item.icon}</span>
-            <span className="label">{item.id}: {item.name}</span>
+            {item.icon&&<span className="material-symbols-outlined icon">{item.icon}</span>}
+            <span className="label">{item.name}</span>
           </button>
         ))}
       </nav>
