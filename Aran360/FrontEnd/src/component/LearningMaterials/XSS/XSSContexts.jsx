@@ -1,0 +1,138 @@
+import './XSSMaterial.css';
+export default function XSSContexts(){
+    return(
+        <div id="xss">
+        <section className="mainbar">
+            <section>
+                <h1>Cross-site scripting contexts</h1>
+                <p>When testing for reflected and stored XSS, a key task is to identify the XSS context:</p>
+                <ul>
+                    <li>The location within the response where attacker-controllable data appears.</li>
+                    <li>Any input validation or other processing that is being performed on that data by the application.</li>
+                </ul>
+                <p>Based on these details, you can then select one or more candidate XSS payloads, and test whether they are effective.</p>
+                <div class="labbox">
+                    <h1>Note</h1>
+                    <p>We have built a comprehensive XSS cheat sheet to help testing web applications and filters. You can filter by events and tags and see which vectors require user interaction. The cheat sheet also contains AngularJS sandbox escapes and many other sections to help with XSS research.</p>
+                </div>
+            </section>
+            <section>
+                <h1>XSS between HTML tags</h1>
+                <p>When the XSS context is text between HTML tags, you need to introduce some new HTML tags designed to trigger execution of JavaScript.</p>
+                <p>Some useful ways of executing JavaScript are:</p>
+                <div class="code">
+                    <p><script>alt(document.domain)</script></p>
+                    {/* <p><ig src=1 onerror=alert(1)></p> */}
+                </div>
+            </section>
+            <section>
+                <h1>XSS in HTML tag attributes</h1>
+                <p>When the XSS context is into an HTML tag attribute value, you might sometimes be able to terminate the attribute value, close the tag, and introduce a new one. For example:</p>
+                <div class="code">
+                    <p>"<script>art(document.domain)</script></p>
+                </div>
+                <p>More commonly in this situation, angle brackets are blocked or encoded, so your input cannot break out of the tag in which it appears. Provided you can terminate the attribute value, you can normally introduce a new attribute that creates a scriptable context, such as an event handler. For example:</p>
+                <div class="code">
+                    <p>" autofocus onfocus=alert(document.domain) x="</p>
+                </div>
+                <p>The above payload creates an onfocus event that will execute JavaScript when the element receives the focus, and also adds the autofocus attribute to try to trigger the onfocus event automatically without any user interaction. Finally, it adds x=" to gracefully repair the following markup.</p>
+                <p>Sometimes the XSS context is into a type of HTML tag attribute that itself can create a scriptable context. Here, you can execute JavaScript without needing to terminate the attribute value. For example, if the XSS context is into the href attribute of an anchor tag, you can use the javascript pseudo-protocol to execute script. For example:</p>
+                <div class="code">
+                    <p><a hf="javascript:alert(document.domain)"></a></p>
+                </div>
+                <p>You might encounter websites that encode angle brackets but still allow you to inject attributes. Sometimes, these injections are possible even within tags that don't usually fire events automatically, such as a canonical tag. You can exploit this behavior using access keys and user interaction on Chrome. Access keys allow you to provide keyboard shortcuts that reference a specific element. The accesskey attribute allows you to define a letter that, when pressed in combination with other keys (these vary across different platforms), will cause events to fire. In the next lab you can experiment with access keys and exploit a canonical tag. You can exploit XSS in hidden input fields using a technique invented by PortSwigger Research.</p>
+
+            </section>
+            <section>
+                <h1>XSS into JavaScript</h1>
+                <p>When the XSS context is some existing JavaScript within the response, a wide variety of situations can arise, with different techniques necessary to perform a successful exploit.</p>
+                <section>
+                    <h1>Terminating the existing script</h1>
+                    <p>In the simplest case, it is possible to simply close the script tag that is enclosing the existing JavaScript, and introduce some new HTML tags that will trigger execution of JavaScript. For example, if the XSS context is as follows:</p>
+                    <p><pre><script>
+                        ...
+                        var input = 'controllable data here';
+                        ...
+                        </script></pre></p>
+                        <p>then you can use the following payload to break out of the existing JavaScript and execute your own:</p>
+                        <div class="code">
+                            {/* <p></script><img src=1 onerror=alt(document.domain)></p> */}
+                        </div>
+                        <p>The reason this works is that the browser first performs HTML parsing to identify the page elements including blocks of script, and only later performs JavaScript parsing to understand and execute the embedded scripts. The above payload leaves the original script broken, with an unterminated string literal. But that doesn't prevent the subsequent script being parsed and executed in the normal way.</p>
+                </section>
+                <section>
+                    <h1>Breaking out of a JavaScript string</h1>
+                    <p>In cases where the XSS context is inside a quoted string literal, it is often possible to break out of the string and execute JavaScript directly. It is essential to repair the script following the XSS context, because any syntax errors there will prevent the whole script from executing.</p>
+                    <p>Some useful ways of breaking out of a string literal are:</p>
+                    <div class="code">
+                        <p>
+                            <pre>
+                                '-alert(document.domain)-'
+                                ';alert(document.domain)//
+                            </pre>
+                        </p>
+                    </div>
+                    <p>Some applications attempt to prevent input from breaking out of the JavaScript string by escaping any single quote characters with a backslash. A backslash before a character tells the JavaScript parser that the character should be interpreted literally, and not as a special character such as a string terminator. In this situation, applications often make the mistake of failing to escape the backslash character itself. This means that an attacker can use their own backslash character to neutralize the backslash that is added by the application.</p>
+                    <p>For example, suppose that the input:</p>
+                    <div class="code">
+                        <p>';alert(document.domain)//</p>
+                    </div>
+                    <p>gets converted to:</p>
+                    <div class="code">
+                        <p>';alert(document.domain)//</p>
+                    </div>
+                    <p>gets converted to:</p>
+                    <div class="code">
+                        <p>';alert(document.domain)//</p>
+                    </div>
+                    <p>which gets converted to:</p>
+                    <div class="code">
+                        <p>';alert(document.domain)//</p>
+                    </div>
+                    <p>Here, the first backslash means that the second backslash is interpreted literally, and not as a special character. This means that the quote is now interpreted as a string terminator, and so the attack succeeds.</p>
+                    <p>Some websites make XSS more difficult by restricting which characters you are allowed to use. This can be on the website level or by deploying a WAF that prevents your requests from ever reaching the website. In these situations, you need to experiment with other ways of calling functions which bypass these security measures. One way of doing this is to use the throw statement with an exception handler. This enables you to pass arguments to a function without using parentheses. The following code assigns the alert() function to the global exception handler and the throw statement passes the 1 to the exception handler (in this case alert). The end result is that the alert() function is called with 1 as an argument.</p>
+                    <div class="code">
+                        <p>onerror=alert;throw 1</p>
+                    </div>
+                    <p>There are multiple ways of using this technique to call functions without parentheses.</p>
+                    <p>The next lab demonstrates a website that filters certain characters. You'll have to use similar techniques to those described above in order to solve it.</p>
+                </section>
+                <section>
+                    <h1>XSS in JavaScript template literals</h1>
+                    <p>JavaScript template literals are string literals that allow embedded JavaScript expressions. The embedded expressions are evaluated and are normally concatenated into the surrounding text. Template literals are encapsulated in backticks instead of normal quotation marks, and embedded expressions are identified using the $... syntax.</p>
+                    <p>For example, the following script will print a welcome message that includes the user's display name:</p>
+                    <div class="code">
+                        {/* <p>document.getElementById('message').innerText = `Welcome, ${user.displayName}.`;</p> */}
+                    </div>
+                    <p>When the XSS context is into a JavaScript template literal, there is no need to terminate the literal. Instead, you simply need to use the $... syntax to embed a JavaScript expression that will be executed when the literal is processed. For example, if the XSS context is as follows:</p>
+                    <div class="code">
+                        <p>
+                            <pre>
+                                <script>
+                                    ...
+                                    var input = `controllable data here`;
+                                    ...
+                                    </script>
+                            </pre>
+                        </p>
+                    </div>
+                    <p>then you can use the following payload to execute JavaScript without terminating the template literal:</p>
+                    <div class="code">
+                        <p>${alert(document.domain)}</p>
+                    </div>
+                </section>
+            </section>
+            <section>
+                <h1>XSS via client-side template injection</h1>
+                <p>Some websites use a client-side template framework, such as AngularJS, to dynamically render web pages. If they embed user input into these templates in an unsafe manner, an attacker may be able to inject their own malicious template expressions that launch an XSS attack.</p>
+                <div class="labbox">
+                    <h1>Read more</h1>
+                    <ul>
+                        <li>Client-side template injection</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+    </div>
+    );
+}

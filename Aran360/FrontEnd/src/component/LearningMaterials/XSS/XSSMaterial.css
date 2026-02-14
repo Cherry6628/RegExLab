@@ -1,0 +1,86 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+#xss{
+    background-color: var( --secondary-bgcolor);
+    width:100vw;
+}
+html, body{
+    scrollbar-width: none;
+}
+#xss img{
+    width: min(1100px, 100%);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+    margin: 0 auto;      
+}
+#xss section p, #xss li{
+    font-size: var(--normal-size);
+    color: var(--text-dim);
+    line-height: 29px;
+}
+#xss section h1{
+    font-size: var( --large-size);
+    margin-bottom: 15px;
+    margin-top: 20px;
+    color: var(--text-main);
+}
+#xss .mainbar{
+    padding:30px;
+    padding-left:60px;
+    padding-right:80px;
+}
+#xss section ul{
+    margin-top: 20px;
+    margin-left: 100px;
+}
+#xss .labbox{
+    background-color: var(--secondary-bgcolor);
+    border-left: 15px solid var(--action-color) !important;
+    border-radius: 12px;
+    padding:20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border:1px solid var(--border-light);
+}
+#xss .labbox h1{
+    margin-top: 5px !important;
+    color: var(--text-main);
+}
+#xss ul li::marker {
+    color: white;
+}
+#xss .labbox ul li{
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+#xss .labbox ul li:hover{
+    color : white;
+}
+#xss .labbox ul li::marker {
+    color: var(--text-main);
+}
+#xss u{
+    text-underline-offset: 5px; 
+} 
+#xss u:hover{
+    color: white; 
+} 
+#xss b{
+    color: white;
+    opacity: 0.76;
+}
+#xss span{
+    background-color: var(--primary-bgcolor);
+    margin: 2px;
+    border-radius: 7px;
+    padding: 5px 7px;
+    color:white;
+    font-weight: 600;
+}
+#lab span {
+    background-color: unset; 
+}
