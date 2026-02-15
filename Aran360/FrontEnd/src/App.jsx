@@ -7,16 +7,20 @@ import AuthModal from "./modals/AuthModal/AuthModal";
 import ContextProvider from "./modals/ContextProvider/ContextProvider";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import LearningPage from "./pages/LearningPage/LearningPage";
-import {BrowserRouter } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import { basename } from "./utils/params";
-import Main from "./component/LearningMaterials/XSS/Main";
+import Main from "./component/LearningMaterials/XSS/XSSMain";
+import XSSMain from "./component/LearningMaterials/XSS/XSSMain";
 export default function App() {
     return (
         <>
             <ContextProvider>
-                {/* <BrowserRouter basename={basename}> */}
-                    <LearningPage></LearningPage>
-                {/* </BrowserRouter> */}
+                <BrowserRouter basename={basename}>
+                    <Routes>
+                        <Route path="/xss" element={<XSSMain/>}/>
+                        <Route path="/accounts" element={<AuthPage/>}/>
+                    </Routes>
+                </BrowserRouter>
             </ContextProvider>
         </>
     );
