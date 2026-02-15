@@ -7,13 +7,15 @@ import AuthModal from "./modals/AuthModal/AuthModal";
 import ContextProvider from "./modals/ContextProvider/ContextProvider";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import LearningPage from "./pages/LearningPage/LearningPage";
-
+import {BrowserRouter } from "reach-router-dom";
+import { basename } from "./utils/params";
 export default function App() {
     return (
         <>
             <ContextProvider>
-                <LearningPage/>
-                {/* <AuthPage/> */}
+                <BrowserRouter basename={basename}>
+                    
+                </BrowserRouter>
             </ContextProvider>
         </>
     );

@@ -27,7 +27,7 @@ export default function XSSMaterial() {
             data.
           </p>
         </section>
-        <section>
+        <section id="xss-works">
           <h1>How does XSS work?</h1>
           <p>
             Cross-site scripting works by manipulating a vulnerable web site so
@@ -48,7 +48,7 @@ export default function XSSMaterial() {
               <li>View all XSS labs</li>
             </ul>
           </div>
-          <h1>XSS proof of concept</h1>
+          <h1 id="xss-poc">XSS proof of concept</h1>
           <p>
             You can confirm most kinds of XSS vulnerability by injecting a
             payload that causes your own browser to execute some arbitrary
@@ -219,7 +219,7 @@ export default function XSSMaterial() {
             <li>Inject trojan functionality into the web site.</li>
           </ul>
         </section>
-        <section>
+        <section id="xss-impact">
           <h1>Impact of XSS vulnerabilities</h1>
           <p>
             The actual impact of an XSS attack generally depends on the nature
@@ -250,7 +250,7 @@ export default function XSSMaterial() {
             </ul>
           </div>
         </section>
-        <section>
+        <section id="xss-test">
           <h1>How to find and test for XSS vulnerabilities</h1>
           <p>
             The vast majority of XSS vulnerabilities can be found quickly and
