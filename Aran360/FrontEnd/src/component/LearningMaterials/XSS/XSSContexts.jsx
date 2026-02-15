@@ -12,7 +12,7 @@ export default function XSSContexts(){
                     <li>Any input validation or other processing that is being performed on that data by the application.</li>
                 </ul>
                 <p>Based on these details, you can then select one or more candidate XSS payloads, and test whether they are effective.</p>
-                <div class="labbox">
+                <div className="labbox">
                     <h1>Note</h1>
                     <p>We have built a comprehensive XSS cheat sheet to help testing web applications and filters. You can filter by events and tags and see which vectors require user interaction. The cheat sheet also contains AngularJS sandbox escapes and many other sections to help with XSS research.</p>
                 </div>
@@ -53,16 +53,16 @@ export default function XSSContexts(){
                     <h1>Breaking out of a JavaScript string</h1>
                     <p>In cases where the XSS context is inside a quoted string literal, it is often possible to break out of the string and execute JavaScript directly. It is essential to repair the script following the XSS context, because any syntax errors there will prevent the whole script from executing.</p>
                     <p>Some useful ways of breaking out of a string literal are:</p>
-                    <Payloads>';alert(document.domain)//<br/>'-alert(document.domain)-'</Payloads>
+                    <Payloads>'-alert(document.domain)-'<br/>';alert(document.domain)//</Payloads>
                     <p>Some applications attempt to prevent input from breaking out of the JavaScript string by escaping any single quote characters with a backslash. A backslash before a character tells the JavaScript parser that the character should be interpreted literally, and not as a special character such as a string terminator. In this situation, applications often make the mistake of failing to escape the backslash character itself. This means that an attacker can use their own backslash character to neutralize the backslash that is added by the application.</p>
                     <p>For example, suppose that the input:</p>
                     <Payloads>';alert(document.domain)//</Payloads>
                     <p>gets converted to:</p>
-                    <Payloads>';alert(document.domain)//</Payloads>
+                    <Payloads>\';alert(document.domain)//</Payloads>
                     <p>gets converted to:</p>
-                    <Payloads>';alert(document.domain)//</Payloads>
+                    <Payloads>\';alert(document.domain)//</Payloads>
                     <p>which gets converted to:</p>
-                    <Payloads>';alert(document.domain)//</Payloads>
+                    <Payloads>\\';alert(document.domain)//</Payloads>
                     <p>Here, the first backslash means that the second backslash is interpreted literally, and not as a special character. This means that the quote is now interpreted as a string terminator, and so the attack succeeds.</p>
                     <p>Some websites make XSS more difficult by restricting which characters you are allowed to use. This can be on the website level or by deploying a WAF that prevents your requests from ever reaching the website. In these situations, you need to experiment with other ways of calling functions which bypass these security measures. One way of doing this is to use the throw statement with an exception handler. This enables you to pass arguments to a function without using parentheses. The following code assigns the alert() function to the global exception handler and the throw statement passes the 1 to the exception handler (in this case alert). The end result is that the alert() function is called with 1 as an argument.</p>
                     <Payloads>onerror=alert;throw 1</Payloads>
@@ -77,13 +77,13 @@ export default function XSSContexts(){
                     <p>When the XSS context is into a JavaScript template literal, there is no need to terminate the literal. Instead, you simply need to use the $... syntax to embed a JavaScript expression that will be executed when the literal is processed. For example, if the XSS context is as follows:</p>
                     <Payloads>{`<script>`}<br/>{`...`}<br/>{` var input = 'controllable data here';`}<br/>{`...`}<br/>{`</script>`}</Payloads>
                     <p>then you can use the following payload to execute JavaScript without terminating the template literal:</p>
-                    <Payloads>${alert(document.domain)}</Payloads>
+                    <Payloads>${'{'}alert(document.domain){'}'}</Payloads>
                 </section>
             </section>
             <section>
                 <h1>XSS via client-side template injection</h1>
                 <p>Some websites use a client-side template framework, such as AngularJS, to dynamically render web pages. If they embed user input into these templates in an unsafe manner, an attacker may be able to inject their own malicious template expressions that launch an XSS attack.</p>
-                <div class="labbox">
+                <div className="labbox">
                     <h1>Read more</h1>
                     <ul>
                         <li>Client-side template injection</li>

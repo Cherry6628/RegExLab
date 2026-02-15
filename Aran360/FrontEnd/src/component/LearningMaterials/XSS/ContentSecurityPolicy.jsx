@@ -13,11 +13,11 @@ export default function ContentSecurityPolicy(){
         <section>
             <h1>Mitigating XSS attacks using CSP</h1>
             <p>The following directive will only allow scripts to be loaded from the same origin as the page itself:</p>
-            <div class="code">
+            <div className="code">
                 <p>script-src 'self'</p>
             </div>
             <p>The following directive will only allow scripts to be loaded from a specific domain:</p>
-            <div class="code">
+            <div className="code">
                 <p>script-src https://scripts.normal-website.com</p>
             </div>
             <p>Care should be taken when allowing scripts from external domains. If there is any way for an attacker to control content that is served from the external domain, then they might be able to deliver an attack. For example, content delivery networks (CDNs) that do not use per-customer URLs, such as ajax.googleapis.com, should not be trusted, because third parties can get content onto their domains.</p>
@@ -33,11 +33,11 @@ export default function ContentSecurityPolicy(){
         <section>
             <h1>Mitigating dangling markup attacks using CSP</h1>
             <p>The following directive will only allow images to be loaded from the same origin as the page itself:</p>
-            <div class="code">
+            <div className="code">
                 <p>img-src 'self'</p>
             </div>
             <p>The following directive will only allow images to be loaded from a specific domain:</p>
-            <div class="code">
+            <div className="code">
                 <p>img-src https://images.normal-website.com</p>
             </div>
             <p>Note that these policies will prevent some dangling markup exploits, because an easy way to capture data with no user interaction is using an img tag. However, it will not prevent other exploits, such as those that inject an anchor tag with a dangling href attribute.</p>
@@ -50,15 +50,15 @@ export default function ContentSecurityPolicy(){
         <section>
             <h1>Protecting against clickjacking using CSP</h1>
             <p>The following directive will only allow the page to be framed by other pages from the same origin:</p>
-            <div class="code">
+            <div className="code">
                 <p>frame-ancestors 'self'</p>
             </div>
             <p>The following directive will prevent framing altogether:</p>
-            <div class="code">
+            <div className="code">
                 <p>frame-ancestors 'none'</p>
             </div>
             <p>Using content security policy to prevent clickjacking is more flexible than using the X-Frame-Options header because you can specify multiple domains and use wildcards. For example:</p>
-            <div class="code">
+            <div className="code">
                 <p>frame-ancestors 'self' https://normal-website.com https://*.robust-website.com</p>
             </div>
             <p>CSP also validates each frame in the parent frame hierarchy, whereas X-Frame-Options only validates the top-level frame.</p>

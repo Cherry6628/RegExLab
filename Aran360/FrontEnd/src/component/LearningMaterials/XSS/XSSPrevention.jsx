@@ -1,5 +1,5 @@
 import './XSSMaterial.css';
-export default function XSSAttacks(){
+export default function XSSPrevention(){
     return(
         <div id="xss">
         <section className="mainbar">
@@ -28,7 +28,7 @@ export default function XSSAttacks(){
                     <li>{'>'} converts to: {'\u003e'}</li>
                 </ul>
                 <p>Sometimes you'll need to apply multiple layers of encoding, in the correct order. For example, to safely embed user input inside an event handler, you need to deal with both the JavaScript context and the HTML context. So you need to first Unicode-escape the input, and then HTML-encode it:</p>
-                <div class="code">
+                <div className="code">
                     <p><a href="#" onclick="x='This string needs two layers of escaping'">test</a></p>
                 </div>
                 <section>
@@ -49,7 +49,7 @@ export default function XSSAttacks(){
                     <p>Allowing users to post HTML markup should be avoided wherever possible, but sometimes it's a business requirement. For example, a blog site might allow comments to be posted containing some limited HTML markup.</p>
                     <p>The classic approach is to try to filter out potentially harmful tags and JavaScript. You can try to implement this using a whitelist of safe tags and attributes, but thanks to discrepancies in browser parsing engines and quirks like mutation XSS, this approach is extremely difficult to implement securely.</p>
                     <p>The least bad option is to use a JavaScript library that performs filtering and encoding in the user's browser, such as DOMPurify. Other libraries allow users to provide content in markdown format and convert the markdown into HTML. Unfortunately, all these libraries have XSS vulnerabilities from time to time, so this is not a perfect solution. If you do use one you should monitor closely for security updates.</p>
-                    <div class="labbox">
+                    <div className="labbox">
                         <h1>Note</h1>
                         <p>In addition to JavaScript, other content such as CSS and even regular HTML can be harmful in some situations.</p>
                         <h1>Attacks using malicious CSS</h1>
@@ -58,12 +58,12 @@ export default function XSSAttacks(){
                 <section>
                     <h1>How to prevent XSS using a template engine</h1>
                     <p>Many modern websites use server-side template engines such as Twig and Freemarker to embed dynamic content in HTML. These typically define their own escaping system. For example, in Twig, you can use the e() filter, with an argument defining the context:</p>
-                    <div class="code">
+                    <div className="code">
                         <p>{`{user.firstname | e('html') }`}</p>
                     </div>
                     <p>Some other template engines, such as Jinja and React, escape dynamic content by default which effectively prevents most occurrences of XSS.</p>
                     <p>We recommend reviewing escaping features closely when you evaluate whether to use a given template engine or framework.</p>
-                    <div class="labbox">
+                    <div className="labbox">
                         <h1>Note</h1>
                         <p>If you directly concatenate user input into template strings, you will be vulnerable to server-side template injection which is often more serious than XSS.</p>
                     </div>
@@ -78,11 +78,11 @@ export default function XSSAttacks(){
                     <li>The character set, which in most cases should be UTF-8.</li>
                 </ul>
                 <p>For example:</p>
-                <div class="code">
+                <div className="code">
                     <p>{`<?php echo htmlentities($input, ENT_QUOTES, 'UTF-8');?>`}</p>
                 </div>
                 <p>When in a JavaScript string context, you need to Unicode-escape input as already described. Unfortunately, PHP doesn't provide an API to Unicode-escape a string. Here is some code to do that in PHP:</p>
-                <div class="code">
+                <div className="code">
                 <p>{"<?php"}</p>
                 </div>
                 <div className="code">
@@ -130,7 +130,7 @@ export default function XSSAttacks(){
 </div>
 
                 <p>Here is how to use the jsEscape function in PHP:</p>
-                <div class="code">
+                <div className="code">
                     <p>{`<script>x = '<?php echo jsEscape($_GET['x'])?>';</script>`}</p>
                 </div>
                 <p>Alternatively, you could use a template engine.</p>
@@ -138,7 +138,7 @@ export default function XSSAttacks(){
             <section>
                 <h1>How to prevent XSS client-side in JavaScript</h1>
                 <p>To escape user input in an HTML context in JavaScript, you need your own HTML encoder because JavaScript doesn't provide an API to encode HTML. Here is some example JavaScript code that converts a string to HTML entities:</p>
-                <div class="code">
+                <div className="code">
                     <p>
                         <pre>
                             {`function htmlEncode(str){
@@ -150,11 +150,11 @@ export default function XSSAttacks(){
                     </p>
                 </div>
                 <p>You would then use this function as follows:</p>
-                <div class="code">
+                <div className="code">
                     <p><script>document.body.innerHTML = htmlEncode(untrustedValue)</script></p>
                 </div>
                 <p>If your input is inside a JavaScript string, you need an encoder that performs Unicode escaping. Here is a sample Unicode-encoder:</p>
-                <div class="code">
+                <div className="code">
                     <p>
                         <pre>{`
                         function jsEscape(str){
@@ -167,7 +167,7 @@ export default function XSSAttacks(){
                     </p>
                 </div>
                 <p>You would then use this function as follows:</p>
-                <div class="code">
+                <div className="code">
                     <p>{`<script>document.write('<script>x="'+jsEscape(untrustedValue)+'";<\/script>')</script>`}</p>
                 </div>
             </section>
@@ -180,13 +180,13 @@ export default function XSSAttacks(){
                 <p>Content security policy (CSP) is the last line of defense against cross-site scripting. If your XSS prevention fails, you can use CSP to mitigate XSS by restricting what an attacker can do.</p>
                 <p>CSP lets you control various things, such as whether external scripts can be loaded and whether inline scripts will be executed. To deploy CSP you need to include an HTTP response header called Content-Security-Policy with a value containing your policy.</p>
                 <p>An example CSP is as follows:</p>
-                <div class="code">
+                <div className="code">
                     <p>default-src 'self'; script-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none';</p>
                 </div>
                 <p>This policy specifies that resources such as images and scripts can only be loaded from the same origin as the main page. So even if an attacker can successfully inject an XSS payload they can only load resources from the current origin. This greatly reduces the chance that an attacker can exploit the XSS vulnerability.</p>
                 <p>If you require loading of external resources, ensure you only allow scripts that do not aid an attacker to exploit your site. For example, if you whitelist certain domains then an attacker can load any script from those domains. Where possible, try to host resources on your own domain.</p>
                 <p>If that is not possible then you can use hash- or nonce-based policy to allow scripts on different domains. A nonce is a random string that is added as an attribute of a script or resource, which will only be executed if the random string matches the server-generated one. An attacker is unable to guess the randomized string and therefore cannot invoke a script or resource with a valid nonce and so the resource will not be executed.</p>
-                <div class="labbox">
+                <div className="labbox">
                     <h1>Read more</h1>
                     <ul>
                         <li>Mitigating XSS attacks using CSP</li>
