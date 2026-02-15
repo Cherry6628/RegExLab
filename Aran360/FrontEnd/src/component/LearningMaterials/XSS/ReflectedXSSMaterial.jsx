@@ -78,7 +78,7 @@ export default function ReflectedXSSMaterial() {
             stored XSS, where a self-contained attack can be delivered within
             the vulnerable application itself.
           </p>
-          <div class="labbox">
+          <div className="labbox">
             <h1>Read more</h1>
             <ul>
               <li>Exploiting cross-site scripting vulnerabilities</li>
@@ -98,7 +98,7 @@ export default function ReflectedXSSMaterial() {
             processing on the submitted data before it is reflected, this will
             generally affect what kind of XSS payload is needed.
           </p>
-          <div class="labbox">
+          <div className="labbox">
             <h1>Read more</h1>
             <ul>
               <li>Cross-site scripting contexts</li>
