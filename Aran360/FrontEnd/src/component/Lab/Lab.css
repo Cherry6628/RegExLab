@@ -18,6 +18,9 @@
     align-items: center;
     gap: 10px;
 }
+#lab p:hover{
+    color: var(--text-main);
+}
 #lab .rightColor{
     padding-left: 30px;
     display: flex;

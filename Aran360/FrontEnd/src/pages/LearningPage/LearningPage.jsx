@@ -5,6 +5,8 @@ import DOMBasedXSSMaterial from "../../component/LearningMaterials/XSS/DOMBasedX
 import XSSMaterial from "../../component/LearningMaterials/XSSMaterial";
 import Sidebar from "../../component/Sidebar/Sidebar";
 import XSSContexts from "../../component/LearningMaterials/XSS/XSSContexts";
+import ExploitingXSSMaterial from "../../component/LearningMaterials/XSS/ExploitingXSSMaterial";
+import XSSAttacks from "../../component/LearningMaterials/XSS/XSSAttacks";
 export default function LearningPage(){
     return(<>
         <div>
@@ -15,7 +17,9 @@ export default function LearningPage(){
             {/* <PathTraversalMaterial></PathTraversalMaterial> */}
             {/* <XSSMaterial/> */}
             {/* <DOMBasedXSSMaterial></DOMBasedXSSMaterial> */}
-            <XSSContexts></XSSContexts>
+            {/* <XSSContexts></XSSContexts> */}
+            {/* <ExploitingXSSMaterial></ExploitingXSSMaterial> */}
+            <XSSAttacks></XSSAttacks>
         </div>
     </>);
 }
