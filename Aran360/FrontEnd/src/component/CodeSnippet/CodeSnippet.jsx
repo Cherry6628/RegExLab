@@ -13,7 +13,7 @@ function CodeSnippet({ code }) {
                 language="python"
                 style={vscDarkPlus}
                 showLineNumbers
-                codeTagProps={{ style: { fontSize: "var(--normal-size)" } }}
+                codeTagProps={{ style: { fontSize: "var(--default-size)" } }}
                 className="codeBlock"
                 lineNumberStyle={{
                     minWidth: "50px",

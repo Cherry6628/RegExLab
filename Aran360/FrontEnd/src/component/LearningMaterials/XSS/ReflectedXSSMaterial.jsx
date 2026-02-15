@@ -79,7 +79,7 @@ export default function ReflectedXSSMaterial() {
             the vulnerable application itself.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Exploiting cross-site scripting vulnerabilities</li>
             </ul>
@@ -99,7 +99,7 @@ export default function ReflectedXSSMaterial() {
             generally affect what kind of XSS payload is needed.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Cross-site scripting contexts</li>
             </ul>
