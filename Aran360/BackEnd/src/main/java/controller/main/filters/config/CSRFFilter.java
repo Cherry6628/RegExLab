@@ -1,58 +1,78 @@
 package controller.main.filters.config;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import service.helper.model.CachedBodyHttpServletRequest;
-import service.helper.model.JSONResponse;
-import service.utils.manager.CSRFService;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import org.json.JSONObject;
 
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import service.helper.model.CachedBodyHttpServletRequest;
+import service.helper.model.JSONResponse;
+
 public class CSRFFilter extends HttpFilter implements Filter {
-    private static final long serialVersionUID = 1L;
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	private static final long serialVersionUID = 1L;
+
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
+		if (req.getRequestURI().endsWith("/csrf")) {
+			chain.doFilter(request, response);
+			return;
+		}
+
 		CachedBodyHttpServletRequest cachedRequest = new CachedBodyHttpServletRequest(req);
-		JSONObject json = new JSONObject();
 		if (!cachedRequest.getMethod().equals("GET")) {
 			String csrfToken = req.getHeader("X-CSRF-Token");
-			if(csrfToken==null||csrfToken.strip().isEmpty()) {
+			if (csrfToken == null || csrfToken.strip().isEmpty()) {
 				response.getWriter().write(JSONResponse.response("error", "CSRF Token Missing").toString());
 				return;
 			}
 			String csrfToken2 = null;
 			StringBuilder sb = new StringBuilder();
 			BufferedReader reader = cachedRequest.getReader();
-			String requestBodyLine=null;
-			while((requestBodyLine=reader.readLine())!=null) {
+			String requestBodyLine = null;
+			while ((requestBodyLine = reader.readLine()) != null) {
 				sb.append(requestBodyLine);
 			}
 			JSONObject requestBody = new JSONObject(sb.toString());
-			
+
 			csrfToken2 = requestBody.getString("csrfToken");
-			if(csrfToken2==null||csrfToken2.strip().isEmpty()) {
+			if (csrfToken2 == null || csrfToken2.strip().isEmpty()) {
 				response.getWriter().write(JSONResponse.response("error", "CSRF Token Missing").toString());
 				return;
 			}
-			if(!(csrfToken.strip().equals(csrfToken2.strip()) && isValidCSRFToken(req, csrfToken.strip()))) {
+			if (!(csrfToken.strip().equals(csrfToken2.strip()) && isValidCSRFToken(req, csrfToken.strip()))) {
 				response.getWriter().write(JSONResponse.response("error", "Invalid CSRF Token").toString());
+				return;
 			}
-			
+
 		}
-		chain.doFilter(request, response);
+		chain.doFilter(cachedRequest, response);
 	}
+
+//	private static final boolean isValidCSRFToken(HttpServletRequest req, String csrfToken) {
+//		System.out.println(csrfToken);
+//		String csrfToken2 = CSRFService.getCSRFToken(req);
+//		System.out.println(csrfToken2);
+//		return csrfToken.equals(csrfToken2);
+//	}
 	private static final boolean isValidCSRFToken(HttpServletRequest req, String csrfToken) {
-		return CSRFService.getCSRFToken(req).equals(csrfToken);
+	    HttpSession session = req.getSession(false);
+	    if (session == null) {
+	        System.out.println("No session found for ID: " + req.getRequestedSessionId());
+	        return false;
+	    }
+	    System.out.println("Session ID in Filter: " + session.getId());
+	    String storedToken = (String) session.getAttribute("csrfToken");
+	    System.out.println(storedToken);
+	    return csrfToken.equals(storedToken);
 	}
 }

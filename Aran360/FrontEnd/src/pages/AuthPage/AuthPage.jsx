@@ -16,7 +16,7 @@ export default function AuthPage() {
                         style={{ position: "relative", zIndex: 0 }}
                     >
                         <span
-                            class="material-symbols-outlined"
+                            className="material-symbols-outlined"
                             style={{
                                 position: "absolute",
                                 transform: "scale(19)",

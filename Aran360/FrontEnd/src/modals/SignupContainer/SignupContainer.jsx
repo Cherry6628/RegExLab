@@ -1,10 +1,17 @@
 import Button from "../../component/Button/Button";
+import { signup } from "../../utils/authHelpers";
 import "./SignupContainer.css";
+import { useRef } from "react";
+import { useGlobalContext } from "../ContextProvider/ContextProvider";
+import { refreshCsrfToken } from "../../utils/helpers";
 
 export default function SignupContainer({ setModal }) {
-    function signup() {
-        console.log("signup");
-    }
+
+    const context = useGlobalContext();
+    const password = useRef(null);
+    const username = useRef(null);
+    const email = useRef(null);
+    refreshCsrfToken();
     return (
         <div className="signup-container">
             <div className="signup-header">
@@ -16,12 +23,13 @@ export default function SignupContainer({ setModal }) {
 
             <form className="signup-form" onSubmit={(e) => e.preventDefault()}>
                 <div className="signup-input-group">
-                    <label htmlFor="name">Full Name</label>
+                    <label htmlFor="name">Username</label>
                     <input
                         id="name"
                         name="name"
                         type="text"
                         placeholder="John Doe"
+                        ref={username}
                     />
                 </div>
 
@@ -32,6 +40,7 @@ export default function SignupContainer({ setModal }) {
                         name="email"
                         type="email"
                         placeholder="name@example.com"
+                        ref={email}
                     />
                 </div>
 
@@ -41,6 +50,7 @@ export default function SignupContainer({ setModal }) {
                         htmlFor="pwd"
                         type="password"
                         placeholder="••••••••"
+                        ref={password}
                     />
                     <span id="pwd" name="pwd" className="signup-input-hint">
                         Must be at least 8 characters
@@ -48,7 +58,9 @@ export default function SignupContainer({ setModal }) {
                 </div>
 
                 
-                <Button onClick={signup} icon="login">Sign Up</Button>
+                <Button onClick={()=>{
+                    signup(username.current.value, email.current.value, password.current.value)
+                }} icon="login">Sign Up</Button>
             </form>
 
             <div className="signup-divider">

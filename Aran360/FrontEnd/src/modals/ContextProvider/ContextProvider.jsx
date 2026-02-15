@@ -6,6 +6,7 @@ export default function ContextProvider({ children }) {
     const [uname, setUname] = useState(undefined);
     const [email, setEmail] = useState(undefined);
     const [darkTheme, setDarkTheme] = useState(true);
+    const [csrfToken, setCSRFToken] = useState(undefined);
     const value = {
         uname,
         setUname,
@@ -13,6 +14,8 @@ export default function ContextProvider({ children }) {
         setEmail,
         darkTheme,
         setDarkTheme,
+        csrfToken,
+        setCSRFToken,
     };
     return (
         <GlobalContext.Provider value={value}>
