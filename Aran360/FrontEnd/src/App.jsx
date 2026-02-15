@@ -14,10 +14,9 @@ export default function App() {
     return (
         <>
             <ContextProvider>
-                {/* <BrowserRouter basename={basename}>
-                    
-                </BrowserRouter> */}
-                <Main/>
+                {/* <BrowserRouter basename={basename}> */}
+                    <LearningPage></LearningPage>
+                {/* </BrowserRouter> */}
             </ContextProvider>
         </>
     );
