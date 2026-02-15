@@ -7,6 +7,8 @@ import XSSContexts from '../LearningMaterials/XSS/XSSContexts';
 import ExploitingXSSMaterial from '../LearningMaterials/XSS/ExploitingXSSMaterial';
 import DanglingMarkupInjection from '../LearningMaterials/XSS/DanglingMarkupInjection';
 import ContentSecurityPolicy from '../LearningMaterials/XSS/ContentSecurityPolicy';
+import StoredXSSMaterial from '../LearningMaterials/XSS/StoredXSSMaterial';
+import XSSAttacks from '../LearningMaterials/XSS/XSSAttacks';
 
 const OWASP_DATA = [
   { name: 'What is XSS', comp: XSSMaterial},
@@ -21,7 +23,7 @@ const OWASP_DATA = [
   { name: 'Exploiting XSS Vulnerabilities', comp: ExploitingXSSMaterial},
   { name: 'Dangling Markup Injection', comp: DanglingMarkupInjection},
   { name: 'Content Security Policy (CSP)', comp: ContentSecurityPolicy},
-  { name: 'Preventing XSS Attacks', comp: Preven},
+  { name: 'Preventing XSS Attacks', comp: XSSAttacks},
   { name: 'View All XSS Labs'},
 ];
 
