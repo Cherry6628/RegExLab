@@ -401,7 +401,6 @@ export default function XSSContexts(){
             </ul>
           </div>
         </section>
-      </section>
     </div>
   );
 }
