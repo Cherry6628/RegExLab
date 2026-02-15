@@ -1,9 +1,6 @@
 
 import './Sidebar.css';
-
 const Sidebar = ({list={}, activeId, setActiveId}) => {
-  
-
   return (<>
     <aside className="sidebar">
       <nav className="sidebar-nav">
