@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import configs.Params;
+import configs.ParamsLoader;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
@@ -41,7 +41,6 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
-		JSONObject json = new JSONObject();
 
 		String csrfNew = CSRFService.setCSRFToken(request);
 		if (getAuthenticatedUser(request) != null) {
@@ -56,16 +55,17 @@ public class Login extends HttpServlet {
 		}
 		JSONObject requestBody = new JSONObject(sb.toString());
 		
-		String user = requestBody.getString("email");
+		String user = requestBody.getString("username");
 		String pass = requestBody.getString("password");
+		
 
 		if (isValidUser(user, pass)) {
 			String token = JWTService.generateToken(user);
 			StringBuilder cookie = new StringBuilder();
 			cookie.append("AUTH_TOKEN=").append(token).append("; ");
 			cookie.append("Path=/; ");
-			cookie.append("Domain=").append(Params.COOKIE_DOMAIN).append("; ");
-			cookie.append("Max-Age=").append(Params.JWT_EXPIRY / 1000).append("; ");
+			cookie.append("Domain=").append(ParamsLoader.COOKIE_DOMAIN).append("; ");
+			cookie.append("Max-Age=").append(ParamsLoader.JWT_EXPIRY / 1000).append("; ");
 			cookie.append("HttpOnly; ");
 			cookie.append("Secure; ");
 			cookie.append("SameSite=None");
@@ -74,9 +74,8 @@ public class Login extends HttpServlet {
 			return;
 		} else {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			json.put("status", "error");
-			json.put("message", "Invalid credentials");
-			response.getWriter().write(json.toString());
+			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid Credentials", csrfNew).toString());
+			return;
 		}
 	}
 
@@ -92,6 +91,9 @@ public class Login extends HttpServlet {
 	}
 
 	private boolean isValidUser(String username, String password) {
-		return "admin".equals(username) && "password123".equals(password);
+		System.out.println(Signup.users);
+		Signup.User user = Signup.users.get(username);
+		if (user!=null&&user.password.equals(password))return true;
+		return false;
 	}
 }

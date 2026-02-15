@@ -1,9 +1,15 @@
 import "./LoginContainer.css";
 import Button from "../../component/Button/Button";
+import { useGlobalContext } from "../ContextProvider/ContextProvider";
+import { login } from "../../utils/authHelpers";
+import { useRef } from "react";
+import { refreshCsrfToken } from "../../utils/helpers";
+
 export default function LoginContainer({ setModal }) {
-    function login() {
-        console.log("login");
-    }
+    const context = useGlobalContext();
+    const password = useRef(null);
+    const username = useRef(null);
+    refreshCsrfToken();
     return (
         <div className="login-container">
             <div className="login-header">
@@ -15,12 +21,13 @@ export default function LoginContainer({ setModal }) {
 
             <form className="login-form" onSubmit={(e) => e.preventDefault()}>
                 <div className="login-input-group">
-                    <label htmlFor="email">Email Address</label>
+                    <label htmlFor="name">Username</label>
                     <input
-                        name="email"
-                        id="email"
-                        type="email"
-                        placeholder="name@example.com"
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="John Doe"
+                        ref={username}
                     />
                 </div>
 
@@ -33,13 +40,16 @@ export default function LoginContainer({ setModal }) {
                         id="pwd"
                         type="password"
                         placeholder="••••••••"
+                        ref={password}
                     />
                     <a href="#" className="login-forgot-link">
                         Forgot Password?
                     </a>
                 </div>
 
-                <Button onClick={login} icon="login">Sign In</Button>
+                <Button onClick={()=>{
+                    login(username.current.value, password.current.value)
+                }} icon="login">Sign In</Button>
             </form>
 
             <div className="login-divider">
