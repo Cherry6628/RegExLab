@@ -1,5 +1,6 @@
 import Payloads from '../../Payloads/Payloads';
 import './XSSMaterial.css';
+import Lab from '../../Lab/Lab';
 export default function XSSContexts(){
     return(
         <div id="xss">

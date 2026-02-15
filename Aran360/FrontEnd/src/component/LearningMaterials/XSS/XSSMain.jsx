@@ -29,13 +29,13 @@ const list = {
     "Preventing XSS Attacks": { comp: XSSPrevention },
     "View All XSS Labs": { url: basename + "all-labs" },
 };
-export default function Main() {
+export default function XSSMain() {
     const [activeId, setActiveId] = useState(Object.keys(list)[0]);
     const activeItem = list[activeId];
     const ActiveComponent = activeItem?.comp;
     return (
         <>
-            <div>
+            <div style={{height: "100px"}}>
                 {/* <Header></Header> */}
                 <Header/>
             </div>
