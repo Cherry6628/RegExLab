@@ -12,8 +12,8 @@ export default function App() {
     return (
         <>
             <ContextProvider>
-                {/* <LearningPage/> */}
-                <AuthPage/>
+                <LearningPage/>
+                {/* <AuthPage/> */}
             </ContextProvider>
         </>
     );
