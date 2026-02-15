@@ -1,4 +1,6 @@
-export const backendURL = "http://localhost:8765/BackEnd";
+import { basename } from "./params";
+
+export const backendURL = "http://localhost:8765"+basename;
 
 const client = new (class BackendClient {
     #csrfToken = null;
@@ -10,7 +12,7 @@ const client = new (class BackendClient {
 
     async refreshCsrfToken() {
         try {
-            const res = await fetch(`${this.baseUrl}/csrf`);
+            const res = await fetch(`${this.baseUrl}csrf`);
             const data = await res.json();
             if (data && data.csrfToken) {
                 this.#csrfToken = data.csrfToken;
@@ -49,7 +51,7 @@ const client = new (class BackendClient {
             options.body = JSON.stringify({ ...body, ...(this.#csrfToken && { csrfToken: this.#csrfToken }) });
         }
 
-        const res = await fetch(`${this.baseUrl}/${url}`, options);
+        const res = await fetch(`${this.baseUrl}${url}`, options);
 
         try {
             const data = await res.json();
