@@ -17,7 +17,7 @@ export default function App() {
             <ContextProvider>
                 <BrowserRouter basename={basename}>
                     <Routes>
-                        <Route path="/xss" element={<XSSMain/>}/>
+                        <Route path="learning-material/xss" element={<XSSMain/>}/>
                         <Route path="/accounts" element={<AuthPage/>}/>
                     </Routes>
                 </BrowserRouter>

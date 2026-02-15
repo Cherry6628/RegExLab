@@ -5,27 +5,24 @@
     padding: 24px 16px;
     box-sizing: border-box;
     left: 0;
-    position:fixed;
+    position: fixed;
+    z-index: 1001;
+    transition: transform 0.3s ease;
 }
-#clear-sidebar-position{
+
+#clear-sidebar-position {
     min-width: 320px;
     min-height: 100vh;
     left: 0;
     position: relative;
+    flex-shrink: 0;
     z-index: -1000;
-
-}
-@media only screen and (max-width: 1024px){
-    .sidebar, #clear-sidebar-position{
-        display: none;
-    }
 }
 .sidebar .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-
 .sidebar .nav-item {
     display: flex;
     align-items: center;
@@ -39,32 +36,81 @@
     transition: all 0.2s ease;
     justify-content: flex-start;
 }
-
 .sidebar .nav-item .label {
     font-size: var(--default-size);
     font-weight: 500;
     color: var(--text-dim);
 }
-
-.sidebar .nav-item .icon {
-    font-size: var(--normal-size);
-    margin-right: 12px;
-    color: var(--action-color);
-}
-
 .sidebar .nav-item.active {
     background-color: #1a73e8;
 }
-
-.sidebar .nav-item.active .label,
-.sidebar .nav-item.active .icon {
-    color:var(--action-color2);
+.sidebar .nav-item.active .label {
+    color: var(--action-color2);
 }
-
 .sidebar .nav-item:hover:not(.active) {
     background-color: #161b22;
 }
-
 .sidebar .nav-item:hover:not(.active) .label {
     color: #ffffff;
+}
+.mobile-toggle-bar {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 100vh;
+    background-color: #0072ce;
+    cursor: pointer;
+    z-index: 1002;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-toggle-bar .menu-text {
+    color: white;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sidebar-header-mobile {
+    display: none;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+}
+@media only screen and (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.expanded {
+        transform: translateX(0);
+        width: 320px;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    }
+    #clear-sidebar-position {
+        min-width: 40px;
+    }
+    .mobile-toggle-bar {
+        display: flex;
+        margin-top: 100px;
+    }
+    .mobile-toggle-bar.hidden {
+        display: none;
+    }
+    .sidebar-header-mobile {
+        display: flex;
+    }
 }
