@@ -1,10 +1,14 @@
 .Quiz{
-    background-color: #101922;
-    color:white;
+    background-color: var(--seconary-bgcolor);
+    color:var(--text-main);
     padding: 50px;
     display: flex;
     flex-direction: column;
     width:100vw;
+    
+}
+body{
+    overflow: hidden;
 }
 h1{
     font-weight: bold;

@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+#QuizMain{
+    min-height: 100vh;
+    align-items: center;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+#QuizMain .separate {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; 
+}
+#QuizMain p{
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: var(--normal-size);
+}
+#QuizMain h1{
+   font-size: var(--extra-large-size);
+   color: var(--text-main);
+   text-align: center;
+}
