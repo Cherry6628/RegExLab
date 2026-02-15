@@ -7,7 +7,7 @@ import AuthModal from "./modals/AuthModal/AuthModal";
 import ContextProvider from "./modals/ContextProvider/ContextProvider";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import LearningPage from "./pages/LearningPage/LearningPage";
-import {BrowserRouter } from "react-router-dom";
+// import {BrowserRouter } from "react-router-dom";
 import { basename } from "./utils/params";
 import Main from "./component/LearningMaterials/XSS/Main";
 export default function App() {

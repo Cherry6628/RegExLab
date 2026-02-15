@@ -6,7 +6,9 @@ import XSSMaterial from "../../component/LearningMaterials/XSSMaterial";
 import Sidebar from "../../component/Sidebar/Sidebar";
 import XSSContexts from "../../component/LearningMaterials/XSS/XSSContexts";
 import ExploitingXSSMaterial from "../../component/LearningMaterials/XSS/ExploitingXSSMaterial";
-import XSSAttacks from "../../component/LearningMaterials/XSS/XSSAttacks";
+// import XSSAttacks from "../../component/LearningMaterials/XSS/XSSAttacks";
+import XSSPrevention from "../../component/LearningMaterials/XSS/XSSPrevention";
+import ContentSecurityPolicy from "../../component/LearningMaterials/XSS/ContentSecurityPolicy";
 export default function LearningPage(){
     return(<>
         <div>
@@ -19,7 +21,9 @@ export default function LearningPage(){
             {/* <DOMBasedXSSMaterial></DOMBasedXSSMaterial> */}
             {/* <XSSContexts></XSSContexts> */}
             {/* <ExploitingXSSMaterial></ExploitingXSSMaterial> */}
-            <XSSAttacks></XSSAttacks>
+            {/* <XSSAttacks></XSSAttacks> */}
+            {/* <XSSPrevention></XSSPrevention> */}
+            <ContentSecurityPolicy></ContentSecurityPolicy>
         </div>
     </>);
 }
