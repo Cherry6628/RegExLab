@@ -2,8 +2,8 @@ import './PathTraversalMaterial.css';
 export default function PathTraversalMaterial() {
   return (
     <div id="path">
-      <main class="content">
-        <section class="mainBar">
+      <main className="content">
+        <section className="mainBar">
           <section>
             <h1>Path traversal</h1>
             <p>In this section, we explain:</p>
@@ -16,7 +16,7 @@ export default function PathTraversalMaterial() {
               <li>How to prevent path traversal vulnerabilities.</li>
             </ul>
             <img src='https://miro.medium.com/1*KvQzFMqdqFvPPsrwaGEaVQ.jpeg'/>
-            <div class="labbox">
+            <div className="labbox">
               <h1>Labs</h1>
               <p>
                 If you're familiar with the basic concepts behind path traversal
@@ -51,7 +51,7 @@ export default function PathTraversalMaterial() {
               Imagine a shopping application that displays images of items for
               sale. This might load an image using the following HTML:
             </p>
-            <div class="code">
+            <div className="code">
               <p>&lt;img src="/loadImage?filename=218.png"/&gt;</p>
             </div>
             <p>
@@ -62,7 +62,7 @@ export default function PathTraversalMaterial() {
               and uses a filesystem API to read the contents of the file. In
               other words, the application reads from the following file path:
             </p>
-            <div class="code">
+            <div className="code">
               <p>/var/www/images/218.png</p>
             </div>
             <p>
@@ -70,7 +70,7 @@ export default function PathTraversalMaterial() {
               attacks. As a result, an attacker can request the following URL to
               retrieve the /etc/passwd file from the server's filesystem:
             </p>
-            <div class="code">
+            <div className="code">
               <p>
                 https://insecure-website.com/loadImage?filename=../../../etc/passwd
               </p>
@@ -78,7 +78,7 @@ export default function PathTraversalMaterial() {
             <p>
               This causes the application to read from the following file path:
             </p>
-            <div class="code">
+            <div className="code">
               <p>/var/www/images/../../../etc/passwd</p>
             </div>
             <p>
@@ -87,7 +87,7 @@ export default function PathTraversalMaterial() {
               sequences step up from /var/www/images/ to the filesystem root,
               and so the file that is actually read is:
             </p>
-            <div class="code">
+            <div className="code">
               <p>/etc/passwd</p>
             </div>
             <p>
@@ -101,19 +101,19 @@ export default function PathTraversalMaterial() {
               sequences. The following is an example of an equivalent attack
               against a Windows-based server:
             </p>
-            <div class="code">
+            <div className="code">
               <p>
                 https://insecure-website.com/loadImage?filename=..\..\..\windows\win.iniLAB
               </p>
             </div>
-            <div class="practice">
-              <div class="leftColor">
-              <span class="material-symbols-outlined">experiment</span>LAB
+            <div className="practice">
+              <div className="leftColor">
+              <span className="material-symbols-outlined">experiment</span>LAB
               </div>
-              <div class="rightColor">
+              <div className="rightColor">
                 <p>
                   File path traversal, simple case{" "}</p>
-                  <span class="material-symbols-outlined">trending_flat</span>
+                  <span className="material-symbols-outlined">trending_flat</span>
               </div>
             </div>
           </section>
@@ -136,15 +136,15 @@ export default function PathTraversalMaterial() {
               root, such as filename=/etc/passwd, to directly reference a file
               without using any traversal sequences.
             </p>
-            <div class="practice">
-              <div class="leftColor">
-                <span class="material-symbols-outlined">experiment</span>LAB
+            <div className="practice">
+              <div className="leftColor">
+                <span className="material-symbols-outlined">experiment</span>LAB
               </div>
-              <div class="rightColor">
+              <div className="rightColor">
                 <p>
                   File path traversal, traversal sequences blocked with absolute
                   path bypa{" "} </p>
-                  <span class="material-symbols-outlined">trending_flat</span>
+                  <span className="material-symbols-outlined">trending_flat</span>
               </div>
             </div>
             <p>
@@ -152,15 +152,15 @@ export default function PathTraversalMaterial() {
               ....// or ....\/. These revert to simple traversal sequences when
               the inner sequence is stripped.
             </p>
-            <div class="practice">
-              <div class="leftColor">
-              <span class="material-symbols-outlined">experiment</span>LAB
+            <div className="practice">
+              <div className="leftColor">
+              <span className="material-symbols-outlined">experiment</span>LAB
               </div>
-              <div class="rightColor">
+              <div className="rightColor">
                 <p>
                   File path traversal, traversal sequences stripped
                   non-recursively{" "}</p>
-                  <span class="material-symbols-outlined">trending_flat</span>
+                  <span className="material-symbols-outlined">trending_flat</span>
               </div>
             </div>
             <p>
@@ -178,15 +178,15 @@ export default function PathTraversalMaterial() {
               predefined payload list Fuzzing - path traversal. This contains
               some encoded path traversal sequences that you can try.
             </p>
-            <div class="practice">
-              <div class="leftColor">
-              <span class="material-symbols-outlined">experiment</span>LAB
+            <div className="practice">
+              <div className="leftColor">
+              <span className="material-symbols-outlined">experiment</span>LAB
               </div>
-              <div class="rightColor">
+              <div className="rightColor">
                 <p>
                   File path traversal, traversal sequences stripped with
                   superfluous URL-decode{" "}</p>
-                  <span class="material-symbols-outlined">trending_flat</span>
+                  <span className="material-symbols-outlined">trending_flat</span>
               </div>
             </div>
             <p>
@@ -196,14 +196,14 @@ export default function PathTraversalMaterial() {
               followed by suitable traversal sequences. For example:
               filename=/var/www/images/../../../etc/passwd.
             </p>
-            <div class="practice">
-              <div class="leftColor">
-              <span class="material-symbols-outlined">experiment</span>LAB
+            <div className="practice">
+              <div className="leftColor">
+              <span className="material-symbols-outlined">experiment</span>LAB
               </div>
-              <div class="rightColor">
+              <div className="rightColor">
                 <p>
                   File path traversal, validation of start of path{" "} </p>
-                  <span class="material-symbols-outlined">trending_flat</span>
+                  <span className="material-symbols-outlined">trending_flat</span>
               </div>
             </div>
             <p>
@@ -213,15 +213,15 @@ export default function PathTraversalMaterial() {
               path before the required extension. For example:
               filename=../../../etc/passwd%00.png.
             </p>
-            <div class="practice">
-              <div class="leftColor">
-              <span class="material-symbols-outlined">experiment</span>LAB
+            <div className="practice">
+              <div className="leftColor">
+              <span className="material-symbols-outlined">experiment</span>LAB
               </div>
-              <div class="rightColor">
+              <div className="rightColor">
                 <p>
                   File path traversal, validation of file extension with null
                   byte bypass{" "}</p>
-                  <span class="material-symbols-outlined">trending_flat</span>
+                  <span className="material-symbols-outlined">trending_flat</span>
               </div>
             </div>
           </section>
@@ -255,7 +255,7 @@ export default function PathTraversalMaterial() {
               Below is an example of some simple Java code to validate the
               canonical path of a file based on user input:
             </p>
-            <div class="code">
+            <div className="code">
               <p>File file = new File(BASE_DIRECTORY, userInput);</p>
               <p>
                 if (file.getCanonicalPath().startsWith(BASE_DIRECTORY)){"{"}
@@ -263,7 +263,7 @@ export default function PathTraversalMaterial() {
               <p>&thinsp;&thinsp;&thinsp;&thinsp;&thinsp;// process file</p>
               <p>{"}"}</p>
             </div>
-            <div class="labbox">
+            <div className="labbox">
               <h1>Read more</h1>
               <ul>
                 <li>
