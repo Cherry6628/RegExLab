@@ -11,6 +11,9 @@
     border: 0;
     box-sizing: border-box;
 }
+html, body{
+    background-color: var(--secondary-bgcolor);
+}
 :root {
     --action-color: #137fec;
     --action-color2: #ffffff;
