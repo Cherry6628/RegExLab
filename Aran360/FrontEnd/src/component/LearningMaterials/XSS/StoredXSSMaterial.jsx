@@ -28,7 +28,7 @@ export default function StoredXSSMaterial(){
                 <p>If an attacker can control a script that is executed in the victim's browser, then they can typically fully compromise that user. The attacker can carry out any of the actions that are applicable to the impact of <u>reflected XSS vulnerabilities.</u></p>
                 <p>In terms of exploitability, the key difference between reflected and stored XSS is that a stored XSS vulnerability enables attacks that are self-contained within the application itself. The attacker does not need to find an external way of inducing other users to make a particular request containing their exploit. Rather, the attacker places their exploit into the application itself and simply waits for users to encounter it.</p>
                 <p>The self-contained nature of stored cross-site scripting exploits is particularly relevant in situations where an XSS vulnerability only affects users who are currently logged in to the application. If the XSS is reflected, then the attack must be fortuitously timed: a user who is induced to make the attacker's request at a time when they are not logged in will not be compromised. In contrast, if the XSS is stored, then the user is guaranteed to be logged in at the time they encounter the exploit.</p>
-                <div class="labbox">
+                <div className="labbox">
                     <h1>Read more</h1>
                     <ul>
                         <li>Exploiting cross-site scripting vulnerabilities</li>
@@ -39,7 +39,7 @@ export default function StoredXSSMaterial(){
                 <h1>Stored XSS in different contexts</h1>
                 <p>There are many different varieties of stored cross-site scripting. The location of the stored data within the application's response determines what type of payload is required to exploit it and might also affect the impact of the vulnerability.</p>
                 <p>In addition, if the application performs any validation or other processing on the data before it is stored, or at the point when the stored data is incorporated into responses, this will generally affect what kind of XSS payload is needed.</p>
-                <div class="labbox">
+                <div className="labbox">
                     <h1>Read more</h1>
                     <ul>
                         <li>Cross-site scripting contexts</li>
