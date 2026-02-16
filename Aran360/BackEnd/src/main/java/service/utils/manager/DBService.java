@@ -14,15 +14,16 @@ public class DBService {
 
 	private static void initializeConnection() {
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(ParamsLoader.DB_URL, ParamsLoader.DB_USER, ParamsLoader.DB_PASS);
+//		try {
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			con = DriverManager.getConnection(ParamsLoader.DB_URL, ParamsLoader.DB_USER, ParamsLoader.DB_PASS);
+			con = null;
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public static Connection getConnection() {
