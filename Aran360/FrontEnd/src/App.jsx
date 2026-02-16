@@ -24,7 +24,7 @@ export default function App() {
                     <Routes>
                         <Route path="/learning-material/xss" element={<XSSMain/>}/>
                         <Route path="/accounts" element={<AuthPage/>}/>
-
+                        <Route path="/dashboard" element={<Dashboard/>}/>
 
                         <Route path="*" element={<Dashboard/>}/>
                     </Routes>
