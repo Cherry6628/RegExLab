@@ -11,6 +11,9 @@ import StoredXSSMaterial from "./StoredXSSMaterial";
 import { frontendbasename } from "../../../utils/params";
 import Header from "../../Header/Header";
 import Sidebar from "../../Sidebar/Sidebar";
+import QuizMain from "../../Quiz/QuizMain";
+import Quiz from "../../Quiz/Quiz";
+
 const list = {
     "What is XSS": { comp: XSSMaterial },
     "How does XSS works?": { comp: XSSMaterial, hash: "xss-works" },
@@ -26,6 +29,9 @@ const list = {
     "Content Security Policy (CSP)": { comp: ContentSecurityPolicy },
     "Preventing XSS Attacks": { comp: XSSPrevention },
     "View All XSS Labs": { url: frontendbasename + "all-labs" },
+    "View All XSS Labs": { url: basename + "all-labs" },
+    "QuizMain":{comp: QuizMain},
+    "Quiz":{comp:Quiz},
 };
 export default function XSSMain() {
     const [activeId, setActiveId] = useState(Object.keys(list)[0]);
