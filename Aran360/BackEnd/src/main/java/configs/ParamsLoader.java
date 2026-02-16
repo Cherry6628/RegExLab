@@ -41,7 +41,6 @@ public class ParamsLoader implements ServletContextListener {
             TEMP_NODE = getProperty("TEMP_NODE");
             TEMP_LAB = getProperty("TEMP_LAB");
             
-            System.out.println("--- Configuration Loaded Successfully ---");
         } catch (Exception e) {
             System.err.println("Error parsing configuration values: " + e.getMessage());
         }
