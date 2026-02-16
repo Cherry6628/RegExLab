@@ -23,4 +23,6 @@
     margin: 0 !important;
     padding: 20px !important;
     background: var(--primary-bgcolor) !important;
+    height:270px;
+    scrollbar-width: none;
 }

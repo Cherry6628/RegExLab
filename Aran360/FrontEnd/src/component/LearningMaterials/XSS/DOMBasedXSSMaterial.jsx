@@ -116,7 +116,7 @@ export default function DOMBasedXSSMaterial() {
               lot of the hard work for you.
             </p>
             <div className="labbox">
-              <h1>Read more</h1>
+              <h3>Read more</h3>
               <ul>
                 <li>DOM Invader documentation</li>
               </ul>
@@ -249,7 +249,7 @@ export default function DOMBasedXSSMaterial() {
               hash, causing the <span>hashchange</span> event to fire.
             </p>
             <div className="labbox">
-              <h1>Note</h1>
+              <h3>Note</h3>
               <p>
                 Even newer versions of jQuery can still be vulnerable via the{" "}
                 <span>$()</span> selector sink, provided you have full control

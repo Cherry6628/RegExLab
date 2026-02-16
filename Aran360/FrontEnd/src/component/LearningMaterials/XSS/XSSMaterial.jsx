@@ -37,7 +37,7 @@ export default function XSSMaterial() {
           </p>
           <img src="https://miro.medium.com/v2/resize:fit:1400/1*Tkb7AIaIeYJngZ3Clbo1Xg.jpeg" />
           <div className="labbox">
-            <h1>Labs</h1>
+            <h3>Labs</h3>
             <p>
               If you're already familiar with the basic concepts behind XSS
               vulnerabilities and just want to practice exploiting them on some
@@ -120,7 +120,7 @@ export default function XSSMaterial() {
             has access.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Reflected cross-site scripting</li>
               <li>Cross-site scripting cheat sheet</li>
@@ -157,7 +157,7 @@ export default function XSSMaterial() {
             */&lt;/script&gt;&lt;/p&gt;
           </Payloads>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Stored cross-site scripting</li>
               <li>Cross-site scripting cheat sheet</li>
@@ -200,7 +200,7 @@ export default function XSSMaterial() {
             manner as reflected XSS.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>DOM-based cross-site scripting</li>
             </ul>
@@ -244,7 +244,7 @@ export default function XSSMaterial() {
             </li>
           </ul>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Exploiting cross-site scripting vulnerabilities</li>
             </ul>
@@ -281,7 +281,7 @@ export default function XSSMaterial() {
             vulnerabilities.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Cross-site scripting contexts</li>
             </ul>
@@ -296,7 +296,7 @@ export default function XSSMaterial() {
             exploitation of the underlying vulnerability.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Content security policy</li>
             </ul>
@@ -311,7 +311,7 @@ export default function XSSMaterial() {
             perform unauthorized actions on behalf of the user.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>Dangling markup injection</li>
             </ul>
@@ -353,7 +353,7 @@ export default function XSSMaterial() {
             </li>
           </ul>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>How to prevent XSS</li>
               <li>

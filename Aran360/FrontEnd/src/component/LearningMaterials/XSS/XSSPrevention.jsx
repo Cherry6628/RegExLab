@@ -170,7 +170,7 @@ export default function XSSPrevention() {
               whether to use a given template engine or framework.
             </p>
             <div className="labbox">
-              <h1>Note</h1>
+              <h3>Note</h3>
               <p>
                 If you directly concatenate user input into template strings,
                 you will be vulnerable to server-side template injection which
@@ -203,7 +203,7 @@ export default function XSSPrevention() {
             API to Unicode-escape a string. Here is some code to do that in PHP:
           </p>
           <Payloads>{"<?php"}</Payloads>
-          <div className="code">
+          <Payloads>
             <pre>
               {`function jsEscape($str) {
     $output = '';
@@ -245,7 +245,7 @@ export default function XSSPrevention() {
 }
 ?>`}
             </pre>
-          </div>
+            </Payloads>
 
           <p>
             Here is how to use the <span>jsEscape</span> function in PHP:
@@ -261,8 +261,7 @@ export default function XSSPrevention() {
             HTML. Here is some example JavaScript code that converts a string to
             HTML entities:
           </p>
-          <div className="code">
-            <p>
+            <Payloads>
               <pre>
                 {`function htmlEncode(str){
     return String(str).replace(/[^\w. ]/gi, function(c){
@@ -270,16 +269,14 @@ export default function XSSPrevention() {
     });
 }`}
               </pre>
-            </p>
-          </div>
+            </Payloads>
           <p>You would then use this function as follows:</p>
           <Payloads>{`<script>document.body.innerHTML = htmlEncode(untrustedValue)</script>`}</Payloads>
           <p>
             If your input is inside a JavaScript string, you need an encoder
             that performs Unicode escaping. Here is a sample Unicode-encoder:
           </p>
-          <div className="code">
-            <p>
+            <Payloads>
               <pre>
                 {`function jsEscape(str){
     return String(str).replace(/[^\w. ]/gi, function(c){
@@ -287,8 +284,7 @@ export default function XSSPrevention() {
     });
 }`}
               </pre>
-            </p>
-          </div>
+            </Payloads>
           <p>You would then use this function as follows:</p>
           <Payloads>{`<script>document.write('<script>x="'+jsEscape(untrustedValue)+'";<\/script>')</script>`}</Payloads>
         </section>
@@ -349,7 +345,7 @@ export default function XSSPrevention() {
             so the resource will not be executed.
           </p>
           <div className="labbox">
-            <h1>Read more</h1>
+            <h3>Read more</h3>
             <ul>
               <li>
                 <u>Mitigating XSS attacks using CSP</u>
