@@ -1,7 +1,7 @@
 .Quiz{
     background-color: var(--seconary-bgcolor);
     color:var(--text-main);
-    padding: 50px;
+    padding: 25px 50px;
     display: flex;
     flex-direction: column;
     width:100vw;
@@ -9,6 +9,10 @@
 }
 body{
     overflow: hidden;
+}
+.Quiz p{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 h1{
     font-weight: bold;
