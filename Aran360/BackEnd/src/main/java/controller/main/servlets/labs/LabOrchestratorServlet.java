@@ -105,6 +105,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import configs.ParamsLoader;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -134,12 +135,12 @@ public class LabOrchestratorServlet extends HttpServlet {
             return;
         }
 
-        String labPath = "/home/venkat-zstk413/temp/xss-lab"; 
+        String labPath = ParamsLoader; 
         String fakeContainerId = "demo_" + session.getId().substring(0, 8);
         String ip = "127.0.0.1";
 
         try {
-            String nodePath = "/home/venkat-zstk413/.nvm/versions/node/v24.11.1/bin/node";
+            String nodePath = "";
             ProcessBuilder pb = new ProcessBuilder(nodePath, "server.js");
             pb.directory(new File(labPath));
             pb.redirectErrorStream(true);
