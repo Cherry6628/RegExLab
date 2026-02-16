@@ -49,7 +49,7 @@ public class QuizPrompt {
 		C) <code line>
 		D) <code line>
 		
-		<Correct Answer>
+		<Correct Answer>\n
 		""";
 		return prompt;
 	}

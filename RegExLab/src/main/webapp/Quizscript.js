@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 			document.getElementById("option3").innerText = arrIn[3];
 			document.getElementById("option4").innerText = arrIn[4];
 			answer = arrIn[7];
+			console.log("arrln "+arrIn);
 	    })
 	    .catch(err => {
 	        console.log(err);

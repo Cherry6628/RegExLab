@@ -134,12 +134,12 @@ public class LabOrchestratorServlet extends HttpServlet {
             return;
         }
 
-        String labPath = "/home/san-zstk426/temp/xss-lab"; 
+        String labPath = "/home/venkat-zstk413/temp/xss-lab"; 
         String fakeContainerId = "demo_" + session.getId().substring(0, 8);
         String ip = "127.0.0.1";
 
         try {
-            String nodePath = "/home/san-zstk426/.nvm/versions/node/v24.12.0/bin/node";
+            String nodePath = "/home/venkat-zstk413/.nvm/versions/node/v24.11.1/bin/node";
             ProcessBuilder pb = new ProcessBuilder(nodePath, "server.js");
             pb.directory(new File(labPath));
             pb.redirectErrorStream(true);
