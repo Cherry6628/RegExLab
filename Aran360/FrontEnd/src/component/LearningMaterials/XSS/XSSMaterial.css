@@ -24,6 +24,17 @@ html, body{
     color: var(--text-dim);
     line-height: 29px;
 }
+#xss h3{
+    color: white;
+    font-size: 25px;
+    margin-bottom:7px ;
+}
+#xss p + p {
+    margin-top: 15px;
+}
+#xss li + li {
+    margin-top: 5px;
+}
 #xss section h1{
     font-size: var( --large-size);
     margin-bottom: 15px;
@@ -51,6 +62,19 @@ html, body{
 #xss .labbox h1{
     margin-top: 5px !important;
     color: var(--text-main);
+}
+#xss .code{
+    background-color: #EBF0F2;
+    color:black;
+    padding:20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: monospace;
+}
+#xss .code p{
+    color:black;
+    margin-top: 0 !important;
 }
 #xss ul li::marker {
     color: white;
