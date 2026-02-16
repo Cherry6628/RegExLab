@@ -14,6 +14,7 @@ public class ParamsLoader implements ServletContextListener {
 
     public static String JWT_SECRET, DB_URL, DB_USER, DB_PASS, EMAIL_DOMAIN, EMAIL_API_KEY;
     public static String APP_NAME, FRONTEND_URL, BACKEND_URL, COOKIE_DOMAIN;
+    public static String TEMP_NODE, TEMP_LAB;
     public static int JWT_EXPIRY;
 
     @Override
@@ -37,8 +38,9 @@ public class ParamsLoader implements ServletContextListener {
             FRONTEND_URL = getProperty("FRONTEND_URL");
             BACKEND_URL = getProperty("BACKEND_URL");
             COOKIE_DOMAIN = getProperty("COOKIE_DOMAIN");
+            TEMP_NODE = getProperty("TEMP_NODE");
+            TEMP_LAB = getProperty("TEMP_LAB");
             
-            System.out.println("--- Configuration Loaded Successfully ---");
         } catch (Exception e) {
             System.err.println("Error parsing configuration values: " + e.getMessage());
         }
