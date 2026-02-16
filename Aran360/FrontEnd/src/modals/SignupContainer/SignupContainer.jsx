@@ -2,15 +2,22 @@ import Button from "../../component/Button/Button";
 import { signup } from "../../utils/authHelpers";
 import "./SignupContainer.css";
 import { useRef } from "react";
-import { useGlobalContext } from "../ContextProvider/ContextProvider";
 import { refreshCsrfToken } from "../../utils/helpers";
+// Import these two
+import { useNavigate } from "react-router-dom";
+import { frontendbasename } from "../../utils/params.js";
 
 export default function SignupContainer({ setModal }) {
-
-    const context = useGlobalContext();
+    const navigate = useNavigate();
     const password = useRef(null);
     const username = useRef(null);
     const email = useRef(null);
+    function signupCallback(uname, mail, pwd) {
+        signup(uname, mail, pwd).then(() => {
+            navigate(frontendbasename + "/dashboard");
+        });
+    }
+
     refreshCsrfToken();
     return (
         <div className="signup-container">
@@ -57,9 +64,8 @@ export default function SignupContainer({ setModal }) {
                     </span>
                 </div>
 
-                
-                <Button onClick={()=>{
-                    signup(username.current.value, email.current.value, password.current.value)
+                <Button onClick={() => {
+                    signupCallback(username.current.value, email.current.value, password.current.value);
                 }} icon="login">Sign Up</Button>
             </form>
 

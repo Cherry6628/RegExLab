@@ -1,6 +1,6 @@
-import { basename } from "./params";
+import { backendbasename } from "./params";
 
-export const backendURL = "http://localhost:8765"+basename;
+export const backendURL = "http://localhost:8765"+backendbasename;
 
 const client = new (class BackendClient {
     #csrfToken = null;

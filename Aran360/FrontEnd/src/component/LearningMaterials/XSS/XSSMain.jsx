@@ -8,11 +8,9 @@ import DanglingMarkupInjection from './DanglingMarkupInjection';
 import ContentSecurityPolicy from './ContentSecurityPolicy';
 import XSSPrevention from './XSSPrevention';
 import StoredXSSMaterial from "./StoredXSSMaterial";
-// import { basename } from '../../utils/params';
-import { basename } from "../../../utils/params";
+import { frontendbasename } from "../../../utils/params";
 import Header from "../../Header/Header";
 import Sidebar from "../../Sidebar/Sidebar";
-// import {Header} from ""
 const list = {
     "What is XSS": { comp: XSSMaterial },
     "How does XSS works?": { comp: XSSMaterial, hash: "xss-works" },
@@ -27,7 +25,7 @@ const list = {
     "Dangling Markup Injection": { comp: DanglingMarkupInjection },
     "Content Security Policy (CSP)": { comp: ContentSecurityPolicy },
     "Preventing XSS Attacks": { comp: XSSPrevention },
-    "View All XSS Labs": { url: basename + "all-labs" },
+    "View All XSS Labs": { url: frontendbasename + "all-labs" },
 };
 export default function XSSMain() {
     const [activeId, setActiveId] = useState(Object.keys(list)[0]);
@@ -36,7 +34,6 @@ export default function XSSMain() {
     return (
         <>
             <div style={{height: "100px"}}>
-                {/* <Header></Header> */}
                 <Header/>
             </div>
             <div

@@ -73,6 +73,7 @@ public class Signup extends HttpServlet {
 
 			response.setStatus(HttpServletResponse.SC_CREATED);
 			response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Registration successful", csrfNew).toString());
+			return;
 		} else {
 			response.setStatus(HttpServletResponse.SC_CONFLICT);
 			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Username or Email already taken", csrfNew).toString());

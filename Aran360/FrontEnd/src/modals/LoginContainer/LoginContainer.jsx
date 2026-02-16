@@ -1,14 +1,20 @@
 import "./LoginContainer.css";
 import Button from "../../component/Button/Button";
-import { useGlobalContext } from "../ContextProvider/ContextProvider";
 import { login } from "../../utils/authHelpers";
 import { useRef } from "react";
 import { refreshCsrfToken } from "../../utils/helpers";
+import {useNavigate} from "react-router-dom";
+import {frontendbasename} from "../../utils/params.js";
 
 export default function LoginContainer({ setModal }) {
-    const context = useGlobalContext();
+    const navigate = useNavigate();
     const password = useRef(null);
     const username = useRef(null);
+    function loginCallback(uname, pwd){
+        login(uname, pwd).then(()=>{
+            navigate(frontendbasename + "/dashboard");
+        })
+    }
     refreshCsrfToken();
     return (
         <div className="login-container">
@@ -48,7 +54,7 @@ export default function LoginContainer({ setModal }) {
                 </div>
 
                 <Button onClick={()=>{
-                    login(username.current.value, password.current.value)
+                    loginCallback(username.current.value, password.current.value);
                 }} icon="login">Sign In</Button>
             </form>
 

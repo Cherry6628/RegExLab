@@ -1,1 +1,2 @@
-export const basename = "/BackEnd/";
+export const backendbasename = "/BackEnd/";
+export const frontendbasename = "/BackEnd/";
