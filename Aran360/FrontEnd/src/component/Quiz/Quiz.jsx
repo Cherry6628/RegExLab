@@ -3,6 +3,7 @@ import "./Quiz.css";
 import Option from "./Option/Option";
 import Button from "../Button/Button";
 import QuizContainer from "./QuizContainer";
+import { useNavigate } from "react-router-dom";
 export default function Quiz({
   headline,
   describe,
@@ -14,6 +15,10 @@ export default function Quiz({
   options = [],
   next = () => {},
 }) {
+  const navigate = useNavigate();
+  const goResult = ()=>{
+    navigate("/result");
+  }
 //   const code = `@app.route("/user/<username>")
 //   def get_user(username):
 //       db = get_db_connection()
@@ -25,7 +30,7 @@ export default function Quiz({
 //           return render_template("profile.html", user=result)
 //       return "User not found", 404`;
   return (
-    <div id="Quiz" style={{marginTop:"100px",height:"100%"}}>
+    <div id="Quiz">
       <h1 className="headline">{headline}</h1>
       <p className="describe">{describe}</p>
       {isCode && <CodeSnippet code={code} language={language}></CodeSnippet>}
@@ -41,8 +46,7 @@ export default function Quiz({
                 textAlign: "center",
                 marginBottom: "40px",
               }
-        }
-      >
+        }>
         {question}
       </p>
       {options.map((r, i) => {
@@ -54,7 +58,7 @@ export default function Quiz({
       })}
       <div className="btns">
         <Button onClick={next}>Submit</Button>
-        <Button>Get Answer</Button>
+        <Button onClick={goResult}>Get Answer</Button>
       </div>
     </div>
   );
