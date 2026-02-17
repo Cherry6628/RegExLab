@@ -3,19 +3,25 @@ import { signup } from "../../utils/authHelpers";
 import "./SignupContainer.css";
 import { useRef } from "react";
 import { refreshCsrfToken } from "../../utils/helpers";
-// Import these two
 import { useNavigate } from "react-router-dom";
-import { frontendbasename } from "../../utils/params.js";
+import { error, info, success } from "../../utils/params.js";
+import { useToast } from "../../component/Toast/ToastContext.jsx";
 
 export default function SignupContainer({ setModal }) {
     const navigate = useNavigate();
     const password = useRef(null);
     const username = useRef(null);
     const email = useRef(null);
+    const {showToast} = useToast();
     function signupCallback(uname, mail, pwd) {
-        signup(uname, mail, pwd).then(() => {
-            navigate(frontendbasename + "/dashboard");
-        });
+        signup(uname, mail, pwd).then((r) => {
+            showToast(r.message, r.status);
+            if (r?.status === success) {
+                navigate("/dashboard");
+            }
+        }).catch(r=>{
+            showToast(r.message, error)
+        })
     }
 
     refreshCsrfToken();
@@ -64,9 +70,18 @@ export default function SignupContainer({ setModal }) {
                     </span>
                 </div>
 
-                <Button onClick={() => {
-                    signupCallback(username.current.value, email.current.value, password.current.value);
-                }} icon="login">Sign Up</Button>
+                <Button
+                    onClick={() => {
+                        signupCallback(
+                            username.current.value,
+                            email.current.value,
+                            password.current.value,
+                        );
+                    }}
+                    icon="login"
+                >
+                    Sign Up
+                </Button>
             </form>
 
             <div className="signup-divider">

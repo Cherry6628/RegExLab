@@ -11,7 +11,8 @@
     border: 0;
     box-sizing: border-box;
 }
-html, body{
+html,
+body {
     background-color: var(--secondary-bgcolor);
 }
 :root {
@@ -33,6 +34,14 @@ html, body{
     --error-bg: #2d161a;
     --error-border: #881337;
 
+    --success-green: #22c55e;
+    --success-bg: #132a1c;
+    --success-border: #166534;
+
+    --info-blue: #3b82f6;
+    --info-bg: #0f1c2f;
+    --info-border: #1d4ed8;
+
     --danger-red: var(--error-red);
 
     --label-size: 14px;
@@ -41,10 +50,7 @@ html, body{
     --normal-size: 20px;
     --large-size: 35px;
     --extra-large-size: 50px;
-}
-.quizPage{
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
+
+
+    --cb1: cubic-bezier(0.2, 0.8, 0.2, 1);
 }

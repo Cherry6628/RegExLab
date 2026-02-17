@@ -3,17 +3,26 @@ import Button from "../../component/Button/Button";
 import { login } from "../../utils/authHelpers";
 import { useRef } from "react";
 import { refreshCsrfToken } from "../../utils/helpers";
-import {useNavigate} from "react-router-dom";
-import {frontendbasename} from "../../utils/params.js";
+import { useNavigate } from "react-router-dom";
+import { error, success } from "../../utils/params.js";
+import { useToast } from "../../component/Toast/ToastContext.jsx";
 
 export default function LoginContainer({ setModal }) {
     const navigate = useNavigate();
     const password = useRef(null);
     const username = useRef(null);
-    function loginCallback(uname, pwd){
-        login(uname, pwd).then(()=>{
-            navigate(frontendbasename + "/dashboard");
-        })
+    const {showToast} = useToast();
+    function loginCallback(uname, pwd) {
+        login(uname, pwd).then((r) => {
+            showToast(r.message, r.status);
+            if (r?.status === success) {
+                navigate("/dashboard");
+            }
+        }).catch(r=>{
+            console.log(r);
+            console.log(typeof r);
+                    showToast(r, error)
+                })
     }
     refreshCsrfToken();
     return (
@@ -53,9 +62,17 @@ export default function LoginContainer({ setModal }) {
                     </a>
                 </div>
 
-                <Button onClick={()=>{
-                    loginCallback(username.current.value, password.current.value);
-                }} icon="login">Sign In</Button>
+                <Button
+                    onClick={() => {
+                        loginCallback(
+                            username.current.value,
+                            password.current.value,
+                        );
+                    }}
+                    icon="login"
+                >
+                    Sign In
+                </Button>
             </form>
 
             <div className="login-divider">
