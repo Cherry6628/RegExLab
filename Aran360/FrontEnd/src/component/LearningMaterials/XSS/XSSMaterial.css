@@ -32,7 +32,7 @@ html, body{
 }
 #xss h3{
     color: white;
-    font-size: 25px;
+    font-size: var(--semi-large-size);
     margin-bottom:7px ;
 }
 #xss p + p {

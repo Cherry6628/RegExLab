@@ -1,6 +1,8 @@
 import './QuizResult.css';
 import Header from '../Header/Header';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import CircleBar from '../ProgressBar/CircleBar';
+import Button from "../Button/Button";
 export default function QuizResult(){
     return(<>
         <div style={{height: "100px"}}>
@@ -10,7 +12,9 @@ export default function QuizResult(){
             <div className="icon"><span className="material-symbols-outlined">social_leaderboard</span></div>
             <h1>Quiz Completed!</h1>
             <div className='outer'>
-                <div className='percentage'></div>
+                <div className='percentage'>
+                    <CircleBar></CircleBar>
+                </div>
                 <div>
                     <div className='inner'>
                         <div className='point'>
@@ -25,10 +29,15 @@ export default function QuizResult(){
                         </div>
                     </div>
                     <div className='perform'>
-                        <i className="fa-solid fa-chart-simple"></i>
-                        <ProgressBar progress={60}></ProgressBar>
+                        <i className="fa-solid fa-chart-simple"></i><p>Performance Breakdown</p>
+                        <ProgressBar answer={"Correct Answer"}></ProgressBar>
+                        <ProgressBar answer={"Wrong Answer"}></ProgressBar>
                     </div>
                 </div>
+            </div>
+            <div className='btns'>
+                <Button><span class="material-symbols-outlined">dashboard</span>Back to <br/>Dashboard</Button>
+                <Button><span class="material-symbols-outlined">replay</span>Retake Quiz</Button>
             </div>
         </div>
         </>

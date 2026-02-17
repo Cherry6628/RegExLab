@@ -1,6 +1,8 @@
 #result .outer{
     display: flex;
     gap:20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 #result .inner{
     display: flex;
@@ -19,15 +21,33 @@
     background-color: transparent !important;
     font-size: var(--large-size) !important;
     padding: 0 !important;
+    margin-right: 5px;
+}
+#result .btns{
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+#result .btns span{
+    color: var(--text-main);
+    font-size: var(--semi-large-size);
+    background-color: transparent !important;
+    padding: 0 !important;
 }
 #result h1{
     color: var(--text-main);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: var(--extra-large-size);
 }
 #result i{
     color: var(--action-color);
+    font-size: var(--large-size);
+    margin-bottom: 8px;
 }
 #result p{
     color: var(--text-dim);
+    font-size: var(--normal-size);
 }
 #result{
     width: 100vw;
@@ -35,17 +55,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 50px;
 }
 #result .percentage{
     border: 2px solid var(--border-light);
     border-radius: 12px;
     padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--primary-bgcolor);
 }
 #result .perform{
     border: 2px solid var(--border-light);
     border-radius: 12px;
-    padding: 50px;
+    padding: 20px;
     background-color: var(--primary-bgcolor);
 }
 #result .point{

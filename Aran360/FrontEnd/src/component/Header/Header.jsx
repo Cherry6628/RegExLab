@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import Logo from "../Logo/Logo";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import { frontendbasename } from "../../utils/params";
+import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const context = useGlobalContext();
     const loggedin = true;
 
     const closeAll = () => {
@@ -46,20 +49,20 @@ export default function Header() {
 
             <nav className={`nav-menu ${menuOpen ? "open" : ""}`}>
                 <ul className="navlist">
-                    <li><p className="navitem" onClick={closeAll}>Dashboard</p></li>
+                    <li><p className="navitem" onClick={()=>{navigate("/dashboard")}}>Dashboard</p></li>
                     
                     <li className="navitem-container">
                         <p className={`navitem ${dropdownOpen ? "active" : ""}`} onClick={toggleDropdown}>
                             Knowledge Base
                         </p>
                         <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
-                            <li><a href="#link1">Vulnerability Docs</a></li>
-                            <li><a href="#link2">Security Standards</a></li>
-                            <li><a href="#link3">Best Practices</a></li>
+                            {/* <li><a onClick={()=>{navigate("/learning-material/xss")}}>Cross-Site Scripting (XSS)</a></li>
+                            <li><a href="#link2">SQL Injection</a></li> */}
+                            {Object.keys(context.learningData).map(r=><li key={r}><a onClick={()=>navigate("/learning-material/"+context.learningData[r].url)}>{r}</a></li>)}
                         </ul>
                     </li>
 
-                    <li><p className="navitem" onClick={closeAll}>All Labs</p></li>
+                    <li><p className="navitem" onClick={()=>{navigate("/all-labs")}}>All Labs</p></li>
                     <li><p className="navitem" onClick={()=>{navigate("/test")}}>Take a Test</p></li>
                     <li className="profile-container">
                         {loggedin ? (
