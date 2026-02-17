@@ -3,11 +3,17 @@
     padding:0;
     box-sizing: border-box;
     scroll-margin-top: 100px;
-
 }
 #xss{
     background-color: var( --secondary-bgcolor);
-    width:100vw;
+    width: calc(100vw - 320px);
+    margin-left: 320px;
+}
+@media only screen and (max-width: 1024px) {
+    #xss{
+        width: calc(100vw - 40px);
+        margin-left: 40px;
+    }
 }
 html, body{
     scrollbar-width: none;

@@ -4,17 +4,26 @@
     box-sizing: border-box;
 }
 #QuizMain{
-    min-height: 100vh;
     align-items: center;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: space-evenly;
+    padding: 20px 20px;
+    /* display: flex; */
+    /* justify-content: center; */
+    width: calc(100vw - 320px);
+    margin-left: 320px;
+    /* margin-top: 100px; */
+}
+@media only screen and (max-width: 1024px) {
+    #QuizMain{
+        width: calc(100vw - 40px);
+        margin-left: 200px;
+    }
 }
 #QuizMain .separate {
     display: flex;
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap; 
+    margin-bottom: 30px;
 }
 #QuizMain p{
     color: var(--text-dim);
