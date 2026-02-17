@@ -1,0 +1,134 @@
+#toast.toast-container {
+    /* position: fixed; */
+    /* top: 124px; */
+    /* right: 24px; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    margin-left: 50%;
+    z-index: 9999;
+
+    /* min-width: 340px; */
+    /* max-width: 420px; */
+    width: 420px;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 12px 30px var(--shadow-dark);
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(6px);
+}
+
+#toast .toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#toast .toast-icon {
+    font-size: 24px;
+}
+
+#toast .toast-message {
+    font-family: 'Manrope', sans-serif;
+    font-size: var(--label-size);
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+#toast.toast-error {
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+}
+
+#toast.toast-error .toast-icon {
+    color: var(--error-red);
+}
+
+#toast.toast-error .toast-progress {
+    background-color: var(--error-red);
+}
+
+#toast.toast-success {
+    background-color: var(--success-bg);
+    border: 1px solid var(--success-border);
+}
+
+#toast.toast-success .toast-icon {
+    color: var(--success-green);
+}
+
+#toast.toast-success .toast-progress {
+    background-color: var(--success-green);
+}
+
+#toast.toast-info {
+    background-color: var(--info-bg);
+    border: 1px solid var(--info-border);
+}
+
+#toast.toast-info .toast-icon {
+    color: var(--info-blue);
+}
+
+#toast.toast-info .toast-progress {
+    background-color: var(--info-blue);
+}
+
+#toast .toast-warning {
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+}
+
+#toast .toast-warning .toast-icon {
+    color: var(--warning-yellow);
+}
+
+#toast .toast-warning .toast-progress {
+    background-color: var(--warning-yellow);
+}
+
+#toast .toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    animation: toastShrink linear forwards;
+}
+
+#toast.slide-in {
+    animation: toastSlideDown 0.45s var(--cb1) forwards;
+}
+
+#toast.slide-out {
+    animation: toastSlideUp 0.45s var(--cb1) forwards;
+}
+
+@keyframes toastSlideDown {
+    from {
+        transform: translate(-50%, -80px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastSlideUp {
+    from {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, -80px);
+        opacity: 0;
+    }
+}
+
+@keyframes toastShrink {
+    from { width: 100%; }
+    to { width: 0%; }
+}

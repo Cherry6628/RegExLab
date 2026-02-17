@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.helper.model.JSONResponse;
 import service.utils.manager.CSRFService;
+import service.utils.manager.DBService;
 import service.utils.manager.SessionManager;
 import service.utils.manager.Argon2IDService;
 import org.json.JSONObject;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import configs.ParamsAndDBLoader;
 
 @WebServlet("/signup")
@@ -44,22 +47,27 @@ public class Signup extends HttpServlet {
 
         String hashedPass = Argon2IDService.object.hash(pass);
 
-        try (Connection conn = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS)) {
+        try {
+        	System.out.println("Inserting into users");
             String query = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
             pstmt.setString(1, user);
             pstmt.setString(2, email);
             pstmt.setString(3, hashedPass);
-            pstmt.executeUpdate();
+            System.out.println(pstmt.executeUpdate()+" Result after insert");
 
-            String token = SessionManager.createSession(user, request, conn);
+            String token = SessionManager.createSession(user, request, DBService.getConnection());
             Login.setAuthCookie(response, token);
 
             response.setStatus(201);
             response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Signup Successful", csrfNew).toString());
-        } catch (Exception e) {
+        } catch (SQLIntegrityConstraintViolationException e) {
+//        	e.printStackTrace();
             response.setStatus(409);
-            response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "User exists", csrfNew).toString());
+            response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "User exists, Try with different username or email address", csrfNew).toString());
+        } catch (Exception e) {
+        	response.setStatus(500);
+        	response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Internal Server Error", csrfNew).toString());
         }
     }
 }
