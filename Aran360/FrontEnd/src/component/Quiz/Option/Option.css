@@ -2,7 +2,8 @@
     background-color: var(--primary-bgcolor);
     border: 1px solid var(--border-light);
     border-radius: 12px;
-    width: 100%;
+    width: min(100%, 1024px);
+    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,8 +16,8 @@
     background-color: var(--primary-bgcolor);
     border: 1px solid var(--border-light);
     border-radius: 50%;
-    height: 30px;
-    width: 30px;
+    min-height: 30px;
+    min-width: 30px;
     position: relative;
 }
 .click:checked {
