@@ -1,10 +1,10 @@
 #Quiz{
     background-color: var(--seconary-bgcolor);
     color:var(--text-main);
-    padding: 25px 50px;
     display: flex;
     flex-direction: column;
-    width:100vw;
+    align-items: center;
+    margin-top: 50px;
 }
 #Quiz p{
     margin-top: 10px;
@@ -22,7 +22,9 @@ body{
     opacity: 0.7;
 }
 #Quiz .btns{
+    width: min(100%, 1024px);
     display: flex;
+    margin-top: 20px;
     align-items: center;
     justify-content: space-between;
     flex-direction: row-reverse;
