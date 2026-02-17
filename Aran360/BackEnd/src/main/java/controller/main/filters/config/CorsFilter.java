@@ -7,7 +7,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 
-import configs.ParamsLoader;
+import configs.ParamsAndDBLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -16,7 +16,7 @@ public class CorsFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
-		response.setHeader("Access-Control-Allow-Origin", ParamsLoader.FRONTEND_URL);
+		response.setHeader("Access-Control-Allow-Origin", ParamsAndDBLoader.FRONTEND_URL);
 		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-CSRF-Token");
