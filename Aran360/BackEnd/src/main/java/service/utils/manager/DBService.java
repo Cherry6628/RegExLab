@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import configs.ParamsLoader;
+import configs.ParamsAndDBLoader;
 
 public class DBService {
 	private static Connection con;
@@ -16,7 +16,7 @@ public class DBService {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(ParamsLoader.DB_URL, ParamsLoader.DB_USER, ParamsLoader.DB_PASS);
+			con = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS);
 //			con = null;
 
 		} catch (ClassNotFoundException e) {

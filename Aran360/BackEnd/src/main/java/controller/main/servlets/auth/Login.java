@@ -2,98 +2,56 @@ package controller.main.servlets.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import service.helper.model.JSONResponse;
-import service.utils.manager.CSRFService;
-import service.utils.manager.JWTService;
+import service.utils.manager.*;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import configs.ParamsLoader;
+import java.sql.*;
+import configs.ParamsAndDBLoader;
 
 @WebServlet("/login")
 public class Login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("application/json");
+    private static final long serialVersionUID = 1L;
 
-		String username = getAuthenticatedUser(request);
-		Map<String, String> map = new HashMap<>();
-		map.put("username", username);
-		if (username != null) {
-			response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Already Logged in", null, map).toString());
-			return;
-		} else {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Not Logged in", null).toString());
-			return;
-		}
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        String csrfNew = CSRFService.setCSRFToken(request);
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("application/json");
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) sb.append(line);
+        JSONObject body = new JSONObject(sb.toString());
 
-		String csrfNew = CSRFService.setCSRFToken(request);
-		if (getAuthenticatedUser(request) != null) {
-			response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Already Logged in", csrfNew).toString());
-			return;
-		}
-		StringBuilder sb = new StringBuilder();
-		BufferedReader reader = request.getReader();
-		String requestBodyLine=null;
-		while((requestBodyLine=reader.readLine())!=null) {
-			sb.append(requestBodyLine);
-		}
-		JSONObject requestBody = new JSONObject(sb.toString());
-		
-		String user = requestBody.getString("username");
-		String pass = requestBody.getString("password");
-		
+        String username = body.optString("username");
+        String password = body.optString("password");
 
-		if (isValidUser(user, pass)) {
-			String token = JWTService.generateToken(user);
-			StringBuilder cookie = new StringBuilder();
-			cookie.append("AUTH_TOKEN=").append(token).append("; ");
-			cookie.append("Path=/; ");
-			cookie.append("Domain=").append(ParamsLoader.COOKIE_DOMAIN).append("; ");
-			cookie.append("Max-Age=").append(ParamsLoader.JWT_EXPIRY / 1000).append("; ");
-			cookie.append("HttpOnly; ");
-			cookie.append("Secure; ");
-			cookie.append("SameSite=None");
-			response.addHeader("Set-Cookie", cookie.toString());
-			response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Login Successful", csrfNew).toString());
-			return;
-		} else {
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid Credentials", csrfNew).toString());
-			return;
-		}
-	}
+        try (Connection conn = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS)) {
+            String query = "SELECT password_hash FROM users WHERE username = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
 
-	private String getAuthenticatedUser(HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (Cookie c : cookies) {
-				if ("AUTH_TOKEN".equals(c.getName()))
-					return JWTService.validate(c.getValue());
-			}
-		}
-		return null;
-	}
+            if (rs.next() && Argon2IDService.object.verify(rs.getString("password_hash"), password)) {
+                String token = SessionManager.createSession(username, request, conn);
+                setAuthCookie(response, token);
+                response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Login Successful", csrfNew).toString());
+            } else {
+                response.setStatus(401);
+                response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid Credentials", csrfNew).toString());
+            }
+        } catch (Exception e) {
+            response.setStatus(500);
+        }
+    }
 
-	private boolean isValidUser(String username, String password) {
-		System.out.println(Signup.users);
-		Signup.User user = Signup.users.get(username);
-		if (user!=null&&user.password.equals(password))return true;
-		return false;
-	}
+    public static void setAuthCookie(HttpServletResponse response, String token) {
+        String cookieHeader = String.format(
+            "AUTH_TOKEN=%s; Path=/; Domain=%s; HttpOnly; Secure; SameSite=None; Max-Age=%d",
+            token, ParamsAndDBLoader.COOKIE_DOMAIN, ParamsAndDBLoader.JWT_EXPIRY / 1000);
+        response.addHeader("Set-Cookie", cookieHeader);
+    }
 }

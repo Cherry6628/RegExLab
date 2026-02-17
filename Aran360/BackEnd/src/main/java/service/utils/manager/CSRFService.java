@@ -2,7 +2,7 @@ package service.utils.manager;
 
 import java.util.UUID;
 
-import configs.ParamsLoader;
+import configs.ParamsAndDBLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -15,8 +15,8 @@ public class CSRFService {
 			System.out.println("New Session Created");
 		}
 		System.out.println("Session ID: "+session.getId());
-		System.out.println(ParamsLoader.JWT_EXPIRY);
-		session.setMaxInactiveInterval(ParamsLoader.JWT_EXPIRY/1000);
+		System.out.println(ParamsAndDBLoader.JWT_EXPIRY);
+		session.setMaxInactiveInterval(ParamsAndDBLoader.JWT_EXPIRY/1000);
 		return session;
 	}
 	public static String csrfToken() {

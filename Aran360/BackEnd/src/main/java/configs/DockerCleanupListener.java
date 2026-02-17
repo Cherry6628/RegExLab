@@ -12,7 +12,6 @@ import service.utils.manager.DBService;
 public class DockerCleanupListener implements ServletContextListener {
 	
 	public void contextInitialized(ServletContextEvent sce) {
-		DBService.getConnection();
 	}
 	
     @SuppressWarnings("deprecation")
@@ -25,10 +24,10 @@ public class DockerCleanupListener implements ServletContextListener {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        try {
-			DBService.getConnection().close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//        try {
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
     }
 }
