@@ -1,5 +1,6 @@
 package service.utils.manager;
 
+import configs.ParamsAndDBLoader;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 
@@ -7,9 +8,9 @@ public class Argon2IDService {
 
 	private static final Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
 	public static final Argon2IDService object = new Argon2IDService();
-	private int ITERATIONS = 10;
-	private int MEMORY = 16384;
-	private int PARALLELISM = 1;
+	private int ITERATIONS;
+	private int MEMORY;
+	private int PARALLELISM;
 
 	Argon2IDService(int iterations, int memory, int parallelism){
 		this.ITERATIONS=iterations;
@@ -17,7 +18,7 @@ public class Argon2IDService {
 		this.PARALLELISM=parallelism;
 	}
 	Argon2IDService(){
-		this(10, 16384, 1);
+		this(ParamsAndDBLoader.ARGON2ID_ITERATIONS, ParamsAndDBLoader.ARGON2ID_MEMORY, ParamsAndDBLoader.ARGON2ID_PARALLELISM);
 	}
 	public String hash(String password) {
 		char[] passwordChars = password.toCharArray();
