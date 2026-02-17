@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Logo from "../Logo/Logo";
 import "./Header.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +28,7 @@ export default function Header() {
     function login(){
         console.log("login");
     }
+    const navigate=useNavigate();
     return (
         <>
         <header className="header-navbar">
@@ -58,7 +60,7 @@ export default function Header() {
                     </li>
 
                     <li><p className="navitem" onClick={closeAll}>All Labs</p></li>
-                    <li><p className="navitem" onClick={closeAll}>Take a Test</p></li>
+                    <li><p className="navitem" onClick={()=>{navigate("/test")}}>Take a Test</p></li>
                     <li className="profile-container">
                         {loggedin ? (
                             <span style={{ fontSize: '40px', cursor: 'pointer' }} className="material-symbols-outlined">
