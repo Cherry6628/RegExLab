@@ -2,7 +2,7 @@ import React from "react";
 import "./CodeSnippet.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-function CodeSnippet({ code }) {
+function CodeSnippet({ code, language }) {
     return (
         <div className="wrapper">
             <div className="header">
@@ -10,7 +10,7 @@ function CodeSnippet({ code }) {
                 <span className="language">Python 3.10</span>
             </div>
             <SyntaxHighlighter
-                language="python"
+                language={language}
                 style={vscDarkPlus}
                 showLineNumbers
                 codeTagProps={{ style: { fontSize: "var(--default-size)" } }}

@@ -17,7 +17,6 @@
     top: 0;
     position: relative;
     z-index: -1000;
-
 }
 .header-navbar .header-nav-logo {
     display: flex;
@@ -25,7 +24,6 @@
     align-items: center;
     z-index: 1002;
 }
-
 .header-navbar .navlist {
     display: flex;
     gap: 40px;
@@ -34,14 +32,12 @@
     margin: 0;
     padding: 0;
 }
-
 .header-navbar .navitem-container {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
 .header-navbar .navitem {
     padding: 10px 0;
     border-bottom: 3px solid transparent;
@@ -52,13 +48,11 @@
     margin: 0;
     transition: all 0.2s ease;
 }
-
 .header-navbar .navitem:hover, 
 .header-navbar .navitem.active {
     color: var(--action-color);
     border-bottom: 3px solid var(--action-color);
 }
-
 .header-navbar .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -72,11 +66,9 @@
     box-shadow: 0 8px 16px rgba(0,0,0,0.5);
     display: none;
 }
-
 .header-navbar .dropdown-menu.show {
     display: block;
 }
-
 .header-navbar .dropdown-menu li a {
     display: block;
     padding: 12px 20px;
@@ -85,12 +77,10 @@
     font-size: 14px;
     transition: background 0.2s;
 }
-
 .header-navbar .dropdown-menu li a:hover {
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--action-color);
 }
-
 .header-navbar .nav-profile {
     padding: 10px 20px;
     border: 3px solid transparent;
@@ -98,17 +88,14 @@
     font-weight: bold;
     cursor: pointer;
 }
-
 .header-navbar .nav-profile:hover {
     border: 3px solid white;
 }
-
 .header-navbar .hamburger {
     display: none;
     cursor: pointer;
     z-index: 1002;
 }
-
 .header-navbar .nav-overlay {
     position: fixed;
     top: 0;
@@ -118,12 +105,10 @@
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1000;
 }
-
 @media (max-width: 1024px) {
     .header-navbar .hamburger {
         display: block;
     }
-
     .header-navbar .nav-menu {
         position: fixed;
         top: 0;
@@ -137,22 +122,18 @@
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
         overflow-y: auto;
     }
-
     .header-navbar .nav-menu.open {
         right: 0;
     }
-
     .header-navbar .navlist {
         flex-direction: column;
         align-items: flex-start;
         padding-left: 40px;
         gap: 15px;
     }
-
     .header-navbar .navitem-container {
         width: 100%;
     }
-
     .header-navbar .dropdown-menu {
         position: static;
         box-shadow: none;
