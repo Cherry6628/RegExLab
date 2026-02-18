@@ -79,6 +79,7 @@ public class LabProxyServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
+        	e.printStackTrace();
             resp.sendError(502, "Container Unreachable");
         }
     }

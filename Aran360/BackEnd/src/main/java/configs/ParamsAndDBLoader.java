@@ -22,6 +22,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static int JWT_EXPIRY;
 	public static int MAX_SESSIONS_PER_USER;
 	public static int ARGON2ID_ITERATIONS, ARGON2ID_MEMORY, ARGON2ID_PARALLELISM;
+	public static int LAB_TIMEOUT_SECONDS;
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
@@ -54,7 +55,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			ARGON2ID_MEMORY = (temp != null) ? Integer.parseInt(temp) : 1024;
 			temp = getProperty("ARGON2ID_PARALLELISM");
 			ARGON2ID_PARALLELISM = (temp != null) ? Integer.parseInt(temp) : 1;
-
+			temp = getProperty("LAB_TIMEOUT_SECONDS");
+			LAB_TIMEOUT_SECONDS = (temp !=null)?Integer.parseInt(temp):600;
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("""
 					CREATE TABLE IF NOT EXISTS users (
