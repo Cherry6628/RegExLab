@@ -6,8 +6,11 @@ export default function LearningMaterials({ list }) {
   const [activeId, setActiveId] = useState(Object.keys(list)[0]);
   
   const activeItem = list[activeId];
-  const ActiveComponent = activeItem?.comp;
+  console.log(list);
+  console.log(activeId);
   
+  const ActiveComponent = activeItem?.comp;
+  console.log(ActiveComponent);
   return (
     <>
       <div style={{ height: "100px" }}>

@@ -3,7 +3,15 @@ import Header from '../Header/Header';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import CircleBar from '../ProgressBar/CircleBar';
 import Button from "../Button/Button";
+import { useNavigate } from 'react-router-dom';
 export default function QuizResult(){
+    const navigate = useNavigate();
+    const goDashboard = ()=>{
+        navigate("/dashboard");
+    }
+    const retake = ()=>{
+        navigate("/test")
+    }
     return(<>
         <div style={{height: "100px"}}>
             <Header/>
@@ -13,7 +21,7 @@ export default function QuizResult(){
             <h1>Quiz Completed!</h1>
             <div className='outer'>
                 <div className='percentage'>
-                    <CircleBar></CircleBar>
+                    <CircleBar value={80}></CircleBar>
                 </div>
                 <div>
                     <div className='inner'>
@@ -30,14 +38,14 @@ export default function QuizResult(){
                     </div>
                     <div className='perform'>
                         <i className="fa-solid fa-chart-simple"></i><p>Performance Breakdown</p>
-                        <ProgressBar answer={"Correct Answer"}></ProgressBar>
-                        <ProgressBar answer={"Wrong Answer"}></ProgressBar>
+                        <ProgressBar answer={"Correct Answer"} value={80} isPass={true}></ProgressBar>
+                        <ProgressBar answer={"Wrong Answer"} value={20} isPass={false}></ProgressBar>
                     </div>
                 </div>
             </div>
             <div className='btns'>
-                <Button><span class="material-symbols-outlined">dashboard</span>Back to <br/>Dashboard</Button>
-                <Button><span class="material-symbols-outlined">replay</span>Retake Quiz</Button>
+                <Button onClick={goDashboard}><span class="material-symbols-outlined">dashboard</span>Back to <br/>Dashboard</Button>
+                <Button onClick={retake}><span class="material-symbols-outlined">replay</span>Retake Quiz</Button>
             </div>
         </div>
         </>

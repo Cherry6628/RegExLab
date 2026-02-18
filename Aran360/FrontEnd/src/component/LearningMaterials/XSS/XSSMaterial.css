@@ -18,7 +18,7 @@
 html, body{
     scrollbar-width: none;
 }
-#xss img{
+#xss img {
     width: min(1100px, 100%);
     padding-top: 30px;
     padding-bottom: 30px;

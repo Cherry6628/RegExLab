@@ -57,8 +57,8 @@ export default function Header() {
                         </p>
                         <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
                             {/* <li><a onClick={()=>{navigate("/learning-material/xss")}}>Cross-Site Scripting (XSS)</a></li>
-                            <li><a href="#link2">SQL Injection</a></li> */}
-                            {Object.keys(context.learningData).map(r=><li key={r}><a onClick={()=>navigate("/learning-material/"+context.learningData[r].url)}>{r}</a></li>)}
+                            <li><a onClick={()=>{navigate("/learning-material/sql")}}>SQL Injection</a></li> */}
+                            {Object.keys(context.learningData).map(r=><li key={r}><a onClick={()=>{navigate("/learning-material/"+context.learningData[r].url)}}>{r}</a></li>)}
                         </ul>
                     </li>
 

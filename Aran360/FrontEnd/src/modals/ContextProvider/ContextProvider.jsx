@@ -9,6 +9,7 @@ import ExploitingXSSMaterial from "../../component/LearningMaterials/XSS/Exploit
 import DanglingMarkupInjection from "../../component/LearningMaterials/XSS/DanglingMarkupInjection";
 import ContentSecurityPolicy from "../../component/LearningMaterials/XSS/ContentSecurityPolicy";
 import XSSPrevention from "../../component/LearningMaterials/XSS/XSSPrevention";
+import SQLMain from "../../component/LearningMaterials/SQL/SQLMain";
 
 const GlobalContext = createContext();
 
@@ -40,6 +41,7 @@ export default function ContextProvider({ children }) {
     "SQL Injection (SQLi)": {
       url: "sql-injection",
       subTitles: {
+        "SQL-Injection":{comp: SQLMain},
         "View All XSS Labs": { url: frontendbasename + "all-labs#sql-injection" },
       },
     },

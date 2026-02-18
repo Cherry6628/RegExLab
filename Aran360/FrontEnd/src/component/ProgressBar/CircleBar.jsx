@@ -1,19 +1,20 @@
 import './CircleBar.css';
 import { useState, useEffect } from "react";
-export default function CircularBar(){
+export default function CircularBar({value}){
     const[progress,setProgress] = useState(0);
     useEffect(()=>{
+        setProgress(0);
         const interval = setInterval(()=>{
             setProgress((prev)=>{
-               if(prev >= 60){
+               if(prev >= value){
                 clearInterval(interval);
-                return 60;
+                return value;
                }
                return prev+2;
             })
         },40);
         return ()=>clearInterval(interval);
-    },[]);
+    },[value]);
     const radius = 60;
     const strokeWidth = 10;
     const circumference = 2 * Math.PI * radius;
@@ -25,7 +26,7 @@ export default function CircularBar(){
                     cx="75"
                     cy="75"
                     r={radius}
-                    stroke="#eee"
+                    stroke="var(--border-light)"
                     strokeWidth={strokeWidth}
                     fill="transparent"/>
                 <circle

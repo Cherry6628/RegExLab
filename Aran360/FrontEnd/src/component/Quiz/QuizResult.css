@@ -3,9 +3,13 @@
     gap:20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
 }
 #result .inner{
     display: flex;
+    flex-wrap: wrap;
     gap:20px;
     margin-bottom: 20px;
 }
