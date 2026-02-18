@@ -20,7 +20,8 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
             }, 0);
         } else window.scrollTo(0, 0);
     };
-
+    // if (activeId!=Object.keys(list)[0])
+        // setActiveId(Object.keys(list)[0]);
     return (
         <>
             <div className={`mobile-toggle-bar ${isExpanded ? "hidden" : ""}`} onClick={() => setIsExpanded(true)}>

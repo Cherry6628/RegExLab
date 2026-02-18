@@ -18,7 +18,7 @@
 html, body{
     scrollbar-width: none;
 }
-#xss img{
+#xss img {
     width: min(1100px, 100%);
     padding-top: 30px;
     padding-bottom: 30px;
@@ -32,7 +32,7 @@ html, body{
 }
 #xss h3{
     color: white;
-    font-size: 25px;
+    font-size: var(--semi-large-size);
     margin-bottom:7px ;
 }
 #xss p + p {

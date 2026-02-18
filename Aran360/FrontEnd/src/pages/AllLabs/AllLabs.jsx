@@ -1,12 +1,13 @@
 import Header from "../../component/Header/Header";
-export default function NotFound_404() {
+export default function AllLabs() {
+  console.log(location.hash);
+  document.getElementById(location.hash)?.scrollTo();
   return (
     <>
       <div style={{ height: "100px" }}>
         <Header />
       </div>
-      <h1>404 - Not Found</h1>
-      <p>The Server is scratching its head finding your requested resource.</p>
+      <div>All Labs</div>
     </>
   );
 }
