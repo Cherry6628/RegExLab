@@ -27,7 +27,7 @@
 }
 
 #toast .toast-icon {
-    font-size: 24px;
+    font-size: var(--normal-size);
 }
 
 #toast .toast-message {

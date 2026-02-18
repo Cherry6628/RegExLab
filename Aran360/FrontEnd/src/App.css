@@ -48,7 +48,9 @@ body {
     --default-size: 16px;
     --small-size: 13px;
     --normal-size: 20px;
+    --semi-large-size: 28px;
     --large-size: 35px;
+    --semi-extra-large: 42px;
     --extra-large-size: 50px;
 
 
