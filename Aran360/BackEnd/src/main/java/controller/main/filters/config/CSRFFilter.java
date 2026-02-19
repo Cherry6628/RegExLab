@@ -1,11 +1,7 @@
 package controller.main.filters.config;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-
 import org.json.JSONObject;
-
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -16,14 +12,18 @@ import jakarta.servlet.http.HttpSession;
 import service.helper.model.CachedBodyHttpServletRequest;
 import service.helper.model.JSONResponse;
 
-public class CSRFFilter extends HttpFilter implements Filter {
+public class CSRFFilter extends HttpFilter {
 	private static final long serialVersionUID = 1L;
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
-		if (req.getRequestURI().endsWith("/csrf")) {
+		String path = req.getRequestURI();
+
+		if (path.startsWith(req.getContextPath() + "/lab/view/")
+				|| path.startsWith(req.getContextPath() + "/lab/image/")
+				|| path.startsWith(req.getContextPath() + "/csrf")) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -58,21 +58,22 @@ public class CSRFFilter extends HttpFilter implements Filter {
 		chain.doFilter(cachedRequest, response);
 	}
 
-//	private static final boolean isValidCSRFToken(HttpServletRequest req, String csrfToken) {
-//		System.out.println(csrfToken);
-//		String csrfToken2 = CSRFService.getCSRFToken(req);
-//		System.out.println(csrfToken2);
-//		return csrfToken.equals(csrfToken2);
-//	}
+	// private static final boolean isValidCSRFToken(HttpServletRequest req, String
+	// csrfToken) {
+	// System.out.println(csrfToken);
+	// String csrfToken2 = CSRFService.getCSRFToken(req);
+	// System.out.println(csrfToken2);
+	// return csrfToken.equals(csrfToken2);
+	// }
 	private static final boolean isValidCSRFToken(HttpServletRequest req, String csrfToken) {
-	    HttpSession session = req.getSession(false);
-	    if (session == null) {
-	        System.out.println("No session found for ID: " + req.getRequestedSessionId());
-	        return false;
-	    }
-	    System.out.println("Session ID in Filter: " + session.getId());
-	    String storedToken = (String) session.getAttribute("csrfToken");
-	    System.out.println(storedToken);
-	    return csrfToken.equals(storedToken);
+		HttpSession session = req.getSession(false);
+		if (session == null) {
+			System.out.println("No session found for ID: " + req.getRequestedSessionId());
+			return false;
+		}
+		System.out.println("Session ID in Filter: " + session.getId());
+		String storedToken = (String) session.getAttribute("csrfToken");
+		System.out.println(storedToken);
+		return csrfToken.equals(storedToken);
 	}
 }
