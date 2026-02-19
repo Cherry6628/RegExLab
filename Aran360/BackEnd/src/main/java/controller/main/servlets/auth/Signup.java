@@ -13,6 +13,8 @@ import service.utils.manager.Argon2IDService;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,7 +34,8 @@ public class Signup extends HttpServlet {
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = request.getReader();
         String line;
-        while ((line = reader.readLine()) != null) sb.append(line);
+        while ((line = reader.readLine()) != null)
+            sb.append(line);
         JSONObject body = new JSONObject(sb.toString());
 
         String user = body.optString("username");
@@ -48,26 +51,35 @@ public class Signup extends HttpServlet {
         String hashedPass = Argon2IDService.object.hash(pass);
 
         try {
-        	System.out.println("Inserting into users");
+            System.out.println("Inserting into users");
             String query = "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)";
             PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
             pstmt.setString(1, user);
             pstmt.setString(2, email);
             pstmt.setString(3, hashedPass);
-            System.out.println(pstmt.executeUpdate()+" Result after insert");
+            System.out.println(pstmt.executeUpdate() + " Result after insert");
 
             String token = SessionManager.createSession(user, request, DBService.getConnection());
             Login.setAuthCookie(response, token);
 
             response.setStatus(201);
-            response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Signup Successful", csrfNew).toString());
+            response.getWriter()
+                    .write(JSONResponse.response(JSONResponse.SUCCESS, "Signup Successful", csrfNew).toString());
         } catch (SQLIntegrityConstraintViolationException e) {
-//        	e.printStackTrace();
+            // e.printStackTrace();
             response.setStatus(409);
-            response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "User exists, Try with different username or email address", csrfNew).toString());
+            response.getWriter().write(JSONResponse
+                    .response(JSONResponse.ERROR, "User exists, Try with different username or email address", csrfNew)
+                    .toString());
         } catch (Exception e) {
-        	response.setStatus(500);
-        	response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Internal Server Error", csrfNew).toString());
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTrace = sw.toString();
+
+            response.setStatus(500);
+            response.getWriter()
+                    .write(JSONResponse.response(JSONResponse.ERROR, stackTrace, csrfNew).toString());
         }
     }
 }

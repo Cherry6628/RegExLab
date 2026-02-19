@@ -1,4 +1,5 @@
 #!/bin/bash
+./clear.sh
 set -e
 
 APP_IMAGE="aran360-app"
@@ -11,6 +12,10 @@ PORT="8765"
 echo "========================================"
 echo "   Aran360 - Full Stack Deploy"
 echo "========================================"
+
+cd ..
+javac BackEnd/LabRuntimeServer.java -d .
+cd -
 
 if ! docker info > /dev/null 2>&1; then
     echo "[ERROR] Docker is not running."
