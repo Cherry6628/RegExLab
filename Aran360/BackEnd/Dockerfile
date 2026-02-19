@@ -12,9 +12,10 @@ COPY src ./src
 RUN mkdir -p build/classes
 
 # Compile Java source files
-RUN javac \
+RUN JARS=$(echo src/main/webapp/WEB-INF/lib/*.jar | tr ' ' ':') && \
+    javac \
     -encoding UTF-8 \
-    -cp "src/main/webapp/WEB-INF/lib/*" \
+    -cp "$JARS" \
     -d build/classes \
     $(find src/main/java -name "*.java")
 
