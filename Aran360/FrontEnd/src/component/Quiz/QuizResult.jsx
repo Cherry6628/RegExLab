@@ -27,7 +27,7 @@ export default function QuizResult(){
                     <div className='inner'>
                         <div className='point'>
                             <i className="fa-solid fa-circle-check"></i>
-                            <p>Points Earned</p>
+                            <p>Points&nbsp;Earned</p>
                             <p><span className='detail'>8</span>/10 Correct</p>
                         </div>
                         <div className='time'>
