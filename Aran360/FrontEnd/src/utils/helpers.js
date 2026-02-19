@@ -1,4 +1,3 @@
-import { useToast } from "../component/Toast/ToastContext";
 import { backendbasename, info } from "./params";
 
 export const backendURL = "http://localhost:8765"+backendbasename;

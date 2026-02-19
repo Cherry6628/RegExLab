@@ -1,5 +1,5 @@
-export const backendbasename = "/BackEnd/";
-export const frontendbasename = "/BackEnd/";
+export const backendbasename = "/";
+export const frontendbasename = "/";
 
 export const error = "error";
 export const success = "success";
