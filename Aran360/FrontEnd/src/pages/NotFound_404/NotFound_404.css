@@ -1,0 +1,29 @@
+#notFound{
+    display: flex;
+    height: 90vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#notFound h1{
+    color: var(--text-main);
+    font-size: var(--large-size);
+}
+#notFound .found{
+    font-size: 300px;
+    opacity: 0.2;
+    color: var(--action-color);
+}
+@media only screen and (max-width: 500px) {
+    #notFound .found{
+        font-size: 200px;
+    }
+}
+#notFound p{
+    color: var(--text-dim);
+    font-size: var(--normal-size);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

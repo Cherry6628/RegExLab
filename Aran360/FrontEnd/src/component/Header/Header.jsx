@@ -28,10 +28,10 @@ export default function Header() {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-    function login(){
-        console.log("login");
-    }
     const navigate=useNavigate();
+    const login = ()=>{
+        navigate("/login");
+    }
     return (
         <>
         <header className="header-navbar">

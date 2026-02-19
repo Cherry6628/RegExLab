@@ -13,14 +13,21 @@
 }
 html,
 body {
-    background-color: var(--secondary-bgcolor);
+    background: radial-gradient(
+        circle at center,
+        #11304d 0%,
+        #0c2742 30%,
+        #081e33 55%,
+        #051728 75%,
+        #030f1a 100%
+    );
 }
 :root {
     --action-color: #137fec;
     --action-color2: #ffffff;
 
-    --secondary-bgcolor: #101922;
-    --primary-bgcolor: #111418;
+    --secondary-bgcolor: #081e33;
+    --primary-bgcolor: #051728;
 
     --text-main: #f9f9fa;
     --text-dim: #94a3b8;
@@ -46,6 +53,7 @@ body {
 
     --label-size: 14px;
     --default-size: 16px;
+    --semi-normal-size:20px;
     --small-size: 13px;
     --normal-size: 20px;
     --semi-large-size: 28px;

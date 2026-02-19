@@ -2,6 +2,7 @@ import LearningMaterials from "../../component/LearningMaterials/LearningMateria
 import QuizMain from "../../component/Quiz/QuizMain";
 import QuizResult from "../../component/Quiz/QuizResult";
 import AuthPage from "../../pages/AuthPage/AuthPage";
+import Profile from "../../pages/Profile/Profile";
 import Dashboard from "../../pages/Dashboard/Dashboard";
 import NotFound_404 from "../../pages/NotFound_404/NotFound_404";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -24,6 +25,7 @@ export default function NavigationModal() {
         <Route path="/test" element={<QuizMain/>} />
         <Route path="/result" element={<QuizResult/>} />
         <Route path="*" element={<NotFound_404/>} />
+        <Route path="/login" element={<Profile/>}/>
       </Routes>
     </BrowserRouter>
   );

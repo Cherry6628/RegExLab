@@ -10,6 +10,11 @@ import DanglingMarkupInjection from "../../component/LearningMaterials/XSS/Dangl
 import ContentSecurityPolicy from "../../component/LearningMaterials/XSS/ContentSecurityPolicy";
 import XSSPrevention from "../../component/LearningMaterials/XSS/XSSPrevention";
 import SQLMain from "../../component/LearningMaterials/SQL/SQLMain";
+import BlindSql from "../../component/LearningMaterials/SQL/BlindSql";
+import UnionAttack from "../../component/LearningMaterials/SQL/UnionAttack";
+import ExaminingDatabase from "../../component/LearningMaterials/SQL/ExaminingDatabase";
+import PathTraversalMaterial from "../../component/LearningMaterials/Path/PathTraversalMaterial";
+import AccessControl from "../../component/LearningMaterials/AccessControl/AccessControl";
 
 const GlobalContext = createContext();
 
@@ -42,7 +47,24 @@ export default function ContextProvider({ children }) {
       url: "sql-injection",
       subTitles: {
         "SQL-Injection":{comp: SQLMain},
+        "Examining the database":{comp:ExaminingDatabase},
+        "UNION Attacks":{comp:UnionAttack},
+        "Blind SQL Injection":{comp:BlindSql},
         "View All XSS Labs": { url: frontendbasename + "all-labs#sql-injection" },
+      },
+    },
+    "Access Control": {
+      url: "access-control",
+      subTitles: {
+        "Access Control":{comp: AccessControl},
+        "View All XSS Labs": { url: frontendbasename + "all-labs#access-control" },
+      },
+    },
+    "Path Traversal": {
+      url: "path-traversal",
+      subTitles: {
+        "Path Traversal":{comp: PathTraversalMaterial},
+        "View All XSS Labs": { url: frontendbasename + "all-labs#path-traversal" },
       },
     },
   };

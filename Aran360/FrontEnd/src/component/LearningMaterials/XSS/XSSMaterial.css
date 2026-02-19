@@ -76,7 +76,6 @@ html, body{
     border-radius: 12px;
     margin-top: 20px;
     margin-bottom: 20px;
-    font-family: monospace;
 }
 #xss .code p{
     color:black;
@@ -115,4 +114,22 @@ html, body{
 }
 #lab span {
     background-color: unset; 
+}
+#xss iframe{
+    width: min(1100px, 100%);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+    margin: 0 auto;  
+    height: 680px;
+}
+#xss .query{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: var(--text-dim);
+    font-size: var(--normal-size);
+    border: 2px solid var(--border-light);
+    padding: 10px;
+    border-radius: 12px;
+    line-height: 40px;
 }

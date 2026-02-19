@@ -31,7 +31,6 @@
 }
 
 #toast .toast-message {
-    font-family: 'Manrope', sans-serif;
     font-size: var(--label-size);
     font-weight: 600;
     color: var(--text-main);
