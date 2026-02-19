@@ -9,7 +9,7 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const context = useGlobalContext();
-    const loggedin = true;
+    // const loggedin = true;
 
     const closeAll = () => {
         setMenuOpen(false);
@@ -29,9 +29,6 @@ export default function Header() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     const navigate=useNavigate();
-    const login = ()=>{
-        navigate("/login");
-    }
     return (
         <>
         <header className="header-navbar">
@@ -64,13 +61,13 @@ export default function Header() {
 
                     <li><p className="navitem" onClick={()=>{navigate("/all-labs")}}>All Labs</p></li>
                     <li><p className="navitem" onClick={()=>{navigate("/test")}}>Take a Test</p></li>
-                    <li className="profile-container">
-                        {loggedin ? (
+                    <li className="profile-container" onClick={()=>{navigate("/accounts")}}>
+                        {context.uname ? (
                             <span style={{ fontSize: '40px', cursor: 'pointer' }} className="material-symbols-outlined">
                                 account_circle
                             </span>
                         ) : (
-                            <p className="nav-profile" onClick={login}>Login</p>
+                            <p className="nav-profile">Login</p>
                         )}
                     </li>
                 </ul>
