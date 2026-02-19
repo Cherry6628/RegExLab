@@ -6,8 +6,10 @@ import { refreshCsrfToken } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { error, info, success } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
+import { useGlobalContext } from "../ContextProvider/ContextProvider.jsx";
 
 export default function SignupContainer({ setModal }) {
+    const context = useGlobalContext();
     const navigate = useNavigate();
     const password = useRef(null);
     const username = useRef(null);
@@ -18,6 +20,7 @@ export default function SignupContainer({ setModal }) {
             showToast(r.message, r.status);
             if (r?.status === success) {
                 navigate("/dashboard");
+                context.setUname(uname);
             }
         }).catch(r=>{
             showToast(r.message, error)
