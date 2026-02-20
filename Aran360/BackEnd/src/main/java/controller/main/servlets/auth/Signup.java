@@ -8,19 +8,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import service.helper.model.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
+import service.utils.manager.PBKDF2_Service;
 import service.utils.manager.SessionManager;
-import service.utils.manager.Argon2IDService;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLIntegrityConstraintViolationException;
-
-import configs.ParamsAndDBLoader;
 
 @WebServlet("/signup")
 public class Signup extends HttpServlet {
@@ -48,7 +44,7 @@ public class Signup extends HttpServlet {
             return;
         }
 
-        String hashedPass = Argon2IDService.object.hash(pass);
+        String hashedPass = PBKDF2_Service.object.hash(pass);
 
         try {
             System.out.println("Inserting into users");
@@ -66,20 +62,17 @@ public class Signup extends HttpServlet {
             response.getWriter()
                     .write(JSONResponse.response(JSONResponse.SUCCESS, "Signup Successful", csrfNew).toString());
         } catch (SQLIntegrityConstraintViolationException e) {
-            // e.printStackTrace();
+             e.printStackTrace();
             response.setStatus(409);
             response.getWriter().write(JSONResponse
                     .response(JSONResponse.ERROR, "User exists, Try with different username or email address", csrfNew)
                     .toString());
         } catch (Exception e) {
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String stackTrace = sw.toString();
+            e.printStackTrace();
 
             response.setStatus(500);
             response.getWriter()
-                    .write(JSONResponse.response(JSONResponse.ERROR, stackTrace, csrfNew).toString());
+                    .write(JSONResponse.response(JSONResponse.ERROR, "Internal Server Error", csrfNew).toString());
         }
     }
 }

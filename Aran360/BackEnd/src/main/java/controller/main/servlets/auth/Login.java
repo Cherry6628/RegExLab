@@ -29,14 +29,14 @@ public class Login extends HttpServlet {
         String username = body.optString("username");
         String password = body.optString("password");
 
-        try (Connection conn = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS)) {
+        try{
             String query = "SELECT password_hash FROM users WHERE username = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
 
-            if (rs.next() && Argon2IDService.object.verify(rs.getString("password_hash"), password)) {
-                String token = SessionManager.createSession(username, request, conn);
+            if (rs.next() && PBKDF2_Service.object.verify(rs.getString("password_hash"), password)) {
+                String token = SessionManager.createSession(username, request, DBService.getConnection());
                 setAuthCookie(response, token);
                 response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Login Successful", csrfNew).toString());
             } else {

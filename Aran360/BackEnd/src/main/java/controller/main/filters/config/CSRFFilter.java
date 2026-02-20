@@ -58,13 +58,6 @@ public class CSRFFilter extends HttpFilter {
 		chain.doFilter(cachedRequest, response);
 	}
 
-	// private static final boolean isValidCSRFToken(HttpServletRequest req, String
-	// csrfToken) {
-	// System.out.println(csrfToken);
-	// String csrfToken2 = CSRFService.getCSRFToken(req);
-	// System.out.println(csrfToken2);
-	// return csrfToken.equals(csrfToken2);
-	// }
 	private static final boolean isValidCSRFToken(HttpServletRequest req, String csrfToken) {
 		HttpSession session = req.getSession(false);
 		if (session == null) {
