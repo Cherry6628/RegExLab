@@ -54,16 +54,8 @@ public class LabOrchestratorServlet extends HttpServlet {
         }
 
         try {
-
-            // ----------------------------
-            // 1. Request host runtime to create lab
-            // ----------------------------
             String containerName =
                     runtimeClient.createLab(labName);
-
-            // ----------------------------
-            // 2. Store session
-            // ----------------------------
             LabInstance lab = new LabInstance(
                     containerName,
                     containerName,
@@ -71,10 +63,6 @@ public class LabOrchestratorServlet extends HttpServlet {
             );
 
             session.setAttribute("ACTIVE_LAB", lab);
-
-            // ----------------------------
-            // 3. Schedule cleanup
-            // ----------------------------
             scheduler.schedule(() ->
                     runtimeClient.cleanupLab(containerName),
                     ParamsAndDBLoader.LAB_TIMEOUT_SECONDS,
