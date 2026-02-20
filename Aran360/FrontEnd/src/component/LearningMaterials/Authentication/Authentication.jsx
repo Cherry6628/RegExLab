@@ -26,16 +26,16 @@ export default function Authentication(){
                     <p>Authentication is the process of verifying the identity of a user or client. Websites are potentially exposed to anyone who is connected to the internet. This makes robust authentication mechanisms integral to effective web security.</p>
                     <p>There are three main types of authentication:</p>
                     <ul>
-                        <li>Something you know, such as a password or the answer to a security question. These are sometimes called "knowledge factors".</li>
-                        <li>Something you have, This is a physical object such as a mobile phone or security token. These are sometimes called "possession factors".</li>
-                        <li>Something you are or do. For example, your biometrics or patterns of behavior. These are sometimes called "inherence factors".</li>
+                        <li>Something you <b>know</b>, such as a password or the answer to a security question. These are sometimes called "knowledge factors".</li>
+                        <li>Something you <b>have</b>, This is a physical object such as a mobile phone or security token. These are sometimes called "possession factors".</li>
+                        <li>Something you <b>are</b> or do. For example, your biometrics or patterns of behavior. These are sometimes called "inherence factors".</li>
                     </ul>
                     <p>Authentication mechanisms rely on a range of technologies to verify one or more of these factors.</p>
                     <section>
                         <h3>What is the difference between authentication and authorization?</h3>
                         <p>Authentication is the process of verifying that a user is who they claim to be. Authorization involves verifying whether a user is allowed to do something.</p>
-                        <p>For example, authentication determines whether someone attempting to access a website with the username Carlos123 really is the same person who created the account.</p>
-                        <p>Once Carlos123 is authenticated, their permissions determine what they are authorized to do. For example, they may be authorized to access personal information about other users, or perform actions such as deleting another user's account.</p>
+                        <p>For example, authentication determines whether someone attempting to access a website with the username <span>Carlos123</span> really is the same person who created the account.</p>
+                        <p>Once <span>Carlos123</span> is authenticated, their permissions determine what they are authorized to do. For example, they may be authorized to access personal information about other users, or perform actions such as deleting another user's account.</p>
                     </section>
                     <section>
                         <h1>How do authentication vulnerabilities arise?</h1>
@@ -56,9 +56,9 @@ export default function Authentication(){
                         <p>A website's authentication system usually consists of several distinct mechanisms where vulnerabilities may occur. Some vulnerabilities are applicable across all of these contexts. Others are more specific to the functionality provided.</p>
                         <p>We will look more closely at some of the most common vulnerabilities in the following areas:</p>
                         <ul>
-                            <li>Vulnerabilities in password-based login </li>
-                            <li>Vulnerabilities in multi-factor authenticatio</li>
-                            <li>Vulnerabilities in other authentication mechanisms </li>
+                            <li><b>Vulnerabilities in password-based login </b></li>
+                            <li><b>Vulnerabilities in multi-factor authentication</b></li>
+                            <li><b>Vulnerabilities in other authentication mechanisms </b></li>
                         </ul>
                         <p>Several of the labs require you to enumerate usernames and brute-force passwords. To help you with this process, we provide a shortlist of candidate usernames and passwords that you should use to solve the labs.</p>
                         <h3>Vulnerabilities in third-party authentication mechanisms</h3>
