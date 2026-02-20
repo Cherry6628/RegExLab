@@ -1,5 +1,19 @@
 #!/bin/bash
-./clear.sh
+
+
+echo "[+] Removing Aran360 containers..."
+docker rm -f $APP_CONTAINER 2>/dev/null || true
+docker rm -f $RUNTIME_CONTAINER 2>/dev/null || true
+
+echo "[+] Removing Aran360 images (optional)..."
+docker rmi $APP_IMAGE 2>/dev/null || true
+docker rmi $RUNTIME_IMAGE 2>/dev/null || true
+
+echo "[+] Removing Aran360 network (optional)..."
+docker network rm $NETWORK_NAME 2>/dev/null || true
+
+echo "[✓] Cleaned only Aran360 resources."
+
 set -e
 
 APP_IMAGE="aran360-app"
