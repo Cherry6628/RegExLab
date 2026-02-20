@@ -20,6 +20,7 @@ import Authentication from "../../component/LearningMaterials/Authentication/Aut
 import passwordAuth from "../../component/LearningMaterials/Authentication/PasswordAuth";
 import MultiFactor from "../../component/LearningMaterials/Authentication/MultiFactor";
 import OtherAuth from "../../component/LearningMaterials/Authentication/OtherAuth";
+import SecureAuthentication from "../../component/LearningMaterials/Authentication/SecureAuthentication";
 
 const GlobalContext = createContext();
 
@@ -73,6 +74,7 @@ export default function ContextProvider({ children }) {
         "Password-based Authentication":{comp:passwordAuth},
         "Multi-factor Authentication":{comp:MultiFactor},
         "Other Authentication":{comp:OtherAuth},
+        "Secure authentication mechanisms":{comp:SecureAuthentication},
         "View All XSS Labs": { url: frontendbasename + "all-labs#authentication" },
       },
     },

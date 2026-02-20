@@ -23,6 +23,33 @@ export default function OtherAuth(){
                 </section>
                 <section>
                     <h1>Resetting user passwords</h1>
+                    <p>In practice some users will forget their password, so it is common to have a way for them to reset it. As the usual password-based authentication is obviously impossible in this scenario, websites have to rely on alternative methods to make sure that the real user is resetting their own password. For this reason, the password reset functionality is inherently dangerous and needs to be implemented securely.</p>
+                    <p>There are a few different ways that this feature is commonly implemented, with varying degrees of vulnerability.</p>
+                    <h3>Sending passwords by email</h3>
+                    <p>It should go without saying that sending users their current password should never be possible if a website handles passwords securely in the first place. Instead, some websites generate a new password and send this to the user via email.</p>
+                    <p>Generally speaking, sending persistent passwords over insecure channels is to be avoided. In this case, the security relies on either the generated password expiring after a very short period, or the user changing their password again immediately. Otherwise, this approach is highly susceptible to man-in-the-middle attacks.</p>
+                    <p>Email is also generally not considered secure given that inboxes are both persistent and not really designed for secure storage of confidential information. Many users also automatically sync their inbox between multiple devices across insecure channels.</p>
+                    <h3>Resetting passwords using a URL</h3>
+                    <p>A more robust method of resetting passwords is to send a unique URL to users that takes them to a password reset page. Less secure implementations of this method use a URL with an easily guessable parameter to identify which account is being reset, for example:</p>
+                    <Payloads>http://vulnerable-website.com/reset-password?user=victim-user</Payloads>
+                    <p>In this example, an attacker could change the <span>user</span> parameter to refer to any username they have identified. They would then be taken straight to a page where they can potentially set a new password for this arbitrary user.</p>
+                    <p>A better implementation of this process is to generate a high-entropy, hard-to-guess token and create the reset URL based on that. In the best case scenario, this URL should provide no hints about which user's password is being reset.</p>
+                    <Payloads>http://vulnerable-website.com/reset-password?token=a0ba0d1cb3b63d13822572fcff1a241895d893f659164d4cc550b421ebdd48a8</Payloads>
+                    <p>When the user visits this URL, the system should check whether this token exists on the back-end and, if so, which user's password it is supposed to reset. This token should expire after a short period of time and be destroyed immediately after the password has been reset.</p>
+                    <p>However, some websites fail to also validate the token again when the reset form is submitted. In this case, an attacker could simply visit the reset form from their own account, delete the token, and leverage this page to reset an arbitrary user's password.</p>
+                    <Lab>Password reset broken logic</Lab>
+                    <p>If the URL in the reset email is generated dynamically, this may also be vulnerable to password reset poisoning. In this case, an attacker can potentially steal another user's token and use it change their password.</p>
+                    <Lab>Password reset poisoning via middleware</Lab>
+                    <div className="labbox">
+                        <h3>Read more</h3>
+                        <p><ul>Password reset poisoning</ul></p>
+                    </div>
+                </section>
+                <section>
+                    <h1>Changing user passwords</h1>
+                    <p>Typically, changing your password involves entering your current password and then the new password twice. These pages fundamentally rely on the same process for checking that usernames and current passwords match as a normal login page does. Therefore, these pages can be vulnerable to the same techniques.</p>
+                    <p>Password change functionality can be particularly dangerous if it allows an attacker to access it directly without being logged in as the victim user. For example, if the username is provided in a hidden field, an attacker might be able to edit this value in the request to target arbitrary users. This can potentially be exploited to enumerate usernames and brute-force passwords.</p>
+                    <Lab>Password brute-force via password change</Lab>
                 </section>
             </section>
         </div>
