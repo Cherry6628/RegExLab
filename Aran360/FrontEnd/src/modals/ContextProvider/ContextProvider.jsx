@@ -15,6 +15,7 @@ import UnionAttack from "../../component/LearningMaterials/SQL/UnionAttack";
 import ExaminingDatabase from "../../component/LearningMaterials/SQL/ExaminingDatabase";
 import PathTraversalMaterial from "../../component/LearningMaterials/Path/PathTraversalMaterial";
 import AccessControl from "../../component/LearningMaterials/AccessControl/AccessControl";
+import IDOR from "../../component/LearningMaterials/AccessControl/IDOR";
 
 const GlobalContext = createContext();
 
@@ -57,6 +58,7 @@ export default function ContextProvider({ children }) {
       url: "access-control",
       subTitles: {
         "Access Control":{comp: AccessControl},
+        "Insecure direct object references (IDOR)":{comp: IDOR},
         "View All XSS Labs": { url: frontendbasename + "all-labs#access-control" },
       },
     },
