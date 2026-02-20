@@ -34,6 +34,10 @@ html, body{
     color: white;
     font-size: var(--semi-large-size);
     margin-bottom:7px ;
+    margin-top: 10px;
+}
+#xss .labbox h3{
+    margin-top: 0 !important;
 }
 #xss p + p {
     margin-top: 15px;
@@ -55,6 +59,12 @@ html, body{
 #xss section ul{
     margin-top: 20px;
     margin-left: 100px;
+    margin-bottom: 10px;
+}
+#xss section ol{
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-bottom: 10px;
 }
 #xss .labbox{
     background-color: var(--secondary-bgcolor);
@@ -83,6 +93,9 @@ html, body{
 }
 #xss ul li::marker {
     color: white;
+}
+#xss ol li::marker{
+    color: var(--text-main);
 }
 #xss .labbox ul li{
     text-decoration: underline;
