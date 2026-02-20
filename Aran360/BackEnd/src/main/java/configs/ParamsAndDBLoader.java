@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Set;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -52,9 +53,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			temp = getProperty("PBKDF2_KEY_LENGTH");
 			PBKDF2_KEY_LENGTH = (temp != null) ? Integer.parseInt(temp) : 256;
 			temp = getProperty("LAB_TIMEOUT_SECONDS");
-			LAB_TIMEOUT_SECONDS = (temp !=null)?Integer.parseInt(temp):1800;
-			
-			
+			LAB_TIMEOUT_SECONDS = (temp != null) ? Integer.parseInt(temp) : 1800;
+
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("""
 					CREATE TABLE IF NOT EXISTS users (
@@ -104,6 +104,25 @@ public class ParamsAndDBLoader implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
+		Set<String> running = service.helper.model.LabRegistry.getAll();
+		if (!running.isEmpty()) {
+			System.out.println("[LabCleanup] Destroying " + running.size()
+					+ " active lab container(s) on context shutdown...");
+
+			service.infrastructure.LabRuntimeClient client = new service.infrastructure.LabRuntimeClient();
+
+			for (String containerName : running) {
+				try {
+					System.out.println("[LabCleanup] Removing: " + containerName);
+					client.cleanupLab(containerName);
+				} catch (Exception e) {
+					System.err.println("[LabCleanup] Failed to remove "
+							+ containerName + ": " + e.getMessage());
+				}
+			}
+			System.out.println("[LabCleanup] Done.");
+		}
+
 		try {
 			DBService.getConnection().close();
 		} catch (SQLException e) {

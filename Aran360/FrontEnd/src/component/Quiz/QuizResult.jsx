@@ -62,13 +62,11 @@ export default function QuizResult() {
                     </div>
                 </div>
                 <div className="btns">
-                    <Button onClick={goDashboard}>
-                        <span class="material-symbols-outlined">dashboard</span>
+                    <Button onClick={goDashboard} icon="dashboard">
                         Back to <br />
                         Dashboard
                     </Button>
-                    <Button onClick={retake}>
-                        <span class="material-symbols-outlined">replay</span>
+                    <Button onClick={retake} icon="replay">
                         Retake Quiz
                     </Button>
                 </div>

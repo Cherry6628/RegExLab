@@ -21,7 +21,7 @@ import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
 @WebFilter(urlPatterns = {
-        "/lab/",
+        "/lab",
         "/lab/*",
         "/quiz-data",
         "/quiz-data/*"
@@ -102,7 +102,7 @@ public class AuthFilter implements Filter {
             originalUrl += "?" + req.getQueryString();
         }
         req.getSession(true).setAttribute("REDIRECT_AFTER_LOGIN", originalUrl);
-        resp.sendRedirect(req.getContextPath() + "/login");
+        resp.sendRedirect(req.getContextPath() + "/accounts");
     }
 
     private void clearAuthCookie(HttpServletResponse resp) {

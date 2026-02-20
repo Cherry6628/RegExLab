@@ -24,10 +24,7 @@ export default function Dashboard({ name }) {
                                 value={16}
                                 isPass={true}
                             ></ProgressBar>
-                            <Button className="btn">
-                                <span class="material-symbols-outlined">
-                                    play_circle
-                                </span>
+                            <Button className="btn" icon="play_circle">
                                 Resume Learning
                             </Button>
                             <hr />
@@ -46,7 +43,7 @@ export default function Dashboard({ name }) {
                     <div className="complete">
                         <div className="labName">
                             <div className="icon">
-                                <span class="material-symbols-outlined">
+                                <span className="material-symbols-outlined">
                                     terminal
                                 </span>
                             </div>
