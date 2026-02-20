@@ -9,7 +9,6 @@ export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const context = useGlobalContext();
-    // const loggedin = true;
 
     const closeAll = () => {
         setMenuOpen(false);

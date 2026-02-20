@@ -2,7 +2,6 @@ import CodeSnippet from "../CodeSnippet/CodeSnippet";
 import "./Quiz.css";
 import Option from "./Option/Option";
 import Button from "../Button/Button";
-import QuizContainer from "./QuizContainer";
 import { useNavigate } from "react-router-dom";
 export default function Quiz({
   headline,
@@ -19,16 +18,6 @@ export default function Quiz({
   const goResult = ()=>{
     navigate("/result");
   }
-//   const code = `@app.route("/user/<username>")
-//   def get_user(username):
-//       db = get_db_connection()
-//       # Fetch user details safely?
-//       query = f"SELECT * FROM users WHERE name = '{username}'"
-//       result = db.execute(query).fetchone()
-
-//       if result:
-//           return render_template("profile.html", user=result)
-//       return "User not found", 404`;
   return (
     <div id="Quiz">
       <h1 className="headline">{headline}</h1>
