@@ -18,6 +18,12 @@
 html, body{
     scrollbar-width: none;
 }
+#xss h4{
+    color: var(--text-main);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: var(--normal-size);
+}
 #xss img {
     width: min(1100px, 100%);
     padding-top: 30px;
