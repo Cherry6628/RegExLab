@@ -15,9 +15,11 @@ public class DBService {
 	private static void initializeConnection() {
 
 		try {
+			System.out.println("[+] Establishing Connection");
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS);
 //			con = null;
+			System.out.println("[+] Connection Established");
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
