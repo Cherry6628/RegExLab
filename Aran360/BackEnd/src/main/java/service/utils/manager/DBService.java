@@ -17,8 +17,8 @@ public class DBService {
 		try {
 			System.out.println("[+] Establishing Connection");
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS);
-//			con = null;
+			con = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER,
+					ParamsAndDBLoader.DB_PASS);
 			System.out.println("[+] Connection Established");
 
 		} catch (ClassNotFoundException e) {
@@ -29,8 +29,9 @@ public class DBService {
 	}
 
 	public static Connection getConnection() {
-		if (con == null) {}
-			initializeConnection();
+		if (con == null) {
+		}
+		initializeConnection();
 		return con;
 	}
 }

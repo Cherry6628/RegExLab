@@ -1,16 +1,22 @@
 package service.helper.model;
 
-import java.io.Serializable;
+public class LabInstance {
 
-public class LabInstance implements Serializable {
-    private static final long serialVersionUID = 1L;
-	public String containerId;
-    public String ipAddress;
-    public long expiryTime;
+    public final String labName;
+    public final String containerId;
+    private final long expiresAt;
 
-    public LabInstance(String id, String ip, int durationSec) {
-        this.containerId = id;
-        this.ipAddress = ip;
-        this.expiryTime = System.currentTimeMillis() + (durationSec * 1000);
+    public LabInstance(String labName, String containerId, long timeoutSeconds) {
+        this.labName     = labName;
+        this.containerId = containerId;
+        this.expiresAt   = System.currentTimeMillis() + (timeoutSeconds * 1000L);
+    }
+
+    public boolean isExpired() {
+        return System.currentTimeMillis() >= expiresAt;
+    }
+
+    public long secondsRemaining() {
+        return (expiresAt - System.currentTimeMillis()) / 1000L;
     }
 }

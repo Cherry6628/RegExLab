@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { frontendbasename } from "../../utils/params";
 import { useGlobalContext } from "../ContextProvider/ContextProvider";
 import AllLabs from "../../pages/AllLabs/AllLabs";
+import Redirect from "../../component/Redirect/Redirect";
 export default function NavigationModal() {
   const context = useGlobalContext();
   return (
@@ -24,6 +25,7 @@ export default function NavigationModal() {
         <Route path="/all-labs" element={<AllLabs/>}/>
         <Route path="/test" element={<QuizMain/>} />
         <Route path="/result" element={<QuizResult/>} />
+        <Route path="/" element={<Redirect path="/dashboard"/>}/>
         <Route path="*" element={<NotFound_404/>} />
       </Routes>
     </BrowserRouter>
