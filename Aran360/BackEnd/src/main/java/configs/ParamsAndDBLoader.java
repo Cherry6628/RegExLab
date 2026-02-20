@@ -21,7 +21,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static String TEMP_NODE, TEMP_LAB;
 	public static int JWT_EXPIRY;
 	public static int MAX_SESSIONS_PER_USER;
-	public static int ARGON2ID_ITERATIONS, ARGON2ID_MEMORY, ARGON2ID_PARALLELISM;
+	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH;
 	public static int LAB_TIMEOUT_SECONDS;
 
 	@Override
@@ -45,18 +45,16 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			FRONTEND_URL = getProperty("FRONTEND_URL");
 			BACKEND_URL = getProperty("BACKEND_URL");
 			COOKIE_DOMAIN = getProperty("COOKIE_DOMAIN");
-			TEMP_NODE = getProperty("TEMP_NODE");
-			TEMP_LAB = getProperty("TEMP_LAB");
 			temp = getProperty("MAX_SESSIONS_PER_USER");
 			MAX_SESSIONS_PER_USER = (temp != null) ? Integer.parseInt(temp) : 2;
-			temp = getProperty("ARGON2ID_ITERATIONS");
-			ARGON2ID_ITERATIONS = (temp != null) ? Integer.parseInt(temp) : 10;
-			temp = getProperty("ARGON2ID_MEMORY");
-			ARGON2ID_MEMORY = (temp != null) ? Integer.parseInt(temp) : 1024;
-			temp = getProperty("ARGON2ID_PARALLELISM");
-			ARGON2ID_PARALLELISM = (temp != null) ? Integer.parseInt(temp) : 1;
+			temp = getProperty("PBKDF2_ITERATIONS");
+			PBKDF2_ITERATIONS = (temp != null) ? Integer.parseInt(temp) : 10;
+			temp = getProperty("PBKDF2_KEY_LENGTH");
+			PBKDF2_KEY_LENGTH = (temp != null) ? Integer.parseInt(temp) : 256;
 			temp = getProperty("LAB_TIMEOUT_SECONDS");
-			LAB_TIMEOUT_SECONDS = (temp !=null)?Integer.parseInt(temp):600;
+			LAB_TIMEOUT_SECONDS = (temp !=null)?Integer.parseInt(temp):1800;
+			
+			
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("""
 					CREATE TABLE IF NOT EXISTS users (

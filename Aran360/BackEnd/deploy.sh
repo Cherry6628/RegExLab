@@ -9,9 +9,9 @@ RUNTIME_CONTAINER="lab-runtime"
 NETWORK_NAME="lab-net"
 PORT="8765"
 
-echo "========================================"
-echo "   Aran360 - Full Stack Deploy"
-echo "========================================"
+echo "======================================="
+echo "                Aran360                "
+echo "======================================="
 
 cd ..
 javac BackEnd/LabRuntimeServer.java -d .
@@ -56,7 +56,7 @@ docker run -d \
   --add-host=host.docker.internal:host-gateway \
   $APP_IMAGE
 
-echo "----------------------------------------"
+echo "---------------------------------------"
 echo "[✓] Aran360 running at:"
 echo "    http://localhost:$PORT"
-echo "----------------------------------------"
+echo "---------------------------------------"

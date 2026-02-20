@@ -20,8 +20,8 @@ public class Logout extends HttpServlet {
             for (Cookie c : cookies) {
                 if ("AUTH_TOKEN".equals(c.getName())) {
                     String nonce = JWTService.getNonce(c.getValue());
-                    try (Connection conn = DriverManager.getConnection(ParamsAndDBLoader.DB_URL, ParamsAndDBLoader.DB_USER, ParamsAndDBLoader.DB_PASS)) {
-                        PreparedStatement pstmt = conn.prepareStatement("DELETE FROM login_sessions WHERE nonce = ?");
+                    try {
+                        PreparedStatement pstmt = DBService.getConnection().prepareStatement("DELETE FROM login_sessions WHERE nonce = ?");
                         pstmt.setString(1, nonce);
                         pstmt.executeUpdate();
                     } catch (Exception e) { e.printStackTrace(); }
