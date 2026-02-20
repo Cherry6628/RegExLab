@@ -1,7 +1,5 @@
 import "./AuthPage.css";
-// import Logo from "../../components/Logo/Logo.jsx";
 import AuthModal from "../../modals/AuthModal/AuthModal.jsx";
-import Logo from "../../component/Logo/Logo.jsx";
 import Header from "../../component/Header/Header.jsx";
 
 export default function AuthPage() {
