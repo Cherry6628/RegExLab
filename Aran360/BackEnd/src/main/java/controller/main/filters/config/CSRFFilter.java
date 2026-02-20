@@ -9,8 +9,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import service.helper.model.CachedBodyHttpServletRequest;
-import service.helper.model.JSONResponse;
+import model.helper.CachedBodyHttpServletRequest;
+import model.helper.JSONResponse;
 
 public class CSRFFilter extends HttpFilter {
 	private static final long serialVersionUID = 1L;

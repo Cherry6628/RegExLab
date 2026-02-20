@@ -3,7 +3,7 @@ package controller.main.servlets.auth;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import service.helper.model.JSONResponse;
+import model.helper.JSONResponse;
 import service.utils.manager.*;
 import java.io.IOException;
 import java.sql.*;

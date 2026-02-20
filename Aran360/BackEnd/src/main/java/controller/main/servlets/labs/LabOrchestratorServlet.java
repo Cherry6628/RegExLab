@@ -7,10 +7,9 @@ import java.util.concurrent.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
+import model.helper.LabInstance;
+import model.helper.LabRegistry;
 import configs.ParamsAndDBLoader;
-import service.helper.model.LabInstance;
-import service.helper.model.LabRegistry;
 import service.infrastructure.LabRuntimeClient;
 
 @WebServlet("/lab/image/*")

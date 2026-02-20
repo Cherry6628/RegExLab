@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 public class CSRFService {
 	public static HttpSession getSession(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-//		System.out.println(session.getId());
 		if(session==null) {
 			session = req.getSession(true);
 			System.out.println("New Session Created");
