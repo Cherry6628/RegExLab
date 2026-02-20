@@ -16,6 +16,10 @@ import ExaminingDatabase from "../../component/LearningMaterials/SQL/ExaminingDa
 import PathTraversalMaterial from "../../component/LearningMaterials/Path/PathTraversalMaterial";
 import AccessControl from "../../component/LearningMaterials/AccessControl/AccessControl";
 import IDOR from "../../component/LearningMaterials/AccessControl/IDOR";
+import Authentication from "../../component/LearningMaterials/Authentication/Authentication";
+import passwordAuth from "../../component/LearningMaterials/Authentication/PasswordAuth";
+import MultiFactor from "../../component/LearningMaterials/Authentication/MultiFactor";
+import OtherAuth from "../../component/LearningMaterials/Authentication/OtherAuth";
 
 const GlobalContext = createContext();
 
@@ -60,6 +64,16 @@ export default function ContextProvider({ children }) {
         "Access Control":{comp: AccessControl},
         "Insecure direct object references (IDOR)":{comp: IDOR},
         "View All XSS Labs": { url: frontendbasename + "all-labs#access-control" },
+      },
+    },
+    "Authentication": {
+      url: "authentication",
+      subTitles: {
+        "Authentication":{comp: Authentication},
+        "Password-based Authentication":{comp:passwordAuth},
+        "Multi-factor Authentication":{comp:MultiFactor},
+        "Other Authentication":{comp:OtherAuth},
+        "View All XSS Labs": { url: frontendbasename + "all-labs#authentication" },
       },
     },
     "Path Traversal": {
