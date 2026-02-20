@@ -113,10 +113,7 @@ export default function Header() {
                         <li
                             className="profile-container"
                             onClick={() => {
-                                navigate(
-                                    "/accounts" +
-                                        (context.uname ? "" : "#login"),
-                                );
+                                navigate("/accounts");
                             }}
                         >
                             {context.uname ? (

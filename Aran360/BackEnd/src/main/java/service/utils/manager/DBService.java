@@ -30,8 +30,8 @@ public class DBService {
 
 	public static Connection getConnection() {
 		if (con == null) {
+			initializeConnection();
 		}
-		initializeConnection();
 		return con;
 	}
 }

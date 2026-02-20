@@ -321,7 +321,7 @@ export default function XSSContexts(){
             inject their own malicious template expressions that launch an XSS
             attack.
           </p>
-          <div class="labbox">
+          <div className="labbox">
             <h3>Read more</h3>
             <ul>
               <li>Client-side template injection</li>

@@ -14,17 +14,19 @@ export default function SignupContainer({ setModal }) {
     const password = useRef(null);
     const username = useRef(null);
     const email = useRef(null);
-    const {showToast} = useToast();
+    const { showToast } = useToast();
     function signupCallback(uname, mail, pwd) {
-        signup(uname, mail, pwd).then((r) => {
-            showToast(r.message, r.status);
-            if (r?.status === success) {
-                navigate("/dashboard");
-                context.setUname(uname);
-            }
-        }).catch(r=>{
-            showToast(r.message, error)
-        })
+        signup(uname, mail, pwd)
+            .then((r) => {
+                showToast(r.message, r.status);
+                if (r?.status === success) {
+                    navigate("/dashboard");
+                    context.setUname(uname);
+                }
+            })
+            .catch((r) => {
+                showToast(r.message, error);
+            });
     }
 
     refreshCsrfToken();
