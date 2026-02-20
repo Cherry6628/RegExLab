@@ -9,8 +9,7 @@ import java.util.Map;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
-import service.helper.model.LabInstance;
+import model.helper.LabInstance;
 
 @WebServlet("/lab/view/*")
 public class LabProxyServlet extends HttpServlet {

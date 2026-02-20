@@ -1,4 +1,4 @@
-package service.helper.model;
+package model.helper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;

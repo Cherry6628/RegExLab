@@ -22,7 +22,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static String TEMP_NODE, TEMP_LAB;
 	public static int JWT_EXPIRY;
 	public static int MAX_SESSIONS_PER_USER;
-	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH;
+	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH, PBKDF2_SALT_LENGTH;
 	public static int LAB_TIMEOUT_SECONDS;
 
 	@Override
@@ -54,6 +54,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			PBKDF2_KEY_LENGTH = (temp != null) ? Integer.parseInt(temp) : 256;
 			temp = getProperty("LAB_TIMEOUT_SECONDS");
 			LAB_TIMEOUT_SECONDS = (temp != null) ? Integer.parseInt(temp) : 1800;
+			temp = getProperty("PBKDF2_SALT_LENGTH");
+			PBKDF2_SALT_LENGTH = (temp != null) ? Integer.parseInt(temp) : 16;
 
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("""
@@ -75,6 +77,15 @@ public class ParamsAndDBLoader implements ServletContextListener {
 					    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 					);
 					""");
+			 con.createStatement().execute("""
+			 CREATE TABLE IF NOT EXISTS password_reset_token (
+			 		id INT AUTO_INCREMENT PRIMARY KEY,
+			 		user INT UNIQUE KEY NOT NULL,
+			 		nonce VARCHAR(255) NOT NULL,
+			 		edited_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			 		
+			 );
+			 """);
 
 		} catch (Exception e) {
 			System.err.println("Error parsing configuration values: " + e.getMessage());
@@ -104,10 +115,10 @@ public class ParamsAndDBLoader implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		Set<String> running = service.helper.model.LabRegistry.getAll();
+		Set<String> running = model.helper.LabRegistry.getAll();
 		if (!running.isEmpty()) {
-			System.out.println("[LabCleanup] Destroying " + running.size()
-					+ " active lab container(s) on context shutdown...");
+			System.out.println(
+					"[LabCleanup] Destroying " + running.size() + " active lab container(s) on context shutdown...");
 
 			service.infrastructure.LabRuntimeClient client = new service.infrastructure.LabRuntimeClient();
 
@@ -116,8 +127,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 					System.out.println("[LabCleanup] Removing: " + containerName);
 					client.cleanupLab(containerName);
 				} catch (Exception e) {
-					System.err.println("[LabCleanup] Failed to remove "
-							+ containerName + ": " + e.getMessage());
+					System.err.println("[LabCleanup] Failed to remove " + containerName + ": " + e.getMessage());
 				}
 			}
 			System.out.println("[LabCleanup] Done.");
