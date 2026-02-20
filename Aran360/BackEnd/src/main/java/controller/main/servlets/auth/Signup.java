@@ -13,8 +13,6 @@ import service.utils.manager.SessionManager;
 import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLIntegrityConstraintViolationException;
 
