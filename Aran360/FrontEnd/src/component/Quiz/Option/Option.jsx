@@ -1,9 +1,9 @@
 import './Option.css';
-export default function Option({children, name}){
+export default function Option({id,children, name}){
     return(
-        <div className="box">
+        <label htmlFor={id} className="box">
             <p>{children}</p>
-            <input name={name} type="radio" className='click'/>
-        </div>
+            <input id={id} name={name} type="radio" className='click'/>
+        </label>
     );
 }

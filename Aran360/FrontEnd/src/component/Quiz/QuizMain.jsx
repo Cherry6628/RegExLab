@@ -13,7 +13,7 @@ export default function QuizMain() {
             <div id="QuizMain">
                 {display == 0 && (
                     <main className="content">
-                        <h1>What would you like to master today?</h1>
+                        <h1>What would you like to focus on today?</h1>
                         <p>
                             Select a vulnerability domain to begin your
                             interactive training session. Each
