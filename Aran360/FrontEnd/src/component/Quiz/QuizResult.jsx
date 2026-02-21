@@ -31,7 +31,7 @@ export default function QuizResult() {
                     <div>
                         <div className="inner">
                             <div className="point">
-                                <i className="fa-solid fa-circle-check"></i>
+                            <i class="fa-solid fa-star"></i>
                                 <p>Points&nbsp;Earned</p>
                                 <p>
                                     <span className="detail">8</span>/10 Correct
@@ -49,12 +49,12 @@ export default function QuizResult() {
                             <i className="fa-solid fa-chart-simple"></i>
                             <p>Performance Breakdown</p>
                             <ProgressBar
-                                answer={"Correct Answer"}
+                                answer={"Correct Answers"}
                                 value={80}
                                 isPass={true}
                             ></ProgressBar>
                             <ProgressBar
-                                answer={"Wrong Answer"}
+                                answer={"Wrong Answers"}
                                 value={20}
                                 isPass={false}
                             ></ProgressBar>
@@ -62,12 +62,12 @@ export default function QuizResult() {
                     </div>
                 </div>
                 <div className="btns">
-                    <Button onClick={goDashboard} icon="dashboard">
+                    <Button onClick={goDashboard} icon="dashboard" left={true}>
                         Back to <br />
                         Dashboard
                     </Button>
-                    <Button onClick={retake} icon="replay">
-                        Retake Quiz
+                    <Button onClick={retake} icon="replay" left={true}>
+                        New Quiz
                     </Button>
                 </div>
             </div>

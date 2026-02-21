@@ -50,8 +50,7 @@ export default function Dashboard({ name }) {
                             <div className="skill">
                                 <h1>Vulnerability Labs</h1>
                                 <p>
-                                    Real - world sandboxes to test your
-                                    defensive skills.
+                                Real-world sandboxes are provided to help you practice and strengthen your defensive skills.
                                 </p>
                             </div>
                         </div>

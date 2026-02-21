@@ -31,9 +31,9 @@ export default function LoginContainer({ setModal }) {
     return (
         <div className="login-container">
             <div className="login-header">
-                <h1 className="login-title">Welcome back</h1>
+                <h1 className="login-title">Welcome, Defender!</h1>
                 <p className="login-subtitle">
-                    Please enter your details to sign in.
+                Sign in to continue building your security skills.
                 </p>
             </div>
 
