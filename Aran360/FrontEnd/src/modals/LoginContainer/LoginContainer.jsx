@@ -13,19 +13,21 @@ export default function LoginContainer({ setModal }) {
     const navigate = useNavigate();
     const password = useRef(null);
     const username = useRef(null);
-    const {showToast} = useToast();
+    const { showToast } = useToast();
     function loginCallback(uname, pwd) {
-        login(uname, pwd).then((r) => {
-            showToast(r.message, r.status);
-            if (r?.status === success) {
-                navigate("/dashboard");
-                context.setUname(uname);
-            }
-        }).catch(r=>{
-            console.log(r);
-            console.log(typeof r);
-                    showToast(r, error)
-                })
+        login(uname, pwd)
+            .then((r) => {
+                showToast(r.message, r.status);
+                if (r?.status === success) {
+                    navigate("/dashboard");
+                    context.setUname(uname);
+                }
+            })
+            .catch((r) => {
+                console.log(r);
+                console.log(typeof r);
+                showToast(r.message, error);
+            });
     }
     refreshCsrfToken();
     return (
@@ -33,7 +35,7 @@ export default function LoginContainer({ setModal }) {
             <div className="login-header">
                 <h1 className="login-title">Welcome, Defender!</h1>
                 <p className="login-subtitle">
-                Sign in to continue building your security skills.
+                    Sign in to continue building your security skills.
                 </p>
             </div>
 
@@ -60,7 +62,7 @@ export default function LoginContainer({ setModal }) {
                         placeholder="••••••••"
                         ref={password}
                     />
-                    <a href="#" className="login-forgot-link">
+                    <a href="#" className="login-forgot-link" onClick={()=>setModal("forget-password")}>
                         Forgot Password?
                     </a>
                 </div>

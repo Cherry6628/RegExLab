@@ -68,3 +68,9 @@ const client = new (class BackendClient {
 
 export const backendFetch = client.fetch.bind(client);
 export const refreshCsrfToken = client.refreshCsrfToken.bind(client);
+
+
+export const isValidPassword = function (pwd){
+    return true;
+    // TODO
+}

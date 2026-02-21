@@ -10,6 +10,7 @@ import { frontendbasename } from "../../utils/params";
 import { useGlobalContext } from "../ContextProvider/ContextProvider";
 import AllLabs from "../../pages/AllLabs/AllLabs";
 import Redirect from "../../component/Redirect/Redirect";
+import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 export default function NavigationModal() {
   const context = useGlobalContext();
   return (
@@ -26,6 +27,7 @@ export default function NavigationModal() {
         <Route path="/test" element={<QuizMain/>} />
         <Route path="/result" element={<QuizResult/>} />
         <Route path="/" element={<Redirect path="/dashboard"/>}/>
+        <Route path="/reset-password" element={<AuthPage modal="reset-password"/>}/>
         <Route path="*" element={<NotFound_404/>} />
       </Routes>
     </BrowserRouter>

@@ -19,7 +19,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 
 	public static String JWT_SECRET, DB_URL, DB_USER, DB_PASS, EMAIL_DOMAIN, EMAIL_API_KEY;
 	public static String APP_NAME, FRONTEND_URL, BACKEND_URL, COOKIE_DOMAIN;
-	public static String TEMP_NODE, TEMP_LAB;
+	public static final String TABLE_USERS = "users", TABLE_LOGIN_SESSIONS = "login_sessions",
+			TABLE_PASSWORD_RESET = "password_reset";
 	public static int JWT_EXPIRY;
 	public static int MAX_SESSIONS_PER_USER;
 	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH, PBKDF2_SALT_LENGTH;
@@ -59,32 +60,41 @@ public class ParamsAndDBLoader implements ServletContextListener {
 
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("""
-					CREATE TABLE IF NOT EXISTS users (
-					    id INT AUTO_INCREMENT PRIMARY KEY,
-					    username VARCHAR(50) UNIQUE NOT NULL,
-					    email VARCHAR(100) UNIQUE NOT NULL,
-					    password_hash VARCHAR(255) NOT NULL,
-					    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-					);
-					""");
+			CREATE TABLE IF NOT EXISTS """ + TABLE_USERS + """
+			(
+			    id INT AUTO_INCREMENT PRIMARY KEY,
+			    username VARCHAR(100) UNIQUE NOT NULL,
+			    email VARCHAR(254) UNIQUE NOT NULL,
+			    password_hash VARCHAR(255) NOT NULL,
+			    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+			);
+			""");
+
 			con.createStatement().execute("""
-					CREATE TABLE IF NOT EXISTS login_sessions (
-					    id INT AUTO_INCREMENT PRIMARY KEY,
-					    username VARCHAR(50) NOT NULL,
-					    nonce VARCHAR(255) UNIQUE NOT NULL,
-					    user_agent TEXT,
-					    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-					    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
-					);
-					""");
-			 con.createStatement().execute("""
-			 CREATE TABLE IF NOT EXISTS password_reset_token (
-			 		id INT AUTO_INCREMENT PRIMARY KEY,
-			 		user INT UNIQUE KEY NOT NULL,
-			 		nonce VARCHAR(255) NOT NULL,
-			 		edited_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			 		
-			 );
+			CREATE TABLE IF NOT EXISTS """ + TABLE_LOGIN_SESSIONS + """
+			(
+			    id INT AUTO_INCREMENT PRIMARY KEY,
+			    user_id INT NOT NULL,
+			    nonce VARCHAR(255) UNIQUE NOT NULL,
+			    user_agent TEXT,
+			    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+				expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE)
+			    FOREIGN KEY (user_id) REFERENCES """ + TABLE_USERS + """
+			    	(id) ON DELETE CASCADE
+			);
+			""");
+
+			con.createStatement().execute("""
+			CREATE TABLE IF NOT EXISTS """ + TABLE_PASSWORD_RESET + """
+			(
+			    id INT AUTO_INCREMENT PRIMARY KEY,
+			    user_id INT UNIQUE NOT NULL,
+			    nonce VARCHAR(255) NOT NULL,
+			    edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			    expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
+			    FOREIGN KEY (user_id) REFERENCES """ + TABLE_USERS + """
+			    	(id) ON DELETE CASCADE
+			);
 			 """);
 
 		} catch (Exception e) {
