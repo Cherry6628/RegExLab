@@ -1,5 +1,6 @@
 import './Lab.css';
-export default function Lab({children}){
+import { Link } from "react-router-dom";
+export default function Lab({link,children}){
     return(
         <div id='lab'>
             <div className="practice">
@@ -7,7 +8,7 @@ export default function Lab({children}){
                     <span className="material-symbols-outlined">experiment</span>LAB
                 </div>
                 <div className="rightColor">
-                    <p>{children}</p>
+                    <Link to={link} target="_blank" rel="noopener noreferrer" >{children}</Link>
                     <span className="material-symbols-outlined">trending_flat</span>
                 </div>
             </div>

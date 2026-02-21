@@ -18,8 +18,8 @@
     align-items: center;
     gap: 10px;
 }
-#lab p:hover{
-    color: var(--text-main);
+#lab a:hover{
+    color: var(--text-main) !important;
 }
 #lab .rightColor{
     padding-left: 30px;
@@ -30,10 +30,12 @@
     padding-right: 20px;
     min-width: 0;
 }
-#lab .rightColor p{
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+#lab .rightColor a{
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    color: var(--text-dim);
+    font-size: var(--normal-size);
 }
 #lab .rightColor span{
     color:var(--text-dim);

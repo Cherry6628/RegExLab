@@ -52,41 +52,49 @@ export default function ContextProvider({ children }) {
     "SQL Injection (SQLi)": {
       url: "sql-injection",
       subTitles: {
-        "SQL-Injection":{comp: SQLMain},
-        "Examining the database":{comp:ExaminingDatabase},
-        "UNION Attacks":{comp:UnionAttack},
-        "Blind SQL Injection":{comp:BlindSql},
-        "View All XSS Labs": { url: frontendbasename + "all-labs#sql-injection" },
+        "SQL-Injection": { comp: SQLMain },
+        "Examining the database": { comp: ExaminingDatabase },
+        "UNION Attacks": { comp: UnionAttack },
+        "Blind SQL Injection": { comp: BlindSql },
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#sql-injection",
+        },
       },
     },
     "Access Control": {
       url: "access-control",
       subTitles: {
-        "Access Control":{comp: AccessControl},
-        "Insecure direct object references (IDOR)":{comp: IDOR},
-        "View All XSS Labs": { url: frontendbasename + "all-labs#access-control" },
+        "Access Control": { comp: AccessControl },
+        "Insecure direct object references (IDOR)": { comp: IDOR },
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#access-control",
+        },
       },
     },
-    "Authentication": {
+    Authentication: {
       url: "authentication",
       subTitles: {
-        "Authentication":{comp: Authentication},
-        "Password-based Authentication":{comp:passwordAuth},
-        "Multi-factor Authentication":{comp:MultiFactor},
-        "Other Authentication":{comp:OtherAuth},
-        "Secure authentication mechanisms":{comp:SecureAuthentication},
-        "View All XSS Labs": { url: frontendbasename + "all-labs#authentication" },
+        Authentication: { comp: Authentication },
+        "Password-based Authentication": { comp: passwordAuth },
+        "Multi-factor Authentication": { comp: MultiFactor },
+        "Other Authentication": { comp: OtherAuth },
+        "Secure authentication mechanisms": { comp: SecureAuthentication },
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#authentication",
+        },
       },
     },
     "Path Traversal": {
       url: "path-traversal",
       subTitles: {
-        "Path Traversal":{comp: PathTraversalMaterial},
-        "View All XSS Labs": { url: frontendbasename + "all-labs#path-traversal" },
+        "Path Traversal": { comp: PathTraversalMaterial },
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#path-traversal",
+        },
       },
     },
   };
-  
+
   const value = {
     uname,
     setUname,
