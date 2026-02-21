@@ -78,7 +78,8 @@ public class AuthFilter implements Filter {
 		try {
 			Connection conn = DBService.getConnection();
 			PreparedStatement pstmt = conn
-					.prepareStatement("SELECT 1 FROM login_sessions WHERE username = ? AND nonce = ?");
+					.prepareStatement("SELECT 1 FROM " + ParamsAndDBLoader.TABLE_LOGIN_SESSIONS
+							+ " WHERE username = ? AND nonce = ? AND expires_at > CURRENT_TIMESTAMP;");
 			pstmt.setString(1, username);
 			pstmt.setString(2, nonce);
 			ResultSet rs = pstmt.executeQuery();

@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
 		String password = body.optString("password");
 
 		try {
-			String query = "SELECT password_hash FROM users WHERE username = ?";
+			String query = "SELECT password_hash FROM "+ParamsAndDBLoader.TABLE_USERS+" WHERE username = ?";
 			PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();

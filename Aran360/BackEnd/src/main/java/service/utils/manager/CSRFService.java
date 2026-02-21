@@ -1,7 +1,5 @@
 package service.utils.manager;
 
-import java.util.UUID;
-
 import configs.ParamsAndDBLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +17,7 @@ public class CSRFService {
 		return session;
 	}
 	public static String csrfToken() {
-		return UUID.randomUUID().toString();
+		return RandomService.generateRandomString(128);
 	}
 	public static String setCSRFToken(HttpServletRequest req) {
 		HttpSession session = getSession(req);
