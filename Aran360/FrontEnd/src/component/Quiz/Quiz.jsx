@@ -2,6 +2,7 @@ import CodeSnippet from "../CodeSnippet/CodeSnippet";
 import "./Quiz.css";
 import Option from "./Option/Option";
 import Button from "../Button/Button";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Quiz({
   headline,
@@ -18,6 +19,7 @@ export default function Quiz({
   const goResult = ()=>{
     navigate("/result");
   }
+  const [selected, setSelected] = useState(null);
   return (
     <div id="Quiz">
       <h1 className="headline">{headline}</h1>
@@ -40,7 +42,7 @@ export default function Quiz({
       </p>
       {options.map((r, i) => {
         return (
-          <Option key={i} name={"name-" + quizId}>
+          <Option key={i} name={"name-" + quizId} value={r} checked={selected === r} onChange={() => setSelected(r)} >
             {r}
           </Option>
         );

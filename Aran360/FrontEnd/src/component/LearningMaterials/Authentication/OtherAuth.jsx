@@ -42,7 +42,7 @@ export default function OtherAuth(){
                     <Lab>Password reset poisoning via middleware</Lab>
                     <div className="labbox">
                         <h3>Read more</h3>
-                        <p><ul>Password reset poisoning</ul></p>
+                        <p><u>Password reset poisoning</u></p>
                     </div>
                 </section>
                 <section>
