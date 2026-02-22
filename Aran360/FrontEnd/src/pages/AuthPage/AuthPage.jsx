@@ -2,7 +2,7 @@ import "./AuthPage.css";
 import AuthModal from "../../modals/AuthModal/AuthModal.jsx";
 import Header from "../../component/Header/Header.jsx";
 
-export default function AuthPage({modal=undefined}) {
+export default function AuthPage({ modal = undefined }) {
     return (
         <div className="auth-page-wrapper">
             <Header />
@@ -52,7 +52,7 @@ export default function AuthPage({modal=undefined}) {
                 </div>
 
                 <div className="auth-form-section">
-                    {modal?<AuthModal defaultModal={modal}/>: <AuthModal/>}
+                    <AuthModal />
                 </div>
             </main>
 

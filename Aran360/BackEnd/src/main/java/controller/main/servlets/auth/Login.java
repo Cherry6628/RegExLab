@@ -41,13 +41,18 @@ public class Login extends HttpServlet {
 				setAuthCookie(response, token);
 				response.getWriter()
 						.write(JSONResponse.response(JSONResponse.SUCCESS, "Login Successful", csrfNew).toString());
+				return;
 			} else {
 				response.setStatus(401);
 				response.getWriter()
 						.write(JSONResponse.response(JSONResponse.ERROR, "Invalid Credentials", csrfNew).toString());
+				return;
 			}
 		} catch (Exception e) {
 			response.setStatus(500);
+			response.getWriter()
+			.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong, Please try again later.", csrfNew).toString());
+	return;
 		}
 	}
 
