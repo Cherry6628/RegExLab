@@ -21,13 +21,13 @@ export default function NavigationModal() {
           console.log(context.learningData[key].url)
           return <Route key={key} path={"/learning-material/"+context.learningData[key].url} element={<LearningMaterials list={context.learningData[key].subTitles}/>}/>
         })}
+        <Route path="/reset-password" element={<ResetPassword/>}/>
         <Route path="/accounts" element={context.uname?<Profile/>:<AuthPage/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/all-labs" element={<AllLabs/>}/>
         <Route path="/test" element={<QuizMain/>} />
         <Route path="/result" element={<QuizResult/>} />
         <Route path="/" element={<Redirect path="/dashboard"/>}/>
-        <Route path="/reset-password" element={<AuthPage modal="reset-password"/>}/>
         <Route path="*" element={<NotFound_404/>} />
       </Routes>
     </BrowserRouter>

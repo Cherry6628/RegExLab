@@ -15,7 +15,7 @@ public class PasswordResetDAO {
 		try (PreparedStatement pstmt = con.prepareStatement("INSERT INTO " + ParamsAndDBLoader.TABLE_PASSWORD_RESET
 				+ " (user_id, nonce) VALUES ((SELECT id FROM users WHERE email = ?), ?) ON DUPLICATE KEY UPDATE nonce = ?, edited_at = CURRENT_TIMESTAMP, expires_at = (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE)")) {
 			pstmt.setString(1, email);
-			String token = RandomService.generateRandomString(255);
+			String token = RandomService.generateRandomString(128, true, true, true, false);
 			pstmt.setString(2, token);
 			pstmt.setString(3, token);
 			pstmt.executeUpdate();

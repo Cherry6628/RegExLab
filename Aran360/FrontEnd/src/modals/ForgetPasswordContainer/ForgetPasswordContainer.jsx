@@ -1,8 +1,7 @@
 import Button from "../../component/Button/Button.jsx";
 import "./ForgetPasswordContainer.css";
 import { useRef } from "react";
-import { refreshCsrfToken } from "../../utils/helpers.js";
-import { useNavigate } from "react-router-dom";
+import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
 import { error, info, success } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
 import { useGlobalContext } from "../ContextProvider/ContextProvider.jsx";

@@ -50,17 +50,13 @@ public class ForgetPassword extends HttpServlet {
 				MailingService.sendEmail(email, "Action required: Reset your password", "Hello,\n\n"
 						+ "We received a request to reset the password for your account.\n\n"
 						+ "To continue, click the link below:\n"
-						+ ParamsAndDBLoader.BACKEND_URL+"/reset-password?token"+token+"\n\n"
+						+ ParamsAndDBLoader.BACKEND_URL+"/reset-password?token="+token+"\n\n"
 						+ "This link will expire in 15 minutes for security reasons.\n\n"
 						+ "If you did not request a password reset, you can safely ignore this email. No changes have been made to your account.\n\n"
 						+ "If you continue to receive unexpected reset requests, we recommend reviewing your account security.\n\n"
 						+ "—\n" + "Aran360");
 
 				response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "Please follow the instructions in the mail sent to your email address to reset your password", csrfNew).toString());
-				return;
-			} catch (UnirestException e) {
-				e.printStackTrace();
-				response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Unable to send password reset email, Please try again later.", csrfNew).toString());
 				return;
 			} catch (SQLException e) {
 				e.printStackTrace();

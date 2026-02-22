@@ -17,7 +17,9 @@ import service.utils.manager.DBService;
 public class ParamsAndDBLoader implements ServletContextListener {
 	private static final Properties allConfigs = new Properties();
 
-	public static String JWT_SECRET, DB_URL, DB_USER, DB_PASS, EMAIL_DOMAIN, EMAIL_API_KEY;
+	public static String JWT_SECRET, DB_URL, DB_USER, DB_PASS;
+//	public static String EMAIL_DOMAIN, EMAIL_API_KEY;
+	public static String EMAIL_ADDRESS, EMAIL_PASSWORD;
 	public static String APP_NAME, FRONTEND_URL, BACKEND_URL, COOKIE_DOMAIN;
 	public static final String TABLE_USERS = "users", TABLE_LOGIN_SESSIONS = "login_sessions",
 			TABLE_PASSWORD_RESET = "password_reset";
@@ -41,8 +43,10 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			DB_URL = getProperty("DB_URL");
 			DB_USER = getProperty("DB_USER");
 			DB_PASS = getProperty("DB_PASS");
-			EMAIL_DOMAIN = getProperty("EMAIL_DOMAIN");
-			EMAIL_API_KEY = getProperty("EMAIL_API_KEY");
+//			EMAIL_DOMAIN = getProperty("EMAIL_DOMAIN");
+//			EMAIL_API_KEY = getProperty("EMAIL_API_KEY");
+			EMAIL_ADDRESS = getProperty("EMAIL_ADDRESS");
+			EMAIL_PASSWORD = getProperty("EMAIL_PASSWORD");
 			APP_NAME = getProperty("APP_NAME");
 			FRONTEND_URL = getProperty("FRONTEND_URL");
 			BACKEND_URL = getProperty("BACKEND_URL");
@@ -59,43 +63,40 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			PBKDF2_SALT_LENGTH = (temp != null) ? Integer.parseInt(temp) : 16;
 
 			Connection con = DBService.getConnection();
-			con.createStatement().execute("""
-			CREATE TABLE IF NOT EXISTS """ + TABLE_USERS + """
+			con.createStatement().execute(
+			"CREATE TABLE IF NOT EXISTS " + TABLE_USERS + """
 			(
-			    id INT AUTO_INCREMENT PRIMARY KEY,
-			    username VARCHAR(100) UNIQUE NOT NULL,
-			    email VARCHAR(254) UNIQUE NOT NULL,
-			    password_hash VARCHAR(255) NOT NULL,
-			    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-			);
-			""");
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				username VARCHAR(100) UNIQUE NOT NULL,
+				email VARCHAR(254) UNIQUE NOT NULL,
+				password_hash VARCHAR(255) NOT NULL,
+				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+			)""");
 
-			con.createStatement().execute("""
-			CREATE TABLE IF NOT EXISTS """ + TABLE_LOGIN_SESSIONS + """
+			con.createStatement().execute(
+			"CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN_SESSIONS + """
 			(
-			    id INT AUTO_INCREMENT PRIMARY KEY,
-			    user_id INT NOT NULL,
-			    nonce VARCHAR(255) UNIQUE NOT NULL,
-			    user_agent TEXT,
-			    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-				expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE)
-			    FOREIGN KEY (user_id) REFERENCES """ + TABLE_USERS + """
-			    	(id) ON DELETE CASCADE
-			);
-			""");
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				user_id INT NOT NULL,
+				nonce VARCHAR(255) UNIQUE NOT NULL,
+				user_agent TEXT,
+				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+				expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE),
+				FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+				(id) ON DELETE CASCADE
+			)""");
 
-			con.createStatement().execute("""
-			CREATE TABLE IF NOT EXISTS """ + TABLE_PASSWORD_RESET + """
+			con.createStatement().execute(
+			"CREATE TABLE IF NOT EXISTS " + TABLE_PASSWORD_RESET + """
 			(
-			    id INT AUTO_INCREMENT PRIMARY KEY,
-			    user_id INT UNIQUE NOT NULL,
-			    nonce VARCHAR(255) NOT NULL,
-			    edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			    expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
-			    FOREIGN KEY (user_id) REFERENCES """ + TABLE_USERS + """
-			    	(id) ON DELETE CASCADE
-			);
-			 """);
+				id INT AUTO_INCREMENT PRIMARY KEY,
+				user_id INT UNIQUE NOT NULL,
+				nonce VARCHAR(255) NOT NULL,
+				edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+				expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
+				FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+				(id) ON DELETE CASCADE
+			)""");
 
 		} catch (Exception e) {
 			System.err.println("Error parsing configuration values: " + e.getMessage());
