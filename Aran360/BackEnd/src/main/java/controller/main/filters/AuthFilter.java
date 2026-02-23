@@ -20,7 +20,7 @@ import configs.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
-@WebFilter(urlPatterns = { "/lab", "/lab/*", "/quiz-data", "/quiz-data/*" })
+@WebFilter(urlPatterns = { "/lab", "/lab/*", "/quiz-data", "/quiz-data/*", "/user-data", "/test", "/result"})
 public class AuthFilter implements Filter {
 
 	@Override
@@ -35,7 +35,7 @@ public class AuthFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 
 		String token = extractAuthToken(req);
-
+		System.out.println("Token: "+token);
 		if (token == null) {
 			redirectToLogin(req, resp);
 			return;
@@ -47,19 +47,17 @@ public class AuthFilter implements Filter {
 			redirectToLogin(req, resp);
 			return;
 		}
+		System.out.println("username "+username);
 		String nonce = JWTService.getNonce(token);
 		if (nonce == null || !isNonceValid(username, nonce)) {
 			clearAuthCookie(resp);
 			redirectToLogin(req, resp);
 			return;
 		}
-
+		System.out.println("nonce: "+nonce);
 		req.setAttribute("AUTHENTICATED_USER", username);
+		
 		chain.doFilter(request, response);
-	}
-
-	@Override
-	public void destroy() {
 	}
 
 	private String extractAuthToken(HttpServletRequest req) {
@@ -79,7 +77,7 @@ public class AuthFilter implements Filter {
 			Connection conn = DBService.getConnection();
 			PreparedStatement pstmt = conn
 					.prepareStatement("SELECT 1 FROM " + ParamsAndDBLoader.TABLE_LOGIN_SESSIONS
-							+ " WHERE username = ? AND nonce = ? AND expires_at > CURRENT_TIMESTAMP;");
+							+ " WHERE user_id = (SELECT id from "+ParamsAndDBLoader.TABLE_USERS+" WHERE username = ?) AND nonce = ? AND expires_at > CURRENT_TIMESTAMP;");
 			pstmt.setString(1, username);
 			pstmt.setString(2, nonce);
 			ResultSet rs = pstmt.executeQuery();

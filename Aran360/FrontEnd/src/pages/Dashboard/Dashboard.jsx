@@ -3,7 +3,31 @@ import "./Dashboard.css";
 import ProgressBar from "../../component/ProgressBar/ProgressBar";
 import CircleBar from "../../component/ProgressBar/CircleBar";
 import Button from "../../component/Button/Button";
-export default function Dashboard({ name }) {
+import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
+import { useEffect } from "react";
+import { backendFetch } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+export default function Dashboard() {
+    const context = useGlobalContext();
+    const navigate = useNavigate();
+    useEffect(() => {
+        backendFetch("/user-data", { method: "GET" }).then((r) => {
+            context.setUname(r.uname);
+            context.setLabsStat((prev) => ({
+                ...prev,
+                labsCompleted: r.labsCompleted,
+                labsAbandoned: r.labsAbandoned,
+                labsAttempted: r.labsAttempted,
+            }));
+        });
+
+        backendFetch("/info", { method: "GET" }).then((r) => {
+            context.setLabsStat((prev) => ({
+                ...prev,
+                totalLabs: r.totalLabs,
+            }));
+        });
+    }, []);
     return (
         <>
             <div style={{ height: "100px" }}>
@@ -12,13 +36,13 @@ export default function Dashboard({ name }) {
             <div id="dashboard">
                 <div className="topBox">
                     <div className="user">
-                        <h1>Welcome back, Alex{name}</h1>
+                        <h1>Welcome back, {context.uname||"Guest"}</h1>
                         <p>
                             You're doing great. You've completed 16% of your
                             weekly goal
                         </p>
                         <div className="goal">
-                            <p>Current Learning Path</p>
+                            {context.uname?<><p>Current Learning Path</p>
                             <ProgressBar
                                 answer={"Cross - Site Request Forgery (CSRF)"}
                                 value={16}
@@ -32,11 +56,11 @@ export default function Dashboard({ name }) {
                                 answer={"Cross - Site Request Forgery (CSRF)"}
                                 value={16}
                                 isPass={true}
-                            ></ProgressBar>
+                            ></ProgressBar></>:<p style={context.uname?{}:{marginBottom: "0px", cursor: "pointer"}} onClick={()=>navigate("/accounts")}>Login to Continue Tracking your Progress</p>}
                         </div>
                     </div>
                     <div className="bar">
-                        <CircleBar value={16} r={80}></CircleBar>
+                        <CircleBar value={context.uname?16:0} r={80}></CircleBar>
                     </div>
                 </div>
                 <div className="lab">
@@ -50,12 +74,17 @@ export default function Dashboard({ name }) {
                             <div className="skill">
                                 <h1>Vulnerability Labs</h1>
                                 <p>
-                                Real-world sandboxes are provided to help you practice and strengthen your defensive skills.
+                                    Real-world sandboxes are provided to help
+                                    you practice and strengthen your defensive
+                                    skills.
                                 </p>
                             </div>
                         </div>
                         <div className="labCount">
-                            <h1>12/150</h1>
+                            <h1>
+                                {context.labsStat.labsCompleted || 0}/
+                                {context.labsStat.totalLabs || 0}
+                            </h1>
                             <p>LABS COMPLETED</p>
                         </div>
                     </div>
@@ -68,15 +97,29 @@ export default function Dashboard({ name }) {
                         <div className="count">
                             <p>LABS ATTEMPTED</p>
                             <div className="attend">
-                                <h1>24/150</h1>
-                                <p>16%</p>
+                                <h1>
+                                    {context.labsStat.labsAttempted || 0}/
+                                    {context.labsStat.totalLabs || 0}
+                                </h1>
+                                <p>
+                                    {((context.labsStat.labsAttempted * 100) /
+                                        context.labsStat.totalLabs || 0).toFixed(2)}
+                                    %
+                                </p>
                             </div>
                         </div>
                         <div className="count">
                             <p>LABS LEFT ABANDONED</p>
                             <div className="notfull">
-                                <h1>12/24</h1>
-                                <p>50%</p>
+                                <h1>
+                                    {context.labsStat.labsAbandoned || 0}/
+                                    {context.labsStat.labsAttempted || 0}
+                                </h1>
+                                <p>
+                                    {((context.labsStat.labsAbandoned * 100) /
+                                        context.labsStat.labsAttempted || 0).toFixed(2)}
+                                    %
+                                </p>
                             </div>
                         </div>
                     </div>
