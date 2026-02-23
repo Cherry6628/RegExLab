@@ -30,7 +30,7 @@ export default function LearningMaterials({ list }) {
         ></Sidebar>
 
         {ActiveComponent ? (
-          <ActiveComponent />
+          <ActiveComponent/>
         ) : (
           <h1>No Learning Material Found</h1>
         )}

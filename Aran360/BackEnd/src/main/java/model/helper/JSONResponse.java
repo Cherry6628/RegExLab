@@ -12,7 +12,7 @@ public class JSONResponse {
 	private JSONResponse(){}
 
 	public static JSONObject response(String status, String message, String csrfToken,
-			Map<String, String> otherParams) {
+			JSONObject otherParams) {
 		JSONObject json = new JSONObject();
 		if (status != null)
 			json.put("status", status);
@@ -21,8 +21,11 @@ public class JSONResponse {
 		if (csrfToken != null)
 			json.put("csrfToken", csrfToken);
 		if (otherParams != null) {
-			for (Entry<String, String> entry : otherParams.entrySet()) {
-				json.put(entry.getKey(), entry.getValue());
+//			for (Entry<String, String> entry : otherParams.entrySet()) {
+//				json.put(entry.getKey(), entry.getValue());
+//			}
+			for(String key: otherParams.keySet()) {
+				json.put(key, otherParams.get(key));
 			}
 		}
 		return json;
