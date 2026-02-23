@@ -14,7 +14,7 @@ export default function LearningMaterials({ list }) {
   return (
     <>
       <div style={{ height: "100px" }}>
-        <Header />
+        <Header setActiveId={setActiveId}/>
       </div>
       <div
         style={{

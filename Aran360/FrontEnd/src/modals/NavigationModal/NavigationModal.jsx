@@ -13,6 +13,7 @@ import Redirect from "../../component/Redirect/Redirect";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 export default function NavigationModal() {
   const context = useGlobalContext();
+  
   return (
     <BrowserRouter basename={frontendbasename}>
       <Routes>
@@ -23,6 +24,7 @@ export default function NavigationModal() {
         })}
         <Route path="/reset-password" element={<ResetPassword/>}/>
         <Route path="/accounts" element={context.uname?<Profile/>:<AuthPage/>} />
+        {/* <Route path="/profile" element={<Profile/>}/> */}
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/all-labs" element={<AllLabs/>}/>
         <Route path="/test" element={<QuizMain/>} />

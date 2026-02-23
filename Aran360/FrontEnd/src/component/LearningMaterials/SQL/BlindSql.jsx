@@ -13,7 +13,7 @@ export default function BlindSql() {
                     </p>
                 </section>
                 <section>
-                    <h1>What is blind SQL injection?</h1>
+                    <h1>What is Blind SQL injection?</h1>
                     <p>
                         Blind SQL injection occurs when an application is
                         vulnerable to SQL injection, but its HTTP responses do
@@ -32,7 +32,7 @@ export default function BlindSql() {
                 </section>
                 <section>
                     <h1>
-                        Exploiting blind SQL injection by triggering conditional
+                        Exploiting Blind SQL injection by triggering conditional
                         responses
                     </h1>
                     <p>

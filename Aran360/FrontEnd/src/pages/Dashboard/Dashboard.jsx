@@ -10,24 +10,6 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
     const context = useGlobalContext();
     const navigate = useNavigate();
-    useEffect(() => {
-        backendFetch("/user-data", { method: "GET" }).then((r) => {
-            context.setUname(r.uname);
-            context.setLabsStat((prev) => ({
-                ...prev,
-                labsCompleted: r.labsCompleted,
-                labsAbandoned: r.labsAbandoned,
-                labsAttempted: r.labsAttempted,
-            }));
-        });
-
-        backendFetch("/info", { method: "GET" }).then((r) => {
-            context.setLabsStat((prev) => ({
-                ...prev,
-                totalLabs: r.totalLabs,
-            }));
-        });
-    }, []);
     return (
         <>
             <div style={{ height: "100px" }}>

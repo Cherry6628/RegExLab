@@ -20,7 +20,7 @@ import configs.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
-@WebFilter(urlPatterns = { "/lab", "/lab/*", "/quiz-data", "/quiz-data/*", "/user-data", "/test", "/result"})
+@WebFilter(urlPatterns = { "/lab", "/lab/*", "/quiz-data", "/quiz-data/*", "/user-data", "/test", "/result", "/logout"})
 public class AuthFilter implements Filter {
 
 	@Override

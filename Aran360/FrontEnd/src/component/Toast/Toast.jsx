@@ -8,7 +8,7 @@ export default function Toast({
     onClose,
 }) {
     const [isVisible, setIsVisible] = useState(true);
-
+    
     const iconMap = {
         error: "error",
         success: "check_circle",

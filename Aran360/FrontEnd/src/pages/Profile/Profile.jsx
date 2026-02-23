@@ -1,7 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import Header from "../../component/Header/Header";
+import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
+import { backendFetch } from "../../utils/helpers";
 import "./Profile.css";
+import { useToast } from "../../component/Toast/ToastContext";
 export default function Profile() {
+    const context = useGlobalContext();
+    console.log(context);
+    const navigate = useNavigate();
+    const { showToast } = useToast();
+
     return (
         <>
             <div style={{ height: "100px" }}>
@@ -26,7 +35,10 @@ export default function Profile() {
                                 id="name"
                                 name="name"
                                 type="text"
-                                placeholder="John Doe"
+                                readOnly
+                                value={context.uname}
+                                autoComplete="off"
+                                style={{ color: "var(--text-main)" }}
                             />
                         </div>
                         <div className="profile-input-group">
@@ -35,10 +47,12 @@ export default function Profile() {
                                 id="email"
                                 name="email"
                                 type="email"
-                                placeholder="name@example.com"
+                                readOnly
+                                value={context.email}
+                                autoComplete="off"
+                                style={{ color: "var(--text-main)" }}
                             />
                         </div>
-                        <Button>Save Changes</Button>
                     </div>
                     <div className="personInfo">
                         <i className="fa-solid fa-shield-halved"></i>
@@ -53,14 +67,8 @@ export default function Profile() {
                                     htmlFor="pwd"
                                     type="password"
                                     placeholder="••••••••"
+                                    style={{ color: "var(--text-main)" }}
                                 />
-                                <span
-                                    id="pwd"
-                                    name="pwd"
-                                    className="profile-input-hint"
-                                >
-                                    Must be at least 8 characters
-                                </span>
                             </div>
                             <div className="profile-input-group">
                                 <label>New Password</label>
@@ -68,6 +76,7 @@ export default function Profile() {
                                     htmlFor="pwd"
                                     type="password"
                                     placeholder="••••••••"
+                                    style={{ color: "var(--text-main)" }}
                                 />
                                 <span
                                     id="pwd"
@@ -89,7 +98,17 @@ export default function Profile() {
                     <hr />
                     <div className="logOut">
                         <Button>Delete Account</Button>
-                        <Button>
+                        <Button
+                            onClick={() =>
+                                backendFetch("/logout", {
+                                    method: "POST",
+                                }).then((r) => {
+                                    context.clearUserData();
+                                    showToast(r.message, r.status);
+                                    navigate("/accounts");
+                                })
+                            }
+                        >
                             Log Out{" "}
                             <i className="fa-solid fa-right-from-bracket"></i>
                         </Button>

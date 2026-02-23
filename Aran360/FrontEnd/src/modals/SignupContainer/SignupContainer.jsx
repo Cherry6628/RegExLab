@@ -20,8 +20,8 @@ export default function SignupContainer({ setModal }) {
             .then((r) => {
                 showToast(r.message, r.status);
                 if (r?.status === success) {
+                    context.fetchUserData();
                     navigate("/dashboard");
-                    context.setUname(uname);
                 }
             })
             .catch((r) => {

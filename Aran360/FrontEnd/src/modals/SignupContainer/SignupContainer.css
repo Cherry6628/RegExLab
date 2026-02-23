@@ -48,7 +48,7 @@
     padding: 14px 18px;
     border-radius: 12px;
     border: 1.5px solid var(--border-light);
-    background-color: var(--card-white);
+    background-color: transparent;
     font-size: var(--label-size);
     outline: none;
     transition: border-color 0.2s;

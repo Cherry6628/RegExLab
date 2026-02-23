@@ -30,7 +30,7 @@ const client = new (class BackendClient {
         }
     }
 
-    async fetch(endpoint, { method = "GET", body, headers } = {}) {
+    async fetch(endpoint, { method = "GET", body={}, headers } = {}) {
         await this.#ensureValidToken();
         
         const options = {
@@ -44,16 +44,19 @@ const client = new (class BackendClient {
         };
 
         if (this.#csrfToken) options.headers["X-CSRF-Token"] = this.#csrfToken;
-
+        else console.log("NO CSRF TOKEN FOUND")
         const url = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
 
         if (method !== "GET" && body !== undefined) {
+            console.log("CSRF Token: "+this.#csrfToken);
+            
             options.body = JSON.stringify({ ...body, ...(this.#csrfToken && { csrfToken: this.#csrfToken }) });
         }
 
         const res = await fetch(`${this.baseUrl}${url}`, options);
 
         try {
+            
             const data = await res.json();
             if (data?.csrfToken) {
                 this.#csrfToken = data.csrfToken;
