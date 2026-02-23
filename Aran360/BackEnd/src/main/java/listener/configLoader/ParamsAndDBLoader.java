@@ -65,77 +65,109 @@ public class ParamsAndDBLoader implements ServletContextListener {
 
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_USERS + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            username VARCHAR(100) UNIQUE NOT NULL,
-			            email VARCHAR(254) UNIQUE NOT NULL,
-			            password_hash VARCHAR(255) NOT NULL,
-			            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-			        )""");
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    username VARCHAR(100) UNIQUE NOT NULL,
+					    email VARCHAR(254) UNIQUE NOT NULL,
+					    password_hash VARCHAR(255) NOT NULL,
+					    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+					)""");
 
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN_SESSIONS + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            user_id INT NOT NULL,
-			            nonce VARCHAR(255) UNIQUE NOT NULL,
-			            user_agent TEXT,
-			            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			            expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE),
-			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
-			            (id) ON DELETE CASCADE
-			        )""");
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    user_id INT NOT NULL,
+					    nonce VARCHAR(255) UNIQUE NOT NULL,
+					    user_agent TEXT,
+					    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					    expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE),
+					    FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+					    (id) ON DELETE CASCADE
+					)""");
 
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_PASSWORD_RESET + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            user_id INT UNIQUE NOT NULL,
-			            nonce VARCHAR(255) NOT NULL,
-			            edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			            expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
-			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
-			            (id) ON DELETE CASCADE
-			        )""");
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    user_id INT UNIQUE NOT NULL,
+					    nonce VARCHAR(255) NOT NULL,
+					    edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					    expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
+					    FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+					    (id) ON DELETE CASCADE
+					)""");
 
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LEARNING_TOPICS + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            topic VARCHAR(255) UNIQUE NOT NULL
-			        )""");
-
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    topic VARCHAR(255) UNIQUE NOT NULL
+					)""");
+			con.createStatement().execute("INSERT IGNORE INTO " + TABLE_LEARNING_TOPICS
+					+ " (topic) VALUES ('XSS'),('SQL Injection'),('Access Control'),('Authentication'),('Path Traversal')");
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LABS + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            topic_id INT NOT NULL,
-			            lab_name VARCHAR(512) NOT NULL,
-			            image VARCHAR(512) NOT NULL,
-			            FOREIGN KEY (topic_id) REFERENCES""" + " " + TABLE_LEARNING_TOPICS + """
-			            (id) ON DELETE CASCADE
-			        )""");
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    topic_id INT NOT NULL,
+					    lab_name VARCHAR(512) UNIQUE NOT NULL,
+					    image VARCHAR(512) NOT NULL,
+					    FOREIGN KEY (topic_id) REFERENCES""" + " " + TABLE_LEARNING_TOPICS + """
+					    (id) ON DELETE CASCADE
+					)""");
+			con.createStatement().execute(
+				    "INSERT IGNORE INTO " + TABLE_LABS + " (topic_id, lab_name, image) VALUES " +
 
+				    // XSS - topic_id via subquery
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Reflected XSS into HTML context with nothing encoded', 'xss-reflected-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Reflected XSS into attribute with angle brackets HTML encoded', 'xss-reflected-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Stored XSS into HTML context with nothing encoded', 'xss-stored-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Stored XSS into anchor href attribute with quotes encoded', 'xss-stored-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'DOM XSS in document.write sink using source location.search', 'xss-dom-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'DOM XSS in innerHTML sink using source location.search', 'xss-dom-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Surprise Lab - XSS', 'xss-surprise-1')," +
+
+				    // SQLi
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection vulnerability in WHERE clause allowing retrieval of hidden data', 'sqli-basic-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection vulnerability allowing login bypass', 'sqli-basic-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection UNION attack determining number of columns returned', 'sqli-union-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection UNION attack retrieving data from other tables', 'sqli-union-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'Blind SQL injection with conditional responses', 'sqli-blind-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'Blind SQL injection with time delays and information retrieval', 'sqli-blind-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'Surprise Lab - SQL Injection', 'sqli-surprise-1')," +
+
+				    // Access Control
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'Unprotected admin functionality exposed in robots.txt', 'ac-basic-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'User role controlled by request parameter', 'ac-basic-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'Surprise Lab - Access Control', 'ac-surprise-1')," +
+
+				    // Authentication
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Authentication'), 'Username enumeration via different responses', 'auth-basic-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Authentication'), 'Password brute force protection bypass via account lockout', 'auth-basic-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Authentication'), '2FA simple bypass via direct URL navigation', 'auth-basic-3')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Authentication'), 'Surprise Lab - Authentication', 'auth-surprise-1')"
+				);
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LAB_ATTEMPTS + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            user_id INT NOT NULL,
-			            lab_id INT NOT NULL,
-			            status ENUM('Completed', 'Attempted') NOT NULL,
-			            attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			            completed_at TIMESTAMP NULL DEFAULT NULL,
-			            UNIQUE (user_id, lab_id),
-			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
-			            (id) ON DELETE CASCADE,
-			            FOREIGN KEY (lab_id) REFERENCES""" + " " + TABLE_LABS + """
-			            (id) ON DELETE CASCADE
-			        )""");
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    user_id INT NOT NULL,
+					    lab_id INT NOT NULL,
+					    status ENUM('Completed', 'Attempted') NOT NULL,
+					    attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+					    completed_at TIMESTAMP NULL DEFAULT NULL,
+					    UNIQUE (user_id, lab_id),
+					    FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+					(id) ON DELETE CASCADE,
+					FOREIGN KEY (lab_id) REFERENCES""" + " " + TABLE_LABS + """
+					    (id) ON DELETE CASCADE
+					)""");
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LEARNING_PROGRESS + """
-			        (
-			            id INT AUTO_INCREMENT PRIMARY KEY,
-			            user_id INT UNIQUE NOT NULL,
-			            topic_url VARCHAR(255) NOT NULL,
-			            page_id VARCHAR(255) NOT NULL,
-			            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
-			            (id) ON DELETE CASCADE
-			        )""");
+					(
+					    id INT AUTO_INCREMENT PRIMARY KEY,
+					    user_id INT UNIQUE NOT NULL,
+					    topic_url VARCHAR(255) NOT NULL,
+					    page_id VARCHAR(255) NOT NULL,
+					    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+					    FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+					    (id) ON DELETE CASCADE
+					)""");
 		} catch (Exception e) {
 			System.err.println("Error parsing configuration values: " + e.getMessage());
 		}
