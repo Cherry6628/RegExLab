@@ -87,25 +87,25 @@ export default function ContextProvider({ children }) {
                 }),
             );
         });
-
-        backendFetch("/info", { method: "GET" }).then((r) => {
-            setLabsStat((prev) => ({ ...prev, totalLabs: r.totalLabs }));
-        });
     };
 
     const clearUserData = () => {
         sessionStorage.removeItem("userData");
         setUname(undefined);
         setEmail(undefined);
-        setLabsStat({
+        setLabsStat((prev) => ({
             labsCompleted: 0,
             labsAbandoned: 0,
             labsAttempted: 0,
-        });
+            totalLabs: prev.totalLabs,
+        }));
     };
 
     useEffect(() => {
         fetchUserData();
+        backendFetch("/info", { method: "GET" }).then((r) => {
+            setLabsStat((prev) => ({ ...prev, totalLabs: r.totalLabs }));
+        });
     }, []);
 
     const learningData = {

@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef, act } from "react";
+import { useState, useEffect, useRef } from "react";
 import Logo from "../Logo/Logo";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
-import { frontendbasename } from "../../utils/params";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 
-export default function Header({ setActiveId = ()=>{}}) {
+export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const context = useGlobalContext();
@@ -82,8 +81,6 @@ export default function Header({ setActiveId = ()=>{}}) {
                                     <li key={r}>
                                         <a
                                             onClick={() => {
-                                              console.log("asdf: "+Object.keys(context.learningData[r]));
-                                              setActiveId(Object.keys(context.learningData[r])[0]);
                                                 navigate(
                                                     "/learning-material/" +
                                                         context.learningData[r]

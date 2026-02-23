@@ -17,32 +17,68 @@ export default function Dashboard() {
             </div>
             <div id="dashboard">
                 <div className="topBox">
-                    <div className="user">
-                        <h1>Welcome back, {context.uname||"Guest"}</h1>
-                        <p>
-                            You're doing great. You've completed 16% of your
-                            weekly goal
-                        </p>
-                        <div className="goal">
-                            {context.uname?<><p>Current Learning Path</p>
-                            <ProgressBar
-                                answer={"Cross - Site Request Forgery (CSRF)"}
-                                value={16}
-                                isPass={true}
-                            ></ProgressBar>
-                            <Button className="btn" icon="play_circle">
-                                Resume Learning
-                            </Button>
-                            <hr />
-                            <ProgressBar
-                                answer={"Cross - Site Request Forgery (CSRF)"}
-                                value={16}
-                                isPass={true}
-                            ></ProgressBar></>:<p style={context.uname?{}:{marginBottom: "0px", cursor: "pointer"}} onClick={()=>navigate("/accounts")}>Login to Continue Tracking your Progress</p>}
+                    <h1>Welcome back, {context.uname || "Guest"}</h1>
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <div className="user">
+                            <p>
+                                You're doing great. You've completed 16% of your
+                                weekly goal
+                            </p>
+                            <div className="goal">
+                                {context.uname ? (
+                                    <>
+                                        <p>Current Learning Path</p>
+                                        <ProgressBar
+                                            answer={
+                                                "Cross - Site Request Forgery (CSRF)"
+                                            }
+                                            value={16}
+                                            isPass={true}
+                                        ></ProgressBar>
+                                        <Button
+                                            className="btn"
+                                            icon="play_circle"
+                                        >
+                                            Resume Learning
+                                        </Button>
+                                        <hr />
+                                        <ProgressBar
+                                            answer={
+                                                "Cross - Site Request Forgery (CSRF)"
+                                            }
+                                            value={16}
+                                            isPass={true}
+                                        ></ProgressBar>
+                                    </>
+                                ) : (
+                                    <p
+                                        style={
+                                            context.uname
+                                                ? {}
+                                                : {
+                                                      marginBottom: "0px",
+                                                      cursor: "pointer",
+                                                  }
+                                        }
+                                        onClick={() => navigate("/accounts")}
+                                    >
+                                        Login to Continue Tracking your Progress
+                                    </p>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className="bar">
-                        <CircleBar value={context.uname?16:0} r={80}></CircleBar>
+                        <div className="bar">
+                            <CircleBar
+                                value={context.uname ? 16 : 0}
+                                r={80}
+                            ></CircleBar>
+                        </div>
                     </div>
                 </div>
                 <div className="lab">
@@ -84,8 +120,10 @@ export default function Dashboard() {
                                     {context.labsStat.totalLabs || 0}
                                 </h1>
                                 <p>
-                                    {((context.labsStat.labsAttempted * 100) /
-                                        context.labsStat.totalLabs || 0).toFixed(2)}
+                                    {(
+                                        (context.labsStat.labsAttempted * 100) /
+                                            context.labsStat.totalLabs || 0
+                                    ).toFixed(2)}
                                     %
                                 </p>
                             </div>
@@ -98,8 +136,10 @@ export default function Dashboard() {
                                     {context.labsStat.labsAttempted || 0}
                                 </h1>
                                 <p>
-                                    {((context.labsStat.labsAbandoned * 100) /
-                                        context.labsStat.labsAttempted || 0).toFixed(2)}
+                                    {(
+                                        (context.labsStat.labsAbandoned * 100) /
+                                            context.labsStat.labsAttempted || 0
+                                    ).toFixed(2)}
                                     %
                                 </p>
                             </div>

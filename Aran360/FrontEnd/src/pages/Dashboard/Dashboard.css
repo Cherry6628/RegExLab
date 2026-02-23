@@ -4,13 +4,10 @@
     margin: auto;
 }
 #dashboard .topBox {
-    display: flex;
-    align-items: center;
     background: linear-gradient(90deg, #0e1f33 0%, #162447 50%, #1b1f4a 100%);
     border: 2px solid var(--border-light);
     border-radius: 12px;
     padding: 30px;
-    flex-wrap: wrap;
     margin-bottom: 30px;
 }
 #dashboard .bar {
