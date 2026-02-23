@@ -51,10 +51,10 @@ body {
 
     --danger-red: var(--error-red);
 
+    --small-size: 13px;
     --label-size: 14px;
     --default-size: 16px;
     --semi-normal-size:20px;
-    --small-size: 13px;
     --normal-size: 20px;
     --semi-large-size: 28px;
     --large-size: 35px;
