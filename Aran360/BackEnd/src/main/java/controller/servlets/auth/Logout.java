@@ -1,13 +1,13 @@
-package controller.main.servlets.auth;
+package controller.servlets.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
 import service.utils.manager.*;
 import java.io.IOException;
 import java.sql.*;
-import configs.ParamsAndDBLoader;
 
 @WebServlet("/logout")
 public class Logout extends HttpServlet {

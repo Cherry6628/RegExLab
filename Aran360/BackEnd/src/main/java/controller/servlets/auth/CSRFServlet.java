@@ -1,4 +1,4 @@
-package controller.main.servlets.auth;
+package controller.servlets.auth;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

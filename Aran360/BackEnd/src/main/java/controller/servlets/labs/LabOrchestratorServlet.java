@@ -1,4 +1,4 @@
-package controller.main.servlets.labs;
+package controller.servlets.labs;
 
 import java.io.IOException;
 import java.util.Map;
@@ -7,9 +7,9 @@ import java.util.concurrent.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import listener.configLoader.ParamsAndDBLoader;
 import model.helper.LabInstance;
 import model.helper.LabRegistry;
-import configs.ParamsAndDBLoader;
 import service.infrastructure.LabRuntimeClient;
 
 @WebServlet("/lab/image/*")

@@ -1,10 +1,11 @@
-package controller.main.servlets.auth;
+package controller.servlets.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
@@ -13,8 +14,6 @@ import service.utils.manager.SessionManager;
 import service.utils.manager.ValidatorService;
 
 import org.json.JSONObject;
-
-import configs.ParamsAndDBLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,8 +1,8 @@
 package service.utils.manager;
 
-import configs.ParamsAndDBLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import listener.configLoader.ParamsAndDBLoader;
 
 public class CSRFService {
 	public static HttpSession getSession(HttpServletRequest req) {

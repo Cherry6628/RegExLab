@@ -1,10 +1,11 @@
-package controller.main.servlets.auth;
+package controller.servlets.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import listener.configLoader.ParamsAndDBLoader;
 import model.dao.PasswordResetDAO;
 import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
@@ -18,8 +19,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.json.JSONObject;
-
-import configs.ParamsAndDBLoader;
 
 @WebServlet("/reset-pwd")
 public class ResetPassword extends HttpServlet {

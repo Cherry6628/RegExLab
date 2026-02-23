@@ -17,7 +17,11 @@ export default function Dashboard() {
             </div>
             <div id="dashboard">
                 <div className="topBox">
-                    <h1>Welcome back, {context.uname || "Guest"}</h1>
+                    <h1>
+                        {context.uname
+                            ? "Welcome Back, " + context.uname
+                            : "Hello, Guest"}
+                    </h1>
                     <div
                         style={{
                             display: "flex",

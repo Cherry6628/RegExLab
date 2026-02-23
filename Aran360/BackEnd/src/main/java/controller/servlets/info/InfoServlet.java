@@ -1,4 +1,4 @@
-package controller.main.servlets.info;
+package controller.servlets.info;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

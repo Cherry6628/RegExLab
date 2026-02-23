@@ -1,4 +1,4 @@
-package configs;
+package listener.configLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +22,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static String EMAIL_ADDRESS, EMAIL_PASSWORD;
 	public static String APP_NAME, FRONTEND_URL, BACKEND_URL, COOKIE_DOMAIN;
 	public static final String TABLE_USERS = "users", TABLE_LOGIN_SESSIONS = "login_sessions",
-			TABLE_PASSWORD_RESET = "password_reset";
+			TABLE_PASSWORD_RESET = "password_reset", TABLE_LABS = "labs", TABLE_LEARNING_TOPICS = "learning_topics",
+			TABLE_LAB_ATTEMPTS = "lab_attempts", TABLE_LEARNING_PROGRESS = "learning_progress";
 	public static int JWT_EXPIRY;
 	public static int MAX_SESSIONS_PER_USER;
 	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH, PBKDF2_SALT_LENGTH;
@@ -63,41 +64,78 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			PBKDF2_SALT_LENGTH = (temp != null) ? Integer.parseInt(temp) : 16;
 
 			Connection con = DBService.getConnection();
-			con.createStatement().execute(
-			"CREATE TABLE IF NOT EXISTS " + TABLE_USERS + """
-			(
-				id INT AUTO_INCREMENT PRIMARY KEY,
-				username VARCHAR(100) UNIQUE NOT NULL,
-				email VARCHAR(254) UNIQUE NOT NULL,
-				password_hash VARCHAR(255) NOT NULL,
-				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-			)""");
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_USERS + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            username VARCHAR(100) UNIQUE NOT NULL,
+			            email VARCHAR(254) UNIQUE NOT NULL,
+			            password_hash VARCHAR(255) NOT NULL,
+			            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+			        )""");
 
-			con.createStatement().execute(
-			"CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN_SESSIONS + """
-			(
-				id INT AUTO_INCREMENT PRIMARY KEY,
-				user_id INT NOT NULL,
-				nonce VARCHAR(255) UNIQUE NOT NULL,
-				user_agent TEXT,
-				created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-				expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE),
-				FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
-				(id) ON DELETE CASCADE
-			)""");
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LOGIN_SESSIONS + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            user_id INT NOT NULL,
+			            nonce VARCHAR(255) UNIQUE NOT NULL,
+			            user_agent TEXT,
+			            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			            expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1440 MINUTE),
+			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+			            (id) ON DELETE CASCADE
+			        )""");
 
-			con.createStatement().execute(
-			"CREATE TABLE IF NOT EXISTS " + TABLE_PASSWORD_RESET + """
-			(
-				id INT AUTO_INCREMENT PRIMARY KEY,
-				user_id INT UNIQUE NOT NULL,
-				nonce VARCHAR(255) NOT NULL,
-				edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-				expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
-				FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
-				(id) ON DELETE CASCADE
-			)""");
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_PASSWORD_RESET + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            user_id INT UNIQUE NOT NULL,
+			            nonce VARCHAR(255) NOT NULL,
+			            edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			            expires_at TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 15 MINUTE),
+			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+			            (id) ON DELETE CASCADE
+			        )""");
 
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LEARNING_TOPICS + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            topic VARCHAR(255) UNIQUE NOT NULL
+			        )""");
+
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LABS + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            topic_id INT NOT NULL,
+			            lab_name VARCHAR(512) NOT NULL,
+			            image VARCHAR(512) NOT NULL,
+			            FOREIGN KEY (topic_id) REFERENCES""" + " " + TABLE_LEARNING_TOPICS + """
+			            (id) ON DELETE CASCADE
+			        )""");
+
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LAB_ATTEMPTS + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            user_id INT NOT NULL,
+			            lab_id INT NOT NULL,
+			            status ENUM('Completed', 'Attempted') NOT NULL,
+			            attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			            completed_at TIMESTAMP NULL DEFAULT NULL,
+			            UNIQUE (user_id, lab_id),
+			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+			            (id) ON DELETE CASCADE,
+			            FOREIGN KEY (lab_id) REFERENCES""" + " " + TABLE_LABS + """
+			            (id) ON DELETE CASCADE
+			        )""");
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LEARNING_PROGRESS + """
+			        (
+			            id INT AUTO_INCREMENT PRIMARY KEY,
+			            user_id INT UNIQUE NOT NULL,
+			            topic_url VARCHAR(255) NOT NULL,
+			            page_id VARCHAR(255) NOT NULL,
+			            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			            FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+			            (id) ON DELETE CASCADE
+			        )""");
 		} catch (Exception e) {
 			System.err.println("Error parsing configuration values: " + e.getMessage());
 		}

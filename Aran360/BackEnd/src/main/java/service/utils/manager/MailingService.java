@@ -36,8 +36,9 @@ import org.json.JSONObject;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import listener.configLoader.ParamsAndDBLoader;
+
 import java.util.Properties;
-import configs.ParamsAndDBLoader;
 
 public class MailingService {
     public static JSONObject sendEmail(String toEmail, String toName, String subject, String textContent) {

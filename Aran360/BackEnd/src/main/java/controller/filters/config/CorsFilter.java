@@ -1,4 +1,4 @@
-package controller.main.filters.config;
+package controller.filters.config;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -7,9 +7,9 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 
-import configs.ParamsAndDBLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import listener.configLoader.ParamsAndDBLoader;
 
 public class CorsFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)

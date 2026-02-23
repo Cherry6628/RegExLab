@@ -3,8 +3,9 @@ package service.utils.manager;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import listener.configLoader.ParamsAndDBLoader;
+
 import java.util.Date;
-import configs.ParamsAndDBLoader;
 
 public class JWTService {
 

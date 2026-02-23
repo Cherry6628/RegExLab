@@ -1,4 +1,4 @@
-package controller.main.filters;
+package controller.filters.auth;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,8 +15,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import configs.ParamsAndDBLoader;
+import listener.configLoader.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 

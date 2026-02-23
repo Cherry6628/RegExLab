@@ -1,4 +1,4 @@
-package controller.main.servlets.labs;
+package controller.servlets.labs;
 
 import java.io.*;
 import java.net.*;

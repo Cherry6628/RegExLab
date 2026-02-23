@@ -1,4 +1,4 @@
-package controller.main.filters.config;
+package controller.filters.config;
 import java.io.BufferedReader;
 import java.io.IOException;
 import org.json.JSONObject;
