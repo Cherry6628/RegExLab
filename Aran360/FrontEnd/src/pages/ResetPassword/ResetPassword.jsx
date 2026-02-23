@@ -6,6 +6,7 @@ import { useToast } from "../../component/Toast/ToastContext";
 import "./ResetPassword.css"
 import Header from "../../component/Header/Header";
 import { success, error, info } from "../../utils/params";
+import Button from "../../component/Button/Button";
 
 export default function ResetPassword() {
     const token = new URLSearchParams(window.location.search).get("token");
@@ -93,16 +94,23 @@ export default function ResetPassword() {
                     <div style={{ height: "100px" }}>
                         <Header/>
                     </div>
-                    <div>
-                        <input type="password" id="pwd" name="pwd" ref={pwd} />
+                    <div className="reset-container">
+                        <h1 style={{color:"var(--text-main)"}}>Reset Password</h1>
+                    <div className="reset-input-group" >
+                        <label htmlFor="pwd">New Password</label>
+                        <input type="password" id="pwd" name="pwd" ref={pwd}  placeholder="••••••••" />
+                        <label htmlFor="repwd">Confirm Password</label>
                         <input
                             type="password"
                             id="repwd"
                             name="repwd"
                             ref={repwd}
+                            placeholder="••••••••"
                         />
-                        <input onClick={sendResetReq} type="submit" />
+                        <Button onClick={sendResetReq} type="submit" >Submit</Button>
                     </div>
+                    </div>
+                    
                 </div>
             </main>
 
