@@ -2,7 +2,7 @@ package service.utils.manager;
 
 import java.sql.*;
 import jakarta.servlet.http.HttpServletRequest;
-import configs.ParamsAndDBLoader;
+import listener.configLoader.ParamsAndDBLoader;
 
 public class SessionManager {
 

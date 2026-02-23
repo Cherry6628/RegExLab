@@ -1,8 +1,8 @@
 package service.utils.manager;
 
-import configs.ParamsAndDBLoader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import listener.configLoader.ParamsAndDBLoader;
 
 public class CSRFService {
 	public static HttpSession getSession(HttpServletRequest req) {
@@ -21,11 +21,9 @@ public class CSRFService {
 	}
 	public static String setCSRFToken(HttpServletRequest req) {
 		HttpSession session = getSession(req);
-//		if (session!=null) {
 			String csrfToken = csrfToken();
 			session.setAttribute("csrfToken", csrfToken);
 			System.out.println(csrfToken+" set on Session "+session.getId());
-//		}
 		return csrfToken;
 	}
 	public static String getCSRFToken(HttpServletRequest req) {

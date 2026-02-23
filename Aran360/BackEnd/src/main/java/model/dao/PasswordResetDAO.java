@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import configs.ParamsAndDBLoader;
+import listener.configLoader.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.RandomService;
 

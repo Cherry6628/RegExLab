@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import configs.ParamsAndDBLoader;
+import listener.configLoader.ParamsAndDBLoader;
 
 public class DBService {
 	private static Connection con;

@@ -1,8 +1,5 @@
 package model.helper;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.json.JSONObject;
 
 public class JSONResponse {
@@ -21,9 +18,6 @@ public class JSONResponse {
 		if (csrfToken != null)
 			json.put("csrfToken", csrfToken);
 		if (otherParams != null) {
-//			for (Entry<String, String> entry : otherParams.entrySet()) {
-//				json.put(entry.getKey(), entry.getValue());
-//			}
 			for(String key: otherParams.keySet()) {
 				json.put(key, otherParams.get(key));
 			}

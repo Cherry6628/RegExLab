@@ -1,9 +1,10 @@
 package service.utils.manager;
 
-import configs.ParamsAndDBLoader;
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+
+import listener.configLoader.ParamsAndDBLoader;
+
 import java.security.SecureRandom;
 import java.security.MessageDigest;
 import java.util.Base64;

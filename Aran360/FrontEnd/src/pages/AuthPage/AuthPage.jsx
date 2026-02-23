@@ -1,8 +1,11 @@
 import "./AuthPage.css";
 import AuthModal from "../../modals/AuthModal/AuthModal.jsx";
 import Header from "../../component/Header/Header.jsx";
+import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider.jsx";
 
-export default function AuthPage({ modal = undefined }) {
+export default function AuthPage() {
+    const context = useGlobalContext();
+    console.log(context);
     return (
         <div className="auth-page-wrapper">
             <Header />

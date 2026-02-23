@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { frontendbasename } from "../../utils/params";
 import ReflectedXSSMaterial from "../../component/LearningMaterials/XSS/ReflectedXSSMaterial";
 import XSSMaterial from "../../component/LearningMaterials/XSS/XSSMaterial";
@@ -21,20 +21,93 @@ import passwordAuth from "../../component/LearningMaterials/Authentication/Passw
 import MultiFactor from "../../component/LearningMaterials/Authentication/MultiFactor";
 import OtherAuth from "../../component/LearningMaterials/Authentication/OtherAuth";
 import SecureAuthentication from "../../component/LearningMaterials/Authentication/SecureAuthentication";
+import { backendFetch } from "../../utils/helpers";
 
 const GlobalContext = createContext();
+
+const isValidCache = (data) => {
+    return (
+        data &&
+        typeof data.uname === "string" &&
+        data.uname.trim() !== "" &&
+        typeof data.email === "string" &&
+        data.email.trim() !== "" &&
+        data.labsStat &&
+        typeof data.labsStat.labsCompleted === "number"
+    );
+};
 
 export default function ContextProvider({ children }) {
     const [uname, setUname] = useState(undefined);
     const [email, setEmail] = useState(undefined);
     const [darkTheme, setDarkTheme] = useState(true);
-    const [csrfToken, setCSRFToken] = useState(undefined);
-    const [labsStat, setLabsStat] = useState({ 
-    labsCompleted: 0,
-    labsAbandoned: 0,
-    labsAttempted: 0, 
-    totalLabs: 0 
-});
+    const [labsStat, setLabsStat] = useState({
+        labsCompleted: 0,
+        labsAbandoned: 0,
+        labsAttempted: 0,
+        totalLabs: 0,
+    });
+
+    const fetchUserData = () => {
+        try {
+            const cached = sessionStorage.getItem("userData");
+            if (cached) {
+                const data = JSON.parse(cached);
+                if (isValidCache(data)) {
+                    setUname(data.uname);
+                    setEmail(data.email);
+                    setLabsStat((prev) => ({ ...prev, ...data.labsStat }));
+                    return;
+                }
+                sessionStorage.removeItem("userData");
+            }
+        } catch {
+            sessionStorage.removeItem("userData");
+        }
+
+        backendFetch("/user-data", { method: "GET" }).then((r) => {
+            setUname(r.uname);
+            setEmail(r.email);
+            setLabsStat((prev) => ({
+                ...prev,
+                labsCompleted: r.labsCompleted,
+                labsAbandoned: r.labsAbandoned,
+                labsAttempted: r.labsAttempted,
+            }));
+            sessionStorage.setItem(
+                "userData",
+                JSON.stringify({
+                    uname: r.uname,
+                    email: r.email,
+                    labsStat: {
+                        labsCompleted: r.labsCompleted,
+                        labsAbandoned: r.labsAbandoned,
+                        labsAttempted: r.labsAttempted,
+                    },
+                }),
+            );
+        });
+    };
+
+    const clearUserData = () => {
+        sessionStorage.removeItem("userData");
+        setUname(undefined);
+        setEmail(undefined);
+        setLabsStat((prev) => ({
+            labsCompleted: 0,
+            labsAbandoned: 0,
+            labsAttempted: 0,
+            totalLabs: prev.totalLabs,
+        }));
+    };
+
+    useEffect(() => {
+        fetchUserData();
+        backendFetch("/info", { method: "GET" }).then((r) => {
+            setLabsStat((prev) => ({ ...prev, totalLabs: r.totalLabs }));
+        });
+    }, []);
+
     const learningData = {
         "Cross Site Scripting (XSS)": {
             url: "xss",
@@ -117,12 +190,13 @@ export default function ContextProvider({ children }) {
         setEmail,
         darkTheme,
         setDarkTheme,
-        csrfToken,
-        setCSRFToken,
         learningData,
         labsStat,
         setLabsStat,
+        fetchUserData,
+        clearUserData,
     };
+
     return (
         <GlobalContext.Provider value={value}>
             {children}
