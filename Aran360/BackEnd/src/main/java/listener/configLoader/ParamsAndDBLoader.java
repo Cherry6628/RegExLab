@@ -115,7 +115,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			con.createStatement().execute(
 				    "INSERT IGNORE INTO " + TABLE_LABS + " (topic_id, lab_name, image) VALUES " +
 
-				    // XSS - topic_id via subquery
+				    // XSS
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Reflected XSS into HTML context with nothing encoded', 'xss-reflected-1')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Reflected XSS into attribute with angle brackets HTML encoded', 'xss-reflected-2')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Stored XSS into HTML context with nothing encoded', 'xss-stored-1')," +
@@ -124,7 +124,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'DOM XSS in innerHTML sink using source location.search', 'xss-dom-2')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Surprise Lab - XSS', 'xss-surprise-1')," +
 
-				    // SQLi
+				    // SQL Injection
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection vulnerability in WHERE clause allowing retrieval of hidden data', 'sqli-basic-1')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection vulnerability allowing login bypass', 'sqli-basic-2')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection UNION attack determining number of columns returned', 'sqli-union-1')," +
@@ -136,6 +136,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 				    // Access Control
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'Unprotected admin functionality exposed in robots.txt', 'ac-basic-1')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'User role controlled by request parameter', 'ac-basic-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'Insecure direct object reference on user data endpoint', 'ac-basic-3')," +
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'Surprise Lab - Access Control', 'ac-surprise-1')," +
 
 				    // Authentication
