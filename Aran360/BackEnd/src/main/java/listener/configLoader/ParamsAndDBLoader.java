@@ -101,8 +101,12 @@ public class ParamsAndDBLoader implements ServletContextListener {
 					    id INT AUTO_INCREMENT PRIMARY KEY,
 					    topic VARCHAR(255) UNIQUE NOT NULL
 					)""");
-			con.createStatement().execute("INSERT IGNORE INTO " + TABLE_LEARNING_TOPICS
-					+ " (topic) VALUES ('XSS'),('SQL Injection'),('Access Control'),('Authentication'),('Path Traversal')");
+			con.createStatement().execute("INSERT IGNORE INTO " + TABLE_LEARNING_TOPICS + " (topic) VALUES " +
+				    "('Cross Site Scripting (XSS)')," +
+				    "('SQL Injection (SQLi)')," +
+				    "('Access Control')," +
+				    "('Authentication')," +
+				    "('Path Traversal')");
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_LABS + """
 					(
 					    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -116,22 +120,22 @@ public class ParamsAndDBLoader implements ServletContextListener {
 				    "INSERT IGNORE INTO " + TABLE_LABS + " (topic_id, lab_name, image) VALUES " +
 
 				    // XSS
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Reflected XSS into HTML context with nothing encoded', 'xss-reflected-1')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Reflected XSS into attribute with angle brackets HTML encoded', 'xss-reflected-2')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Stored XSS into HTML context with nothing encoded', 'xss-stored-1')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Stored XSS into anchor href attribute with quotes encoded', 'xss-stored-2')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'DOM XSS in document.write sink using source location.search', 'xss-dom-1')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'DOM XSS in innerHTML sink using source location.search', 'xss-dom-2')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'XSS'), 'Surprise Lab - XSS', 'xss-surprise-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'Reflected XSS into HTML context with nothing encoded', 'xss-reflected-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'Reflected XSS into attribute with angle brackets HTML encoded', 'xss-reflected-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'Stored XSS into HTML context with nothing encoded', 'xss-stored-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'Stored XSS into anchor href attribute with quotes encoded', 'xss-stored-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'DOM XSS in document.write sink using source location.search', 'xss-dom-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'DOM XSS in innerHTML sink using source location.search', 'xss-dom-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Cross Site Scripting (XSS)'), 'Surprise Lab - XSS', 'xss-surprise-1')," +
 
-				    // SQL Injection
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection vulnerability in WHERE clause allowing retrieval of hidden data', 'sqli-basic-1')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection vulnerability allowing login bypass', 'sqli-basic-2')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection UNION attack determining number of columns returned', 'sqli-union-1')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'SQL injection UNION attack retrieving data from other tables', 'sqli-union-2')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'Blind SQL injection with conditional responses', 'sqli-blind-1')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'Blind SQL injection with time delays and information retrieval', 'sqli-blind-2')," +
-				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection'), 'Surprise Lab - SQL Injection', 'sqli-surprise-1')," +
+				    // SQLi
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'SQL injection vulnerability in WHERE clause allowing retrieval of hidden data', 'sqli-basic-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'SQL injection vulnerability allowing login bypass', 'sqli-basic-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'SQL injection UNION attack determining number of columns returned', 'sqli-union-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'SQL injection UNION attack retrieving data from other tables', 'sqli-union-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'Blind SQL injection with conditional responses', 'sqli-blind-1')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'Blind SQL injection with time delays and information retrieval', 'sqli-blind-2')," +
+				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'SQL Injection (SQLi)'), 'Surprise Lab - SQL Injection', 'sqli-surprise-1')," +
 
 				    // Access Control
 				    "((SELECT id FROM " + TABLE_LEARNING_TOPICS + " WHERE topic = 'Access Control'), 'Unprotected admin functionality exposed in robots.txt', 'ac-basic-1')," +

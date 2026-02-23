@@ -12,7 +12,7 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
         }
         setActiveId(key);
         setIsExpanded(false);
-        
+
         if (item.hash) {
             setTimeout(() => {
                 const element = document.getElementById(item.hash);
@@ -20,17 +20,23 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
             }, 0);
         } else window.scrollTo(0, 0);
     };
-    // if (activeId!=Object.keys(list)[0])
-        // setActiveId(Object.keys(list)[0]);
     return (
         <>
-            <div className={`mobile-toggle-bar ${isExpanded ? "hidden" : ""}`} onClick={() => setIsExpanded(true)}>
+            <div
+                className={`mobile-toggle-bar ${isExpanded ? "hidden" : ""}`}
+                onClick={() => setIsExpanded(true)}
+            >
                 <span className="menu-text">» Menu</span>
             </div>
 
             <aside className={`sidebar ${isExpanded ? "expanded" : ""}`}>
                 <div className="sidebar-header-mobile">
-                    <button className="close-btn" onClick={() => setIsExpanded(false)}>✕</button>
+                    <button
+                        className="close-btn"
+                        onClick={() => setIsExpanded(false)}
+                    >
+                        ✕
+                    </button>
                 </div>
                 <nav className="sidebar-nav">
                     {Object.keys(list).map((key, index) => (

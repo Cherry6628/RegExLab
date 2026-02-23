@@ -21,11 +21,9 @@ public class CSRFService {
 	}
 	public static String setCSRFToken(HttpServletRequest req) {
 		HttpSession session = getSession(req);
-//		if (session!=null) {
 			String csrfToken = csrfToken();
 			session.setAttribute("csrfToken", csrfToken);
 			System.out.println(csrfToken+" set on Session "+session.getId());
-//		}
 		return csrfToken;
 	}
 	public static String getCSRFToken(HttpServletRequest req) {
