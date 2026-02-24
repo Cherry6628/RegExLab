@@ -19,13 +19,8 @@ import listener.configLoader.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
-@WebFilter(urlPatterns = { "/lab", "/lab/*", "/quiz-data", "/quiz-data/*", "/user-data", "/test", "/result", "/logout"})
+@WebFilter(urlPatterns = { "/lab", "/lab/*", "/user-data", "/logout", "/quiz-results", "/quiz-questions" })
 public class AuthFilter implements Filter {
-
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
-
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -34,7 +29,7 @@ public class AuthFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 
 		String token = extractAuthToken(req);
-		System.out.println("Token: "+token);
+		System.out.println("Token: " + token);
 		if (token == null) {
 			redirectToLogin(req, resp);
 			return;
@@ -46,16 +41,16 @@ public class AuthFilter implements Filter {
 			redirectToLogin(req, resp);
 			return;
 		}
-		System.out.println("username "+username);
+		System.out.println("username " + username);
 		String nonce = JWTService.getNonce(token);
 		if (nonce == null || !isNonceValid(username, nonce)) {
 			clearAuthCookie(resp);
 			redirectToLogin(req, resp);
 			return;
 		}
-		System.out.println("nonce: "+nonce);
+		System.out.println("nonce: " + nonce);
 		req.setAttribute("AUTHENTICATED_USER", username);
-		
+
 		chain.doFilter(request, response);
 	}
 
@@ -74,9 +69,9 @@ public class AuthFilter implements Filter {
 	private boolean isNonceValid(String username, String nonce) {
 		try {
 			Connection conn = DBService.getConnection();
-			PreparedStatement pstmt = conn
-					.prepareStatement("SELECT 1 FROM " + ParamsAndDBLoader.TABLE_LOGIN_SESSIONS
-							+ " WHERE user_id = (SELECT id from "+ParamsAndDBLoader.TABLE_USERS+" WHERE username = ?) AND nonce = ? AND expires_at > CURRENT_TIMESTAMP;");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT 1 FROM " + ParamsAndDBLoader.TABLE_LOGIN_SESSIONS
+					+ " WHERE user_id = (SELECT id from " + ParamsAndDBLoader.TABLE_USERS
+					+ " WHERE username = ?) AND nonce = ? AND expires_at > CURRENT_TIMESTAMP;");
 			pstmt.setString(1, username);
 			pstmt.setString(2, nonce);
 			ResultSet rs = pstmt.executeQuery();

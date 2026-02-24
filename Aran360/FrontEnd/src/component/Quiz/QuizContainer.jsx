@@ -3,7 +3,6 @@ import Quiz from "./Quiz";
 
 export default function QuizContainer() {
     let quiz = [
-        // ─── NO CODE ───────────────────────────────────────────
         {
             headline: "1. DOM-based XSS Vulnerability",
             describe:

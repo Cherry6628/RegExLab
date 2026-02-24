@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
-@WebServlet("/QuizResultServlet")
+@WebServlet("/quiz-results")
 public class QuizResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
