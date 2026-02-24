@@ -1,0 +1,60 @@
+<!doctype html><html>
+<head><title>Aran360 — Blog</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Aran360 Blog</h1>
+            <p class="subtitle">Read and leave comments below</p>
+        </div>
+        <div class="card">
+            <h2>Understanding Web Security</h2>
+            <p class="meta">Posted by <strong>admin</strong> · 2 hours ago</p>
+            <p class="body-text">
+                Web security is a critical aspect of modern software development.
+                Developers must be aware of common vulnerabilities and how to prevent them.
+                Always validate and sanitize user input before processing or displaying it.
+            </p>
+        </div>
+        <div class="card">
+            <h3>Comments</h3>
+            <ul id="comments-list" class="comments-list"></ul>
+        </div>
+        <div class="card form-group">
+            <h3>Leave a Comment</h3>
+            <input id="author" type="text" placeholder="Your name" class="input" autocomplete="off"/>
+            <textarea id="content" placeholder="Write your comment..." class="textarea"></textarea>
+            <button onclick="postComment()" class="btn">Post Comment</button>
+        </div>
+    </div>
+    <script>
+        async function loadComments() {
+            const res = await fetch(window.location.pathname + "/api/comments");
+            const comments = await res.json();
+            const list = document.getElementById("comments-list");
+            list.innerHTML = "";
+            comments.forEach(c => {
+                const li = document.createElement("li");
+                li.className = "comment-item";
+                li.innerHTML = `
+                    <div class="comment-author">${c.author}</div>
+                    <div class="comment-content">${c.content}</div>
+                    <div class="comment-time">${c.created_at}</div>
+                `;
+                list.appendChild(li);
+            });
+        }
+        async function postComment() {
+            const author = document.getElementById("author").value.trim();
+            const content = document.getElementById("content").value.trim();
+            if (!author || !content) return alert("Please fill in all fields.");
+            await fetch(window.location.pathname + "/api/comment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ author, content })
+            });
+            document.getElementById("content").value = "";
+            loadComments();
+        }
+        loadComments();
+    </script>
+</body></html>

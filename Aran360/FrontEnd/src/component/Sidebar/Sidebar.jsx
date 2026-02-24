@@ -3,7 +3,6 @@ import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ list = {}, activeId, setActiveId }) => {
-    console.log(list)
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const handleNavigation = (key) => {

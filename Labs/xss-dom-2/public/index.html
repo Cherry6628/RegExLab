@@ -1,0 +1,30 @@
+<!doctype html><html>
+<head><title>Aran360 — Search</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Product Search</h1>
+            <p class="subtitle">Search our catalog below</p>
+        </div>
+        <div class="card">
+            <form class="search-form" onsubmit="return false">
+                <input type="text" id="q" placeholder="Search products..." class="input" autocomplete="off"/>
+                <button class="btn" onclick="doSearch()">Search</button>
+            </form>
+            <div id="results"></div>
+        </div>
+    </div>
+    <script>
+        function doSearch() {
+            const q = document.getElementById("q").value;
+            window.location.search = "?q=" + q;
+        }
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get("q");
+        if (q) {
+            document.getElementById("q").value = q;
+            const results = document.getElementById("results");
+            results.innerHTML = "<p class='result-text'>You searched for: " + q + "</p><div class='no-results'>No products found.</div>";
+        }
+    </script>
+</body></html>

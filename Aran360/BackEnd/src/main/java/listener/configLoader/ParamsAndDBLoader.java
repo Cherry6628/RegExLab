@@ -36,7 +36,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static int QUIZ_COUNT_PER_ATTEMPT;
 	String[][] LABS	 = {
 			{ "Cross Site Scripting (XSS)", "Reflected XSS into HTML context with nothing encoded",
-					"stored-lab-image-lab" },
+					"xss-reflected-1" },
 			{ "Cross Site Scripting (XSS)", "Reflected XSS into attribute with angle brackets HTML encoded",
 					"xss-reflected-2" },
 			{ "Cross Site Scripting (XSS)", "Stored XSS into HTML context with nothing encoded",
@@ -470,7 +470,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			String insertQuiz = "INSERT IGNORE INTO " + TABLE_QUIZZES +
 					" (topic_id, headline, description, question, is_code, language, code, correct_index) " +
 					" SELECT t.id, ?, ?, ?, ?, ?, ?, ? FROM " + TABLE_LEARNING_TOPICS + " t WHERE t.topic = ?";
-			String insertOption = "INSERT INTO " + TABLE_QUIZ_OPTIONS +
+			String insertOption = "INSERT IGNORE INTO " + TABLE_QUIZ_OPTIONS +
 					" (quiz_id, option_text, option_order) VALUES (?, ?, ?)";
 			java.sql.PreparedStatement qStmt = con.prepareStatement(insertQuiz,
 					java.sql.Statement.RETURN_GENERATED_KEYS);
@@ -512,7 +512,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			PreparedStatement labStmt = con.prepareStatement(
 					"INSERT IGNORE INTO " + TABLE_LABS + " (topic_id, lab_name, image) SELECT t.id, ?, ? FROM "
 							+ TABLE_LEARNING_TOPICS + " t WHERE t.topic = ?");
-			for (String[] lab : labs) {
+			for (String[] lab : LABS) {
 				labStmt.setString(1, lab[1]);
 				labStmt.setString(2, lab[2]);
 				labStmt.setString(3, lab[0]);

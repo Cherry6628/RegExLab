@@ -62,7 +62,6 @@ export default function Dashboard() {
                     style={{
                         marginBottom: "0px",
                         cursor: "pointer",
-                        marginBottom: "0px",
                     }}
                     onClick={() => navigate("/accounts")}
                 >

@@ -1,0 +1,55 @@
+<!doctype html><html>
+<head><title>Aran360 — Community</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Aran360 Community</h1>
+            <p class="subtitle">Members and their websites</p>
+        </div>
+        <div class="card">
+            <h3>Members</h3>
+            <ul id="users-list" class="comments-list"></ul>
+        </div>
+        <div class="card form-group">
+            <h3>Join the Community</h3>
+            <input id="username" type="text" placeholder="Username" class="input" autocomplete="off"/>
+            <input id="website" type="text" placeholder="Your website URL" class="input" autocomplete="off"/>
+            <textarea id="bio" placeholder="Short bio..." class="textarea"></textarea>
+            <button onclick="saveProfile()" class="btn">Save Profile</button>
+        </div>
+    </div>
+    <script>
+        async function loadUsers() {
+            const res = await fetch(window.location.pathname + "/api/users");
+            const users = await res.json();
+            const list = document.getElementById("users-list");
+            list.innerHTML = "";
+            users.forEach(u => {
+                const li = document.createElement("li");
+                li.className = "comment-item";
+                li.innerHTML = `
+                    <div class="comment-author">${u.username}</div>
+                    <div class="comment-content">${u.bio}</div>
+                    <a class="profile-link" href="${u.website}">Visit website</a>
+                `;
+                list.appendChild(li);
+            });
+        }
+        async function saveProfile() {
+            const username = document.getElementById("username").value.trim();
+            const website = document.getElementById("website").value.trim();
+            const bio = document.getElementById("bio").value.trim();
+            if (!username) return alert("Username is required.");
+            await fetch(window.location.pathname + "/api/profile", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, website, bio })
+            });
+            document.getElementById("username").value = "";
+            document.getElementById("website").value = "";
+            document.getElementById("bio").value = "";
+            loadUsers();
+        }
+        loadUsers();
+    </script>
+</body></html>
