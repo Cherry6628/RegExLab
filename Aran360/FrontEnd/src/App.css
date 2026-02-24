@@ -54,13 +54,12 @@ body {
     --small-size: 13px;
     --label-size: 14px;
     --default-size: 16px;
-    --semi-normal-size:20px;
+    --semi-normal-size: 20px;
     --normal-size: 20px;
     --semi-large-size: 28px;
     --large-size: 35px;
     --semi-extra-large: 42px;
     --extra-large-size: 50px;
-
 
     --cb1: cubic-bezier(0.2, 0.8, 0.2, 1);
 }

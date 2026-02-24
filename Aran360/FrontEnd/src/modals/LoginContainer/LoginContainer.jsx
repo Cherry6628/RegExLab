@@ -60,7 +60,11 @@ export default function LoginContainer({ setModal }) {
                         placeholder="••••••••"
                         ref={password}
                     />
-                    <a href="#" className="login-forgot-link" onClick={()=>setModal("forget-password")}>
+                    <a
+                        href="#"
+                        className="login-forgot-link"
+                        onClick={() => setModal("forget-password")}
+                    >
                         Forgot Password?
                     </a>
                 </div>

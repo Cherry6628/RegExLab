@@ -81,8 +81,9 @@
     letter-spacing: 1px;
 }
 
-.login-divider::before, .login-divider::after {
-    content: '';
+.login-divider::before,
+.login-divider::after {
+    content: "";
     flex: 1;
     border-bottom: 1px solid var(--border-light);
 }

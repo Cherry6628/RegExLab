@@ -1,72 +1,237 @@
-import Lab from '../../Lab/Lab';
-import Payloads from '../../Payloads/Payloads';
-import './XSSMaterial.css';
-export default function StoredXSSMaterial(){
-    return(
+import Lab from "../../Lab/Lab";
+import Payloads from "../../Payloads/Payloads";
+import "./XSSMaterial.css";
+export default function StoredXSSMaterial() {
+    return (
         <div id="xss">
-        <section className="mainbar">
-            <section>
-                <h1>Stored XSS</h1>
-                <p>In this section, we'll explain stored cross-site scripting, describe the impact of stored XSS attacks, and spell out how to find stored XSS vulnerabilities.</p>
-                <h1>What is stored cross-site scripting?</h1>
-                <p>Stored cross-site scripting (also known as second-order or persistent XSS) arises when an application receives data from an untrusted source and includes that data within its later HTTP responses in an unsafe way.</p>
-                <p>Suppose a website allows users to submit comments on blog posts, which are displayed to other users. Users submit comments using an HTTP request like the following:</p>
-                <Payloads>POST /post/comment HTTP/1.1<br/>Host: vulnerable-website.com<br/>Content-Length: 100<br/><br/>postId=3&comment=This+post+was+extremely+helpful.&name=Carlos+Montoya&email=carlos%40normal-user.net</Payloads>
-                <p>After this comment has been submitted, any user who visits the blog post will receive the following within the application's response:</p>
-                <Payloads>{`<p>This post was extremely helpful.</p>`}</Payloads>
-                <p>Assuming the application doesn't perform any other processing of the data, an attacker can submit a malicious comment like this:</p>
-                <Payloads>{`<script>/* Bad stuff here... */</script>`}</Payloads>
-                <p>Within the attacker's request, this comment would be URL-encoded as:</p>
-                <Payloads>comment=%3Cscript%3E%2F*%2BBad%2Bstuff%2Bhere...%2B*%2F%3C%2Fscript%3E</Payloads>
-                <p>Any user who visits the blog post will now receive the following within the application's response:</p>
-                <Payloads>{`<p><script>/* Bad stuff here... */</script></p>`}</Payloads>
-                <p>The script supplied by the attacker will then execute in the victim user's browser, in the context of their session with the application.</p>
-            </section>
-            <section>
-                <h1>Impact of stored XSS attacks</h1>
-                <p>If an attacker can control a script that is executed in the victim's browser, then they can typically fully compromise that user. The attacker can carry out any of the actions that are applicable to the impact of <u>reflected XSS vulnerabilities.</u></p>
-                <p>In terms of exploitability, the key difference between reflected and stored XSS is that a stored XSS vulnerability enables attacks that are self-contained within the application itself. The attacker does not need to find an external way of inducing other users to make a particular request containing their exploit. Rather, the attacker places their exploit into the application itself and simply waits for users to encounter it.</p>
-                <p>The self-contained nature of stored cross-site scripting exploits is particularly relevant in situations where an XSS vulnerability only affects users who are currently logged in to the application. If the XSS is reflected, then the attack must be fortuitously timed: a user who is induced to make the attacker's request at a time when they are not logged in will not be compromised. In contrast, if the XSS is stored, then the user is guaranteed to be logged in at the time they encounter the exploit.</p>
-                <div className="labbox">
-                    <h3>Read more</h3>
+            <section className="mainbar">
+                <section>
+                    <h1>Stored XSS</h1>
+                    <p>
+                        In this section, we'll explain stored cross-site
+                        scripting, describe the impact of stored XSS attacks,
+                        and spell out how to find stored XSS vulnerabilities.
+                    </p>
+                    <h1>What is stored cross-site scripting?</h1>
+                    <p>
+                        Stored cross-site scripting (also known as second-order
+                        or persistent XSS) arises when an application receives
+                        data from an untrusted source and includes that data
+                        within its later HTTP responses in an unsafe way.
+                    </p>
+                    <p>
+                        Suppose a website allows users to submit comments on
+                        blog posts, which are displayed to other users. Users
+                        submit comments using an HTTP request like the
+                        following:
+                    </p>
+                    <Payloads>
+                        POST /post/comment HTTP/1.1
+                        <br />
+                        Host: vulnerable-website.com
+                        <br />
+                        Content-Length: 100
+                        <br />
+                        <br />
+                        postId=3&comment=This+post+was+extremely+helpful.&name=Carlos+Montoya&email=carlos%40normal-user.net
+                    </Payloads>
+                    <p>
+                        After this comment has been submitted, any user who
+                        visits the blog post will receive the following within
+                        the application's response:
+                    </p>
+                    <Payloads>{`<p>This post was extremely helpful.</p>`}</Payloads>
+                    <p>
+                        Assuming the application doesn't perform any other
+                        processing of the data, an attacker can submit a
+                        malicious comment like this:
+                    </p>
+                    <Payloads>{`<script>/* Bad stuff here... */</script>`}</Payloads>
+                    <p>
+                        Within the attacker's request, this comment would be
+                        URL-encoded as:
+                    </p>
+                    <Payloads>
+                        comment=%3Cscript%3E%2F*%2BBad%2Bstuff%2Bhere...%2B*%2F%3C%2Fscript%3E
+                    </Payloads>
+                    <p>
+                        Any user who visits the blog post will now receive the
+                        following within the application's response:
+                    </p>
+                    <Payloads>{`<p><script>/* Bad stuff here... */</script></p>`}</Payloads>
+                    <p>
+                        The script supplied by the attacker will then execute in
+                        the victim user's browser, in the context of their
+                        session with the application.
+                    </p>
+                </section>
+                <section>
+                    <h1>Impact of stored XSS attacks</h1>
+                    <p>
+                        If an attacker can control a script that is executed in
+                        the victim's browser, then they can typically fully
+                        compromise that user. The attacker can carry out any of
+                        the actions that are applicable to the impact of{" "}
+                        <u>reflected XSS vulnerabilities.</u>
+                    </p>
+                    <p>
+                        In terms of exploitability, the key difference between
+                        reflected and stored XSS is that a stored XSS
+                        vulnerability enables attacks that are self-contained
+                        within the application itself. The attacker does not
+                        need to find an external way of inducing other users to
+                        make a particular request containing their exploit.
+                        Rather, the attacker places their exploit into the
+                        application itself and simply waits for users to
+                        encounter it.
+                    </p>
+                    <p>
+                        The self-contained nature of stored cross-site scripting
+                        exploits is particularly relevant in situations where an
+                        XSS vulnerability only affects users who are currently
+                        logged in to the application. If the XSS is reflected,
+                        then the attack must be fortuitously timed: a user who
+                        is induced to make the attacker's request at a time when
+                        they are not logged in will not be compromised. In
+                        contrast, if the XSS is stored, then the user is
+                        guaranteed to be logged in at the time they encounter
+                        the exploit.
+                    </p>
+                    <div className="labbox">
+                        <h3>Read more</h3>
+                        <ul>
+                            <li>
+                                Exploiting cross-site scripting vulnerabilities
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h1>Stored XSS in different contexts</h1>
+                    <p>
+                        There are many different varieties of stored cross-site
+                        scripting. The location of the stored data within the
+                        application's response determines what type of payload
+                        is required to exploit it and might also affect the
+                        impact of the vulnerability.
+                    </p>
+                    <p>
+                        In addition, if the application performs any validation
+                        or other processing on the data before it is stored, or
+                        at the point when the stored data is incorporated into
+                        responses, this will generally affect what kind of XSS
+                        payload is needed.
+                    </p>
+                    <div className="labbox">
+                        <h3>Read more</h3>
+                        <ul>
+                            <li>Cross-site scripting contexts</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>
+                    <h1>How to find and test for stored XSS vulnerabilities</h1>
+                    <p>
+                        Many stored XSS vulnerabilities can be found using Burp
+                        Suite's web vulnerability scanner.
+                    </p>
+                    <p>
+                        Testing for stored XSS vulnerabilities manually can be
+                        challenging. You need to test all relevant "entry
+                        points" via which attacker-controllable data can enter
+                        the application's processing, and all "exit points" at
+                        which that data might appear in the application's
+                        responses.
+                    </p>
+                    <p>
+                        Entry points into the application's processing include:
+                    </p>
                     <ul>
-                        <li>Exploiting cross-site scripting vulnerabilities</li>
+                        <li>
+                            Parameters or other data within the URL query string
+                            and message body.
+                        </li>
+                        <li>The URL file path.</li>
+                        <li>
+                            HTTP request headers that might not be exploitable
+                            in relation to reflected XSS.
+                        </li>
+                        <li>
+                            Any out-of-band routes via which an attacker can
+                            deliver data into the application. The routes that
+                            exist depend entirely on the functionality
+                            implemented by the application: a webmail
+                            application will process data received in emails; an
+                            application displaying a Twitter feed might process
+                            data contained in third-party tweets; and a news
+                            aggregator will include data originating on other
+                            web sites.
+                        </li>
                     </ul>
-                </div>
-            </section>
-            <section>
-                <h1>Stored XSS in different contexts</h1>
-                <p>There are many different varieties of stored cross-site scripting. The location of the stored data within the application's response determines what type of payload is required to exploit it and might also affect the impact of the vulnerability.</p>
-                <p>In addition, if the application performs any validation or other processing on the data before it is stored, or at the point when the stored data is incorporated into responses, this will generally affect what kind of XSS payload is needed.</p>
-                <div className="labbox">
-                    <h3>Read more</h3>
+                    <p>
+                        The exit points for stored XSS attacks are all possible
+                        HTTP responses that are returned to any kind of
+                        application user in any situation.
+                    </p>
+                    <p>
+                        The first step in testing for stored XSS vulnerabilities
+                        is to locate the links between entry and exit points,
+                        whereby data submitted to an entry point is emitted from
+                        an exit point. The reasons why this can be challenging
+                        are that:
+                    </p>
                     <ul>
-                        <li>Cross-site scripting contexts</li>
+                        <li>
+                            Data submitted to any entry point could in principle
+                            be emitted from any exit point. For example,
+                            user-supplied display names could appear within an
+                            obscure audit log that is only visible to some
+                            application users.
+                        </li>
+                        <li>
+                            Data that is currently stored by the application is
+                            often vulnerable to being overwritten due to other
+                            actions performed within the application. For
+                            example, a search function might display a list of
+                            recent searches, which are quickly replaced as users
+                            perform other searches.
+                        </li>
                     </ul>
-                </div>
+                    <p>
+                        To comprehensively identify links between entry and exit
+                        points would involve testing each permutation
+                        separately, submitting a specific value into the entry
+                        point, navigating directly to the exit point, and
+                        determining whether the value appears there. However,
+                        this approach is not practical in an application with
+                        more than a few pages.
+                    </p>
+                    <p>
+                        Instead, a more realistic approach is to work
+                        systematically through the data entry points, submitting
+                        a specific value into each one, and monitoring the
+                        application's responses to detect cases where the
+                        submitted value appears. Particular attention can be
+                        paid to relevant application functions, such as comments
+                        on blog posts. When the submitted value is observed in a
+                        response, you need to determine whether the data is
+                        indeed being stored across different requests, as
+                        opposed to being simply reflected in the immediate
+                        response.
+                    </p>
+                    <p>
+                        When you have identified links between entry and exit
+                        points in the application's processing, each link needs
+                        to be specifically tested to detect if a stored XSS
+                        vulnerability is present. This involves determining the
+                        context within the response where the stored data
+                        appears and testing suitable candidate XSS payloads that
+                        are applicable to that context. At this point, the
+                        testing methodology is broadly the same as for finding{" "}
+                        <u>reflected XSS vulnerabilities.</u>
+                    </p>
+                </section>
             </section>
-            <section>
-                <h1>How to find and test for stored XSS vulnerabilities</h1>
-                <p>Many stored XSS vulnerabilities can be found using Burp Suite's web vulnerability scanner.</p>
-                <p>Testing for stored XSS vulnerabilities manually can be challenging. You need to test all relevant "entry points" via which attacker-controllable data can enter the application's processing, and all "exit points" at which that data might appear in the application's responses.</p>
-                <p>Entry points into the application's processing include:</p>
-                <ul>
-                    <li>Parameters or other data within the URL query string and message body.</li>
-                    <li>The URL file path.</li>
-                    <li>HTTP request headers that might not be exploitable in relation to reflected XSS.</li>
-                    <li>Any out-of-band routes via which an attacker can deliver data into the application. The routes that exist depend entirely on the functionality implemented by the application: a webmail application will process data received in emails; an application displaying a Twitter feed might process data contained in third-party tweets; and a news aggregator will include data originating on other web sites.</li>
-                </ul>
-                <p>The exit points for stored XSS attacks are all possible HTTP responses that are returned to any kind of application user in any situation.</p>
-                <p>The first step in testing for stored XSS vulnerabilities is to locate the links between entry and exit points, whereby data submitted to an entry point is emitted from an exit point. The reasons why this can be challenging are that:</p>
-                <ul>
-                    <li>Data submitted to any entry point could in principle be emitted from any exit point. For example, user-supplied display names could appear within an obscure audit log that is only visible to some application users.</li>
-                    <li>Data that is currently stored by the application is often vulnerable to being overwritten due to other actions performed within the application. For example, a search function might display a list of recent searches, which are quickly replaced as users perform other searches.</li>
-                </ul>
-                <p>To comprehensively identify links between entry and exit points would involve testing each permutation separately, submitting a specific value into the entry point, navigating directly to the exit point, and determining whether the value appears there. However, this approach is not practical in an application with more than a few pages.</p>
-                <p>Instead, a more realistic approach is to work systematically through the data entry points, submitting a specific value into each one, and monitoring the application's responses to detect cases where the submitted value appears. Particular attention can be paid to relevant application functions, such as comments on blog posts. When the submitted value is observed in a response, you need to determine whether the data is indeed being stored across different requests, as opposed to being simply reflected in the immediate response.</p>
-                <p>When you have identified links between entry and exit points in the application's processing, each link needs to be specifically tested to detect if a stored XSS vulnerability is present. This involves determining the context within the response where the stored data appears and testing suitable candidate XSS payloads that are applicable to that context. At this point, the testing methodology is broadly the same as for finding <u>reflected XSS vulnerabilities.</u></p>
-            </section>
-        </section>
-    </div>
+        </div>
     );
 }

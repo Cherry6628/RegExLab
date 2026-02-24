@@ -1,11 +1,11 @@
-#payloads .code{
-    background-color: #EBF0F2;
-    color:black;
-    padding:20px;
+#payloads .code {
+    background-color: #ebf0f2;
+    color: black;
+    padding: 20px;
     border-radius: 12px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#payloads .code p{
-    color:black;
+#payloads .code p {
+    color: black;
 }

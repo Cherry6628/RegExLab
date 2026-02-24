@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Lab from "../../component/Lab/Lab";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 import Sidebar from "../../component/Sidebar/Sidebar";
-import "./AllLabs.css"
+import "./AllLabs.css";
 export default function AllLabs() {
     const context = useGlobalContext();
     // const [activeId, setActiveId] = useState(null);
@@ -34,12 +34,10 @@ export default function AllLabs() {
                 style={{
                     width: "100vw",
                     display: "flex",
-                    flexDirection: "row-reverse"
+                    flexDirection: "row-reverse",
                 }}
             >
-                <Sidebar
-                    list={sidebarList}
-                ></Sidebar>
+                <Sidebar list={sidebarList}></Sidebar>
                 <div class="lab-list">
                     {Object.entries(context.learningData).map(
                         ([title, data]) => {
@@ -51,8 +49,11 @@ export default function AllLabs() {
                                 <section
                                     key={title}
                                     id={data.url}
-                                    style={{ marginLeft: "0px", background: "none", padding: "40px 40px 0" }}
-
+                                    style={{
+                                        marginLeft: "0px",
+                                        background: "none",
+                                        padding: "40px 40px 0",
+                                    }}
                                 >
                                     <h1 style={{ color: "var(--text-main)" }}>
                                         {title}

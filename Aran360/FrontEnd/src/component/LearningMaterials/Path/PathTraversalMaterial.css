@@ -1,13 +1,14 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-#path{
-    background-color: var( --secondary-bgcolor);
-    width:100vw;
+#path {
+    background-color: var(--secondary-bgcolor);
+    width: 100vw;
 }
-html, body{
+html,
+body {
     scrollbar-width: none;
 }
 #path img {
@@ -15,64 +16,65 @@ html, body{
     padding-top: 30px;
     padding-bottom: 30px;
     display: block;
-    margin: 0 auto;     
+    margin: 0 auto;
 }
-#path section p, #path li{
+#path section p,
+#path li {
     font-size: var(--normal-size);
     color: var(--text-dim);
     line-height: 29px;
 }
-#path section h1{
-    font-size: var( --large-size);
+#path section h1 {
+    font-size: var(--large-size);
     margin-bottom: 15px;
     margin-top: 20px;
     color: var(--text-main);
 }
-#path main{
-    padding:30px;
-    padding-left:60px;
-    padding-right:80px;
+#path main {
+    padding: 30px;
+    padding-left: 60px;
+    padding-right: 80px;
 }
-#path section ul{
+#path section ul {
     margin-top: 20px;
     margin-left: 100px;
 }
-#path .labbox{
+#path .labbox {
     background-color: var(--secondary-bgcolor);
     border-left: 15px solid var(--action-color) !important;
     border-radius: 12px;
-    padding:20px;
+    padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    border:1px solid var(--border-light);
+    border: 1px solid var(--border-light);
 }
-#path .code{
-    background-color: #EBF0F2;
-    color:black;
-    padding:20px;
+#path .code {
+    background-color: #ebf0f2;
+    color: black;
+    padding: 20px;
     border-radius: 12px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#path .code p{
-    color:black;
+#path .code p {
+    color: black;
 }
 #path ul li::marker {
     color: white;
 }
-#path .labbox ul li::marker{
+#path .labbox ul li::marker {
     color: var(--text-main);
 }
-#path .practice{
+#path .practice {
     margin-top: 20px;
     margin-bottom: 20px;
-    border:1px solid var(--border-light);
+    border: 1px solid var(--border-light);
     border-radius: 35px;
     display: flex;
 }
-#path .leftColor{
-    padding:15px 30px;
-    color:white;
+#path .leftColor {
+    padding: 15px 30px;
+    color: white;
     font-weight: bold;
     font-size: var(--default-size);
     background-color: var(--action-color);
@@ -82,26 +84,25 @@ html, body{
     justify-content: center;
     align-items: center;
     gap: 10px;
-    
 }
-#path .rightColor{
+#path .rightColor {
     padding-left: 30px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap:20px;
+    gap: 20px;
     padding-right: 20px;
     min-width: 0;
 }
-#path .rightColor p{
+#path .rightColor p {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
-#path .rightColor span{
-    color:var(--text-dim);
+#path .rightColor span {
+    color: var(--text-dim);
 }
-#path .labbox h1{
+#path .labbox h1 {
     margin-top: 5px !important;
     color: var(--text-main);
 }

@@ -1,4 +1,4 @@
-.box{
+.box {
     background-color: var(--primary-bgcolor);
     border: 1px solid var(--border-light);
     border-radius: 12px;
@@ -30,5 +30,5 @@
     font-size: 250%;
     position: absolute;
     bottom: -25%;
-    left: 3%
+    left: 3%;
 }

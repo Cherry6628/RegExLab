@@ -31,7 +31,7 @@ export default function QuizResult() {
                     <div>
                         <div className="inner">
                             <div className="point">
-                            <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
                                 <p>Points&nbsp;Earned</p>
                                 <p>
                                     <span className="detail">8</span>/10 Correct
