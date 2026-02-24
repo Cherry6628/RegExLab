@@ -31,7 +31,6 @@ export default function XSSPrevention() {
             can use Burp Scanner to gain assurance that your defenses against
             XSS attacks are working effectively.
           </p>
-          <p>Learn more about Burp Scanner</p>
         </section>
         <section>
           <h1>Encode data on output</h1>

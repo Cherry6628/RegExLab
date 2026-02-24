@@ -154,9 +154,6 @@ export default function passwordAuth() {
               to handle.
             </li>
           </ul>
-          <Lab>Username enumeration via different responses</Lab>
-          <Lab>Username enumeration via subtly different responses</Lab>
-          <Lab>Username enumeration via response timing</Lab>
         </section>
         <section>
           <h1>Flawed brute-force protection</h1>
@@ -190,12 +187,6 @@ export default function passwordAuth() {
             their own account every few attempts to prevent this limit from ever
             being reached.
           </p>
-          <p>
-            In this case, merely including your own login credentials at regular
-            intervals throughout the wordlist is enough to render this defense
-            virtually useless.
-          </p>
-          <Lab>Username enumeration via account lock</Lab>
           <p>
             Locking an account offers a certain amount of protection against
             targeted brute-forcing of a specific account. However, this approach
@@ -270,9 +261,6 @@ export default function passwordAuth() {
             defense if you can work out how to guess multiple passwords with a
             single request.
           </p>
-          <Lab>
-            Broken brute-force protection, multiple credentials per request
-          </Lab>
         </section>
         <section>
           <h1>HTTP basic authentication</h1>

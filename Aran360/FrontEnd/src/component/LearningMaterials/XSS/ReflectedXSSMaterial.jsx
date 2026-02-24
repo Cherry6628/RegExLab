@@ -41,7 +41,6 @@ export default function ReflectedXSSMaterial() {
             user's browser, in the context of their session with the
             application.
           </p>
-          <Lab>Reflected XSS into HTML context with nothing encoded</Lab>
         </section>
         <section>
           <h1>Impact of reflected XSS attacks</h1>

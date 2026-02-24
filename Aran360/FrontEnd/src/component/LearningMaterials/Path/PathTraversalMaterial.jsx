@@ -114,7 +114,6 @@ export default function PathTraversalMaterial() {
                     <Payloads>
                         https://insecure-website.com/loadImage?filename=..\..\..\windows\win.iniLAB
                     </Payloads>
-                    <Lab>File path traversal, simple case</Lab>
                 </section>
                 <section>
                     <h1>
@@ -138,10 +137,6 @@ export default function PathTraversalMaterial() {
                         <span>filename=/etc/passwd</span>, to directly reference
                         a file without using any traversal sequences.
                     </p>
-                    <Lab>
-                        File path traversal, traversal sequences blocked with
-                        absolute path bypass
-                    </Lab>
                     <p>
                         You might be able to use nested traversal sequences,
                         such as
@@ -149,10 +144,6 @@ export default function PathTraversalMaterial() {
                         to simple traversal sequences when the inner sequence is
                         stripped.
                     </p>
-                    <Lab>
-                        File path traversal, traversal sequences stripped
-                        non-recursively
-                    </Lab>
                     <p>
                         In some contexts, such as in a URL path or the{" "}
                         <span>filename</span> parameter of a{" "}
@@ -172,10 +163,6 @@ export default function PathTraversalMaterial() {
                         <b>Fuzzing - path traversal</b>. This contains some
                         encoded path traversal sequences that you can try.
                     </p>
-                    <Lab>
-                        File path traversal, traversal sequences stripped with
-                        superfluous URL-decode
-                    </Lab>
                     <p>
                         An application may require the user-supplied filename to
                         start with the expected base folder, such as{" "}
@@ -187,7 +174,6 @@ export default function PathTraversalMaterial() {
                         </span>
                         .
                     </p>
-                    <Lab>File path traversal, validation of start of path</Lab>
                     <p>
                         An application may require the user-supplied filename to
                         end with an expected file extension, such as{" "}
@@ -196,10 +182,6 @@ export default function PathTraversalMaterial() {
                         before the required extension. For example:
                         <span>filename=../../../etc/passwd%00.png</span>.
                     </p>
-                    <Lab>
-                        File path traversal, validation of file extension with
-                        null byte bypass
-                    </Lab>
                 </section>
                 <section>
                     <h1>How to prevent a path traversal attack</h1>
@@ -254,15 +236,6 @@ export default function PathTraversalMaterial() {
                             (file.getCanonicalPath().startsWith(BASE_DIRECTORY)){" "}
                         </pre>
                     </Payloads>
-                    <div className="labbox">
-                        <h1>Read more</h1>
-                        <ul>
-                            <li>
-                                Find directory traversal vulnerabilities using
-                                Burp Suite's web vulnerability scanner
-                            </li>
-                        </ul>
-                    </div>
                 </section>
             </section>
         </div>

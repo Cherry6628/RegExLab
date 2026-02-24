@@ -20,7 +20,6 @@ export default function DanglingMarkupInjection(){
                 <p>The consequence of the attack is that the attacker can capture part of the application's response following the injection point, which might contain sensitive data. Depending on the application's functionality, this might include CSRF tokens, email messages, or financial data.</p>
                 <p>Any attribute that makes an external request can be used for dangling markup.</p>
                 <p>This next lab is difficult to solve because all external requests are blocked. However, there are certain tags that allow you to store data and retrieve it from an external server later. Solving this lab might require user interaction.</p>
-                <Lab>Reflected XSS protected by very strict CSP, with dangling markup attack</Lab>
             </section>
             <section>
                 <h1>How to prevent dangling markup attacks</h1>

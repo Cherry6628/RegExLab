@@ -22,7 +22,6 @@ export default function MultiFactor(){
                     <h1>Bypassing two-factor authentication</h1>
                     <p>At times, the implementation of two-factor authentication is flawed to the point where it can be bypassed entirely.</p>
                     <p>If the user is first prompted to enter a password, and then prompted to enter a verification code on a separate page, the user is effectively in a "logged in" state before they have entered the verification code. In this case, it is worth testing to see if you can directly skip to "logged-in only" pages after completing the first authentication step. Occasionally, you will find that a website doesn't actually check whether or not you completed the second step before loading the page.</p>
-                    <Lab>2FA simple bypass</Lab>
                 </section>
                 <section>
                     <h1>Flawed two-factor verification logic</h1>
@@ -36,13 +35,11 @@ export default function MultiFactor(){
                     <p>In this case, an attacker could log in using their own credentials but then change the value of the account cookie to any arbitrary username when submitting the verification code.</p>
                     <Payloads>POST /login-steps/second HTTP/1.1<br/>Host: vulnerable-website.com<br/>Cookie: account=victim-user<br/>...<br/>verification-code=123456</Payloads>
                     <p>This is extremely dangerous if the attacker is then able to brute-force the verification code as it would allow them to log in to arbitrary users' accounts based entirely on their username. They would never even need to know the user's password.</p>
-                    <Lab>2FA broken logic</Lab>
                 </section>
                 <section>
                     <h1>Brute-forcing 2FA verification codes</h1>
                     <p>As with passwords, websites need to take steps to prevent brute-forcing of the 2FA verification code. This is especially important because the code is often a simple 4 or 6-digit number. Without adequate brute-force protection, cracking such a code is trivial.</p>
                     <p>Some websites attempt to prevent this by automatically logging a user out if they enter a certain number of incorrect verification codes. This is ineffective in practice because an advanced attacker can even automate this multi-step process by creating macros for Burp Intruder. The Turbo Intruder extension can also be used for this purpose.</p>
-                    <Lab>2FA bypass using a brute-force attack</Lab>
                 </section>
             </section>
         </div>

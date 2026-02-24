@@ -141,12 +141,9 @@ export default function BlindSql() {
                         <h3>Note</h3>
                         <p>
                             The <span>SUBSTRING</span> function is called{" "}
-                            <span>SUBSTR</span> on some types of database. For
-                            more details, see the{" "}
-                            <u>SQL injection cheat sheet</u>.
+                            <span>SUBSTR</span> on some types of database. 
                         </p>
                     </div>
-                    <Lab>Blind SQL injection with conditional responses</Lab>
                 </section>
                 <section>
                     <h1>Error-based SQL injection</h1>
@@ -164,8 +161,7 @@ export default function BlindSql() {
                             a specific error response based on the result of a
                             boolean expression. You can exploit this in the same
                             way as the <u>conditional responses</u> we looked at
-                            in the previous section. For more information, see
-                            <u>
+                            in the previous section. For more information, see <u>
                                 Exploiting blind SQL injection by triggering
                                 conditional errors
                             </u>
@@ -176,9 +172,8 @@ export default function BlindSql() {
                             output the data returned by the query. This
                             effectively turns otherwise blind SQL injection
                             vulnerabilities into visible ones. For more
-                            information, see{" "}
-                            <u>
-                                Extracting sensitive data via verbose SQL error
+                            information, see <u>
+                                 Extracting sensitive data via verbose SQL error
                                 messages
                             </u>
                             .
@@ -249,16 +244,6 @@ export default function BlindSql() {
                         AND SUBSTRING(Password, 1, 1) {`>`} 'm') THEN 1/0 ELSE
                         'a' END FROM Users)='a
                     </Payloads>
-                    <div className="labbox">
-                        <h3>Note</h3>
-                        <p>
-                            There are different ways of triggering conditional
-                            errors, and different techniques work best on
-                            different database types. For more details, see the{" "}
-                            <u>SQL injection cheat sheet</u>.
-                        </p>
-                    </div>
-                    <Lab>Blind SQL injection with conditional errors</Lab>
                 </section>
                 <section>
                     <h3>
@@ -316,7 +301,6 @@ export default function BlindSql() {
                         limit prevents you from triggering conditional
                         responses.
                     </p>
-                    <Lab>Visible error-based SQL injection</Lab>
                 </section>
                 <section>
                     <h1>
@@ -371,20 +355,6 @@ export default function BlindSql() {
             'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') = 1 WAITFOR
             DELAY '0:0:{delay}'--`}
                     </Payloads>
-                    <div className="labbox">
-                        <h3>Note</h3>
-                        <p>
-                            There are various ways to trigger time delays within
-                            SQL queries, and different techniques apply on
-                            different types of database. For more details, see
-                            the <u>SQL injection cheat sheet</u>.
-                        </p>
-                    </div>
-                    <Lab>Blind SQL injection with time delays</Lab>
-                    <Lab>
-                        Blind SQL injection with time delays and information
-                        retrieval
-                    </Lab>
                 </section>
                 <section>
                     <h1>
@@ -453,7 +423,6 @@ export default function BlindSql() {
                         subdomain and poll the Collaborator server to confirm
                         when any DNS lookups occur.
                     </p>
-                    <Lab>Blind SQL injection with out-of-band interaction</Lab>
                     <p>
                         Having confirmed a way to trigger out-of-band
                         interactions, you can then use the out-of-band channel
@@ -483,18 +452,6 @@ export default function BlindSql() {
                         OAST techniques are often preferable even in situations
                         where other techniques for blind exploitation do work.
                     </p>
-                    <div className="labbox">
-                        <h3>Note</h3>
-                        <p>
-                            There are various ways of triggering out-of-band
-                            interactions, and different techniques apply on
-                            different types of database. For more details, see{" "}
-                            <u>SQL injection cheat sheet</u>.
-                        </p>
-                    </div>
-                    <Lab>
-                        Blind SQL injection with out-of-band data exfiltration
-                    </Lab>
                 </section>
                 <section>
                     <h1>How to prevent blind SQL injection attacks?</h1>
@@ -515,10 +472,6 @@ export default function BlindSql() {
                         <h3>Read more</h3>
                         <ul>
                             <li>How to prevent SQL injection</li>
-                            <li>
-                                Find blind SQL injection vulnerabilities using
-                                Burp Suite's web vulnerability scanner
-                            </li>
                         </ul>
                     </div>
                 </section>

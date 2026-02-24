@@ -178,18 +178,6 @@ export default function Authentication() {
               shortlist of candidate usernames and passwords that you should use
               to solve the labs.
             </p>
-            <h3>Vulnerabilities in third-party authentication mechanisms</h3>
-            <p>
-              If you love to hack authentication mechanisms and you've completed
-              our main authentication, you may want to try our OAuth
-              authentication labs.
-            </p>
-            <div className="labbox">
-              <h3>Read more</h3>
-              <p>
-                <u>OAuth authentication</u>
-              </p>
-            </div>
           </section>
           <section>
             <h1>Preventing attacks on your own authentication mechanisms</h1>

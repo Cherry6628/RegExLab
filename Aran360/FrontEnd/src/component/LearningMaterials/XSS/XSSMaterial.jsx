@@ -123,7 +123,6 @@ export default function XSSMaterial() {
             <h3>Read more</h3>
             <ul>
               <li>Reflected cross-site scripting</li>
-              <li>Cross-site scripting cheat sheet</li>
             </ul>
           </div>
           <h1>Stored cross-site scripting</h1>
@@ -160,7 +159,6 @@ export default function XSSMaterial() {
             <h3>Read more</h3>
             <ul>
               <li>Stored cross-site scripting</li>
-              <li>Cross-site scripting cheat sheet</li>
             </ul>
           </div>
           <h1>DOM-based cross-site scripting</h1>
@@ -356,10 +354,6 @@ export default function XSSMaterial() {
             <h3>Read more</h3>
             <ul>
               <li>How to prevent XSS</li>
-              <li>
-                Find XSS vulnerabilities using Burp Suite's web vulnerability
-                scanner
-              </li>
             </ul>
           </div>
         </section>
