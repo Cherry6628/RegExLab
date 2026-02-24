@@ -12,25 +12,36 @@ import AllLabs from "../../pages/AllLabs/AllLabs";
 import Redirect from "../../component/Redirect/Redirect";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 export default function NavigationModal() {
-  const context = useGlobalContext();
+    const context = useGlobalContext();
 
-  return (
-    <BrowserRouter basename={frontendbasename}>
-      <Routes>
-        {/* <Route path="/learning-material/xss" element={<XSSMain/>}/> */}
-        {Object.keys(context.learningData).map((key)=>{
-          return <Route key={key} path={"/learning-material/"+context.learningData[key].url} element={<LearningMaterials list={context.learningData[key].subTitles}/>}/>
-        })}
-        <Route path="/reset-password" element={<ResetPassword/>}/>
-        <Route path="/accounts" element={context.uname?<Profile/>:<AuthPage/>} />
-        {/* <Route path="/profile" element={<Profile/>}/> */}
-        <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/all-labs" element={<AllLabs/>}/>
-        <Route path="/test" element={<QuizMain/>} />
-        <Route path="/result" element={<QuizResult/>} />
-        <Route path="/" element={<Redirect path="/dashboard"/>}/>
-        <Route path="*" element={<NotFound_404/>} />
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter basename={frontendbasename}>
+            <Routes>
+                {Object.keys(context.learningData).map((k) => (
+                    <Route
+                        key={k}
+                        path={
+                            "/learning-material/" + context.learningData[k].url
+                        }
+                        element={
+                            <LearningMaterials
+                                list={context.learningData[k].subTitles}
+                            />
+                        }
+                    />
+                ))}
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route
+                    path="/accounts"
+                    element={context.uname ? <Profile /> : <AuthPage />}
+                />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/all-labs" element={<AllLabs />} />
+                <Route path="/test" element={<QuizMain />} />
+                <Route path="/result" element={<QuizResult />} />
+                <Route path="/" element={<Redirect path="/dashboard" />} />
+                <Route path="*" element={<NotFound_404 />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
