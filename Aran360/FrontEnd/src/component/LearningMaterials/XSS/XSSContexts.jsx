@@ -31,20 +31,6 @@ export default function XSSContexts(){
             <br />
             {`<img src=1 onerror=alert(1)>`}
           </Payloads>
-          <Lab>Reflected XSS into HTML context with nothing encoded</Lab>
-          <Lab>Stored XSS into HTML context with nothing encoded</Lab>
-          <Lab>
-            Reflected XSS into HTML context with most tags and attributes
-            blocked
-          </Lab>
-          <Lab>
-            Reflected XSS into HTML context with all tags blocked except custom
-            ones
-          </Lab>
-          <Lab>
-            Reflected XSS with event handlers and href attributes blocked
-          </Lab>
-          <Lab>Reflected XSS with some SVG markup allowed</Lab>
         </section>
         <section>
           <h1>XSS in HTML tag attributes</h1>
@@ -71,9 +57,6 @@ export default function XSSContexts(){
             interaction. Finally, it adds <span>x="</span> to gracefully repair
             the following markup.
           </p>
-          <Lab>
-            Reflected XSS into attribute with angle brackets HTML-encoded
-          </Lab>
           <p>
             Sometimes the XSS context is into a type of HTML tag attribute that
             itself can create a scriptable context. Here, you can execute
@@ -83,10 +66,6 @@ export default function XSSContexts(){
             pseudo-protocol to execute script. For example:
           </p>
           <Payloads>{`<a href="javascript:alert(document.domain)"></a>`}</Payloads>
-          <Lab>
-            Stored XSS into anchor href attribute with double quotes
-            HTML-encoded
-          </Lab>
           <p>
             You might encounter websites that encode angle brackets but still
             allow you to inject attributes. Sometimes, these injections are
@@ -101,7 +80,6 @@ export default function XSSContexts(){
             You can exploit XSS in hidden input fields using a technique
             invented by PortSwigger Research.
           </p>
-          <Lab>Reflected XSS in canonical link tag</Lab>
         </section>
         <section>
           <h1>XSS into JavaScript</h1>
@@ -143,10 +121,6 @@ export default function XSSContexts(){
               that doesn't prevent the subsequent script being parsed and
               executed in the normal way.
             </p>
-            <Lab>
-              Reflected XSS into a JavaScript string with single quote and
-              backslash escaped
-            </Lab>
           </section>
           <section>
             <h3>Breaking out of a JavaScript string</h3>
@@ -163,10 +137,6 @@ export default function XSSContexts(){
               <br />
               '-alert(document.domain)-'
             </Payloads>
-            <Lab>
-              Reflected XSS into a JavaScript string with angle brackets HTML
-              encoded
-            </Lab>
             <p>
               Some applications attempt to prevent input from breaking out of
               the JavaScript string by escaping any single quote characters with
@@ -192,10 +162,6 @@ export default function XSSContexts(){
               that the quote is now interpreted as a string terminator, and so
               the attack succeeds.
             </p>
-            <Lab>
-              Reflected XSS into a JavaScript string with angle brackets and
-              double quotes HTML-encoded and single quotes escaped
-            </Lab>
             <p>
               Some websites make XSS more difficult by restricting which
               characters you are allowed to use. This can be on the website
@@ -224,9 +190,6 @@ export default function XSSContexts(){
               characters. You'll have to use similar techniques to those
               described above in order to solve it.
             </p>
-            <Lab>
-              Reflected XSS in a JavaScript URL with some characters blocked
-            </Lab>
           </section>
           <section>
             <h3>Making use of HTML-encoding</h3>
@@ -259,10 +222,6 @@ export default function XSSContexts(){
               quotes, which become string delimiters, and so the attack
               succeeds.
             </p>
-            <Lab>
-              Stored XSS into onclick event with angle brackets and double
-              quotes HTML-encoded and single quotes and backslash escaped
-            </Lab>
           </section>
           <section>
             <h3>XSS in JavaScript template literals</h3>
@@ -306,10 +265,6 @@ export default function XSSContexts(){
               without terminating the template literal:
             </p>
             <Payloads>{"${alert(document.domain)}"}</Payloads>
-            <Lab>
-              Reflected XSS into a template literal with angle brackets, single,
-              double quotes, backslash and backticks Unicode-escaped
-            </Lab>
           </section>
         </section>
         <section>

@@ -145,7 +145,6 @@ export default function DOMBasedXSSMaterial() {
               document.write('...
               &lt;script&gt;alert(document.domain)&lt;/script&gt; ...');
             </Payloads>
-            <Lab>DOM XSS in document.write sink using source location.search</Lab>
             <p>
               Note, however, that in some situations the content that is written
               to <span>document.write</span> includes some surrounding context
@@ -153,7 +152,6 @@ export default function DOMBasedXSSMaterial() {
               might need to close some existing elements before using your
               JavaScript payload.
             </p>
-            <Lab>DOM XSS in document.write sink using source location.search inside a select element</Lab>
             <p>
               The <span>innerHTML</span> sink doesn't accept <span>script</span>{" "}
               elements on any modern browser, nor will <span>svg onload</span>{" "}
@@ -166,7 +164,6 @@ export default function DOMBasedXSSMaterial() {
               element.innerHTML='... &lt;img src=1
               onerror=alert(document.domain)&gt; ...'
             </Payloads>
-            <Lab>DOM XSS in innerHTML sink using source location.search</Lab>
           </section>
           <section>
             <h1>Sources and sinks in third-party dependencies</h1>
@@ -203,7 +200,6 @@ export default function DOMBasedXSSMaterial() {
               link will execute it:
             </p>
             <Payloads>?returnUrl=javascript:alert(document.domain)</Payloads>
-            <Lab>DOM XSS in jQuery anchor href attribute sink using location.search source</Lab>
             <p>
               Another potential sink to look out for is jQuery's{" "}
               <span>$()</span> selector function, which can be used to inject
@@ -257,7 +253,6 @@ export default function DOMBasedXSSMaterial() {
                 <span>#</span> prefix.
               </p>
             </div>
-            <Lab>DOM XSS in jQuery selector sink using a hashchange event</Lab>
             <h1>DOM XSS in AngularJS</h1>
             <p>
               If a framework like AngularJS is used, it may be possible to
@@ -267,7 +262,6 @@ export default function DOMBasedXSSMaterial() {
               JavaScript inside double curly braces that can occur directly in
               HTML or inside attributes.
             </p>
-            <Lab>DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded</Lab>
           </section>
           <section>
             <h1>DOM XSS combined with reflected and stored data</h1>
@@ -293,7 +287,6 @@ export default function DOMBasedXSSMaterial() {
               ultimately writing it to a dangerous sink.
             </p>
             <Payloads>eval('var data = "reflected string"');</Payloads>
-            <Lab>Reflected DOM XSS</Lab>
             <p>
               Websites may also store data on the server and reflect it
               elsewhere. In a stored DOM XSS vulnerability, the server receives
@@ -302,7 +295,6 @@ export default function DOMBasedXSSMaterial() {
               which then processes the data in an unsafe way.
             </p>
             <Payloads>element.innerHTML = comment.author</Payloads>
-            <Lab>Stored DOM XSS</Lab>
             <h1>Which sinks can lead to DOM-XSS vulnerabilities?</h1>
             <p>
               The following are some of the main sinks that can lead to DOM-XSS

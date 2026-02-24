@@ -40,7 +40,6 @@ export default function ContentSecurityPolicy(){
             <h1>Bypassing CSP with policy injection</h1>
             <p>You may encounter a website that reflects input into the actual policy, most likely in a <span>report-uri</span> directive. If the site reflects a parameter that you can control, you can inject a semicolon to add your own CSP directives. Usually, this <span>report-uri</span> directive is the final one in the list. This means you will need to overwrite existing directives in order to exploit this vulnerability and bypass the policy.</p>
             <p>Normally, it's not possible to overwrite an existing <span>script-src</span> directive. However, Chrome recently introduced the <span>script-src-elem</span> directive, which allows you to control <span>script</span> elements, but not events. Crucially, this new directive allows you to overwrite existing <span>script-src</span> directives. Using this knowledge, you should be able to solve the following lab.</p>
-            <Lab>Reflected XSS protected by CSP, with CSP bypass</Lab>
         </section>
         <section>
             <h1>Protecting against clickjacking using CSP</h1>
@@ -51,7 +50,6 @@ export default function ContentSecurityPolicy(){
             <p>Using content security policy to prevent clickjacking is more flexible than using the X-Frame-Options header because you can specify multiple domains and use wildcards. For example:</p>
             <Payloads>frame-ancestors 'self' https://normal-website.com https://*.robust-website.com</Payloads>
             <p>CSP also validates each frame in the parent frame hierarchy, whereas <span>X-Frame-Options</span> only validates the top-level frame.</p>
-            <p>Using CSP to protect against clickjacking attacks is recommended. You can also combine this with the <span>X-Frame-Options</span> header to provide protection on older browsers that don't support CSP, such as Internet Explorer.</p>
         </section>
         </section>
     </div>

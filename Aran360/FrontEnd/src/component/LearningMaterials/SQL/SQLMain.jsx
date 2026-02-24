@@ -97,7 +97,6 @@ export default function SQLMain(){
                         <h3>Warning</h3>
                         <p>Take care when injecting the condition <span>OR 1=1</span> into a SQL query. Even if it appears to be harmless in the context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an <span>UPDATE</span> or <span>DELETE</span> statement, for example, it can result in an accidental loss of data.</p>
                     </div>
-                    <Lab>SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</Lab>
                 </section>
                 <section>
                     <h1>Subverting application logic</h1>
@@ -107,7 +106,6 @@ export default function SQLMain(){
                     <p>In this case, an attacker can log in as any user without the need for a password. They can do this using the SQL comment sequence <span>--</span> to remove the password check from the <span>WHERE</span> clause of the query. For example, submitting the username <span>administrator'--</span> and a blank password results in the following query:</p>
                     <Payloads>SELECT * FROM users WHERE username = 'administrator'--' AND password = ''</Payloads>
                     <p>This query returns the user whose <span>username</span> is <span>administrator</span> and successfully logs the attacker in as that user.</p>
-                    <Lab>SQL injection vulnerability allowing login bypass</Lab>
                 </section>
                 <section>
                     <h1>Retrieving data from other database tables</h1>
@@ -179,7 +177,6 @@ export default function SQLMain(){
     <storeId>999 &#x53;ELECT * FROM information_schema.tables</storeId>
 </stockCheck>`}</pre></Payloads>
                     <p>This will be decoded server-side before being passed to the SQL interpreter.</p>
-                    <Lab>SQL injection with filter bypass via XML encoding</Lab>
                 </section>
                 <section>
                     <h1>How to prevent SQL injection</h1>

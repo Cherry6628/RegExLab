@@ -21,7 +21,6 @@ export default function StoredXSSMaterial(){
                 <p>Any user who visits the blog post will now receive the following within the application's response:</p>
                 <Payloads>{`<p><script>/* Bad stuff here... */</script></p>`}</Payloads>
                 <p>The script supplied by the attacker will then execute in the victim user's browser, in the context of their session with the application.</p>
-                <Lab>Stored XSS into HTML context with nothing encoded</Lab>
             </section>
             <section>
                 <h1>Impact of stored XSS attacks</h1>

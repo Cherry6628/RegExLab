@@ -138,10 +138,6 @@ export default function UnionAttack() {
             might look the same as a response caused by an incorrect number of
             nulls. This would make this method ineffective.
           </p>
-          <Lab>
-            SQL injection UNION attack, determining the number of columns
-            returned by the query
-          </Lab>
         </section>
         <section>
           <h1>Database-specific syntax</h1>
@@ -159,10 +155,6 @@ export default function UnionAttack() {
             following the injection point. On MySQL, the double-dash sequence
             must be followed by a space. Alternatively, the hash character{" "}
             <span>#</span> can be used to identify a comment.
-          </p>
-          <p>
-            For more details of database-specific syntax, see{" "}
-            <u>the SQL injection cheat sheet</u>.
           </p>
         </section>
         <section>
@@ -200,9 +192,6 @@ export default function UnionAttack() {
             some additional content including the injected string value, then
             the relevant column is suitable for retrieving string data.
           </p>
-          <Lab>
-            SQL injection UNION attack, finding a column containing text
-          </Lab>
         </section>
         <section>
           <h1>
@@ -241,9 +230,6 @@ export default function UnionAttack() {
             columns. All modern databases provide ways to examine the database
             structure, and determine what tables and columns they contain.
           </p>
-          <Lab>
-            SQL injection UNION attack, retrieving data from other tables
-          </Lab>
           <div className="labbox">
             <h3>Read more</h3>
             <ul>
@@ -288,15 +274,6 @@ export default function UnionAttack() {
             <br />
             ...
           </Payloads>
-          <p>
-            Different databases use different syntax to perform string
-            concatenation. For more details, see{" "}
-            <u>the SQL injection cheat sheet</u>.
-          </p>
-          <Lab>
-            SQL injection UNION attack, retrieving multiple values in a single
-            column
-          </Lab>
         </section>
       </section>
     </div>
