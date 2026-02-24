@@ -5,6 +5,24 @@ import QuizContainer from "./QuizContainer";
 import Header from "../Header/Header";
 export default function QuizMain() {
     const [display, setDisplay] = useState(0);
+    const handleClick = async(topicName) =>{
+        try{
+            const response = await fetch(" http://localhost:8765/quiz-questions",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    topic: topicName
+                }),
+            });
+            const data = await response.json();
+            console.log(data);
+            setDisplay(1);
+        }catch(err){
+            console.log(err);
+        }
+    }
     return (
         <>
             <div style={{ height: "100px" }}>
@@ -23,7 +41,7 @@ export default function QuizMain() {
                         </p>
                         <div className="separate">
                             <VulnerabilityTopic
-                                onClick={() => setDisplay(1)}
+                                onClick={handleClick("Cross-Site Scripting (XSS)")}
                                 icon="terminal"
                                 heading="Cross-Site Scripting (XSS)"
                                 content="Cross Site Scripting (XSS) allows attackers to inject malicious JavaScript into web pages. When other users visit the page, the script executes in their browser and can steal cookies, session tokens, or sensitive data."
