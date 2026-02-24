@@ -25,7 +25,9 @@ export default function NavigationModal() {
                         }
                         element={
                             <LearningMaterials
+                                key={context.learningData[k].url}
                                 list={context.learningData[k].subTitles}
+                                topic_url={context.learningData[k].url}
                             />
                         }
                     />

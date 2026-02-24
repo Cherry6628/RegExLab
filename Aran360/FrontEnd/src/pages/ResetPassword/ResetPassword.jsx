@@ -107,6 +107,9 @@ export default function ResetPassword() {
                                 name="pwd"
                                 ref={pwd}
                                 placeholder="••••••••"
+                                style={{
+                                    color: "var(--text-main)"
+                                }}
                             />
                             <label htmlFor="repwd">Confirm Password</label>
                             <input
@@ -115,6 +118,9 @@ export default function ResetPassword() {
                                 name="repwd"
                                 ref={repwd}
                                 placeholder="••••••••"
+                                style={{
+                                    color: "var(--text-main)"
+                                }}
                             />
                             <Button onClick={sendResetReq} type="submit">
                                 Submit

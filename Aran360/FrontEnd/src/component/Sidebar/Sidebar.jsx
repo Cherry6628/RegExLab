@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ list = {}, activeId, setActiveId }) => {
+    console.log(list)
     const [isExpanded, setIsExpanded] = useState(false);
     const navigate = useNavigate();
     const handleNavigation = (key) => {
@@ -11,7 +12,7 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
             navigate(item.url);
             return;
         }
-        setActiveId&&setActiveId(key);
+        setActiveId && setActiveId(key);
         setIsExpanded(false);
 
         if (item.hash) {
@@ -21,6 +22,7 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
             }, 0);
         } else window.scrollTo(0, 0);
     };
+    console.log(activeId);
     return (
         <>
             <div

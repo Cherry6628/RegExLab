@@ -34,7 +34,7 @@ public class SaveLastLearntPage extends HttpServlet {
 			sb.append(line);
 		JSONObject body = new JSONObject(sb.toString());
 		String topic_url = body.getString("topic_url");
-		String page_id = body.getString("page_id");
+		String page_id = body.isNull("page_id")?null:body.getString("page_id");
 
 		Connection con = DBService.getConnection();
 
@@ -112,7 +112,10 @@ public class SaveLastLearntPage extends HttpServlet {
 			if (rs.next()) {
 				JSONObject json = new JSONObject();
 				json.put("topic_url", rs.getString("topic_url"));
-				json.put("page_id", rs.getString("page_id"));
+
+				String page_id = rs.getString("page_id");
+				json.put("page_id", page_id == null ? JSONObject.NULL : page_id);
+
 				response.getWriter().write(JSONResponse
 						.response(JSONResponse.SUCCESS, "Data fetched successfully", null, json).toString());
 				return;

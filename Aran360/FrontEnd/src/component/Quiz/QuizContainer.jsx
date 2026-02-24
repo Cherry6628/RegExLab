@@ -142,7 +142,6 @@ export default function QuizContainer() {
             ],
         },
 
-        // ─── WITH CODE ─────────────────────────────────────────
         {
             headline: "11. Stored XSS from Database",
             describe: "A Node.js server renders user comments from a database.",

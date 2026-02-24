@@ -1,15 +1,129 @@
 import Header from "../../component/Header/Header";
 import "./Dashboard.css";
 import ProgressBar from "../../component/ProgressBar/ProgressBar";
-import CircleBar from "../../component/ProgressBar/CircleBar";
 import Button from "../../component/Button/Button";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
-import { useEffect } from "react";
-import { backendFetch } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
+
 export default function Dashboard() {
     const context = useGlobalContext();
     const navigate = useNavigate();
+
+    const isLoggedIn = !!context.uname;
+    const hasStarted = !!context.lastLearnt?.topic_url;
+    const isTopicComplete =
+        isLoggedIn && hasStarted && !context.lastLearnt?.page_id;
+    const isInProgress =
+        isLoggedIn && hasStarted && !!context.lastLearnt?.page_id;
+
+    const currentTopicTitle = hasStarted
+        ? Object.keys(context.learningData).find(
+              (r) =>
+                  context.learningData[r].url === context.lastLearnt.topic_url,
+          )
+        : null;
+
+    const currentTopicData = hasStarted
+        ? Object.values(context.learningData).find(
+              (t) => t.url === context.lastLearnt.topic_url,
+          )
+        : null;
+
+    const realPages = currentTopicData
+        ? Object.keys(currentTopicData.subTitles).filter(
+              (k) => currentTopicData.subTitles[k].comp,
+          )
+        : [];
+
+    const currentIndex = realPages.indexOf(context.lastLearnt?.page_id);
+    const progressValue =
+        currentIndex >= 0
+            ? Math.round((currentIndex / realPages.length) * 100)
+            : 0;
+
+    const labsAttemptedPct = context.labsStat.totalLabs
+        ? (
+              (context.labsStat.labsAttempted * 100) /
+              context.labsStat.totalLabs
+          ).toFixed(1)
+        : "0.0";
+
+    const labsAbandonedPct = context.labsStat.labsAttempted
+        ? (
+              (context.labsStat.labsAbandoned * 100) /
+              context.labsStat.labsAttempted
+          ).toFixed(1)
+        : "0.0";
+
+    function LearningStatus() {
+        if (!isLoggedIn) {
+            return (
+                <p
+                    style={{
+                        marginBottom: "0px",
+                        cursor: "pointer",
+                        marginBottom: "0px",
+                    }}
+                    onClick={() => navigate("/accounts")}
+                >
+                    Login to continue tracking your progress
+                </p>
+            );
+        }
+        if (isTopicComplete) {
+            return (
+                <p style={{ marginBottom: "0px" }}>
+                    You've completed your current topic. Start a new one!
+                </p>
+            );
+        }
+        if (isInProgress) {
+            return (
+                <>
+                    <p>Currently learning...</p>
+                    <ProgressBar
+                        answer={
+                            currentTopicTitle +
+                            " — " +
+                            context.lastLearnt.page_id
+                        }
+                        value={progressValue}
+                        isPass={true}
+                    />
+                    <Button
+                        className="btn"
+                        icon="play_circle"
+                        onClick={() =>
+                            navigate(
+                                "/learning-material/" +
+                                    context.lastLearnt.topic_url +
+                                    "#last",
+                            )
+                        }
+                    >
+                        Resume Learning
+                    </Button>
+                </>
+            );
+        }
+        return (
+            <p style={{ marginBottom: "0px" }}>
+                Start learning to track your progress.
+            </p>
+        );
+    }
+
+    function WelcomeMessage() {
+        if (!isLoggedIn) return <h1>Hello, Guest</h1>;
+        const greeting = hasStarted ? "Welcome back, " : "Welcome, ";
+        return <h1>{greeting + context.uname}</h1>;
+    }
+
+    function Tagline() {
+        if (!isLoggedIn || !hasStarted) return null;
+        return <p>You're doing a great job, keep it up!</p>;
+    }
+
     return (
         <>
             <div style={{ height: "100px" }}>
@@ -17,11 +131,7 @@ export default function Dashboard() {
             </div>
             <div id="dashboard">
                 <div className="topBox">
-                    <h1>
-                        {context.uname
-                            ? "Welcome Back, " + context.uname
-                            : "Hello, Guest"}
-                    </h1>
+                    <WelcomeMessage />
                     <div
                         style={{
                             display: "flex",
@@ -30,53 +140,14 @@ export default function Dashboard() {
                         }}
                     >
                         <div className="user">
-                            <p>
-                                You're doing great. You've completed 16% of your
-                                weekly goal
-                            </p>
-                            <div className="goal">
-                                {context.uname ? (
-                                    <>
-                                        <p>Current Learning Path</p>
-                                        <ProgressBar
-                                            answer={
-                                                "Cross - Site Request Forgery (CSRF)"
-                                            }
-                                            value={16}
-                                            isPass={true}
-                                        ></ProgressBar>
-                                        <Button
-                                            className="btn"
-                                            icon="play_circle"
-                                        >
-                                            Resume Learning
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <p
-                                        style={
-                                            context.uname
-                                                ? {}
-                                                : {
-                                                      marginBottom: "0px",
-                                                      cursor: "pointer",
-                                                  }
-                                        }
-                                        onClick={() => navigate("/accounts")}
-                                    >
-                                        Login to Continue Tracking your Progress
-                                    </p>
-                                )}
+                            <Tagline />
+                            <div className="goal" style={{ marginTop: "20px" }}>
+                                <LearningStatus />
                             </div>
                         </div>
-                        {/* <div className="bar">
-                            <CircleBar
-                                value={context.uname ? 16 : 0}
-                                r={80}
-                            ></CircleBar>
-                        </div> */}
                     </div>
                 </div>
+
                 <div className="lab">
                     <div className="complete">
                         <div className="labName">
@@ -88,9 +159,8 @@ export default function Dashboard() {
                             <div className="skill">
                                 <h1>Vulnerability Labs</h1>
                                 <p>
-                                    Real-world sandboxes are provided to help
-                                    you practice and strengthen your defensive
-                                    skills.
+                                    Real-world sandboxes to help you practice
+                                    and strengthen your defensive skills.
                                 </p>
                             </div>
                         </div>
@@ -102,11 +172,7 @@ export default function Dashboard() {
                             <p>LABS COMPLETED</p>
                         </div>
                     </div>
-                    <ProgressBar
-                        answer={"Cross - Site Request Forgery (CSRF)"}
-                        value={16}
-                        isPass={true}
-                    ></ProgressBar>
+
                     <div className="doLab">
                         <div className="count">
                             <p>LABS ATTEMPTED</p>
@@ -115,29 +181,17 @@ export default function Dashboard() {
                                     {context.labsStat.labsAttempted || 0}/
                                     {context.labsStat.totalLabs || 0}
                                 </h1>
-                                <p>
-                                    {(
-                                        (context.labsStat.labsAttempted * 100) /
-                                            context.labsStat.totalLabs || 0
-                                    ).toFixed(2)}
-                                    %
-                                </p>
+                                <p>{labsAttemptedPct}%</p>
                             </div>
                         </div>
                         <div className="count">
-                            <p>LABS LEFT ABANDONED</p>
+                            <p>LABS ABANDONED</p>
                             <div className="notfull">
                                 <h1>
                                     {context.labsStat.labsAbandoned || 0}/
                                     {context.labsStat.labsAttempted || 0}
                                 </h1>
-                                <p>
-                                    {(
-                                        (context.labsStat.labsAbandoned * 100) /
-                                            context.labsStat.labsAttempted || 0
-                                    ).toFixed(2)}
-                                    %
-                                </p>
+                                <p>{labsAbandonedPct}%</p>
                             </div>
                         </div>
                     </div>

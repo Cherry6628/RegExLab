@@ -6,7 +6,6 @@ import Sidebar from "../../component/Sidebar/Sidebar";
 import "./AllLabs.css";
 export default function AllLabs() {
     const context = useGlobalContext();
-    // const [activeId, setActiveId] = useState(null);
     useEffect(() => {
         if (Object.keys(context.labs).length === 0) return;
         const hash = location.hash.replace("#", "");
@@ -24,7 +23,6 @@ export default function AllLabs() {
             })
             .map(([title, data]) => [title, { hash: data.url }]),
     );
-    // setActiveId(Object.keys(sidebarList)[0]);
     return (
         <div id="all-labs">
             <div style={{ height: "100px" }}>

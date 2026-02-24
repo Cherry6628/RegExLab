@@ -13,9 +13,6 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import project.Dbconnection;
-import project.Doctor;
-import project.Gender;
 import service.utils.manager.DBService;
 
 @WebListener
@@ -37,7 +34,44 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH, PBKDF2_SALT_LENGTH;
 	public static int LAB_TIMEOUT_SECONDS;
 	public static int QUIZ_COUNT_PER_ATTEMPT;
+	String[][] LABS	 = {
+			{ "Cross Site Scripting (XSS)", "Reflected XSS into HTML context with nothing encoded",
+					"stored-lab-image-lab" },
+			{ "Cross Site Scripting (XSS)", "Reflected XSS into attribute with angle brackets HTML encoded",
+					"xss-reflected-2" },
+			{ "Cross Site Scripting (XSS)", "Stored XSS into HTML context with nothing encoded",
+					"xss-stored-1" },
+			{ "Cross Site Scripting (XSS)", "Stored XSS into anchor href attribute with quotes encoded",
+					"xss-stored-2" },
+			{ "Cross Site Scripting (XSS)", "DOM XSS in document.write sink using source location.search",
+					"xss-dom-1" },
+			{ "Cross Site Scripting (XSS)", "DOM XSS in innerHTML sink using source location.search",
+					"xss-dom-2" },
+			{ "Cross Site Scripting (XSS)", "Surprise Lab - XSS", "xss-surprise-1" },
 
+			{ "SQL Injection (SQLi)",
+					"SQL injection vulnerability in WHERE clause allowing retrieval of hidden data",
+					"sqli-basic-1" },
+			{ "SQL Injection (SQLi)", "SQL injection vulnerability allowing login bypass", "sqli-basic-2" },
+			{ "SQL Injection (SQLi)", "SQL injection UNION attack determining number of columns returned",
+					"sqli-union-1" },
+			{ "SQL Injection (SQLi)", "SQL injection UNION attack retrieving data from other tables",
+					"sqli-union-2" },
+			{ "SQL Injection (SQLi)", "Blind SQL injection with conditional responses", "sqli-blind-1" },
+			{ "SQL Injection (SQLi)", "Blind SQL injection with time delays and information retrieval",
+					"sqli-blind-2" },
+			{ "SQL Injection (SQLi)", "Surprise Lab - SQL Injection", "sqli-surprise-1" },
+
+			{ "Access Control", "Unprotected admin functionality exposed in robots.txt", "ac-basic-1" },
+			{ "Access Control", "User role controlled by request parameter", "ac-basic-2" },
+			{ "Access Control", "Insecure direct object reference on user data endpoint", "ac-basic-3" },
+			{ "Access Control", "Surprise Lab - Access Control", "ac-surprise-1" },
+
+			{ "Authentication", "Username enumeration via different responses", "auth-basic-1" },
+			{ "Authentication", "Password brute force protection bypass via account lockout", "auth-basic-2" },
+			{ "Authentication", "2FA simple bypass via direct URL navigation", "auth-basic-3" },
+			{ "Authentication", "Surprise Lab - Authentication", "auth-surprise-1" },
+	};
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext context = sce.getServletContext();
@@ -327,44 +361,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 						}
 				}
 		};
-		String[][] labs = {
-				{ "Cross Site Scripting (XSS)", "Reflected XSS into HTML context with nothing encoded",
-						"stored-lab-image-lab" },
-				{ "Cross Site Scripting (XSS)", "Reflected XSS into attribute with angle brackets HTML encoded",
-						"xss-reflected-2" },
-				{ "Cross Site Scripting (XSS)", "Stored XSS into HTML context with nothing encoded",
-						"xss-stored-1" },
-				{ "Cross Site Scripting (XSS)", "Stored XSS into anchor href attribute with quotes encoded",
-						"xss-stored-2" },
-				{ "Cross Site Scripting (XSS)", "DOM XSS in document.write sink using source location.search",
-						"xss-dom-1" },
-				{ "Cross Site Scripting (XSS)", "DOM XSS in innerHTML sink using source location.search",
-						"xss-dom-2" },
-				{ "Cross Site Scripting (XSS)", "Surprise Lab - XSS", "xss-surprise-1" },
-
-				{ "SQL Injection (SQLi)",
-						"SQL injection vulnerability in WHERE clause allowing retrieval of hidden data",
-						"sqli-basic-1" },
-				{ "SQL Injection (SQLi)", "SQL injection vulnerability allowing login bypass", "sqli-basic-2" },
-				{ "SQL Injection (SQLi)", "SQL injection UNION attack determining number of columns returned",
-						"sqli-union-1" },
-				{ "SQL Injection (SQLi)", "SQL injection UNION attack retrieving data from other tables",
-						"sqli-union-2" },
-				{ "SQL Injection (SQLi)", "Blind SQL injection with conditional responses", "sqli-blind-1" },
-				{ "SQL Injection (SQLi)", "Blind SQL injection with time delays and information retrieval",
-						"sqli-blind-2" },
-				{ "SQL Injection (SQLi)", "Surprise Lab - SQL Injection", "sqli-surprise-1" },
-
-				{ "Access Control", "Unprotected admin functionality exposed in robots.txt", "ac-basic-1" },
-				{ "Access Control", "User role controlled by request parameter", "ac-basic-2" },
-				{ "Access Control", "Insecure direct object reference on user data endpoint", "ac-basic-3" },
-				{ "Access Control", "Surprise Lab - Access Control", "ac-surprise-1" },
-
-				{ "Authentication", "Username enumeration via different responses", "auth-basic-1" },
-				{ "Authentication", "Password brute force protection bypass via account lockout", "auth-basic-2" },
-				{ "Authentication", "2FA simple bypass via direct URL navigation", "auth-basic-3" },
-				{ "Authentication", "Surprise Lab - Authentication", "auth-surprise-1" },
-		};
+		
 		try {
 			String temp;
 			JWT_SECRET = getProperty("JWT_SECRET");
@@ -542,7 +539,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 					    id INT AUTO_INCREMENT PRIMARY KEY,
 					    user_id INT UNIQUE NOT NULL,
 					    topic_url VARCHAR(255) NOT NULL,
-					    page_id VARCHAR(255) NOT NULL,
+					    page_id VARCHAR(255),
 					    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 					    FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
 					    (id) ON DELETE CASCADE
@@ -569,25 +566,25 @@ public class ParamsAndDBLoader implements ServletContextListener {
 		return allConfigs.getProperty(propName);
 	}
 
-	public static String getQuiz(String name) throws SQLException {
-		Connection con = DBService.getConnection();
-		String query = "Select id from learning_topics where topic = ?";
-		String query1 = "Select * from quiz where topic_id = ?";
-		try (PreparedStatement ps = con.prepareStatement(query); PreparedStatement ps1 = con.prepareStatement("")){
-			ps.setString(1, name);
-			ResultSet rs = ps.executeQuery();
-			int id;
-			if(rs.next()) {
-                id = rs.getInt("id");
-   			}
-			ResultSet rs1 = ps1.executeQuery();
-			while(rs1.next()) {
-				rs1.getInt(id);
-			}
+	// public static String getQuiz(String name) throws SQLException {
+	// 	Connection con = DBService.getConnection();
+	// 	String query = "Select id from learning_topics where topic = ?";
+	// 	String query1 = "Select * from quiz where topic_id = ?";
+	// 	try (PreparedStatement ps = con.prepareStatement(query); PreparedStatement ps1 = con.prepareStatement("")){
+	// 		ps.setString(1, name);
+	// 		ResultSet rs = ps.executeQuery();
+	// 		int id;
+	// 		if(rs.next()) {
+    //             id = rs.getInt("id");
+   	// 		}
+	// 		ResultSet rs1 = ps1.executeQuery();
+	// 		while(rs1.next()) {
+	// 			rs1.getInt(id);
+	// 		}
 			
-		}
+	// 	}
 		
-	}
+	// }
 	public static String getProperty(String propName, String defaultValue) {
 		return allConfigs.getProperty(propName, defaultValue);
 	}

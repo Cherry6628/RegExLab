@@ -48,7 +48,10 @@ export default function ContextProvider({ children }) {
         labsAttempted: 0,
         totalLabs: 0,
     });
-    const [lastLearnt, setLastLearnt] = useState(undefined);
+    const [lastLearnt, setLastLearnt] = useState({
+        topic_url: undefined,
+        page_id: undefined,
+    });
 
     const fetchUserData = () => {
         try {
@@ -89,11 +92,21 @@ export default function ContextProvider({ children }) {
                 }),
             );
         });
+        backendFetch("/saveLearningProgress", { method: "GET" }).then((r) => {
+            const page_id =
+                r.page_id === "null" ||
+                r.page_id === null ||
+                r.page_id === undefined
+                    ? null
+                    : r.page_id;
+            setLastLearnt({ topic_url: r.topic_url, page_id });
+        });
     };
     const clearUserData = () => {
         sessionStorage.removeItem("userData");
         setUname(undefined);
         setEmail(undefined);
+        setLastLearnt({ topic_url: undefined, page_id: undefined });
         setLabsStat((prev) => ({
             labsCompleted: 0,
             labsAbandoned: 0,
@@ -110,6 +123,17 @@ export default function ContextProvider({ children }) {
     useEffect(() => {
         backendFetch("/all-labs-data").then((r) => {
             if (r.status === "success") setLabs(r.data);
+        });
+    }, []);
+    useEffect(() => {
+        backendFetch("/saveLearningProgress").then((r) => {
+            const page_id =
+                r.page_id === "null" ||
+                r.page_id === null ||
+                r.page_id === undefined
+                    ? null
+                    : r.page_id;
+            setLastLearnt({ topic_url: r.topic_url, page_id });
         });
     }, []);
     const learningData = {
@@ -186,7 +210,26 @@ export default function ContextProvider({ children }) {
             },
         },
     };
+    const saveProgress = ({ topic_url, page_id }) => {
+        if (!topic_url || !page_id) return;
 
+        const topic = Object.values(learningData).find(
+            (t) => t.url === topic_url,
+        );
+        if (!topic) return;
+
+        const pages = Object.entries(topic.subTitles).filter(([, v]) => v.comp);
+        const currentIndex = pages.findIndex(([id]) => id === page_id);
+        const nextPage = pages[currentIndex + 1];
+
+        const nextPageId = nextPage ? nextPage[0] : null;
+
+        setLastLearnt({ topic_url, page_id: nextPageId });
+        backendFetch("/saveLearningProgress", {
+            method: "POST",
+            body: { topic_url, page_id: nextPageId },
+        }).then((r) => console.log(r));
+    };
     const value = {
         uname,
         setUname,
@@ -201,6 +244,8 @@ export default function ContextProvider({ children }) {
         clearUserData,
         labs,
         setLabs,
+        saveProgress,
+        lastLearnt,
     };
 
     return (

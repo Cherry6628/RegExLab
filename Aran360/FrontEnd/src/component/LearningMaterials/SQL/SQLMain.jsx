@@ -410,7 +410,6 @@ export default function SQLMain() {
                         unsafe way. For this reason, second-order SQL injection
                         is also known as stored SQL injection.
                     </p>
-                    <img src="https://media.licdn.com/dms/image/v2/D5622AQHZ1okjXOws_w/feedshare-shrink_800/feedshare-shrink_800/0/1723470329965?e=2147483647&v=beta&t=hpKdiZAnO9P14JPxppvnpe0DbzSeMFAauiAGD69AxHE" />
                     <p>
                         Second-order SQL injection often occurs in situations
                         where developers are aware of SQL injection
