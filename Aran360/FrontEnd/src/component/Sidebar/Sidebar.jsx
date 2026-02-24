@@ -29,7 +29,6 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
             >
                 <span className="menu-text">» Menu</span>
             </div>
-
             <aside className={`sidebar ${isExpanded ? "expanded" : ""}`}>
                 <div className="sidebar-header-mobile">
                     <button

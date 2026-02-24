@@ -10,10 +10,6 @@ export default function AuthModal({ defaultModal = "login" }) {
         return <SignupContainer setModal={setModal}></SignupContainer>;
     else if (modal == "login")
         return <LoginContainer setModal={setModal}></LoginContainer>;
-    else if (modal == "forget-password"){
+    else if (modal == "forget-password")
         return <ForgetPasswordContainer setModal={setModal}/>
-    }
-    else if (modal=="reset-password"){
-        return <ResetPassword/>
-    }
 }
