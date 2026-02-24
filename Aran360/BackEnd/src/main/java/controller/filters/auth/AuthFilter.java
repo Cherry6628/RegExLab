@@ -18,7 +18,7 @@ import listener.configLoader.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
-@WebFilter(urlPatterns = { "/lab", "/lab/*", "/user-data", "/logout", "/quiz-results", "/quiz-questions" })
+@WebFilter(urlPatterns = { "/lab", "/lab/*", "/user-data", "/logout", "/quiz-results", "/quiz-questions","/saveLearningProgress" })
 public class AuthFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

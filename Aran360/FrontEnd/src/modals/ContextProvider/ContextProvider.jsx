@@ -48,6 +48,7 @@ export default function ContextProvider({ children }) {
         labsAttempted: 0,
         totalLabs: 0,
     });
+    const [lastLearnt, setLastLearnt] = useState(undefined);
 
     const fetchUserData = () => {
         try {
@@ -89,7 +90,6 @@ export default function ContextProvider({ children }) {
             );
         });
     };
-
     const clearUserData = () => {
         sessionStorage.removeItem("userData");
         setUname(undefined);
@@ -101,7 +101,6 @@ export default function ContextProvider({ children }) {
             totalLabs: prev.totalLabs,
         }));
     };
-
     useEffect(() => {
         fetchUserData();
         backendFetch("/info", { method: "GET" }).then((r) => {

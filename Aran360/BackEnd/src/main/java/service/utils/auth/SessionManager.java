@@ -1,8 +1,10 @@
-package service.utils.manager;
+package service.utils.auth;
 
 import java.sql.*;
 import jakarta.servlet.http.HttpServletRequest;
 import listener.configLoader.ParamsAndDBLoader;
+import service.utils.manager.JWTService;
+import service.utils.manager.RandomService;
 
 public class SessionManager {
 

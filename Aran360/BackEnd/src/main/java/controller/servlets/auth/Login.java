@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
+import service.utils.auth.SessionManager;
 import service.utils.manager.*;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -50,6 +51,7 @@ public class Login extends HttpServlet {
 				return;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(500);
 			response.getWriter()
 					.write(JSONResponse

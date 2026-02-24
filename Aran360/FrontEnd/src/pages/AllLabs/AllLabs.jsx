@@ -38,7 +38,7 @@ export default function AllLabs() {
                 }}
             >
                 <Sidebar list={sidebarList}></Sidebar>
-                <div class="lab-list">
+                <div className="lab-list">
                     {Object.entries(context.learningData).map(
                         ([title, data]) => {
                             const labList = context.labs[title]

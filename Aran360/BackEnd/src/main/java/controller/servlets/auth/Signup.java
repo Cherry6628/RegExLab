@@ -10,7 +10,7 @@ import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
 import service.utils.manager.PBKDF2_Service;
-import service.utils.manager.SessionManager;
+import service.utils.auth.SessionManager;
 import service.utils.manager.ValidatorService;
 
 import org.json.JSONObject;
