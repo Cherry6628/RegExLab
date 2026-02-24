@@ -17,7 +17,6 @@ const client = new (class BackendClient {
             if (data && data.csrfToken) {
                 this.#csrfToken = data.csrfToken;
                 this.#expiry = Date.now() + ((data.expiry || 3600) * 1000);
-                console.log(this.#csrfToken+" csrftoken fetched")
             }
         } catch (e) {
             console.error(e);
@@ -44,12 +43,9 @@ const client = new (class BackendClient {
         };
 
         if (this.#csrfToken) options.headers["X-CSRF-Token"] = this.#csrfToken;
-        else console.log("NO CSRF TOKEN FOUND")
         const url = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
 
         if (method !== "GET" && body !== undefined) {
-            console.log("CSRF Token: "+this.#csrfToken);
-            
             options.body = JSON.stringify({ ...body, ...(this.#csrfToken && { csrfToken: this.#csrfToken }) });
         }
 

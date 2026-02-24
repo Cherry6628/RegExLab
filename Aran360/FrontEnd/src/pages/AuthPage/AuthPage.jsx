@@ -5,7 +5,6 @@ import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider.j
 
 export default function AuthPage() {
     const context = useGlobalContext();
-    console.log(context);
     return (
         <div className="auth-page-wrapper">
             <Header />

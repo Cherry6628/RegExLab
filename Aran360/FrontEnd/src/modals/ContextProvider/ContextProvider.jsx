@@ -41,6 +41,7 @@ export default function ContextProvider({ children }) {
     const [uname, setUname] = useState(undefined);
     const [email, setEmail] = useState(undefined);
     const [darkTheme, setDarkTheme] = useState(true);
+    const [labs, setLabs] = useState({});
     const [labsStat, setLabsStat] = useState({
         labsCompleted: 0,
         labsAbandoned: 0,
@@ -107,7 +108,11 @@ export default function ContextProvider({ children }) {
             setLabsStat((prev) => ({ ...prev, totalLabs: r.totalLabs }));
         });
     }, []);
-
+    useEffect(() => {
+        backendFetch("/all-labs-data").then((r) => {
+            if (r.status === "success") setLabs(r.data);
+        });
+    }, []);
     const learningData = {
         "Cross Site Scripting (XSS)": {
             url: "xss",
@@ -195,6 +200,8 @@ export default function ContextProvider({ children }) {
         setLabsStat,
         fetchUserData,
         clearUserData,
+        labs,
+        setLabs,
     };
 
     return (

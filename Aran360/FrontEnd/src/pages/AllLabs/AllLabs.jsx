@@ -5,24 +5,16 @@ import { backendFetch } from "../../utils/helpers";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 
 export default function AllLabs() {
-    const [labs, setLabs] = useState({});
     const context = useGlobalContext();
-
     useEffect(() => {
-        backendFetch("/all-labs", { method: "GET" }).then((r) => {
-            if (r.status === "success") setLabs(r.data);
-        });
-    }, []);
-
-    useEffect(() => {
-        if (Object.keys(labs).length === 0) return;
+        if (Object.keys(context.labs).length === 0) return;
         const hash = location.hash.replace("#", "");
         if (hash) {
             document
                 .getElementById(hash)
                 ?.scrollIntoView({ behavior: "smooth" });
         }
-    }, [labs]);
+    }, [context.labs]);
 
     return (
         <>
@@ -31,14 +23,15 @@ export default function AllLabs() {
             </div>
             <div id="all-labs">
                 {Object.entries(context.learningData).map(([title, data]) => {
-                    const labList = labs[title] ? Object.values(labs[title]) : [];
+                    const labList = context.labs[title] ? Object.values(context.labs[title]) : [];
+                    if (labList.length==0)return;
                     return (
-                        <section key={title} id={data.url}>
-                            <h1>{title}</h1>
+                        <section key={title} id={data.url} style={{marginLeft: "0px"}}>
+                            <h1 style={{color: "var(--text-main)"}}>{title}</h1>
                             {labList.map((lab) => (
                                 <Lab
                                     key={lab.image}
-                                    link={`/lab/view/${lab.image}`}
+                                    link={`/lab/image/${lab.image}`}
                                 >
                                     {lab.name}
                                 </Lab>

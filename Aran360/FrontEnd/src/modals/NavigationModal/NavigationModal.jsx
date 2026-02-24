@@ -13,13 +13,12 @@ import Redirect from "../../component/Redirect/Redirect";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 export default function NavigationModal() {
   const context = useGlobalContext();
-  
+
   return (
     <BrowserRouter basename={frontendbasename}>
       <Routes>
         {/* <Route path="/learning-material/xss" element={<XSSMain/>}/> */}
         {Object.keys(context.learningData).map((key)=>{
-          console.log(context.learningData[key].url)
           return <Route key={key} path={"/learning-material/"+context.learningData[key].url} element={<LearningMaterials list={context.learningData[key].subTitles}/>}/>
         })}
         <Route path="/reset-password" element={<ResetPassword/>}/>

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import "./Sidebar.css";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ list = {}, activeId, setActiveId }) => {
     const [isExpanded, setIsExpanded] = useState(false);
-
+    const navigate = useNavigate();
     const handleNavigation = (key) => {
         const item = list[key];
         if (item.url) {
-            window.location.href = item.url;
+            navigate(item.url);
             return;
         }
         setActiveId(key);

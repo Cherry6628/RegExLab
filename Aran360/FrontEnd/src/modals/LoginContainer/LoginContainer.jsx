@@ -24,8 +24,6 @@ export default function LoginContainer({ setModal }) {
                 }
             })
             .catch((r) => {
-                console.log(r);
-                console.log(typeof r);
                 showToast(r.message, error);
             });
     }

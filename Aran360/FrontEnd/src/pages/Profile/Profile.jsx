@@ -7,7 +7,6 @@ import "./Profile.css";
 import { useToast } from "../../component/Toast/ToastContext";
 export default function Profile() {
     const context = useGlobalContext();
-    console.log(context);
     const navigate = useNavigate();
     const { showToast } = useToast();
 

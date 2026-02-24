@@ -10,8 +10,6 @@ import Button from "../../component/Button/Button";
 
 export default function ResetPassword() {
     const token = new URLSearchParams(window.location.search).get("token");
-    console.log(token);
-
     const navigate = useNavigate();
     const context = useGlobalContext();
     const pwd = useRef(null);

@@ -13,33 +13,35 @@ import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
 import service.utils.manager.DBService;
 
-@WebServlet("/all-labs")
+@WebServlet("/all-labs-data")
 public class AllLabs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject result = new JSONObject();
+		JSONObject data = new JSONObject();
 		Connection con = DBService.getConnection();
 		try {
 			ResultSet rs = con.createStatement()
-					.executeQuery("SELECT t.topic, l.lab_name, l.image FROM " + ParamsAndDBLoader.TABLE_LABS + " l "
-							+ "JOIN " + ParamsAndDBLoader.TABLE_LEARNING_TOPICS + " t ON l.topic_id = t.id "
-							+ "ORDER BY t.id, l.id");
+					.executeQuery("SELECT t.topic, l.lab_name, l.image FROM " + ParamsAndDBLoader.TABLE_LABS
+							+ " l JOIN " + ParamsAndDBLoader.TABLE_LEARNING_TOPICS
+							+ " t ON l.topic_id = t.id ORDER BY t.id, l.id");
 			while (rs.next()) {
 				String topic = rs.getString("topic");
-				if (!result.has(topic))
-					result.put(topic, new JSONObject());
+				if (!data.has(topic))
+					data.put(topic, new JSONObject());
 				JSONObject lab = new JSONObject();
 				lab.put("name", rs.getString("lab_name"));
 				lab.put("image", rs.getString("image"));
-				result.getJSONObject(topic).put(rs.getString("image"), lab);
+				data.getJSONObject(topic).put(rs.getString("image"), lab);
 			}
+			result.put("data", data);
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.SUCCESS, "Labs fetched", null, result).toString());
 		} catch (Exception e) {
 			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Failed").toString());
 			return;
 		}
-		response.getWriter()
-				.write(JSONResponse.response(JSONResponse.SUCCESS, "Labs fetched", null, result).toString());
 	}
 }
