@@ -33,7 +33,7 @@ export default function Quiz({
                 fontSize: "var(--normal-size)",
               }
             : {
-                fontSize: "var(--extra-large-size)",
+                fontSize: "var(--large-size)",
                 textAlign: "center",
                 marginBottom: "40px",
               }

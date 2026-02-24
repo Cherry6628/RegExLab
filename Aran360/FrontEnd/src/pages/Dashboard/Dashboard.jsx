@@ -51,14 +51,6 @@ export default function Dashboard() {
                                         >
                                             Resume Learning
                                         </Button>
-                                        <hr />
-                                        <ProgressBar
-                                            answer={
-                                                "Cross - Site Request Forgery (CSRF)"
-                                            }
-                                            value={16}
-                                            isPass={true}
-                                        ></ProgressBar>
                                     </>
                                 ) : (
                                     <p

@@ -1,0 +1,12 @@
+#all-labs .lab-list {
+    margin-left: 320px !important;
+    
+    width: calc(100vw - 320px);
+}
+
+@media only screen and (max-width: 1024px) {
+    #all-labs .lab-list {
+        margin-left: 40px !important;
+    width: calc(100vw - 40px);
+    }
+}
