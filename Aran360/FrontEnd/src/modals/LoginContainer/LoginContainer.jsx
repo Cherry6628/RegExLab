@@ -46,6 +46,7 @@ export default function LoginContainer({ setModal }) {
                         type="text"
                         placeholder="John Doe"
                         ref={username}
+                        autoComplete="off"
                     />
                 </div>
 
@@ -59,6 +60,7 @@ export default function LoginContainer({ setModal }) {
                         type="password"
                         placeholder="••••••••"
                         ref={password}
+                        autoComplete="off"
                     />
                     <a
                         href="#"

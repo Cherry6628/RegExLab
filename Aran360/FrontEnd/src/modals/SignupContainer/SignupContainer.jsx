@@ -48,6 +48,7 @@ export default function SignupContainer({ setModal }) {
                         type="text"
                         placeholder="John Doe"
                         ref={username}
+                        autoComplete="off"
                     />
                 </div>
 
@@ -59,6 +60,7 @@ export default function SignupContainer({ setModal }) {
                         type="email"
                         placeholder="name@example.com"
                         ref={email}
+                        autoComplete="off"
                     />
                 </div>
 
@@ -69,6 +71,7 @@ export default function SignupContainer({ setModal }) {
                         type="password"
                         placeholder="••••••••"
                         ref={password}
+                        autoComplete="off"
                     />
                     <span id="pwd" name="pwd" className="signup-input-hint">
                         Must be at least 8 characters

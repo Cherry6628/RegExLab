@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
-import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class UserData extends HttpServlet {
 		}
 		json.put("email", email);
 
-		int lc = 23, la = 12;
+		int lc = 0, la = 0;
 		json.put("labsCompleted", lc);
 		json.put("labsAbandoned", la);
 		json.put("labsAttempted", lc + la);

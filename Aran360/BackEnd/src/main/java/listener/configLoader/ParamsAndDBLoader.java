@@ -13,6 +13,9 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import project.Dbconnection;
+import project.Doctor;
+import project.Gender;
 import service.utils.manager.DBService;
 
 @WebListener
@@ -326,7 +329,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 		};
 		String[][] labs = {
 				{ "Cross Site Scripting (XSS)", "Reflected XSS into HTML context with nothing encoded",
-						"xss-reflected-1" },
+						"stored-lab-image-lab" },
 				{ "Cross Site Scripting (XSS)", "Reflected XSS into attribute with angle brackets HTML encoded",
 						"xss-reflected-2" },
 				{ "Cross Site Scripting (XSS)", "Stored XSS into HTML context with nothing encoded",
@@ -566,6 +569,25 @@ public class ParamsAndDBLoader implements ServletContextListener {
 		return allConfigs.getProperty(propName);
 	}
 
+	public static String getQuiz(String name) throws SQLException {
+		Connection con = DBService.getConnection();
+		String query = "Select id from learning_topics where topic = ?";
+		String query1 = "Select * from quiz where topic_id = ?";
+		try (PreparedStatement ps = con.prepareStatement(query); PreparedStatement ps1 = con.prepareStatement("")){
+			ps.setString(1, name);
+			ResultSet rs = ps.executeQuery();
+			int id;
+			if(rs.next()) {
+                id = rs.getInt("id");
+   			}
+			ResultSet rs1 = ps1.executeQuery();
+			while(rs1.next()) {
+				rs1.getInt(id);
+			}
+			
+		}
+		
+	}
 	public static String getProperty(String propName, String defaultValue) {
 		return allConfigs.getProperty(propName, defaultValue);
 	}
