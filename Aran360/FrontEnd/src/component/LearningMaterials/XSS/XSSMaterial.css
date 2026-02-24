@@ -1,24 +1,25 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     scroll-margin-top: 100px;
 }
-#xss{
-    background-color: var( --secondary-bgcolor);
+#xss {
+    background-color: var(--secondary-bgcolor);
     width: calc(100vw - 320px);
     margin-left: 320px;
 }
 @media only screen and (max-width: 1024px) {
-    #xss{
+    #xss {
         width: calc(100vw - 40px);
         margin-left: 40px;
     }
 }
-html, body{
+html,
+body {
     scrollbar-width: none;
 }
-#xss h4{
+#xss h4 {
     color: var(--text-main);
     margin-top: 8px;
     margin-bottom: 8px;
@@ -29,20 +30,21 @@ html, body{
     padding-top: 30px;
     padding-bottom: 30px;
     display: block;
-    margin: 0 auto;      
+    margin: 0 auto;
 }
-#xss section p, #xss li{
+#xss section p,
+#xss li {
     font-size: var(--normal-size);
     color: var(--text-dim);
     line-height: 29px;
 }
-#xss h3{
+#xss h3 {
     color: white;
     font-size: var(--semi-large-size);
-    margin-bottom:7px ;
+    margin-bottom: 7px;
     margin-top: 10px;
 }
-#xss .labbox h3{
+#xss .labbox h3 {
     margin-top: 0 !important;
 }
 #xss p + p {
@@ -51,98 +53,98 @@ html, body{
 #xss li + li {
     margin-top: 5px;
 }
-#xss section h1{
-    font-size: var( --large-size);
+#xss section h1 {
+    font-size: var(--large-size);
     margin-bottom: 15px;
     margin-top: 20px;
     color: var(--text-main);
 }
-#xss .mainbar{
-    padding:30px;
-    padding-left:60px;
-    padding-right:80px;
+#xss .mainbar {
+    padding: 30px;
+    padding-left: 60px;
+    padding-right: 80px;
 }
-#xss section ul{
+#xss section ul {
     margin-top: 20px;
     margin-left: 100px;
     margin-bottom: 10px;
 }
-#xss section ol{
+#xss section ol {
     margin-top: 20px;
     margin-left: 100px;
     margin-bottom: 10px;
 }
-#xss .labbox{
+#xss .labbox {
     background-color: var(--secondary-bgcolor);
     border-left: 15px solid var(--action-color) !important;
     border-radius: 12px;
-    padding:20px;
+    padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
-    border:1px solid var(--border-light);
+    border: 1px solid var(--border-light);
 }
-#xss .labbox h1{
+#xss .labbox h1 {
     margin-top: 5px !important;
     color: var(--text-main);
 }
-#xss .code{
-    background-color: #EBF0F2;
-    color:black;
-    padding:20px;
+#xss .code {
+    background-color: #ebf0f2;
+    color: black;
+    padding: 20px;
     border-radius: 12px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#xss .code p{
-    color:black;
+#xss .code p {
+    color: black;
     margin-top: 0 !important;
 }
 #xss ul li::marker {
     color: white;
 }
-#xss ol li::marker{
+#xss ol li::marker {
     color: var(--text-main);
 }
-#xss .labbox ul li{
+#xss .labbox ul li {
     text-decoration: underline;
     text-underline-offset: 5px;
 }
-#xss .labbox ul li:hover{
-    color : white;
+#xss .labbox ul li:hover {
+    color: white;
 }
 #xss .labbox ul li::marker {
     color: var(--text-main);
 }
-#xss u{
-    text-underline-offset: 5px; 
-} 
-#xss u:hover{
-    color: white; 
-} 
-#xss b{
+#xss u {
+    text-underline-offset: 5px;
+}
+#xss u:hover {
+    color: white;
+}
+#xss b {
     color: white;
     opacity: 0.76;
 }
-#xss span{
+#xss span {
     background-color: var(--primary-bgcolor);
     margin: 2px;
     border-radius: 7px;
     padding: 5px 7px;
-    color:white;
+    color: white;
     font-weight: 600;
 }
 #lab span {
-    background-color: unset; 
+    background-color: unset;
 }
-#xss iframe{
+#xss iframe {
     width: min(1100px, 100%);
     padding-top: 30px;
     padding-bottom: 30px;
     display: block;
-    margin: 0 auto;  
+    margin: 0 auto;
     height: 680px;
 }
-#xss .query{
+#xss .query {
     margin-top: 10px;
     margin-bottom: 10px;
     color: var(--text-dim);

@@ -4,13 +4,13 @@ import { ToastProvider } from "./component/Toast/ToastContext";
 import NavigationModal from "./modals/NavigationModal/NavigationModal";
 
 export default function App() {
-  return (
-    <>
-      <ContextProvider>
-        <ToastProvider>
-          <NavigationModal/>
-        </ToastProvider>
-      </ContextProvider>
-    </>
-  );
+    return (
+        <>
+            <ContextProvider>
+                <ToastProvider>
+                    <NavigationModal />
+                </ToastProvider>
+            </ContextProvider>
+        </>
+    );
 }

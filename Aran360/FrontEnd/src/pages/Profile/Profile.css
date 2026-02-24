@@ -5,12 +5,12 @@
     flex: 1;
     margin-bottom: 20px;
 }
-#profile .main{
+#profile .main {
     padding: 20px;
     width: 55vw;
     margin: auto;
 }
-#profile .personInfo{
+#profile .personInfo {
     display: flex;
     gap: 10px;
     margin-top: 20px;
@@ -32,26 +32,26 @@
 #profile .profile-input-group input:focus {
     border-color: var(--action-color);
 }
-#profile h1{
+#profile h1 {
     color: var(--text-main);
     margin-bottom: 10px;
     font-size: var(--large-size);
 }
-#profile p{
+#profile p {
     color: var(--text-dim);
     font-size: var(--normal-size);
 }
-#profile h3{
+#profile h3 {
     color: var(--text-main);
     font-size: var(--semi-large-size);
 }
-#profile .secure{
+#profile .secure {
     border: 2px solid var(--border-light);
     border-radius: 12px;
     padding: 20px;
     background-color: var(--primary-bgcolor);
 }
-#profile Button i{
+#profile Button i {
     color: var(--text-main);
     font-size: var(--default-size);
 }
@@ -59,79 +59,78 @@
     font-size: var(--default-size);
     color: var(--text-dim);
 }
-#profile .updatePass{
+#profile .updatePass {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-#profile hr{
+#profile hr {
     background-color: var(--border-light);
     height: 1px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#profile i{
+#profile i {
     color: var(--action-color);
     font-size: var(--semi-large-size);
 }
-#profile .changePassword{
+#profile .changePassword {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
 }
-#profile .logOut{
+#profile .logOut {
     display: flex;
     gap: 20px;
     justify-content: center;
     align-items: center;
 }
 @media only screen and (max-width: 1460px) {
-    #profile .main{
-        width : 65vw;
+    #profile .main {
+        width: 65vw;
     }
 }
 @media only screen and (max-width: 1235px) {
-    #profile .main{
-        width : 75vw;
+    #profile .main {
+        width: 75vw;
     }
 }
 @media only screen and (max-width: 1070px) {
-    #profile .main{
-        width : 85vw;
+    #profile .main {
+        width: 85vw;
     }
 }
 @media only screen and (max-width: 945px) {
-    #profile .main{
-        width : 95vw;
+    #profile .main {
+        width: 95vw;
     }
 }
 @media only screen and (max-width: 800px) {
-    #profile p{
+    #profile p {
         display: none;
     }
-    #profile h1{
+    #profile h1 {
         text-align: center;
     }
-    #profile .updatePass{
+    #profile .updatePass {
         margin: auto;
     }
-    #profile .updatePass{
+    #profile .updatePass {
         flex-direction: column;
-    } 
+    }
 }
 @media only screen and (max-width: 440px) {
-    #profile .secure{
+    #profile .secure {
         display: flex;
         flex-direction: column;
     }
-    #profile .personInfo h3{
+    #profile .personInfo h3 {
         font-size: var(--normal-size);
     }
-    #profile .personInfo i{
+    #profile .personInfo i {
         font-size: var(--normal-size);
     }
 }
-
 
 /* input:-webkit-autofill{
     -webkit-box-shadow: 0 0 0px 1000px transparent inset;

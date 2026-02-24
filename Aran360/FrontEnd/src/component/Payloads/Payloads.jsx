@@ -1,9 +1,9 @@
-import './Payloads.css';
-export default function Payloads({children}){
-    return(
-        <div id='payloads'>
+import "./Payloads.css";
+export default function Payloads({ children }) {
+    return (
+        <div id="payloads">
             <div className="code">
-              <p>{children}</p>
+                <p>{children}</p>
             </div>
         </div>
     );

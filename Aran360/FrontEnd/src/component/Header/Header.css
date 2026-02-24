@@ -1,6 +1,6 @@
 .header-navbar {
     position: fixed;
-    width:100vw;
+    width: 100vw;
     height: 100px;
     padding: 0 50px 0 30px;
     display: flex;
@@ -12,7 +12,7 @@
     top: 0;
     left: 0;
 }
-#clear-header-position{
+#clear-header-position {
     height: 100px;
     top: 0;
     position: relative;
@@ -48,7 +48,7 @@
     margin: 0;
     transition: all 0.2s ease;
 }
-.header-navbar .navitem:hover, 
+.header-navbar .navitem:hover,
 .header-navbar .navitem.active {
     color: var(--action-color);
     border-bottom: 3px solid var(--action-color);
@@ -63,7 +63,7 @@
     padding: 0;
     margin: 0;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     display: none;
     cursor: pointer;
 }

@@ -18,7 +18,7 @@ public class CSRFService {
 	}
 
 	public static String csrfToken() {
-		return RandomService.generateRandomString(128);
+		return RandomService.generateRandomString(128,true,true,true,false);
 	}
 
 	public static String setCSRFToken(HttpServletRequest req) {

@@ -1,6 +1,6 @@
 import { backendbasename, info } from "./params";
 
-export const backendURL = "http://localhost:8765"+backendbasename;
+export const backendURL = "http://localhost:8765" + backendbasename;
 
 const client = new (class BackendClient {
     #csrfToken = null;
@@ -16,7 +16,7 @@ const client = new (class BackendClient {
             const data = await res.json();
             if (data && data.csrfToken) {
                 this.#csrfToken = data.csrfToken;
-                this.#expiry = Date.now() + ((data.expiry || 3600) * 1000);
+                this.#expiry = Date.now() + (data.expiry || 3600) * 1000;
             }
         } catch (e) {
             console.error(e);
@@ -29,34 +29,36 @@ const client = new (class BackendClient {
         }
     }
 
-    async fetch(endpoint, { method = "GET", body={}, headers } = {}) {
+    async fetch(endpoint, { method = "GET", body = {}, headers } = {}) {
         await this.#ensureValidToken();
-        
+
         const options = {
             method,
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/json",
+                Accept: "application/json",
                 ...headers,
-            }
+            },
         };
 
         if (this.#csrfToken) options.headers["X-CSRF-Token"] = this.#csrfToken;
         const url = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
 
         if (method !== "GET" && body !== undefined) {
-            options.body = JSON.stringify({ ...body, ...(this.#csrfToken && { csrfToken: this.#csrfToken }) });
+            options.body = JSON.stringify({
+                ...body,
+                ...(this.#csrfToken && { csrfToken: this.#csrfToken }),
+            });
         }
 
         const res = await fetch(`${this.baseUrl}${url}`, options);
 
         try {
-            
             const data = await res.json();
             if (data?.csrfToken) {
                 this.#csrfToken = data.csrfToken;
-                if (data.expiry) this.#expiry = Date.now() + (data.expiry * 1000);
+                if (data.expiry) this.#expiry = Date.now() + data.expiry * 1000;
             }
             return data;
         } catch (e) {
@@ -68,8 +70,7 @@ const client = new (class BackendClient {
 export const backendFetch = client.fetch.bind(client);
 export const refreshCsrfToken = client.refreshCsrfToken.bind(client);
 
-
-export const isValidPassword = function (pwd){
+export const isValidPassword = function (pwd) {
     return true;
     // TODO
-}
+};

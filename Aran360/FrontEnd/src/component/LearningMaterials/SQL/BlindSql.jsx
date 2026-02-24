@@ -141,7 +141,7 @@ export default function BlindSql() {
                         <h3>Note</h3>
                         <p>
                             The <span>SUBSTRING</span> function is called{" "}
-                            <span>SUBSTR</span> on some types of database. 
+                            <span>SUBSTR</span> on some types of database.
                         </p>
                     </div>
                 </section>
@@ -161,7 +161,8 @@ export default function BlindSql() {
                             a specific error response based on the result of a
                             boolean expression. You can exploit this in the same
                             way as the <u>conditional responses</u> we looked at
-                            in the previous section. For more information, see <u>
+                            in the previous section. For more information, see{" "}
+                            <u>
                                 Exploiting blind SQL injection by triggering
                                 conditional errors
                             </u>
@@ -172,8 +173,9 @@ export default function BlindSql() {
                             output the data returned by the query. This
                             effectively turns otherwise blind SQL injection
                             vulnerabilities into visible ones. For more
-                            information, see <u>
-                                 Extracting sensitive data via verbose SQL error
+                            information, see{" "}
+                            <u>
+                                Extracting sensitive data via verbose SQL error
                                 messages
                             </u>
                             .

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 import { backendFetch, isValidPassword } from "../../utils/helpers";
 import { useToast } from "../../component/Toast/ToastContext";
-import "./ResetPassword.css"
+import "./ResetPassword.css";
 import Header from "../../component/Header/Header";
 import { success, error, info } from "../../utils/params";
 import Button from "../../component/Button/Button";
@@ -61,7 +61,10 @@ export default function ResetPassword() {
                         >
                             fingerprint
                         </span>
-                        <div className="reset-mockup-card" style={{ zIndex: 1 }}>
+                        <div
+                            className="reset-mockup-card"
+                            style={{ zIndex: 1 }}
+                        >
                             <div className="reset-mockup-check">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -90,25 +93,34 @@ export default function ResetPassword() {
 
                 <div className="reset-form-section">
                     <div style={{ height: "100px" }}>
-                        <Header/>
+                        <Header />
                     </div>
                     <div className="reset-container">
-                        <h1 style={{color:"var(--text-main)"}}>Reset Password</h1>
-                    <div className="reset-input-group" >
-                        <label htmlFor="pwd">New Password</label>
-                        <input type="password" id="pwd" name="pwd" ref={pwd}  placeholder="••••••••" />
-                        <label htmlFor="repwd">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="repwd"
-                            name="repwd"
-                            ref={repwd}
-                            placeholder="••••••••"
-                        />
-                        <Button onClick={sendResetReq} type="submit" >Submit</Button>
+                        <h1 style={{ color: "var(--text-main)" }}>
+                            Reset Password
+                        </h1>
+                        <div className="reset-input-group">
+                            <label htmlFor="pwd">New Password</label>
+                            <input
+                                type="password"
+                                id="pwd"
+                                name="pwd"
+                                ref={pwd}
+                                placeholder="••••••••"
+                            />
+                            <label htmlFor="repwd">Confirm Password</label>
+                            <input
+                                type="password"
+                                id="repwd"
+                                name="repwd"
+                                ref={repwd}
+                                placeholder="••••••••"
+                            />
+                            <Button onClick={sendResetReq} type="submit">
+                                Submit
+                            </Button>
+                        </div>
                     </div>
-                    </div>
-                    
                 </div>
             </main>
 

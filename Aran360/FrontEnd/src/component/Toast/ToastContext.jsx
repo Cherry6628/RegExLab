@@ -16,7 +16,10 @@ export function ToastProvider({ children }) {
 
     const showToast = useCallback((message, type = "info", duration = 3000) => {
         const id = Date.now() + Math.random();
-        setToasts((prev) => [{ id, message, type, duration },...prev.slice(0,2)]);
+        setToasts((prev) => [
+            { id, message, type, duration },
+            ...prev.slice(0, 2),
+        ]);
     }, []);
 
     return (
@@ -34,7 +37,6 @@ export function ToastProvider({ children }) {
                     gap: "12px",
                     height: "350px",
                     width: "fit-content",
-                    
                 }}
             >
                 {toasts.map((toast) => (
