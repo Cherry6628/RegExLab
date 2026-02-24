@@ -69,12 +69,12 @@ export default function Dashboard() {
                                 )}
                             </div>
                         </div>
-                        <div className="bar">
+                        {/* <div className="bar">
                             <CircleBar
                                 value={context.uname ? 16 : 0}
                                 r={80}
                             ></CircleBar>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="lab">

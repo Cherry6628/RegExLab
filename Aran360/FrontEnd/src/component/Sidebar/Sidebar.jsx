@@ -11,7 +11,7 @@ const Sidebar = ({ list = {}, activeId, setActiveId }) => {
             navigate(item.url);
             return;
         }
-        setActiveId(key);
+        setActiveId&&setActiveId(key);
         setIsExpanded(false);
 
         if (item.hash) {
