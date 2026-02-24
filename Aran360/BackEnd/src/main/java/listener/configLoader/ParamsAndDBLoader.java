@@ -6,15 +6,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import service.utils.manager.DBService;
-
+import model.pojo.Quiz;
 @WebListener
 public class ParamsAndDBLoader implements ServletContextListener {
 	private static final Properties allConfigs = new Properties();
@@ -566,25 +567,48 @@ public class ParamsAndDBLoader implements ServletContextListener {
 		return allConfigs.getProperty(propName);
 	}
 
-	// public static String getQuiz(String name) throws SQLException {
-	// 	Connection con = DBService.getConnection();
-	// 	String query = "Select id from learning_topics where topic = ?";
-	// 	String query1 = "Select * from quiz where topic_id = ?";
-	// 	try (PreparedStatement ps = con.prepareStatement(query); PreparedStatement ps1 = con.prepareStatement("")){
-	// 		ps.setString(1, name);
-	// 		ResultSet rs = ps.executeQuery();
-	// 		int id;
-	// 		if(rs.next()) {
-    //             id = rs.getInt("id");
-   	// 		}
-	// 		ResultSet rs1 = ps1.executeQuery();
-	// 		while(rs1.next()) {
-	// 			rs1.getInt(id);
-	// 		}
-			
-	// 	}
-		
-	// }
+
+	public static List<Quiz> getQuiz(String name) throws SQLException {
+		Connection con = DBService.getConnection();
+		ArrayList <Quiz> questions = new ArrayList<>();
+		String query = "Select id from learning_topics where topic = ?";
+		String query1 =  "SELECT * from quiz where topic_id = ?";
+		String query2 = "SELECT * from quiz_options where quiz_id = ?";
+		try (PreparedStatement ps = con.prepareStatement(query); PreparedStatement ps1 = con.prepareStatement(query1);PreparedStatement ps2 = con.prepareStatement(query2)){
+			ps.setString(1, name);
+			ResultSet rs = ps.executeQuery();
+			int id = 0;
+			if(rs.next()) {
+				id = rs.getInt("id");
+   			}
+			ps1.setInt(1, id);
+			ResultSet rs1 = ps1.executeQuery();
+			while(rs1.next()) {
+				int qid = rs1.getInt("id");
+				int topicId = rs1.getInt("topic_id");
+				String headline = rs1.getString("headline");
+				String description = rs1.getString("description");
+				String question = rs1.getString("question");
+				String language = rs1.getString("language");
+				boolean isCode = rs1.getInt("is_code")== 1;
+				String code = rs1.getString("code");
+				int correctIndex = rs1.getInt("correct_index");
+				ps2.setInt(1, qid);
+				ResultSet rs2 = ps2.executeQuery();
+				ArrayList <String> options = new ArrayList<>();
+				while(rs2.next()) {
+					int oid = rs2.getInt("id");
+					int quizId = rs2.getInt("quiz_id");
+					String option = rs2.getString("option_text");
+					int order = rs2.getInt("option_order");
+					options.add(option);
+				}
+				Quiz q = new Quiz(qid, topicId, headline, description, question, language, isCode, code, correctIndex, options);
+				questions.add(q);
+			}
+			return questions;
+		}
+	}
 	public static String getProperty(String propName, String defaultValue) {
 		return allConfigs.getProperty(propName, defaultValue);
 	}
