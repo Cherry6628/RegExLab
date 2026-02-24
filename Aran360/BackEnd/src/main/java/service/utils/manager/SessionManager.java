@@ -11,16 +11,17 @@ public class SessionManager {
 
         int userId;
         try (PreparedStatement userPstmt = conn.prepareStatement(
-                "SELECT id FROM "+ParamsAndDBLoader.TABLE_USERS+" WHERE username = ?")) {
+                "SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?")) {
             userPstmt.setString(1, username);
             try (ResultSet rs = userPstmt.executeQuery()) {
-                if (!rs.next()) throw new SQLException("User not found: " + username);
+                if (!rs.next())
+                    throw new SQLException("User not found: " + username);
                 userId = rs.getInt("id");
             }
         }
 
         try (PreparedStatement countPstmt = conn.prepareStatement(
-                "SELECT COUNT(*) FROM "+ParamsAndDBLoader.TABLE_LOGIN_SESSIONS+" WHERE user_id = ?")) {
+                "SELECT COUNT(*) FROM " + ParamsAndDBLoader.TABLE_LOGIN_SESSIONS + " WHERE user_id = ?")) {
             countPstmt.setInt(1, userId);
             try (ResultSet rs = countPstmt.executeQuery()) {
                 rs.next();
@@ -36,7 +37,8 @@ public class SessionManager {
 
         String nonce = RandomService.generateRandomString(255);
         try (PreparedStatement insPstmt = conn.prepareStatement(
-                "INSERT INTO "+ParamsAndDBLoader.TABLE_LOGIN_SESSIONS+" (user_id, nonce, user_agent) VALUES (?, ?, ?)")) {
+                "INSERT INTO " + ParamsAndDBLoader.TABLE_LOGIN_SESSIONS
+                        + " (user_id, nonce, user_agent) VALUES (?, ?, ?)")) {
             insPstmt.setInt(1, userId);
             insPstmt.setString(2, nonce);
             insPstmt.setString(3, request.getHeader("User-Agent"));

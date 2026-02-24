@@ -27,10 +27,10 @@ public class MailingService {
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(ParamsAndDBLoader.EMAIL_ADDRESS, ParamsAndDBLoader.APP_NAME));
-            
+
             String recipient = (toName != null && !toName.isEmpty()) ? toName + " <" + toEmail + ">" : toEmail;
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
-            
+
             message.setSubject(subject);
             message.setText(textContent);
             message.setHeader("X-Priority", "1");

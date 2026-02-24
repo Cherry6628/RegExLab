@@ -52,6 +52,7 @@ public class RandomService {
 
 		return randomString.toString();
 	}
+
 	public static String generateRandomString(int length) {
 		return generateRandomString(length, false, false, false, false);
 	}

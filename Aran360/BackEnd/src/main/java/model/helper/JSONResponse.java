@@ -6,7 +6,8 @@ public class JSONResponse {
 	final public static String SUCCESS = "success";
 	final public static String ERROR = "error";
 
-	private JSONResponse(){}
+	private JSONResponse() {
+	}
 
 	public static JSONObject response(String status, String message, String csrfToken,
 			JSONObject otherParams) {
@@ -18,7 +19,7 @@ public class JSONResponse {
 		if (csrfToken != null)
 			json.put("csrfToken", csrfToken);
 		if (otherParams != null) {
-			for(String key: otherParams.keySet()) {
+			for (String key : otherParams.keySet()) {
 				json.put(key, otherParams.get(key));
 			}
 		}

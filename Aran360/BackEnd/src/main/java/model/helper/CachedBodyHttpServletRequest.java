@@ -23,16 +23,20 @@ public class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
             public int read() {
                 return byteArrayInputStream.read();
             }
+
             @Override
             public boolean isFinished() {
                 return byteArrayInputStream.available() == 0;
             }
+
             @Override
             public boolean isReady() {
                 return true;
             }
+
             @Override
-            public void setReadListener(jakarta.servlet.ReadListener listener) {}
+            public void setReadListener(jakarta.servlet.ReadListener listener) {
+            }
         };
     }
 

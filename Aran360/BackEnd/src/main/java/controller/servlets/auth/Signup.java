@@ -39,7 +39,7 @@ public class Signup extends HttpServlet {
 		String user = body.optString("username");
 		String pass = body.optString("password");
 		String email = body.optString("email");
-		if(!ValidatorService.isEmail(email)) {
+		if (!ValidatorService.isEmail(email)) {
 			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid Email", csrfNew).toString());
 			return;
 		}
@@ -54,7 +54,8 @@ public class Signup extends HttpServlet {
 
 		try {
 			System.out.println("Inserting into users");
-			String query = "INSERT INTO "+ParamsAndDBLoader.TABLE_USERS+" (username, email, password_hash) VALUES (?, ?, ?)";
+			String query = "INSERT INTO " + ParamsAndDBLoader.TABLE_USERS
+					+ " (username, email, password_hash) VALUES (?, ?, ?)";
 			PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
 			pstmt.setString(1, user);
 			pstmt.setString(2, email);

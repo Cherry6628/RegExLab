@@ -31,14 +31,14 @@ public class Login extends HttpServlet {
 		String password = body.optString("password");
 
 		try {
-			String query = "SELECT password_hash FROM "+ParamsAndDBLoader.TABLE_USERS+" WHERE username = ?";
+			String query = "SELECT password_hash FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?";
 			PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next() && PBKDF2_Service.object.verify(rs.getString("password_hash"), password)) {
 				String token = SessionManager.createSession(username, request, DBService.getConnection());
-				System.out.println("login token: "+token);
+				System.out.println("login token: " + token);
 				setAuthCookie(response, token);
 				response.getWriter()
 						.write(JSONResponse.response(JSONResponse.SUCCESS, "Login Successful", csrfNew).toString());
@@ -52,8 +52,10 @@ public class Login extends HttpServlet {
 		} catch (Exception e) {
 			response.setStatus(500);
 			response.getWriter()
-			.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong, Please try again later.", csrfNew).toString());
-	return;
+					.write(JSONResponse
+							.response(JSONResponse.ERROR, "Something went wrong, Please try again later.", csrfNew)
+							.toString());
+			return;
 		}
 	}
 

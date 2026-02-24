@@ -11,16 +11,16 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
-
 @WebServlet("/info")
 public class InfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		JSONObject json = new JSONObject();
 		json.put("totalLabs", 150);
-		response.getWriter().append(JSONResponse.response(JSONResponse.SUCCESS, "Metadata fetched", null, json).toString());
+		response.getWriter()
+				.append(JSONResponse.response(JSONResponse.SUCCESS, "Metadata fetched", null, json).toString());
 	}
-
 
 }

@@ -18,19 +18,20 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-
 @WebServlet("/user-data")
 public class UserData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		JSONObject json = new JSONObject();
 		String uname = (String) request.getAttribute("AUTHENTICATED_USER");
 		json.put("uname", uname);
 		Connection con = DBService.getConnection();
 		String email = "no-email@domain.com";
-		try( PreparedStatement ps = con.prepareStatement("SELECT email from "+ParamsAndDBLoader.TABLE_USERS+" WHERE username = ?")) {
-		
+		try (PreparedStatement ps = con
+				.prepareStatement("SELECT email from " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?")) {
+
 			ps.setString(1, uname);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -40,14 +41,13 @@ public class UserData extends HttpServlet {
 			e.printStackTrace();
 		}
 		json.put("email", email);
-		
-		
+
 		int lc = 23, la = 12;
 		json.put("labsCompleted", lc);
 		json.put("labsAbandoned", la);
-		json.put("labsAttempted", lc+la);
-		response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "User Authenticated", null, json).toString());
+		json.put("labsAttempted", lc + la);
+		response.getWriter()
+				.write(JSONResponse.response(JSONResponse.SUCCESS, "User Authenticated", null, json).toString());
 	}
-
 
 }

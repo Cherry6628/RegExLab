@@ -4,7 +4,8 @@ import java.util.regex.Pattern;
 
 public class ValidatorService {
 
-	private static final Pattern EMAIL_PATTERN = Pattern.compile("^(?![._%+\\-])[a-zA-Z0-9._%+\\-]{1,64}(?<![._%+\\-])@(?!\\-)(?:[a-zA-Z0-9\\-]{1,63}\\.)+[a-zA-Z]{2,63}$");
+	private static final Pattern EMAIL_PATTERN = Pattern.compile(
+			"^(?![._%+\\-])[a-zA-Z0-9._%+\\-]{1,64}(?<![._%+\\-])@(?!\\-)(?:[a-zA-Z0-9\\-]{1,63}\\.)+[a-zA-Z]{2,63}$");
 	private static final Pattern EMAIL_LABEL_PATTERN = Pattern.compile("[a-zA-Z0-9\\-]+");
 	private static final Pattern EMAIL_TLD_PATTERN = Pattern.compile("[0-9]+");
 

@@ -21,12 +21,14 @@ public class PasswordResetDAO {
 			pstmt.executeUpdate();
 			return token;
 		}
-		
+
 	}
 
 	public static String getEmail(String token) throws SQLException {
 		Connection con = DBService.getConnection();
-		try (PreparedStatement pstmt = con.prepareStatement("SELECT u.email as email FROM " + ParamsAndDBLoader.TABLE_USERS + " u JOIN " + ParamsAndDBLoader.TABLE_PASSWORD_RESET + " p ON u.id = p.user_id AND p.expires_at > CURRENT_TIMESTAMP AND p.nonce = ?")) {
+		try (PreparedStatement pstmt = con.prepareStatement("SELECT u.email as email FROM "
+				+ ParamsAndDBLoader.TABLE_USERS + " u JOIN " + ParamsAndDBLoader.TABLE_PASSWORD_RESET
+				+ " p ON u.id = p.user_id AND p.expires_at > CURRENT_TIMESTAMP AND p.nonce = ?")) {
 			pstmt.setString(1, token);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next())
