@@ -4,10 +4,18 @@ import { useState } from "react";
 import QuizContainer from "./QuizContainer";
 import Header from "../Header/Header";
 import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
+import { useToast } from "../Toast/ToastContext.jsx";
+import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider.jsx";
 export default function QuizMain() {
     const [display, setDisplay] = useState(0);
+    const{showToast} = useToast();
     const [response, setResponse] = useState({});
+    const context = useGlobalContext();
     function takeTest(topicName) {
+        if(!context.uname){
+            showToast("Login to take a test");
+            return;
+        }
         backendFetch("/quiz-questions", {
             method: "POST",
             body: { topic: topicName },

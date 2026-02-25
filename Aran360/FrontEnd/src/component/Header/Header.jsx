@@ -1,40 +1,53 @@
 import { useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import "./Header.css";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const location = useLocation();
+    const [profileOpen, setProfileOpen] = useState(false);
+    const profileRef = useRef(null);
     const context = useGlobalContext();
+    const navigate = useNavigate();
     const listRef = useRef(null);
+
     const closeAll = () => {
         setMenuOpen(false);
         setDropdownOpen(false);
+        setProfileOpen(false);
     };
 
     const toggleDropdown = (e) => {
         e.stopPropagation();
-        setDropdownOpen(!dropdownOpen);
+        setDropdownOpen((prev) => !prev);
     };
+
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 1024) closeAll();
         };
+
         const handleClose = (e) => {
-            if (!listRef.current?.contains(e.target)) closeAll();
+            if (
+                !listRef.current?.contains(e.target) &&
+                !profileRef.current?.contains(e.target)
+            ) {
+                setDropdownOpen(false);
+                setProfileOpen(false);
+            }
         };
+
         window.addEventListener("resize", handleResize);
         window.addEventListener("click", handleClose);
 
-        return () => [
-            window.removeEventListener("resize", handleResize),
-            window.removeEventListener("click", handleClose),
-        ];
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("click", handleClose);
+        };
     }, []);
-    const navigate = useNavigate();
+
     return (
         <>
             <header className="header-navbar">
@@ -44,7 +57,7 @@ export default function Header() {
 
                 <div
                     className="hamburger"
-                    onClick={() => setMenuOpen(!menuOpen)}
+                    onClick={() => setMenuOpen((prev) => !prev)}
                 >
                     <span className="material-symbols-outlined">
                         {menuOpen ? "close" : "menu"}
@@ -58,83 +71,147 @@ export default function Header() {
                 <nav className={`nav-menu ${menuOpen ? "open" : ""}`}>
                     <ul className="navlist">
                         <li>
-                            <p
-                                className={`navitem ${location.pathname === "/dashboard" ? "active" : ""}`}
+                            <NavLink
+                                to="/dashboard"
+                                end
+                                className={({ isActive }) =>
+                                    `navitem ${isActive ? "active" : ""}`
+                                }
                                 onClick={() => {
                                     context.fetchUserData();
-                                    navigate("/dashboard");
+                                    closeAll();
                                 }}
                             >
                                 Dashboard
-                            </p>
+                            </NavLink>
                         </li>
 
                         <li className="navitem-container" ref={listRef}>
                             <p
-                                className={`navitem ${dropdownOpen ? "active" : ""}`}
+                                className={`navitem ${
+                                    dropdownOpen ? "active" : ""
+                                }`}
                                 onClick={toggleDropdown}
                             >
                                 Knowledge Base
                             </p>
+
                             <ul
-                                className={`dropdown-menu ${dropdownOpen ? "show" : ""} ${location.pathname.startsWith("/learning-material/") ? "active" : ""}`}
+                                className={`dropdown-menu ${
+                                    dropdownOpen ? "show" : ""
+                                }`}
                             >
-                                {Object.keys(context.learningData).map((r) => (
-                                    <li key={r}>
-                                        <a
-                                            onClick={() => {
-                                                navigate(
+                                {Object.keys(context.learningData).map(
+                                    (key) => (
+                                        <li key={key}>
+                                            <NavLink
+                                                to={
                                                     "/learning-material/" +
-                                                        context.learningData[r]
-                                                            .url,
-                                                );
-                                            }}
-                                        >
-                                            {r}
-                                        </a>
-                                    </li>
-                                ))}
+                                                    context.learningData[key]
+                                                        .url
+                                                }
+                                                className={({ isActive }) =>
+                                                    isActive ? "active" : ""
+                                                }
+                                                onClick={closeAll}
+                                            >
+                                                {key}
+                                            </NavLink>
+                                        </li>
+                                    ),
+                                )}
                             </ul>
                         </li>
 
                         <li>
-                            <p
-                                className="navitem"
-                                onClick={() => {
-                                    navigate("/all-labs");
-                                }}
+                            <NavLink
+                                to="/all-labs"
+                                className={({ isActive }) =>
+                                    `navitem ${isActive ? "active" : ""}`
+                                }
+                                onClick={closeAll}
                             >
                                 All Labs
-                            </p>
+                            </NavLink>
                         </li>
+
                         <li>
-                            <p
-                                className={`navitem ${location.pathname === "/test" ? "active" : ""}`}
-                                onClick={() => {
-                                    navigate("/test");
-                                }}
+                            <NavLink
+                                to="/test"
+                                className={({ isActive }) =>
+                                    `navitem ${isActive ? "active" : ""}`
+                                }
+                                onClick={closeAll}
                             >
                                 Take a Test
-                            </p>
+                            </NavLink>
                         </li>
-                        <li
-                            className="navitem-container"
-                            onClick={() => {
-                                navigate("/accounts");
-                            }}
-                        >
+
+                        <li ref={profileRef} className="navitem-container">
                             {context.uname ? (
-                                <span
-                                    style={{
-                                        fontSize: "40px",
-                                        cursor: "pointer",
-                                    }}
-                                    className="material-symbols-outlined"
-                                >
-                                    account_circle
-                                </span>
+                                <>
+                                    <span
+                                        className="material-symbols-outlined"
+                                        style={{
+                                            fontSize: "40px",
+                                            cursor: "pointer",
+                                        }}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setProfileOpen((prev) => !prev);
+                                        }}
+                                    >
+                                        account_circle
+                                    </span>
+
+                                    <ul
+                                        className={`dropdown-menu ${
+                                            profileOpen ? "show" : ""
+                                        }`}
+                                style={{width: "100px", marginTop: "15px !important"}}
+                                    >
+                                        <li>
+                                            <NavLink
+                                                to="/accounts"
+                                                onClick={closeAll}
+                                            >
+                                                Profile
+                                            </NavLink>
+                                        </li>
+
+                                        <li>
+                                            <NavLink
+                                            
+                                                className="logout-btn"
+                                                onClick={() => {
+                                                    backendFetch("/logout", {
+                                                        method: "POST",
+                                                    }).then((r) => {
+                                                        context.clearUserData();
+                                                        showToast(
+                                                            r.message,
+                                                            r.status,
+                                                        );
+                                                        closeAll();
+                                                        navigate("/accounts");
+                                                    });
+                                                }}
+                                            >
+                                                Logout
+                                            </NavLink>
+                                        </li>
+                                    </ul>
+                                </>
                             ) : (
-                                <p className={`navitem ${location.pathname === "/accounts" ? "active" : ""}`}>Login</p>
+                                <NavLink
+                                    to="/accounts"
+                                    className={({ isActive }) =>
+                                        `navitem ${isActive ? "active" : ""}`
+                                    }
+                                    onClick={closeAll}
+                                >
+                                    Login
+                                </NavLink>
                             )}
                         </li>
                     </ul>
