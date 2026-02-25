@@ -59,6 +59,12 @@
                 "<p class='result-text'>You searched for: " + q + "</p>" +
                 "<div class='no-results'>No products found.</div>";
         }
-    </script>
+    </script>    <script>
+  const basePath = window.location.pathname.split("?")[0];
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = basePath + "/style.css";
+  document.head.appendChild(link);
+</script>
 </body>
 </html>

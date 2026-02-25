@@ -10,7 +10,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/", express.static(path.join(__dirname, "public")));
 
 app.get("/xss-fired", (req, res) => {
     res.cookie("lab_solved", "true", { httpOnly: true, sameSite: "Strict" });
@@ -23,13 +23,11 @@ app.post("/complete", (req, res) => {
     }
     res.json({ status: "completed" });
 });
-
-// encodes < > only — quotes NOT encoded, so attribute breakout works
 function partialEncode(str) {
     return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-app.get("/search", (req, res) => {
+app.get("/", (req, res) => {
     const q = partialEncode(req.query.q || "");
     res.send(`<!doctype html>
 <html>
@@ -80,10 +78,15 @@ app.get("/search", (req, res) => {
         document.getElementById("searchInput").addEventListener("keypress", (e) => {
             if (e.key === "Enter") doSearch();
         });
-    </script>
+    </script>    <script>
+  const basePath = window.location.pathname.split("?")[0];
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = basePath + "/style.css";
+  document.head.appendChild(link);
+</script>
 </body>
 </html>`);
 });
 
-app.get("/", (req, res) => res.redirect("/search"));
 app.listen(3000, () => console.log("xss-reflected-2 running"));

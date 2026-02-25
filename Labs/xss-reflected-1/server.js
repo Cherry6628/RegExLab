@@ -75,10 +75,20 @@ app.get("/search", (req, res) => {
         document.getElementById("searchInput").addEventListener("keypress", (e) => {
             if (e.key === "Enter") doSearch();
         });
-    </script>
+    </script>    <script>
+  const basePath = window.location.pathname.split("?")[0];
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = basePath + "/style.css";
+  document.head.appendChild(link);
+</script>
 </body>
 </html>`);
 });
 
-app.get("/", (req, res) => res.redirect("/search"));
+app.get("/", (req, res) => {
+    const fullPath = req.originalUrl || req.url;
+    const basePath = fullPath.endsWith('/') ? fullPath.slice(0, -1) : fullPath;
+    res.redirect(basePath + "/search");
+});
 app.listen(3000, () => console.log("xss-reflected-1 running"));
