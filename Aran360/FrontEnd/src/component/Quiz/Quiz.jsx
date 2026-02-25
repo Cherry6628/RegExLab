@@ -25,7 +25,12 @@ export default function Quiz({
         if(!selected)return;
         console.log(count,length);
         console.log(selected);
-        setAnswer({...answer, quizId: quizId,answer : selected})
+        console.log("answer: "+answer);
+        const updatedAnswer = {
+            quizId: quizId,
+            answer: selected
+        };
+        setAnswer(prev => [...prev, updatedAnswer]);
         console.log(answer);
         if(count == length-1){
             getResult(answer)
