@@ -4,6 +4,7 @@ import Logo from "../Logo/Logo";
 import "./Header.css";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 import { backendFetch } from "../../utils/helpers";
+import { useToast } from "../Toast/ToastContext";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function Header() {
     const context = useGlobalContext();
     const navigate = useNavigate();
     const listRef = useRef(null);
-
+    const {showToast} = useToast();
     const closeAll = () => {
         setMenuOpen(false);
         setDropdownOpen(false);
