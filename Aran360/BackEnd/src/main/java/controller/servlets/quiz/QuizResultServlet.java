@@ -41,20 +41,25 @@ public class QuizResultServlet extends HttpServlet {
 			for (Entry<Integer, String> es : answers.entrySet()) {
 				int id = es.getKey();
 				ps1.setInt(1, id);
+				System.out.println("\t\tid in first for loop"+id);
 				ResultSet rs1 = ps1.executeQuery();
 				if (rs1.next()) {
 					int correctIndex = rs1.getInt("correct_index");
 					ps2.setInt(1, id);
 					ps2.setInt(2, correctIndex);
+					System.out.println("\t\tid inside if: "+id);
+					System.out.println("\t\tcorrect:"+correctIndex);
 					ResultSet rs2 = ps2.executeQuery();
 					if (rs2.next()) {
 						String option = rs2.getString("option_text");
 						if (option == es.getValue()) {
 							score++;
+							System.out.println("\t\tscore: "+score);
 						}
 					}
 				}
 			}
+			System.out.println("\t\tfinal score: "+score);
 			return score;
 		}
 	}

@@ -26,6 +26,7 @@ export default function Quiz({
         console.log(count,length);
         console.log(selected);
         setAnswer({...answer, quizId: quizId,answer : selected})
+        console.log(answer);
         if(count == length-1){
             getResult(answer)
             navigate("/result");
