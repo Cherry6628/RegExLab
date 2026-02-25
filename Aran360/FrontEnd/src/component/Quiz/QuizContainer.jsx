@@ -7,7 +7,6 @@ export default function QuizContainer({quiz}) {
     function incrementQuestion() {
         setCurrentQuestion(currentQuestion + 1);
     }
-
     return (
         <Quiz
             {...quiz[currentQuestion]}
