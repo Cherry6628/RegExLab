@@ -26,7 +26,7 @@ export default function QuizResult() {
                 <h1>Quiz Completed!</h1>
                 <div className="outer">
                     <div className="percentage">
-                        <CircleBar value={80}></CircleBar>
+                        <CircleBar value={20}></CircleBar>
                     </div>
                     <div>
                         <div className="inner">
@@ -34,14 +34,14 @@ export default function QuizResult() {
                                 <i className="fa-solid fa-star"></i>
                                 <p>Points&nbsp;Earned</p>
                                 <p>
-                                    <span className="detail">8</span>/10 Correct
+                                    <span className="detail">1</span>/5 Correct
                                 </p>
                             </div>
                             <div className="time">
                                 <i className="fa-solid fa-stopwatch"></i>
                                 <p>Time Taken</p>
                                 <p>
-                                    <span className="detail">4:30</span>mintes
+                                    <span className="detail">0:29</span>mintes
                                 </p>
                             </div>
                         </div>
@@ -50,12 +50,12 @@ export default function QuizResult() {
                             <p>Performance Breakdown</p>
                             <ProgressBar
                                 answer={"Correct Answers"}
-                                value={80}
+                                value={20}
                                 isPass={true}
                             ></ProgressBar>
                             <ProgressBar
                                 answer={"Wrong Answers"}
-                                value={20}
+                                value={80}
                                 isPass={false}
                             ></ProgressBar>
                         </div>

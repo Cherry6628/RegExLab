@@ -5,13 +5,14 @@ import Button from "../Button/Button";
 import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export default function Quiz({
     headline,
     description,
     code,
     question,
     language,
-    quizId,
+    qid,
     isCode,
     options,
     next = () => {},
@@ -20,26 +21,38 @@ export default function Quiz({
     const navigate = useNavigate();
     const [count, setCount] = useState(0);
     const [answer, setAnswer] = useState({});
-    console.log("answer: " + answer);
+    const [selected, setSelected] = useState(null);
+    
+    console.log("answer: ", answer);
+    
     const handleSubmit = () => {
         if (!selected) return;
         console.log(count, length);
         console.log(selected);
-        console.log("answer: " + JSON.stringify(answer));
-        setAnswer({ ...answer, quizId: quizId, answer: selected });
-        console.log(answer);
+        
+        const updatedAnswer = {
+            ...answer,
+            "qid": qid, "answer":selected
+        };
+        
+        setAnswer(updatedAnswer);
+        
+        console.log("Updated answers:", updatedAnswer);
+        
         if (count == length - 1) {
-            getResult(answer);
+            getResult(updatedAnswer);
             navigate("/result");
         } else {
             next();
             setCount(count + 1);
+            setSelected(null);
         }
     };
-    function getResult(answer) {
+    
+    function getResult(answers) {
         backendFetch("/quiz-results", {
             method: "POST",
-            body: answer,
+            body: answers,
         })
             .then((res) => {
                 console.log(res);
@@ -48,7 +61,7 @@ export default function Quiz({
                 console.log(err);
             });
     }
-    const [selected, setSelected] = useState(null);
+    
     return (
         <div id="Quiz">
             <h1 className="headline">{headline}</h1>
@@ -61,12 +74,12 @@ export default function Quiz({
                 style={
                     isCode
                         ? {
-                              fontSize: "var(--normal-size)",
+                            fontSize: "var(--normal-size)",
                           }
                         : {
-                              fontSize: "var(--large-size)",
-                              textAlign: "center",
-                              marginBottom: "40px",
+                            fontSize: "var(--large-size)",
+                            textAlign: "center",
+                            marginBottom: "40px",
                           }
                 }
             >
@@ -76,7 +89,7 @@ export default function Quiz({
                 return (
                     <Option
                         key={i}
-                        name={"name-" + quizId}
+                        name={"name-" + qid}
                         value={r}
                         checked={selected === r}
                         onChange={() => setSelected(r)}
