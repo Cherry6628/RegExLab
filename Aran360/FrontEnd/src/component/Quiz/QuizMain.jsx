@@ -8,26 +8,35 @@ import { useToast } from "../Toast/ToastContext.jsx";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider.jsx";
 export default function QuizMain() {
     const [display, setDisplay] = useState(0);
-    const{showToast} = useToast();
+    const { showToast } = useToast();
     const [response, setResponse] = useState({});
     const context = useGlobalContext();
     function takeTest(topicName) {
-        if(!context.uname){
+        // context.refreshCsrfToken();
+        refreshCsrfToken();
+        if (!context.uname) {
             showToast("Login to take a test");
             return;
         }
         backendFetch("/quiz-questions", {
             method: "POST",
             body: { topic: topicName },
-            })
+        })
             .then((res) => {
                 console.log(res);
+                if (res instanceof Response) {
+                    showToast("Login to take a test");
+                    return;
+                }
+                console.log("res: "+res);
+                console.log(typeof res);
+                console.log(res instanceof Response);
                 setResponse(res);
                 setDisplay(1);
             })
             .catch((err) => {
                 console.log(err);
-        });
+            });
     }
     return (
         <>
@@ -47,7 +56,9 @@ export default function QuizMain() {
                         </p>
                         <div className="separate">
                             <VulnerabilityTopic
-                                onClick={() => takeTest("Cross Site Scripting (XSS)")}
+                                onClick={() =>
+                                    takeTest("Cross Site Scripting (XSS)")
+                                }
                                 icon="terminal"
                                 heading="Cross Site Scripting (XSS)"
                                 content="Cross Site Scripting (XSS) allows attackers to inject malicious JavaScript into web pages. When other users visit the page, the script executes in their browser and can steal cookies, session tokens, or sensitive data."

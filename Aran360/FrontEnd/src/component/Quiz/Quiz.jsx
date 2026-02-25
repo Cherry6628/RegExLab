@@ -15,38 +15,38 @@ export default function Quiz({
     isCode,
     options,
     next = () => {},
-    length
+    length,
 }) {
     const navigate = useNavigate();
-    const [count,setCount] = useState(0);
-    const [score,setScore] = useState(0);
-    const [answer,setAnswer] = useState({});
-    const handleSubmit =()=>{
-        if(!selected)return;
-        console.log(count,length);
+    const [count, setCount] = useState(0);
+    const [answer, setAnswer] = useState({});
+    console.log("answer: " + answer);
+    const handleSubmit = () => {
+        if (!selected) return;
+        console.log(count, length);
         console.log(selected);
-        setAnswer({...answer, quizId: quizId,answer : selected})
+        console.log("answer: " + JSON.stringify(answer));
+        setAnswer({ ...answer, quizId: quizId, answer: selected });
         console.log(answer);
-        if(count == length-1){
-            getResult(answer)
+        if (count == length - 1) {
+            getResult(answer);
             navigate("/result");
-        }
-        else{
+        } else {
             next();
-            setCount(count+1);
+            setCount(count + 1);
         }
-    }
+    };
     function getResult(answer) {
         backendFetch("/quiz-results", {
             method: "POST",
             body: answer,
-            })
+        })
             .then((res) => {
                 console.log(res);
             })
             .catch((err) => {
                 console.log(err);
-        });
+            });
     }
     const [selected, setSelected] = useState(null);
     return (
@@ -86,7 +86,9 @@ export default function Quiz({
                 );
             })}
             <div className="btns">
-                <Button onClick={handleSubmit} disabled = {!selected}>Submit</Button>
+                <Button onClick={handleSubmit} disabled={!selected}>
+                    Submit
+                </Button>
                 <Button>Get Answer</Button>
             </div>
         </div>
