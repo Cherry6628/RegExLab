@@ -6,24 +6,51 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Quiz({
     headline,
-    describe,
+    description,
     code,
     question,
-    language = "python",
-    quizId = 0,
-    isCode = false,
-    options = [],
+    language,
+    quizId,
+    isCode,
+    options,
     next = () => {},
+    length
 }) {
     const navigate = useNavigate();
-    const goResult = () => {
-        navigate("/result");
-    };
+    const [count,setCount] = useState(0);
+    const [score,setScore] = useState(0);
+    const handleSubmit =()=>{
+        if(!selected)return;
+        console.log(count,length);
+        console.log(options[correctIndex],selected);
+        
+        if(count == length-1){
+            getResult()
+            navigate("/result");
+        }
+        else{
+            next();
+            setCount(count+1);
+        }
+    }
+    function getResult(topicName) {
+        backendFetch("/quiz-questions", {
+            method: "POST",
+            body: { answers: topicName },
+            })
+            .then((res) => {
+                console.log(res);
+                setResponse(res);
+            })
+            .catch((err) => {
+                console.log(err);
+        });
+    }
     const [selected, setSelected] = useState(null);
     return (
         <div id="Quiz">
             <h1 className="headline">{headline}</h1>
-            <p className="describe">{describe}</p>
+            <p className="describe">{description}</p>
             {isCode && (
                 <CodeSnippet code={code} language={language}></CodeSnippet>
             )}
@@ -57,8 +84,8 @@ export default function Quiz({
                 );
             })}
             <div className="btns">
-                <Button onClick={next}>Submit</Button>
-                <Button onClick={goResult}>Get Answer</Button>
+                <Button onClick={handleSubmit} disabled = {!selected}>Submit</Button>
+                <Button>Get Answer</Button>
             </div>
         </div>
     );
