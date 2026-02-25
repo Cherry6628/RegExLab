@@ -108,9 +108,10 @@ export default function ResetPassword() {
                                 ref={pwd}
                                 placeholder="••••••••"
                                 style={{
-                                    color: "var(--text-main)"
+                                    color: "var(--text-main)",
                                 }}
                                 autoFocus
+                                onLoad={focus}
                             />
                             <label htmlFor="repwd">Confirm Password</label>
                             <input
@@ -120,7 +121,7 @@ export default function ResetPassword() {
                                 ref={repwd}
                                 placeholder="••••••••"
                                 style={{
-                                    color: "var(--text-main)"
+                                    color: "var(--text-main)",
                                 }}
                             />
                             <Button onClick={sendResetReq} type="submit">

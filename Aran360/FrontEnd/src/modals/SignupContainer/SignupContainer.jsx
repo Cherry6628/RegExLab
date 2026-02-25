@@ -50,6 +50,7 @@ export default function SignupContainer({ setModal }) {
                         ref={username}
                         autoComplete="off"
                         autoFocus
+                        onLoad={focus}
                     />
                 </div>
 

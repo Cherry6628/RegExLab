@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import Logo from "../Logo/Logo";
 import "./Header.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const location = useLocation();
     const context = useGlobalContext();
     const listRef = useRef(null);
     const closeAll = () => {
@@ -58,7 +59,7 @@ export default function Header() {
                     <ul className="navlist">
                         <li>
                             <p
-                                className="navitem"
+                                className={`navitem ${location.pathname === "/dashboard" ? "active" : ""}`}
                                 onClick={() => {
                                     context.fetchUserData();
                                     navigate("/dashboard");
@@ -76,7 +77,7 @@ export default function Header() {
                                 Knowledge Base
                             </p>
                             <ul
-                                className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}
+                                className={`dropdown-menu ${dropdownOpen ? "show" : ""} ${location.pathname.startsWith("/learning-material/") ? "active" : ""}`}
                             >
                                 {Object.keys(context.learningData).map((r) => (
                                     <li key={r}>
@@ -108,7 +109,7 @@ export default function Header() {
                         </li>
                         <li>
                             <p
-                                className="navitem"
+                                className={`navitem ${location.pathname === "/test" ? "active" : ""}`}
                                 onClick={() => {
                                     navigate("/test");
                                 }}
@@ -117,7 +118,7 @@ export default function Header() {
                             </p>
                         </li>
                         <li
-                            className="profile-container"
+                            className="navitem-container"
                             onClick={() => {
                                 navigate("/accounts");
                             }}
@@ -133,7 +134,7 @@ export default function Header() {
                                     account_circle
                                 </span>
                             ) : (
-                                <p className="nav-profile">Login</p>
+                                <p className={`navitem ${location.pathname === "/accounts" ? "active" : ""}`}>Login</p>
                             )}
                         </li>
                     </ul>

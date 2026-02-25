@@ -48,6 +48,7 @@ export default function LoginContainer({ setModal, autoFocus }) {
                         ref={username}
                         autoComplete="off"
                         autoFocus
+                        onLoad={focus}
                     />
                 </div>
 
