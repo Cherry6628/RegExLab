@@ -3,11 +3,13 @@ package model.helper;
 public class LabInstance {
 
 	public final String labName;
+	public final String imageId;
 	public final String containerId;
 	private final long expiresAt;
 
-	public LabInstance(String labName, String containerId, long timeoutSeconds) {
+	public LabInstance(String labName, String imageId, String containerId, long timeoutSeconds) {
 		this.labName = labName;
+		this.imageId=imageId;
 		this.containerId = containerId;
 		this.expiresAt = System.currentTimeMillis() + (timeoutSeconds * 1000L);
 	}

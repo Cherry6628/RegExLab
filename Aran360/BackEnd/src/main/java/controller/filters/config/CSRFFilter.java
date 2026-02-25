@@ -24,6 +24,7 @@ public class CSRFFilter extends HttpFilter {
 
 		if (path.startsWith(req.getContextPath() + "/lab/view/")
 				|| path.startsWith(req.getContextPath() + "/lab/image/")
+		        || path.startsWith(req.getContextPath() + "/lab/complete")
 				|| path.startsWith(req.getContextPath() + "/csrf")) {
 			chain.doFilter(request, response);
 			return;
@@ -51,7 +52,7 @@ public class CSRFFilter extends HttpFilter {
 				return;
 			}
 			if (!(csrfToken.strip().equals(csrfToken2.strip()) && isValidCSRFToken(req, csrfToken.strip()))) {
-				response.getWriter().write(JSONResponse.response("error", "Invalid CSRF Token").toString());
+				response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid CSRF Token").toString());
 				return;
 			}
 

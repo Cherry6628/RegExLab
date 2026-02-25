@@ -2,13 +2,56 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import Header from "../../component/Header/Header";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
-import { backendFetch } from "../../utils/helpers";
+import { backendFetch, isValidPassword } from "../../utils/helpers";
 import "./Profile.css";
 import { useToast } from "../../component/Toast/ToastContext";
+import { useState, useRef } from "react";
+
 export default function Profile() {
     const context = useGlobalContext();
     const navigate = useNavigate();
     const { showToast } = useToast();
+
+    const [oldPwd, setOldPwd] = useState("");
+    const [newPwd, setNewPwd] = useState("");
+    const [pwdError, setPwdError] = useState(null);
+
+    const oldPwdRef = useRef(null);
+    const newPwdRef = useRef(null);
+
+    const handleUpdatePassword = () => {
+        setPwdError(null);
+
+        if (!oldPwd.trim()) {
+            setPwdError("Please enter your old password");
+            return;
+        }
+
+        const validation = isValidPassword(newPwd);
+        if (!validation.valid) {
+            setPwdError(validation.message);
+            return;
+        }
+
+        if (oldPwd === newPwd) {
+            setPwdError("New password must be different from old password");
+            return;
+        }
+
+        backendFetch("/update-password", {
+            method: "POST",
+            body: { oldPassword: oldPwd, newPassword: newPwd },
+        }).then((r) => {
+            showToast(r.message, r.status);
+            if (r.status === "success") {
+                setOldPwd("");
+                setNewPwd("");
+                setPwdError(null);
+            } else {
+                setPwdError(r.message);
+            }
+        });
+    };
 
     return (
         <>
@@ -63,27 +106,50 @@ export default function Profile() {
                             <div className="profile-input-group">
                                 <label>Old Password</label>
                                 <input
-                                    htmlFor="pwd"
+                                    ref={oldPwdRef}
                                     type="password"
                                     placeholder="••••••••"
+                                    value={oldPwd}
+                                    onChange={(e) => setOldPwd(e.target.value)}
+                                    autoComplete="new-password"
+                                    readOnly
+                                    onFocus={(e) =>
+                                        e.target.removeAttribute("readonly")
+                                    }
+                                    onBlur={(e) =>
+                                        e.target.setAttribute("readonly", true)
+                                    }
                                     style={{ color: "var(--text-main)" }}
                                 />
                             </div>
                             <div className="profile-input-group">
                                 <label>New Password</label>
                                 <input
-                                    htmlFor="pwd"
+                                    ref={newPwdRef}
                                     type="password"
                                     placeholder="••••••••"
+                                    value={newPwd}
+                                    onChange={(e) => setNewPwd(e.target.value)}
+                                    autoComplete="new-password"
+                                    readOnly
+                                    onFocus={(e) =>
+                                        e.target.removeAttribute("readonly")
+                                    }
+                                    onBlur={(e) =>
+                                        e.target.setAttribute("readonly", true)
+                                    }
                                     style={{ color: "var(--text-main)" }}
                                 />
-                                <span
-                                    id="pwd"
-                                    name="pwd"
-                                    className="profile-input-hint"
-                                >
-                                    Must be at least 8 characters
+                                <span className="profile-input-hint">
+                                    Must be at least 8 characters with
+                                    uppercase, lowercase, number and special
+                                    character
                                 </span>
+                                {pwdError && (
+                                    <span className="profile-input-error">
+                                        {pwdError}
+                                    </span>
+                                )}
                             </div>
                         </div>
                         <div className="updatePass">
@@ -91,12 +157,13 @@ export default function Profile() {
                                 Update your password regularly to keep your
                                 account secure.
                             </p>
-                            <Button>Update Password</Button>
+                            <Button onClick={handleUpdatePassword}>
+                                Update Password
+                            </Button>
                         </div>
                     </div>
                     <hr />
                     <div className="logOut">
-                        <Button>Delete Account</Button>
                         <Button
                             onClick={() =>
                                 backendFetch("/logout", {

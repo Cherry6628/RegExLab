@@ -130,22 +130,17 @@ public class LabRuntimeServer {
     private static final String DOCKER_NETWORK = "lab-net";
     private static final String LABS_DIR       = "/labs/";
 
-    /**
-     * Names of successfully pre-loaded images.
-     * Used by the /exists endpoint so Tomcat doesn't have to guess.
-     */
     private static final Set<String> LOADED_IMAGES =
             ConcurrentHashMap.newKeySet();
 
     public static void main(String[] args) throws Exception {
 
-        // ── Pre-load all lab images at startup ────────────────────────────
         File labsDir = new File(LABS_DIR);
         File[] tars  = labsDir.listFiles((d, n) -> n.endsWith(".tar"));
         if (tars != null) {
             for (File tar : tars) {
                 String imageName = tar.getName()
-                        .substring(0, tar.getName().length() - 4); // strip .tar
+                        .substring(0, tar.getName().length() - 4);
                 System.out.println("[+] Pre-loading image: " + tar.getName());
                 Process p = new ProcessBuilder("docker", "load", "-i",
                         tar.getAbsolutePath())
@@ -161,11 +156,9 @@ public class LabRuntimeServer {
         }
         System.out.println("[✓] Loaded images: " + LOADED_IMAGES);
 
-        // ── HTTP server ───────────────────────────────────────────────────
         HttpServer server = HttpServer.create(
                 new InetSocketAddress("0.0.0.0", 9000), 0);
 
-        // /exists?lab=<labName>  — 200 if known, 404 if not
         server.createContext("/exists", exchange -> {
             String query   = exchange.getRequestURI().getQuery();
             String labName = parseParam(query, "lab");
@@ -177,7 +170,6 @@ public class LabRuntimeServer {
             exchange.getResponseBody().close();
         });
 
-        // /create?lab=<labName>  — spins up a container, returns its name
         server.createContext("/create", exchange -> {
             String query   = exchange.getRequestURI().getQuery();
             String labName = parseParam(query, "lab");
@@ -191,8 +183,6 @@ public class LabRuntimeServer {
                 return;
             }
 
-            // Container name is also used as the network alias so the
-            // proxy can reach it at  http://<containerName>:3000
             String containerName = "lab_" + labName + "_"
                     + UUID.randomUUID().toString().substring(0, 8);
 
@@ -200,7 +190,7 @@ public class LabRuntimeServer {
                     "docker", "run",
                     "-d",
                     "--network",         DOCKER_NETWORK,
-                    "--network-alias",   containerName,   // ← unique alias per container
+                    "--network-alias",   containerName,
                     "--name",            containerName,
                     "--memory=1024m",
                     labName
@@ -222,7 +212,6 @@ public class LabRuntimeServer {
                     return;
                 }
 
-                // Wait for container app to be ready on port 3000 (15 s max)
                 boolean ready    = false;
                 long    deadline = System.currentTimeMillis() + 15_000L;
                 while (System.currentTimeMillis() < deadline) {
@@ -259,13 +248,12 @@ public class LabRuntimeServer {
             }
         });
 
-        // /cleanup?name=<containerName>
         server.createContext("/cleanup", exchange -> {
             String query = exchange.getRequestURI().getQuery();
             String name  = parseParam(query, "name");
             if (name != null && !name.isEmpty()) {
                 new ProcessBuilder("docker", "rm", "-f", name)
-                        .start(); // fire-and-forget
+                        .start();
             }
             exchange.sendResponseHeaders(200, 0);
             exchange.getResponseBody().close();
@@ -275,9 +263,6 @@ public class LabRuntimeServer {
         System.out.println("[✓] LabRuntimeServer running on port 9000");
     }
 
-    // ── Utility ───────────────────────────────────────────────────────────
-
-    /** Parses a single key=value from a query string.  Returns null if missing. */
     private static String parseParam(String query, String key) {
         if (query == null) return null;
         String prefix = key + "=";

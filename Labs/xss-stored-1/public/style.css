@@ -85,3 +85,11 @@ body {
     text-decoration: none;
 }
 .profile-link:hover { text-decoration: underline; }
+.solved-banner {
+    background: #e6ffed;
+    border: 1px solid #34c759;
+    border-radius: 10px;
+    padding: 16px 24px;
+    display: none;
+}
+.solved-banner p { color: #1a7f37; font-weight: bold; font-size: 16px; }

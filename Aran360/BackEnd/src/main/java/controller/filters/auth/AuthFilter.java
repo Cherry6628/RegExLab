@@ -18,7 +18,8 @@ import listener.configLoader.ParamsAndDBLoader;
 import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
-@WebFilter(urlPatterns = { "/lab", "/lab/*", "/user-data", "/logout", "/quiz-results", "/quiz-questions","/saveLearningProgress" })
+@WebFilter(urlPatterns = { "/lab", "/lab/*", "/user-data", "/logout", "/quiz-results", "/quiz-questions",
+		"/saveLearningProgress", "/lab/complete", "/update-password" })
 public class AuthFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -28,7 +29,6 @@ public class AuthFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 
 		String token = extractAuthToken(req);
-		System.out.println("Token: " + token);
 		if (token == null) {
 			redirectToLogin(req, resp);
 			return;
@@ -40,14 +40,13 @@ public class AuthFilter implements Filter {
 			redirectToLogin(req, resp);
 			return;
 		}
-		System.out.println("username " + username);
 		String nonce = JWTService.getNonce(token);
 		if (nonce == null || !isNonceValid(username, nonce)) {
 			clearAuthCookie(resp);
 			redirectToLogin(req, resp);
 			return;
 		}
-		System.out.println("nonce: " + nonce);
+		System.out.println("Username: " + username);
 		req.setAttribute("AUTHENTICATED_USER", username);
 
 		chain.doFilter(request, response);

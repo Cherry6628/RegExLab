@@ -19,7 +19,6 @@ public class LabProxyServlet extends HttpServlet {
     private static final Set<String> BLOCKED_RESPONSE_HEADERS = Set.of(
             "content-security-policy",
             "content-security-policy-report-only",
-            "set-cookie",
             "x-frame-options",
             "access-control-allow-origin",
             "access-control-allow-credentials",
@@ -31,7 +30,6 @@ public class LabProxyServlet extends HttpServlet {
 
     private static final Set<String> BLOCKED_REQUEST_HEADERS = Set.of(
             "host",
-            "cookie",
             "authorization");
 
     @Override

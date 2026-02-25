@@ -1,5 +1,8 @@
-<!doctype html><html>
-<head><title>Aran360 — Search</title><link rel="stylesheet" href="/style.css"></head>
+<!doctype html>
+<html>
+<head>
+    <title>Aran360 — Search</title>
+</head>
 <body>
     <div class="container">
         <div class="header">
@@ -13,18 +16,46 @@
             </form>
             <div id="results"></div>
         </div>
+        <div id="solved-banner" class="solved-banner">
+            <p>🎉 Lab Solved! XSS executed successfully.</p>
+        </div>
     </div>
     <script>
+        const __base = window.location.pathname.replace(/\/(search)?$/, "");
+
+        const __triggerCompletion = async () => {
+            try {
+                await fetch(window.location.pathname + "/xss-fired");
+                const r = await fetch(window.location.pathname + "/complete", { method: "POST" });
+                if (r.ok) {
+                    await fetch("/lab/complete", { method: "POST" });
+                    document.getElementById("solved-banner").style.display = "block";
+                }
+            } catch(e) {}
+        };
+
+        const __realAlert = window.alert.bind(window);
+        window.alert = function(msg) { __realAlert(msg); __triggerCompletion(); };
+        const __realConfirm = window.confirm.bind(window);
+        window.confirm = function(msg) { __realConfirm(msg); __triggerCompletion(); };
+        const __realPrint = window.print.bind(window);
+        window.print = function() { __realPrint(); __triggerCompletion(); };
+
         function doSearch() {
             const q = document.getElementById("q").value;
             window.location.search = "?q=" + q;
         }
+
+        // vulnerability — innerHTML with raw location.search
+        // <script> won't execute via innerHTML — must use <img src=x onerror=alert(1)>
         const params = new URLSearchParams(window.location.search);
         const q = params.get("q");
         if (q) {
             document.getElementById("q").value = q;
-            const results = document.getElementById("results");
-            results.innerHTML = "<p class='result-text'>You searched for: " + q + "</p><div class='no-results'>No products found.</div>";
+            document.getElementById("results").innerHTML =
+                "<p class='result-text'>You searched for: " + q + "</p>" +
+                "<div class='no-results'>No products found.</div>";
         }
     </script>
-</body></html>
+</body>
+</html>

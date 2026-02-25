@@ -1,5 +1,8 @@
-<!doctype html><html>
-<head><title>Aran360 — Blog</title><link rel="stylesheet" href="/style.css"></head>
+<!doctype html>
+<html>
+<head>
+    <title>Aran360 — Blog</title>
+</head>
 <body>
     <div class="container">
         <div class="header">
@@ -11,13 +14,15 @@
             <p class="meta">Posted by <strong>admin</strong> · 2 hours ago</p>
             <p class="body-text">
                 Web security is a critical aspect of modern software development.
-                Developers must be aware of common vulnerabilities and how to prevent them.
                 Always validate and sanitize user input before processing or displaying it.
             </p>
         </div>
         <div class="card">
             <h3>Comments</h3>
             <ul id="comments-list" class="comments-list"></ul>
+        </div>
+        <div id="solved-banner" class="solved-banner">
+            <p>🎉 Lab Solved! XSS executed successfully.</p>
         </div>
         <div class="card form-group">
             <h3>Leave a Comment</h3>
@@ -27,6 +32,26 @@
         </div>
     </div>
     <script>
+        const __base = window.location.pathname;
+
+        const __triggerCompletion = async () => {
+            try {
+                await fetch(window.location.pathname + "/xss-fired");
+                const r = await fetch(window.location.pathname + "/complete", { method: "POST" });
+                if (r.ok) {
+                    await fetch("/lab/complete", { method: "POST" });
+                    document.getElementById("solved-banner").style.display = "block";
+                }
+            } catch(e) {}
+        };
+
+        const __realAlert = window.alert.bind(window);
+        window.alert = function(msg) { __realAlert(msg); __triggerCompletion(); };
+        const __realConfirm = window.confirm.bind(window);
+        window.confirm = function(msg) { __realConfirm(msg); __triggerCompletion(); };
+        const __realPrint = window.print.bind(window);
+        window.print = function() { __realPrint(); __triggerCompletion(); };
+
         async function loadComments() {
             const res = await fetch(window.location.pathname + "/api/comments");
             const comments = await res.json();
@@ -43,6 +68,7 @@
                 list.appendChild(li);
             });
         }
+
         async function postComment() {
             const author = document.getElementById("author").value.trim();
             const content = document.getElementById("content").value.trim();
@@ -55,6 +81,8 @@
             document.getElementById("content").value = "";
             loadComments();
         }
+
         loadComments();
     </script>
-</body></html>
+</body>
+</html>

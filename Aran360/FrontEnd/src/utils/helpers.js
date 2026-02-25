@@ -31,6 +31,7 @@ const client = new (class BackendClient {
 
     async fetch(endpoint, { method = "GET", body = {}, headers } = {}) {
         await this.#ensureValidToken();
+        await this.refreshCsrfToken();
 
         const options = {
             method,
@@ -56,6 +57,7 @@ const client = new (class BackendClient {
 
         try {
             const data = await res.json();
+
             if (data?.csrfToken) {
                 this.#csrfToken = data.csrfToken;
                 if (data.expiry) this.#expiry = Date.now() + data.expiry * 1000;
@@ -71,6 +73,10 @@ export const backendFetch = client.fetch.bind(client);
 export const refreshCsrfToken = client.refreshCsrfToken.bind(client);
 
 export const isValidPassword = function (pwd) {
-    return true;
-    // TODO
+    if (pwd.length < 8) return { valid: false, message: "Password must be at least 8 characters" };
+    if (!/[A-Z]/.test(pwd)) return { valid: false, message: "Password must contain at least one uppercase letter" };
+    if (!/[a-z]/.test(pwd)) return { valid: false, message: "Password must contain at least one lowercase letter" };
+    if (!/[0-9]/.test(pwd)) return { valid: false, message: "Password must contain at least one number" };
+    if (!/[^A-Za-z0-9]/.test(pwd)) return { valid: false, message: "Password must contain at least one special character" };
+    return { valid: true, message: null };
 };
