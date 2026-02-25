@@ -73,6 +73,7 @@ const client = new (class BackendClient {
             await this.refreshCsrfToken();
             res = await makeRequest();
             try {
+                await this.refreshCsrfToken();
                 return await res.json();
             } catch {
                 return res;
