@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import "./Header.css";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
+import { backendFetch } from "../../utils/helpers";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
