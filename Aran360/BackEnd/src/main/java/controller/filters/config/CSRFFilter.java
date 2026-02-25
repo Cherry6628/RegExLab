@@ -55,7 +55,6 @@ public class CSRFFilter extends HttpFilter {
 				response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid CSRF Token").toString());
 				return;
 			}
-
 		}
 		chain.doFilter(cachedRequest, response);
 	}

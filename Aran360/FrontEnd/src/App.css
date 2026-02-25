@@ -63,3 +63,9 @@ body {
 
     --cb1: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
+
+input::placeholder{
+    color: var(--text-muted);
+    font-weight: 300;
+}

@@ -25,17 +25,6 @@ import { backendFetch } from "../../utils/helpers";
 
 const GlobalContext = createContext();
 
-const isValidCache = (data) => {
-    return (
-        data &&
-        typeof data.uname === "string" &&
-        data.uname.trim() !== "" &&
-        typeof data.email === "string" &&
-        data.email.trim() !== "" &&
-        data.labsStat &&
-        typeof data.labsStat.labsCompleted === "number"
-    );
-};
 
 export default function ContextProvider({ children }) {
     const [uname, setUname] = useState(undefined);
@@ -54,22 +43,6 @@ export default function ContextProvider({ children }) {
     });
 
     const fetchUserData = () => {
-        try {
-            const cached = sessionStorage.getItem("userData");
-            if (cached) {
-                const data = JSON.parse(cached);
-                if (isValidCache(data)) {
-                    setUname(data.uname);
-                    setEmail(data.email);
-                    setLabsStat((prev) => ({ ...prev, ...data.labsStat }));
-                    return;
-                }
-                sessionStorage.removeItem("userData");
-            }
-        } catch {
-            sessionStorage.removeItem("userData");
-        }
-
         backendFetch("/user-data", { method: "GET" }).then((r) => {
             setUname(r.uname);
             setEmail(r.email);
@@ -79,18 +52,6 @@ export default function ContextProvider({ children }) {
                 labsAbandoned: r.labsAbandoned,
                 labsAttempted: r.labsAttempted,
             }));
-            sessionStorage.setItem(
-                "userData",
-                JSON.stringify({
-                    uname: r.uname,
-                    email: r.email,
-                    labsStat: {
-                        labsCompleted: r.labsCompleted,
-                        labsAbandoned: r.labsAbandoned,
-                        labsAttempted: r.labsAttempted,
-                    },
-                }),
-            );
         });
         backendFetch("/saveLearningProgress", { method: "GET" }).then((r) => {
             const page_id =
@@ -103,7 +64,6 @@ export default function ContextProvider({ children }) {
         });
     };
     const clearUserData = () => {
-        sessionStorage.removeItem("userData");
         setUname(undefined);
         setEmail(undefined);
         setLastLearnt({ topic_url: undefined, page_id: undefined });

@@ -110,6 +110,7 @@ export default function ResetPassword() {
                                 style={{
                                     color: "var(--text-main)"
                                 }}
+                                autoFocus
                             />
                             <label htmlFor="repwd">Confirm Password</label>
                             <input

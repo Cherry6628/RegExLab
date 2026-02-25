@@ -26,11 +26,11 @@ app.post("/complete", (req, res) => {
 
 app.get("/search", (req, res) => {
     const q = req.query.q || "";
-    const base = req.baseUrl;
     res.send(`<!doctype html>
 <html>
 <head>
     <title>Aran360 — Search</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -39,10 +39,10 @@ app.get("/search", (req, res) => {
             <p class="subtitle">Search our catalog below</p>
         </div>
         <div class="card">
-            <form action="${base}/search" method="GET" class="search-form">
-                <input type="text" name="q" value="${q}" placeholder="Search products..." class="input" autocomplete="off"/>
-                <button type="submit" class="btn">Search</button>
-            </form>
+            <div class="search-form">
+                <input type="text" id="searchInput" placeholder="Search products..." class="input" autocomplete="off" value="${q}"/>
+                <button type="button" onclick="doSearch()" class="btn">Search</button>
+            </div>
             ${q ? `<p class="result-text">You searched for: ${q}</p><div class="no-results">No products found.</div>` : ""}
         </div>
         <div id="solved-banner" class="solved-banner">
@@ -50,10 +50,8 @@ app.get("/search", (req, res) => {
         </div>
     </div>
     <script>
-        const __base = "${base}";
         const __triggerCompletion = async () => {
             try {
-            
                 await fetch(window.location.pathname + "/xss-fired");
                 const r = await fetch(window.location.pathname + "/complete", { method: "POST" });
                 if (r.ok) {
@@ -68,10 +66,19 @@ app.get("/search", (req, res) => {
         window.confirm = function(msg) { __realConfirm(msg); __triggerCompletion(); };
         const __realPrint = window.print.bind(window);
         window.print = function() { __realPrint(); __triggerCompletion(); };
+
+        function doSearch() {
+            const q = document.getElementById("searchInput").value;
+            window.location.href = window.location.pathname + "?q=" + encodeURIComponent(q);
+        }
+
+        document.getElementById("searchInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") doSearch();
+        });
     </script>
 </body>
 </html>`);
 });
 
-app.get("/", (req, res) => res.redirect(req.baseUrl + "/search"));
+app.get("/", (req, res) => res.redirect("/search"));
 app.listen(3000, () => console.log("xss-reflected-1 running"));

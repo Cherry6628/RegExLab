@@ -44,6 +44,7 @@ export default function ForgetPasswordContainer({ setModal }) {
                         type="email"
                         placeholder="name@example.com"
                         ref={email}
+                        autoFocus
                     />
                 </div>
 

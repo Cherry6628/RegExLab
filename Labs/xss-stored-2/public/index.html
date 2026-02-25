@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Aran360 — Community</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -25,8 +26,6 @@
         </div>
     </div>
     <script>
-        const __base = window.location.pathname.replace(/\/$/, "");
-
         const __triggerCompletion = async () => {
             try {
                 await fetch(window.location.pathname + "/xss-fired");

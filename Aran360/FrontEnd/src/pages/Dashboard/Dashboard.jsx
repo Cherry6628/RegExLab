@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
     const context = useGlobalContext();
     const navigate = useNavigate();
-
     const isLoggedIn = !!context.uname;
     const hasStarted = !!context.lastLearnt?.topic_url;
     const isTopicComplete =

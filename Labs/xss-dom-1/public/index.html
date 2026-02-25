@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Aran360 — Search</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -10,10 +11,10 @@
             <p class="subtitle">Search our catalog below</p>
         </div>
         <div class="card">
-            <form class="search-form" onsubmit="return false">
+            <div class="search-form">
                 <input type="text" id="q" placeholder="Search products..." class="input" autocomplete="off"/>
                 <button class="btn" onclick="doSearch()">Search</button>
-            </form>
+            </div>
             <div id="results"></div>
         </div>
         <div id="solved-banner" class="solved-banner">
@@ -21,8 +22,6 @@
         </div>
     </div>
     <script>
-        const __base = window.location.pathname.replace(/\/(search)?$/, "");
-
         const __triggerCompletion = async () => {
             try {
                 await fetch(window.location.pathname + "/xss-fired");
@@ -45,6 +44,10 @@
             const q = document.getElementById("q").value;
             window.location.search = "?q=" + q;
         }
+
+        document.getElementById("q").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") doSearch();
+        });
 
         // vulnerability — document.write with raw location.search
         const params = new URLSearchParams(window.location.search);

@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class InfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		JSONObject json = new JSONObject();
-		json.put("totalLabs", 150);
+		json.put("totalLabs", ParamsAndDBLoader.LABS.length);
 		response.getWriter()
 				.append(JSONResponse.response(JSONResponse.SUCCESS, "Metadata fetched", null, json).toString());
 	}

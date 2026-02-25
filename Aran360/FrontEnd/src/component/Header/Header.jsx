@@ -60,6 +60,7 @@ export default function Header() {
                             <p
                                 className="navitem"
                                 onClick={() => {
+                                    context.fetchUserData();
                                     navigate("/dashboard");
                                 }}
                             >

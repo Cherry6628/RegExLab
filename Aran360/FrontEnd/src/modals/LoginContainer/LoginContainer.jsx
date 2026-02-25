@@ -8,7 +8,7 @@ import { error, success } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
 import { useGlobalContext } from "../ContextProvider/ContextProvider.jsx";
 
-export default function LoginContainer({ setModal }) {
+export default function LoginContainer({ setModal, autoFocus }) {
     const context = useGlobalContext();
     const navigate = useNavigate();
     const password = useRef(null);
@@ -47,6 +47,7 @@ export default function LoginContainer({ setModal }) {
                         placeholder="John Doe"
                         ref={username}
                         autoComplete="off"
+                        autoFocus
                     />
                 </div>
 

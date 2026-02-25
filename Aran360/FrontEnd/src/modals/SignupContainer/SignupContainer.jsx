@@ -49,6 +49,7 @@ export default function SignupContainer({ setModal }) {
                         placeholder="John Doe"
                         ref={username}
                         autoComplete="off"
+                        autoFocus
                     />
                 </div>
 
