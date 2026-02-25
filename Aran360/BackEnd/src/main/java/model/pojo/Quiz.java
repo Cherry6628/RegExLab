@@ -53,12 +53,6 @@ public class Quiz implements Serializable{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public int getCorrectIndex() {
-		return correctIndex;
-	}
-	public void setCorrectIndex(int correctIndex) {
-		this.correctIndex = correctIndex;
-	}
 	public List<String> getOptions() {
 		return options;
 	}
@@ -74,7 +68,6 @@ public class Quiz implements Serializable{
 	String language;
 	boolean isCode;
 	String code;
-	int correctIndex;
 	List<String> options;
 	public Quiz(int qid, int topicId, String headline, String description, String question, String language,boolean isCode, String code, List<String> options) {
 		this.qid = qid;

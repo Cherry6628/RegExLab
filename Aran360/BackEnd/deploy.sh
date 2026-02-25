@@ -33,8 +33,8 @@ docker rm -f $APP_CONTAINER     2>/dev/null || true
 docker rm -f $RUNTIME_CONTAINER 2>/dev/null || true
 
 echo "[+] Removing Aran360 images..."
-docker rmi $APP_IMAGE     2>/dev/null || true
-docker rmi $RUNTIME_IMAGE 2>/dev/null || true
+# docker rmi $APP_IMAGE     2>/dev/null || true
+# docker rmi $RUNTIME_IMAGE 2>/dev/null || true
 
 echo "[+] Removing Aran360 network..."
 docker network rm $NETWORK_NAME 2>/dev/null || true

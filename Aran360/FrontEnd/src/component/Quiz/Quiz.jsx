@@ -2,6 +2,7 @@ import CodeSnippet from "../CodeSnippet/CodeSnippet";
 import "./Quiz.css";
 import Option from "./Option/Option";
 import Button from "../Button/Button";
+import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Quiz({
@@ -19,13 +20,14 @@ export default function Quiz({
     const navigate = useNavigate();
     const [count,setCount] = useState(0);
     const [score,setScore] = useState(0);
+    const [answer,setAnswer] = useState({});
     const handleSubmit =()=>{
         if(!selected)return;
         console.log(count,length);
-        console.log(options[correctIndex],selected);
-        
+        console.log(selected);
+        setAnswer({...answer, quizId: quizId,answer : selected})
         if(count == length-1){
-            getResult()
+            getResult(answer)
             navigate("/result");
         }
         else{
@@ -33,14 +35,13 @@ export default function Quiz({
             setCount(count+1);
         }
     }
-    function getResult(topicName) {
-        backendFetch("/quiz-questions", {
+    function getResult(answer) {
+        backendFetch("/quiz-results", {
             method: "POST",
-            body: { answers: topicName },
+            body: answer,
             })
             .then((res) => {
                 console.log(res);
-                setResponse(res);
             })
             .catch((err) => {
                 console.log(err);
