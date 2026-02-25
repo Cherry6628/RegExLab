@@ -361,7 +361,6 @@ public class ParamsAndDBLoader implements ServletContextListener {
 				// 				"There is no security issue — robots.txt is harmless"
 				// 		}
 				// }
-
 		};
 		
 		try {
