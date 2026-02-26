@@ -64,9 +64,6 @@ export default function AuthPage() {
                     All&nbsp;rights&nbsp;reserved.
                 </p>
                 <div className="auth-legal-links">
-                    <a href="#terms">Terms of Service</a>
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#cookies">Cookie Settings</a>
                 </div>
             </footer>
         </div>

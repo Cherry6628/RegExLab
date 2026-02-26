@@ -11,9 +11,6 @@ export default function ForgetPasswordContainer({ setModal }) {
     const email = useRef(null);
     const { showToast } = useToast();
     async function forgetPasswordCallback(email) {
-        // while (true) {
-        //     console.log("waiting")
-        // }
         await backendFetch("/forget-password", {
             method: "POST",
             body: { email },

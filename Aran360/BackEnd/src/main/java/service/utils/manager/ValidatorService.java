@@ -9,8 +9,17 @@ public class ValidatorService {
 	private static final Pattern EMAIL_LABEL_PATTERN = Pattern.compile("[a-zA-Z0-9\\-]+");
 	private static final Pattern EMAIL_TLD_PATTERN = Pattern.compile("[0-9]+");
 
-	public static boolean isEmail(String email) {
+	private static final Pattern PASSWORD_PATTERN = Pattern
+			.compile("^(?=.*[A-Z])" + "(?=.*[a-z])" + "(?=.*\\d)" + "(?=.*[^A-Za-z0-9])" + ".{8,}$");
 
+	public static boolean isValidPassword(String password) {
+		if (password == null) {
+			return false;
+		}
+		return PASSWORD_PATTERN.matcher(password).matches();
+	}
+
+	public static boolean isValidEmail(String email) {
 		if (email == null)
 			return false;
 		email = email.strip();

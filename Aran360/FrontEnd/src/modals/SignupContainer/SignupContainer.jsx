@@ -2,7 +2,7 @@ import Button from "../../component/Button/Button";
 import { signup } from "../../utils/authHelpers";
 import "./SignupContainer.css";
 import { useRef } from "react";
-import { refreshCsrfToken } from "../../utils/helpers";
+import { isValidPassword, refreshCsrfToken } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { error, info, success } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
@@ -16,6 +16,9 @@ export default function SignupContainer({ setModal }) {
     const email = useRef(null);
     const { showToast } = useToast();
     async function signupCallback(uname, mail, pwd) {
+        const isValid = isValidPassword(pwd);
+        if (isValid.message)
+            return await showToast(isValid.message, isValid.status);
         await signup(uname, mail, pwd)
             .then((r) => {
                 showToast(r.message, r.status);

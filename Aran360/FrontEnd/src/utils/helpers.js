@@ -4,7 +4,6 @@ export const backendURL = "http://localhost:8765" + backendbasename;
 
 const client = new (class BackendClient {
     #csrfToken = null;
-    #expiry = 0;
 
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
@@ -16,16 +15,9 @@ const client = new (class BackendClient {
             const data = await res.json();
             if (data && data.csrfToken) {
                 this.#csrfToken = data.csrfToken;
-                this.#expiry = Date.now() + (data.expiry || 3600) * 1000;
             }
         } catch (e) {
             console.error(e);
-        }
-    }
-
-    async #ensureValidToken() {
-        if (!this.#csrfToken || Date.now() >= this.#expiry) {
-            await this.refreshCsrfToken();
         }
     }
 
@@ -58,18 +50,18 @@ const client = new (class BackendClient {
 
         let res = await makeRequest();
         let data;
-
         try {
             data = await res.json();
         } catch {
             return res;
         }
-        console.log("data: "+data);
+        console.log("data: " + data);
         if (
             data?.status === error &&
-            (data?.message === "Invalid CSRF Token" || data?.message === "CSRF Token Missing")
+            (data?.message === "Invalid CSRF Token" ||
+                data?.message === "CSRF Token Missing")
         ) {
-            console.log("refetching "+ data);
+            console.log("refetching " + data);
             await this.refreshCsrfToken();
             res = await makeRequest();
             try {
@@ -90,28 +82,28 @@ export const refreshCsrfToken = client.refreshCsrfToken.bind(client);
 export const isValidPassword = function (pwd) {
     if (pwd.length < 8)
         return {
-            valid: false,
+            status: info,
             message: "Password must be at least 8 characters",
         };
     if (!/[A-Z]/.test(pwd))
         return {
-            valid: false,
+            status: info,
             message: "Password must contain at least one uppercase letter",
         };
     if (!/[a-z]/.test(pwd))
         return {
-            valid: false,
+            status: info,
             message: "Password must contain at least one lowercase letter",
         };
     if (!/[0-9]/.test(pwd))
         return {
-            valid: false,
+            status: info,
             message: "Password must contain at least one number",
         };
     if (!/[^A-Za-z0-9]/.test(pwd))
         return {
-            valid: false,
+            status: info,
             message: "Password must contain at least one special character",
         };
-    return { valid: true, message: null };
+    return { status: info, message: null };
 };

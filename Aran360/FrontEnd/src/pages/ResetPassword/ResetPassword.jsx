@@ -22,10 +22,13 @@ export default function ResetPassword() {
     async function sendResetReq() {
         const pass = pwd.current.value;
         const pass2 = repwd.current.value;
-        if (pass == null || pass != pass2 || !isValidPassword(pass)) {
-            await showToast(
-                "Please enter a Password with atleast 8 characters, 1 symbol, 1 capital letter, 1 small letter and 1 number",
-            );
+        if (pass!=pass2){
+            await showToast("Password doesn't match", info);
+            return;
+        }
+        const data = isValidPassword(pass);
+        if (pass == null || data.message) {
+            await showToast(data.message, data.status);
             return;
         }
         await backendFetch("/reset-pwd", {
