@@ -90,7 +90,7 @@ export default function Quiz({
             <div className="btns">
                 <Button
                     onClick={async () => {
-                        await handleSubmit();
+                        await handleSubmit(); 
                     }}
                     disabled={!selected}
                 >
