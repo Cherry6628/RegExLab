@@ -1,9 +1,7 @@
-import "../XSS/XSSMaterial.css";
-import Lab from "../../Lab/Lab";
 import Payloads from "../../Payloads/Payloads";
 export default function IDOR() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <h1>Insecure direct object references (IDOR)</h1>
                 <p>

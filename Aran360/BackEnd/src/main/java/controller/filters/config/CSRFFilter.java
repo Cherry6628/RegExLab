@@ -48,7 +48,7 @@ public class CSRFFilter extends HttpFilter {
 
 			csrfToken2 = requestBody.getString("csrfToken");
 			if (csrfToken2 == null || csrfToken2.strip().isEmpty()) {
-				response.getWriter().write(JSONResponse.response("error", "CSRF Token Missing").toString());
+				response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "CSRF Token Missing").toString());
 				return;
 			}
 			if (!(csrfToken.strip().equals(csrfToken2.strip()) && isValidCSRFToken(req, csrfToken.strip()))) {

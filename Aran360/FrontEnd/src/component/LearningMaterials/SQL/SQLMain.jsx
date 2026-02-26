@@ -1,9 +1,7 @@
-import Lab from "../../Lab/Lab";
 import Payloads from "../../Payloads/Payloads";
-import "../XSS/XSSMaterial.css";
 export default function SQLMain() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <h1>SQL injection</h1>
                 <p>In this section, we explain:</p>

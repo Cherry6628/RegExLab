@@ -1,8 +1,7 @@
 import Payloads from "../../Payloads/Payloads";
-import "./XSSMaterial.css";
 export default function XSSPrevention() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <section>
                     <h1>How to prevent XSS</h1>

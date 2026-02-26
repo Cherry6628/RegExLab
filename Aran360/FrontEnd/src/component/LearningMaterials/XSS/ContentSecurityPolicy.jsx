@@ -1,9 +1,7 @@
-import Lab from "../../Lab/Lab";
 import Payloads from "../../Payloads/Payloads";
-import "./XSSMaterial.css";
 export default function ContentSecurityPolicy() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <section>
                     <h1>Content security policy</h1>

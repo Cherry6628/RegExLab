@@ -11,6 +11,7 @@ import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
 import service.utils.manager.PBKDF2_Service;
+import service.utils.manager.ValidatorService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,13 +38,21 @@ public class ResetPassword extends HttpServlet {
 		String repeat_pass = body.getString("repeat_pass");
 		String csrfNew = CSRFService.setCSRFToken(request);
 		if (token == null || token.isBlank()) {
+			response.setStatus(400);
 			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Token needed", csrfNew).toString());
 			return;
 		}
-		if (pass == null || pass.isBlank() || repeat_pass == null || repeat_pass.isBlank()) {
+		if (pass == null || pass.isBlank() || repeat_pass == null || repeat_pass.isBlank() || !pass.equals(repeat_pass)) {
+			response.setStatus(400);
 			response.getWriter()
 					.write(JSONResponse.response(JSONResponse.ERROR, "Passwords didn't match", csrfNew).toString());
 			return;
+		}
+		if (pass.length()<8 || !ValidatorService.isValidPassword(pass)) {
+			response.setStatus(400);
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Passwords didn't match", csrfNew).toString());
+			return;	
 		}
 		Connection con = DBService.getConnection();
 		try {

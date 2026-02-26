@@ -39,14 +39,22 @@ public class Signup extends HttpServlet {
 		String user = body.optString("username");
 		String pass = body.optString("password");
 		String email = body.optString("email");
-		if (!ValidatorService.isEmail(email)) {
+		if (!ValidatorService.isValidEmail(email)) {
+			response.setStatus(400);
 			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid Email", csrfNew).toString());
 			return;
 		}
 
-		if (user.isEmpty() || pass.length() < 8) {
+		if (user == null || user.isBlank() || user.length() < 8) {
 			response.setStatus(400);
-			response.getWriter().write(JSONResponse.response(JSONResponse.ERROR, "Invalid input", csrfNew).toString());
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Invalid Username", csrfNew).toString());
+			return;
+		}
+		if (pass == null || pass.isBlank() || pass.length() < 8 || (!ValidatorService.isValidPassword(pass))) {
+			response.setStatus(400);
+			response.getWriter().write(
+					JSONResponse.response(JSONResponse.ERROR, "Try using a strong password", csrfNew).toString());
 			return;
 		}
 

@@ -19,16 +19,19 @@ export default function ResetPassword() {
         if (context.uname) navigate("/dashboard");
         if (!token) navigate("/accounts");
     }, []);
-    function sendResetReq() {
+    async function sendResetReq() {
         const pass = pwd.current.value;
         const pass2 = repwd.current.value;
-        if (pass == null || pass != pass2 || !isValidPassword(pass)) {
-            showToast(
-                "Please enter a Password with atleast 8 characters, 1 symbol, 1 capital letter, 1 small letter and 1 number",
-            );
+        if (pass!=pass2){
+            await showToast("Password doesn't match", info);
             return;
         }
-        backendFetch("/reset-pwd", {
+        const data = isValidPassword(pass);
+        if (pass == null || data.message) {
+            await showToast(data.message, data.status);
+            return;
+        }
+        await backendFetch("/reset-pwd", {
             method: "POST",
             body: { token, pass, repeat_pass: pass2 },
         })
@@ -124,7 +127,10 @@ export default function ResetPassword() {
                                     color: "var(--text-main)",
                                 }}
                             />
-                            <Button onClick={sendResetReq} type="submit">
+                            <Button
+                                onClick={async () => await sendResetReq()}
+                                type="submit"
+                            >
                                 Submit
                             </Button>
                         </div>

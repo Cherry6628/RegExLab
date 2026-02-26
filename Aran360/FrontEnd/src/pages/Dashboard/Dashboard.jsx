@@ -91,8 +91,8 @@ export default function Dashboard() {
                     <Button
                         className="btn"
                         icon="play_circle"
-                        onClick={() =>
-                            navigate(
+                        onClick={async () =>
+                            await navigate(
                                 "/learning-material/" +
                                     context.lastLearnt.topic_url +
                                     "#last",

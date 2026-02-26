@@ -1,6 +1,6 @@
 import { backendFetch } from "./helpers";
-export const login = function (username, password) {
-    return backendFetch("/login", {
+export const login = async function (username, password) {
+    return await backendFetch("/login", {
         method: "POST",
         body: {
             username,
@@ -8,8 +8,8 @@ export const login = function (username, password) {
         },
     });
 };
-export const signup = function (username, email, password) {
-    return backendFetch("/signup", {
+export const signup = async function (username, email, password) {
+    return await backendFetch("/signup", {
         method: "POST",
         body: {
             username,

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "./NotFound_404.css";
 export default function NotFound_404() {
     const navigate = useNavigate();
-    const goDashboard = () => {
-        navigate("/dashboard");
+    const goDashboard = async () => {
+        await navigate("/dashboard");
     };
     return (
         <>
@@ -19,7 +19,10 @@ export default function NotFound_404() {
                     The resource you are looking for has been moved, deleted, or
                     never existed. please verify the URL and try again.
                 </p>
-                <Button onClick={goDashboard} icon="dashboard">
+                <Button
+                    onClick={async () => await goDashboard()}
+                    icon="dashboard"
+                >
                     Back to Dashboard
                 </Button>
             </div>

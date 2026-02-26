@@ -2,7 +2,7 @@ import "./LoginContainer.css";
 import Button from "../../component/Button/Button";
 import { login } from "../../utils/authHelpers";
 import { useRef } from "react";
-import { refreshCsrfToken } from "../../utils/helpers";
+import { isValidPassword, refreshCsrfToken } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { error, success } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
@@ -14,8 +14,10 @@ export default function LoginContainer({ setModal, autoFocus }) {
     const password = useRef(null);
     const username = useRef(null);
     const { showToast } = useToast();
-    function loginCallback(uname, pwd) {
-        login(uname, pwd)
+    async function loginCallback(uname, pwd) {
+        const isValid = isValidPassword(pwd);
+        if(isValid.message){return showToast("Invalid Credentials", error)}
+        await login(uname, pwd)
             .then((r) => {
                 showToast(r.message, r.status);
                 if (r?.status === success) {
@@ -74,8 +76,8 @@ export default function LoginContainer({ setModal, autoFocus }) {
                 </div>
 
                 <Button
-                    onClick={() => {
-                        loginCallback(
+                    onClick={async () => {
+                        await loginCallback(
                             username.current.value,
                             password.current.value,
                         );

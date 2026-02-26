@@ -42,7 +42,7 @@ public class ForgetPassword extends HttpServlet {
 					.write(JSONResponse.response(JSONResponse.ERROR, "Email Address Required", csrfNew).toString());
 			return;
 		}
-		if (ValidatorService.isEmail(email)) {
+		if (ValidatorService.isValidEmail(email)) {
 			try {
 				String token = PasswordResetDAO.createPasswordResetToken(email);
 				if (token == null)
