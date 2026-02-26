@@ -2,7 +2,7 @@ import CodeSnippet from "../CodeSnippet/CodeSnippet";
 import "./Quiz.css";
 import Option from "./Option/Option";
 import Button from "../Button/Button";
-import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
+import { backendFetch } from "../../utils/helpers.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Quiz({
@@ -23,7 +23,7 @@ export default function Quiz({
     const [count, setCount] = useState(0);
     const [answer, setAnswer] = useState({});
     const [selected, setSelected] = useState(null);
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!selected) {
             return;
         }
@@ -33,14 +33,14 @@ export default function Quiz({
         };
         setAnswer(updatedAnswer);
         if (count == length - 1) {
-            getResult(updatedAnswer);
+            await getResult(updatedAnswer);
         } else {
             next();
             setCount(count + 1);
             setSelected(null);
         }
-        function getResult(answers) {
-            backendFetch("/quiz-results", {
+        async function getResult(answers) {
+            await backendFetch("/quiz-results", {
                 method: "POST",
                 body: answers,
             })
@@ -52,55 +52,55 @@ export default function Quiz({
                     console.log(err);
                 });
         }
-        return (
-            <div id="Quiz">
-                <h1 className="headline">{count + 1 + ". " + headline}</h1>
-                <p className="describe">{description}</p>
-                {hasCode && (
-                    <CodeSnippet code={code} language={language}></CodeSnippet>
-                )}
-                <p
-                    className="question"
-                    style={
-                        hasCode
-                            ? {
-                                  fontSize: "var(--normal-size)",
-                              }
-                            : {
-                                  fontSize: "var(--large-size)",
-                                  textAlign: "center",
-                                  marginBottom: "40px",
-                              }
-                    }
-                >
-                    {question}
-                </p>
-                {options.map((r, i) => {
-                    return (
-                        <Option
-                            key={i}
-                            name={"name-" + qid}
-                            value={r}
-                            checked={selected === r}
-                            onChange={() => setSelected(r)}
-                        >
-                            {r}
-                        </Option>
-                    );
-                })}
-                <div className="btns">
-                    <Button
-                        onClick={async () => {
-                            await handleSubmit();
-                        }}
-                        disabled={!selected}
-                        style={{ cursor: selected ? "pointer" : "not-allowed" }}
-                    >
-                        Submit
-                    </Button>
-                    <Button>Get Answer</Button>
-                </div>
-            </div>
-        );
     };
+    return (
+        <div id="Quiz">
+            <h1 className="headline">{count + 1 + ". " + headline}</h1>
+            <p className="describe">{description}</p>
+            {hasCode && (
+                <CodeSnippet code={code} language={language}></CodeSnippet>
+            )}
+            <p
+                className="question"
+                style={
+                    hasCode
+                        ? {
+                              fontSize: "var(--normal-size)",
+                          }
+                        : {
+                              fontSize: "var(--large-size)",
+                              textAlign: "center",
+                              marginBottom: "40px",
+                          }
+                }
+            >
+                {question}
+            </p>
+            {options.map((r, i) => {
+                return (
+                    <Option
+                        key={i}
+                        name={"name-" + qid}
+                        value={r}
+                        checked={selected === r}
+                        onChange={() => setSelected(r)}
+                    >
+                        {r}
+                    </Option>
+                );
+            })}
+            <div className="btns">
+                <Button
+                    onClick={async () => {
+                        await handleSubmit();
+                    }}
+                    disabled={!selected}
+                    style={{ cursor: selected ? "pointer" : "not-allowed" }}
+                >
+                    Submit
+                </Button>
+                <Button>Get Answer</Button>
+            </div>
+        </div>
+    );
 }
