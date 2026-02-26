@@ -12,7 +12,6 @@ export default function QuizMain() {
     const [response, setResponse] = useState({});
     const context = useGlobalContext();
     function takeTest(topicName) {
-        // context.refreshCsrfToken();
         refreshCsrfToken();
         if (!context.uname) {
             showToast("Login to take a test");
@@ -23,14 +22,10 @@ export default function QuizMain() {
             body: { topic: topicName },
         })
             .then((res) => {
-                console.log(res);
                 if (res instanceof Response) {
                     showToast("Login to take a test");
                     return;
                 }
-                console.log("res: "+res);
-                console.log(typeof res);
-                console.log(res instanceof Response);
                 setResponse(res);
                 setDisplay(1);
             })
@@ -90,7 +85,7 @@ export default function QuizMain() {
                         </div>
                     </main>
                 )}
-                {display == 1 && <QuizContainer quiz={response} />}
+                {display == 1 && <QuizContainer quiz={response.questions} />}
             </div>
         </>
     );

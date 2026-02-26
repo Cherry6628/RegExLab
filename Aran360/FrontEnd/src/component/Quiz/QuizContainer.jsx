@@ -7,12 +7,15 @@ export default function QuizContainer({quiz}) {
     function incrementQuestion() {
         setCurrentQuestion(currentQuestion + 1);
     }
+    const start = Date.now();
     return (
         <Quiz
             {...quiz[currentQuestion]}
             length={length}
+            time={start}
             next={incrementQuestion}
-            quizId={Math.floor(Math.random() * 10000)}
+            qid={quiz[currentQuestion].id} 
+            hasCode={!!quiz[currentQuestion].hasCode} 
             setSelections={setSelections}
         />
     );

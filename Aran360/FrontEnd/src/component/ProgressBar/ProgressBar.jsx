@@ -20,7 +20,7 @@ export default function ProgressBar({ answer, value, isPass }) {
         <>
             <div className="answerType">
                 <div>{answer}</div>
-                <div>{progress}%</div>
+                <div>{progress.toFixed(1)}%</div>
             </div>
             <div id="bar">
                 <div

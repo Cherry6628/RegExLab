@@ -43,7 +43,7 @@ export default function CircularBar({ value }) {
                     transform="rotate(-90 75 75)"
                 />
             </svg>
-            <div className="progress">{progress}%</div>
+            <div className="progress">{progress.toFixed(1)}%</div>
         </div>
     );
 }

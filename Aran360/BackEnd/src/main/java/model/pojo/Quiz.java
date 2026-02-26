@@ -41,11 +41,11 @@ public class Quiz implements Serializable{
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	public boolean isCode() {
-		return isCode;
+	public int hasCode() {
+		return hasCode;
 	}
-	public void setCode(boolean isCode) {
-		this.isCode = isCode;
+	public void sethasCode(int hasCode) {
+		this.hasCode = hasCode;
 	}
 	public String getCode() {
 		return code;
@@ -66,17 +66,17 @@ public class Quiz implements Serializable{
 	String description;
 	String question;
 	String language;
-	boolean isCode;
+	int hasCode;
 	String code;
 	List<String> options;
-	public Quiz(int qid, int topicId, String headline, String description, String question, String language,boolean isCode, String code, List<String> options) {
+	public Quiz(int qid, int topicId, String headline, String description, String question, String language,int hasCode, String code, List<String> options) {
 		this.qid = qid;
 		this.topicId = topicId;
 		this.headline = headline;
 		this.description = description;
 		this.question = question;
 		this.language = language;
-		this.isCode = isCode;
+		this.hasCode = hasCode;
 		this.code = code;
 		this.options = options;
 	}
