@@ -1,9 +1,7 @@
 import Payloads from "../../Payloads/Payloads";
-import "./XSSMaterial.css";
-import Lab from "../../Lab/Lab";
 export default function XSSContexts() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <section>
                     <h1>Cross-site scripting contexts</h1>

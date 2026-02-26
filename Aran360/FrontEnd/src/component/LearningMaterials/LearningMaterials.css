@@ -4,13 +4,13 @@
     box-sizing: border-box;
     scroll-margin-top: 100px;
 }
-#xss {
+#learning-material-main-box {
     background-color: var(--secondary-bgcolor);
     width: calc(100vw - 320px);
     margin-left: 320px;
 }
 @media only screen and (max-width: 1024px) {
-    #xss {
+    #learning-material-main-box {
         width: calc(100vw - 40px);
         margin-left: 40px;
     }
@@ -19,62 +19,62 @@ html,
 body {
     scrollbar-width: none;
 }
-#xss h4 {
+#learning-material-main-box h4 {
     color: var(--text-main);
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: var(--normal-size);
 }
-#xss img {
+#learning-material-main-box img {
     width: min(1100px, 100%);
     padding-top: 30px;
     padding-bottom: 30px;
     display: block;
     margin: 0 auto;
 }
-#xss section p,
-#xss li {
+#learning-material-main-box section p,
+#learning-material-main-box li {
     font-size: var(--normal-size);
     color: var(--text-dim);
     line-height: 29px;
 }
-#xss h3 {
+#learning-material-main-box h3 {
     color: white;
     font-size: var(--semi-large-size);
     margin-bottom: 7px;
     margin-top: 10px;
 }
-#xss .labbox h3 {
+#learning-material-main-box .labbox h3 {
     margin-top: 0 !important;
 }
-#xss p + p {
+#learning-material-main-box p + p {
     margin-top: 15px;
 }
-#xss li + li {
+#learning-material-main-box li + li {
     margin-top: 5px;
 }
-#xss section h1 {
+#learning-material-main-box section h1 {
     font-size: var(--large-size);
     margin-bottom: 15px;
     margin-top: 20px;
     color: var(--text-main);
 }
-#xss .mainbar {
+#learning-material-main-box .mainbar {
     padding: 30px;
     padding-left: 60px;
     padding-right: 80px;
 }
-#xss section ul {
+#learning-material-main-box section ul {
     margin-top: 20px;
     margin-left: 100px;
     margin-bottom: 10px;
 }
-#xss section ol {
+#learning-material-main-box section ol {
     margin-top: 20px;
     margin-left: 100px;
     margin-bottom: 10px;
 }
-#xss .labbox {
+#learning-material-main-box .labbox {
     background-color: var(--secondary-bgcolor);
     border-left: 15px solid var(--action-color) !important;
     border-radius: 12px;
@@ -83,11 +83,11 @@ body {
     margin-bottom: 20px;
     border: 1px solid var(--border-light);
 }
-#xss .labbox h1 {
+#learning-material-main-box .labbox h1 {
     margin-top: 5px !important;
     color: var(--text-main);
 }
-#xss .code {
+#learning-material-main-box .code {
     background-color: #ebf0f2;
     color: black;
     padding: 20px;
@@ -95,37 +95,37 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#xss .code p {
+#learning-material-main-box .code p {
     color: black;
     margin-top: 0 !important;
 }
-#xss ul li::marker {
+#learning-material-main-box ul li::marker {
     color: white;
 }
-#xss ol li::marker {
+#learning-material-main-box ol li::marker {
     color: var(--text-main);
 }
-#xss .labbox ul li {
+#learning-material-main-box .labbox ul li {
     text-decoration: underline;
     text-underline-offset: 5px;
 }
-#xss .labbox ul li:hover {
+#learning-material-main-box .labbox ul li:hover {
     color: white;
 }
-#xss .labbox ul li::marker {
+#learning-material-main-box .labbox ul li::marker {
     color: var(--text-main);
 }
-#xss u {
+#learning-material-main-box u {
     text-underline-offset: 5px;
 }
-#xss u:hover {
+#learning-material-main-box u:hover {
     color: white;
 }
-#xss b {
+#learning-material-main-box b {
     color: white;
     opacity: 0.76;
 }
-#xss span {
+#learning-material-main-box span {
     background-color: var(--primary-bgcolor);
     margin: 2px;
     border-radius: 7px;
@@ -136,7 +136,7 @@ body {
 #lab span {
     background-color: unset;
 }
-#xss iframe {
+#learning-material-main-box iframe {
     width: min(1100px, 100%);
     padding-top: 30px;
     padding-bottom: 30px;
@@ -144,7 +144,7 @@ body {
     margin: 0 auto;
     height: 680px;
 }
-#xss .query {
+#learning-material-main-box .query {
     margin-top: 10px;
     margin-bottom: 10px;
     color: var(--text-dim);

@@ -1,7 +1,6 @@
-import "../XSS/XSSMaterial.css";
 export default function Authentication() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <section>
                     <h1>Authentication vulnerabilities</h1>

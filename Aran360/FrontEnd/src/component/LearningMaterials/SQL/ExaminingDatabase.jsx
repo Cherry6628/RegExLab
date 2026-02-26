@@ -1,9 +1,7 @@
-import "../XSS/XSSMaterial.css";
-import Lab from "../../Lab/Lab";
 import Payloads from "../../Payloads/Payloads";
 export default function ExaminingDatabase() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <section className="mainbar">
                 <section>
                     <h1>Examining the database in SQL injection attacks</h1>

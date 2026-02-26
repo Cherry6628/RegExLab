@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 import { useNavigate } from "react-router-dom";
+import "./LearningMaterials.css";
 
 export default function LearningMaterials({ list, topic_url }) {
     const context = useGlobalContext();

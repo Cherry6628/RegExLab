@@ -1,9 +1,7 @@
-import Lab from "../../Lab/Lab";
 import Payloads from "../../Payloads/Payloads";
-import "./XSSMaterial.css";
 export default function DanglingMarkupInjection() {
     return (
-        <div id="xss">
+        <div id="learning-material-main-box">
             <main className="mainbar">
                 <section>
                     <h1>Dangling markup injection</h1>
