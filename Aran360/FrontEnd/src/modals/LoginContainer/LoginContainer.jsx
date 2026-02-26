@@ -14,8 +14,8 @@ export default function LoginContainer({ setModal, autoFocus }) {
     const password = useRef(null);
     const username = useRef(null);
     const { showToast } = useToast();
-    function loginCallback(uname, pwd) {
-        login(uname, pwd)
+    async function loginCallback(uname, pwd) {
+        await login(uname, pwd)
             .then((r) => {
                 showToast(r.message, r.status);
                 if (r?.status === success) {
@@ -74,8 +74,8 @@ export default function LoginContainer({ setModal, autoFocus }) {
                 </div>
 
                 <Button
-                    onClick={() => {
-                        loginCallback(
+                    onClick={async () => {
+                        await loginCallback(
                             username.current.value,
                             password.current.value,
                         );

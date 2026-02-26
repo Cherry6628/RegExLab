@@ -15,8 +15,8 @@ export default function SignupContainer({ setModal }) {
     const username = useRef(null);
     const email = useRef(null);
     const { showToast } = useToast();
-    function signupCallback(uname, mail, pwd) {
-        signup(uname, mail, pwd)
+    async function signupCallback(uname, mail, pwd) {
+        await signup(uname, mail, pwd)
             .then((r) => {
                 showToast(r.message, r.status);
                 if (r?.status === success) {
@@ -81,8 +81,8 @@ export default function SignupContainer({ setModal }) {
                 </div>
 
                 <Button
-                    onClick={() => {
-                        signupCallback(
+                    onClick={async () => {
+                        await signupCallback(
                             username.current.value,
                             email.current.value,
                             password.current.value,

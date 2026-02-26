@@ -2,7 +2,7 @@ import Button from "../../component/Button/Button.jsx";
 import "./ForgetPasswordContainer.css";
 import { useRef } from "react";
 import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
-import { error, info, success } from "../../utils/params.js";
+import { error } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
 import { useGlobalContext } from "../ContextProvider/ContextProvider.jsx";
 
@@ -10,8 +10,11 @@ export default function ForgetPasswordContainer({ setModal }) {
     const context = useGlobalContext();
     const email = useRef(null);
     const { showToast } = useToast();
-    function forgetPasswordCallback(email) {
-        backendFetch("/forget-password", {
+    async function forgetPasswordCallback(email) {
+        // while (true) {
+        //     console.log("waiting")
+        // }
+        await backendFetch("/forget-password", {
             method: "POST",
             body: { email },
         })
@@ -50,8 +53,8 @@ export default function ForgetPasswordContainer({ setModal }) {
                 </div>
 
                 <Button
-                    onClick={() => {
-                        forgetPasswordCallback(email.current.value);
+                    onClick={async () => {
+                        await forgetPasswordCallback(email.current.value);
                     }}
                     icon="arrow_forward_ios"
                 >

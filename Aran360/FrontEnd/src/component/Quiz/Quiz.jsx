@@ -23,7 +23,7 @@ export default function Quiz({
     const [count, setCount] = useState(0);
     const [answer, setAnswer] = useState({});
     const [selected, setSelected] = useState(null);
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!selected) return;
         const updatedAnswer = {
             ...answer,
@@ -31,15 +31,15 @@ export default function Quiz({
         };
         setAnswer(updatedAnswer);
         if (count == length - 1) {
-            getResult(updatedAnswer);
+            await getResult(updatedAnswer);
         } else {
             next();
             setCount(count + 1);
             setSelected(null);
         }
     };
-    function getResult(answers) {
-        backendFetch("/quiz-results", {
+    async function getResult(answers) {
+        await backendFetch("/quiz-results", {
             method: "POST",
             body: answers,
         })
@@ -88,7 +88,12 @@ export default function Quiz({
                 );
             })}
             <div className="btns">
-                <Button onClick={handleSubmit} disabled={!selected}>
+                <Button
+                    onClick={async () => {
+                        await handleSubmit();
+                    }}
+                    disabled={!selected}
+                >
                     Submit
                 </Button>
                 <Button>Get Answer</Button>

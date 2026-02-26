@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import Header from "../../component/Header/Header";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
-import { backendFetch, isValidPassword, refreshCsrfToken } from "../../utils/helpers";
+import {
+    backendFetch,
+    isValidPassword,
+    refreshCsrfToken,
+} from "../../utils/helpers";
 import "./Profile.css";
 import { useToast } from "../../component/Toast/ToastContext";
 import { useState, useRef } from "react";
@@ -20,7 +24,7 @@ export default function Profile() {
     const oldPwdRef = useRef(null);
     const newPwdRef = useRef(null);
 
-    const handleUpdatePassword = () => {
+    const handleUpdatePassword = async () => {
         setPwdError(null);
 
         if (!oldPwd.trim()) {
@@ -39,7 +43,7 @@ export default function Profile() {
             return;
         }
 
-        backendFetch("/update-password", {
+        await backendFetch("/update-password", {
             method: "POST",
             body: { oldPassword: oldPwd, newPassword: newPwd },
         }).then((r) => {
@@ -158,7 +162,11 @@ export default function Profile() {
                                 Update your password regularly to keep your
                                 account secure.
                             </p>
-                            <Button onClick={handleUpdatePassword}>
+                            <Button
+                                onClick={async () =>
+                                    await handleUpdatePassword()
+                                }
+                            >
                                 Update Password
                             </Button>
                         </div>
@@ -166,8 +174,8 @@ export default function Profile() {
                     <hr />
                     <div className="logout">
                         <Button
-                            onClick={() =>
-                                backendFetch("/logout", {
+                            onClick={async () =>
+                                await backendFetch("/logout", {
                                     method: "POST",
                                 }).then((r) => {
                                     context.clearUserData();
