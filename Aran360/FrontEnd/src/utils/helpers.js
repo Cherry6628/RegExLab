@@ -67,7 +67,7 @@ const client = new (class BackendClient {
         console.log("data: "+data);
         if (
             data?.status === error &&
-            data?.message === "Invalid CSRF Token"
+            (data?.message === "Invalid CSRF Token" || data?.message === "CSRF Token Missing")
         ) {
             console.log("refetching "+ data);
             await this.refreshCsrfToken();
