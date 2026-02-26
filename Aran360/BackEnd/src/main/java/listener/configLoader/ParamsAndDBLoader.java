@@ -24,6 +24,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	// public static String EMAIL_DOMAIN, EMAIL_API_KEY;
 	public static String EMAIL_ADDRESS, EMAIL_PASSWORD;
 	public static String APP_NAME, FRONTEND_URL, BACKEND_URL, COOKIE_DOMAIN;
+	
+	
 
 	public static final String TABLE_USERS = "users", TABLE_LOGIN_SESSIONS = "login_sessions",
 			TABLE_PASSWORD_RESET = "password_reset", TABLE_LABS = "labs", TABLE_LEARNING_TOPICS = "learning_topics",
@@ -35,6 +37,9 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH, PBKDF2_SALT_LENGTH;
 	public static int LAB_TIMEOUT_SECONDS;
 	public static int QUIZ_COUNT_PER_ATTEMPT;
+	
+	
+	
 	public static String[][] LABS	 = {
 			{ "Cross Site Scripting (XSS)", "Reflected XSS into HTML context with nothing encoded",
 					"xss-reflected-1" },
@@ -69,6 +74,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 //			{ "Access Control", "Surprise Lab - Access Control", "ac-surprise-1" },
 //
 //			{ "Authentication", "Username enumeration via different responses", "auth-basic-1" },
+			{ "Authentication", "Broken 2FA verification context leading to account takeover", "auth-basic-1" },
 //			{ "Authentication", "Password brute force protection bypass via account lockout", "auth-basic-2" },
 //			{ "Authentication", "2FA simple bypass via direct URL navigation", "auth-basic-3" },
 //			{ "Authentication", "Surprise Lab - Authentication", "auth-surprise-1" },
@@ -390,6 +396,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			PBKDF2_SALT_LENGTH = (temp != null) ? Integer.parseInt(temp) : 16;
 			temp = getProperty("QUIZ_COUNT_PER_ATTEMPT");
 			QUIZ_COUNT_PER_ATTEMPT = (temp != null) ? Integer.parseInt(temp) : 10;
+			
+			
 
 			Connection con = DBService.getConnection();
 			con.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TABLE_USERS + """
@@ -548,7 +556,6 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			System.err.println("Error parsing configuration values: " + e.getMessage());
 		}
 	}
-
 	private void loadFromWebResource(ServletContext context, String resourcePath) {
 		try (InputStream is = context.getResourceAsStream(resourcePath)) {
 			if (is != null) {
@@ -561,17 +568,12 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			System.err.println("Error reading " + resourcePath + ": " + e.getMessage());
 		}
 	}
-
 	public static String getProperty(String propName) {
 		return allConfigs.getProperty(propName);
 	}
-
-
-	
 	public static String getProperty(String propName, String defaultValue) {
 		return allConfigs.getProperty(propName, defaultValue);
 	}
-
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		Set<String> running = model.helper.LabRegistry.getAll();
@@ -591,7 +593,6 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			}
 			System.out.println("[LabCleanup] Done.");
 		}
-
 		try {
 			DBService.getConnection().close();
 		} catch (SQLException e) {

@@ -1,6 +1,9 @@
 #!/bin/bash
-
+rm *.tar -f;
 set -e
+
+rm ../Aran360/BackEnd/src/main/webapp/WEB-INF/dockers/*.tar -f
+
 BASE_DIR="$(pwd)"
 for TARGET_DIR in "$BASE_DIR"/*/; do
     [ -d "$TARGET_DIR" ] || continue
@@ -37,6 +40,8 @@ done
 # echo "Pruning system..."
 # docker system prune -f
 # docker system prune -a --volumes
+
+cp *.tar ../Aran360/BackEnd/src/main/webapp/WEB-INF/dockers/;
 
 echo "-----------------------------------"
 echo "Done."

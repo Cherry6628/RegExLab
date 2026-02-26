@@ -26,9 +26,6 @@ export default function QuizMain() {
                     showToast("Login to take a test");
                     return;
                 }
-                console.log("asdfasdf");
-                console.log(res);
-                setResponse(res);
                 setDisplay(1);
             })
             .catch((err) => {
