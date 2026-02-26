@@ -45,7 +45,7 @@ public class Signup extends HttpServlet {
 			return;
 		}
 
-		if (user == null || user.isBlank() || user.length() < 8) {
+		if (user == null || user.isBlank() || user.length() < 6) {
 			response.setStatus(400);
 			response.getWriter()
 					.write(JSONResponse.response(JSONResponse.ERROR, "Invalid Username", csrfNew).toString());

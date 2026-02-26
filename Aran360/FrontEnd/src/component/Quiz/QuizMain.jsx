@@ -11,13 +11,13 @@ export default function QuizMain() {
     const { showToast } = useToast();
     const [response, setResponse] = useState({});
     const context = useGlobalContext();
-    function takeTest(topicName) {
+    async function takeTest(topicName) {
         refreshCsrfToken();
         if (!context.uname) {
             showToast("Login to take a test");
             return;
         }
-        backendFetch("/quiz-questions", {
+        await backendFetch("/quiz-questions", {
             method: "POST",
             body: { topic: topicName },
         })
@@ -26,6 +26,8 @@ export default function QuizMain() {
                     showToast("Login to take a test");
                     return;
                 }
+                console.log("asdfasdf");
+                console.log(res);
                 setResponse(res);
                 setDisplay(1);
             })
@@ -51,33 +53,41 @@ export default function QuizMain() {
                         </p>
                         <div className="separate">
                             <VulnerabilityTopic
-                                onClick={() =>
-                                    takeTest("Cross Site Scripting (XSS)")
+                                onClick={async () =>
+                                    await takeTest("Cross Site Scripting (XSS)")
                                 }
                                 icon="terminal"
                                 heading="Cross Site Scripting (XSS)"
                                 content="Cross Site Scripting (XSS) allows attackers to inject malicious JavaScript into web pages. When other users visit the page, the script executes in their browser and can steal cookies, session tokens, or sensitive data."
                             />
                             <VulnerabilityTopic
-                                onClick={() => takeTest("SQL Injection (SQLi)")}
+                                onClick={async () =>
+                                    await takeTest("SQL Injection (SQLi)")
+                                }
                                 icon="database"
                                 heading="SQL Injection"
                                 content="SQL Injection is a vulnerability where attackers insert malicious SQL queries into input fields to manipulate or access unauthorized database data."
                             />
                             <VulnerabilityTopic
-                                onClick={() => takeTest("Access Control")}
+                                onClick={async () =>
+                                    await takeTest("Access Control")
+                                }
                                 icon="shield"
                                 heading="Access Control"
                                 content="Access Control vulnerabilities occur when an application fails to properly restrict what authenticated users are allowed to do. Attackers can exploit these weaknesses to access unauthorized resources, view or modify other users' data, or escalate privileges to perform administrative actions."
                             />
                             <VulnerabilityTopic
-                                onClick={() => takeTest("Authentication")}
+                                onClick={async () =>
+                                    await takeTest("Authentication")
+                                }
                                 icon="key"
                                 heading="Authentication"
                                 content="Authentication vulnerabilities arise when an application improperly verifies a user's identity. Weak password policies, insecure session management, or flawed login mechanisms can allow attackers to bypass authentication, impersonate legitimate users, or gain unauthorized access to accounts."
                             />
                             <VulnerabilityTopic
-                                onClick={() => takeTest("Path Traversal")}
+                                onClick={async () =>
+                                    await takeTest("Path Traversal")
+                                }
                                 icon="folder"
                                 heading="Path Traversal"
                                 content="Path Traversal (also known as Directory Traversal) is a vulnerability that allows attackers to access files and directories outside the intended web root folder. By manipulating file path inputs (e.g., using '../'), attackers can read sensitive files such as configuration files, system files, or application source code."
