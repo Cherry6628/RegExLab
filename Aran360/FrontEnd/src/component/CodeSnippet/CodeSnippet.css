@@ -1,28 +1,29 @@
 .wrapper {
-    border-radius: 12px;
-    border: 1px solid var(--border-light);
-    font-family: Inter, monospace !important;
-    overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  font-family: Inter, monospace !important;
+  overflow: hidden;
 }
 .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 16px;
-    background: var(--secondary-bgcolor);
-    font-size: var(--normal-size);
-    color: var(--text-dim);
-    border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--secondary-bgcolor);
+  font-size: var(--normal-size);
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border-light);
+  width: min(100%, 1024px);
 }
 .fileName {
-    font-weight: 500;
+  font-weight: 500;
 }
 .language {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 .codeBlock {
-    margin: 0 !important;
-    padding: 20px !important;
-    background: var(--primary-bgcolor) !important;
-    height: 270px;
-    scrollbar-width: none;
+  margin: 0 !important;
+  padding: 20px !important;
+  background: var(--primary-bgcolor) !important;
+  width: min(100%, 1024px);
+  scrollbar-width: none;
 }

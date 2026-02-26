@@ -1,5 +1,6 @@
 import { use, useState } from "react";
 import Quiz from "./Quiz";
+import { useNavigate } from "react-router-dom";
 export default function QuizContainer({quiz}) {
     let length = quiz.length;
     const [selections, setSelections] = useState({});

@@ -24,7 +24,9 @@ export default function Quiz({
   const [answer, setAnswer] = useState({});
   const [selected, setSelected] = useState(null);
   const handleSubmit = () => {
-    if (!selected) return;
+    if (!selected){
+        return;
+    } 
     const updatedAnswer = {
       ...answer,
       [qid]: selected,
@@ -53,7 +55,7 @@ export default function Quiz({
   }
   return (
     <div id="Quiz">
-      <h1 className="headline">{headline}</h1>
+      <h1 className="headline">{count+1+". "+headline}</h1>
       <p className="describe">{description}</p>
       {hasCode && <CodeSnippet code={code} language={language}></CodeSnippet>}
       <p
@@ -86,10 +88,10 @@ export default function Quiz({
         );
       })}
       <div className="btns">
-        <Button onClick={handleSubmit} disabled={!selected}>
+        <Button onClick={handleSubmit} disabled={!selected} style={{ cursor: selected ? "pointer" : "not-allowed" }}>
           Submit
         </Button>
-        <Button>Get Answer</Button>
+        <Button icon="wand_stars">Get Hint</Button>
       </div>
     </div>
   );
