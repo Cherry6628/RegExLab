@@ -6,8 +6,8 @@ function CodeSnippet({ code, language }) {
     return (
         <div className="wrapper">
             <div className="header">
-                <span className="fileName">app.py</span>
-                <span className="language">Python 3.10</span>
+                <span className="fileName">app</span>
+                <span className="language">{language}</span>
             </div>
             <SyntaxHighlighter
                 language={language}
