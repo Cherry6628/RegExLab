@@ -26,6 +26,7 @@ export default function QuizMain() {
                     showToast("Login to take a test");
                     return;
                 }
+                setResponse(res);
                 setDisplay(1);
             })
             .catch((err) => {

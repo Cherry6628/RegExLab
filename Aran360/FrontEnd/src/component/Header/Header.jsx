@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import "./Header.css";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
@@ -14,7 +14,11 @@ export default function Header() {
     const context = useGlobalContext();
     const navigate = useNavigate();
     const listRef = useRef(null);
-    const {showToast} = useToast();
+    const location = useLocation();
+    const isKnowledgeActive = location.pathname.startsWith(
+        "/learning-material/",
+    );
+    const { showToast } = useToast();
     const closeAll = () => {
         setMenuOpen(false);
         setDropdownOpen(false);
@@ -91,7 +95,9 @@ export default function Header() {
                         <li className="navitem-container" ref={listRef}>
                             <p
                                 className={`navitem ${
-                                    dropdownOpen ? "active" : ""
+                                    dropdownOpen || isKnowledgeActive
+                                        ? "active"
+                                        : ""
                                 }`}
                                 onClick={toggleDropdown}
                             >
@@ -170,7 +176,10 @@ export default function Header() {
                                         className={`dropdown-menu ${
                                             profileOpen ? "show" : ""
                                         }`}
-                                style={{width: "100px", marginTop: "15px !important"}}
+                                        style={{
+                                            width: "100px",
+                                            marginTop: "15px !important",
+                                        }}
                                     >
                                         <li>
                                             <NavLink
@@ -183,7 +192,6 @@ export default function Header() {
 
                                         <li>
                                             <NavLink
-                                            
                                                 className="logout-btn"
                                                 onClick={() => {
                                                     backendFetch("/logout", {
