@@ -1,0 +1,14 @@
+{
+    "name": "auth-basic-1",
+    "version": "1.0.0",
+    "description": "Broken 2FA verification context leading to account takeover",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "cookie-parser": "^1.4.6"
+    }
+}

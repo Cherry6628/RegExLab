@@ -25,17 +25,17 @@ public class LabOrchestratorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+        System.out.println("\t\t\t\tSession Doesn't Exists");
         if (session == null) {
             resp.sendRedirect(req.getContextPath() + "/dashboard");
             return;
         }
-
+        System.out.println("\t\t\t\tSession Exists");
         String pathInfo = req.getPathInfo();
         if (pathInfo == null || pathInfo.length() <= 1) {
             redirectToDashboard(req, resp, session, "Invalid lab name.");
             return;
         }
-
         String labName = pathInfo.substring(1).replaceAll("[^a-zA-Z0-9_-]", "");
         if (labName.isEmpty()) {
             redirectToDashboard(req, resp, session, "Invalid lab name.");
@@ -47,6 +47,7 @@ public class LabOrchestratorServlet extends HttpServlet {
             return;
         }
 
+        System.out.println("\t\t\t\tLab Exists");
         @SuppressWarnings("unchecked")
         Map<String, LabInstance> labMap = (Map<String, LabInstance>) session.getAttribute(SESSION_LAB_MAP);
         if (labMap == null) {

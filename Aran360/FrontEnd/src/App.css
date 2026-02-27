@@ -67,5 +67,14 @@ body {
 
 input::placeholder{
     color: var(--text-muted);
-    font-weight: 300;
+    font-weight: 100;
+}
+::selection {
+  background: transparent;
+  color: inherit;
+}
+
+::-moz-selection {
+  background: transparent;
+  color: inherit;
 }
