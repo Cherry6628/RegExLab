@@ -1,207 +1,261 @@
 import express from "express";
-import session from "express-session";
 import cookieParser from "cookie-parser";
+import session from "express-session";
 
 const app = express();
-
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(
-  session({
+app.use(session({
     secret: "lab-secret",
     resave: false,
     saveUninitialized: true,
-  })
-);
-
-/* ========================
-   Fake Database
-======================== */
-
-const users = {
-  attacker: {
-    password: "attacker123",
-    otp: generateOTP(),
-    role: "user",
-    otpAttempts: 0,
-  },
-  admin: {
-    password: "AdminPass123!",
-    otp: generateOTP(),
-    role: "admin",
-    otpAttempts: 0,
-  },
-};
+}));
 
 function generateOTP() {
-  return Math.floor(1000 + Math.random() * 9000).toString();
+    return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
+const users = {
+    attacker: { password: "attacker123", otp: generateOTP(), role: "user" },
+    admin:    { password: "AdminPass123!", otp: generateOTP(), role: "admin" },
+};
+
 setInterval(() => {
-  for (const u in users) {
-    users[u].otp = generateOTP();
-    users[u].otpAttempts = 0;
-  }
+    for (const u in users) users[u].otp = generateOTP();
 }, 120000);
 
-/* ========================
-   Entry
-======================== */
+app.get("/", (req, res) => res.redirect(req.baseUrl + "/login"));
 
-app.get("/", (req, res) => {
-  res.redirect(req.baseUrl + "/login");
+app.get("/session-status", (req, res) => {
+    res.json({
+        tmpUser: req.session.tmpUser || null,
+        user: req.session.user || null,
+    });
 });
 
-/* ========================
-   LOGIN
-======================== */
+app.post("/logout", (req, res) => {
+    req.session.destroy();
+    res.json({ success: true });
+});
 
 app.get("/login", (req, res) => {
-  res.send(`
-  <h2>Login</h2>
+    res.send(`<!doctype html><html>
+<head><title>Aran360 — Login</title><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:Arial,sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+.card { background:#fff; border-radius:10px; padding:32px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:360px; display:flex; flex-direction:column; gap:16px; }
+h2 { color:#1a1a2e; }
+input { padding:10px 14px; border:1px solid #ccc; border-radius:8px; font-size:14px; outline:none; width:100%; }
+input:focus { border-color:#1877f2; }
+button { padding:10px; background:#1877f2; color:#fff; border:none; border-radius:8px; font-size:14px; cursor:pointer; }
+button:hover { background:#166fe0; }
+.hint { font-size:12px; color:#888; }
+</style></head>
+<body>
+<div class="card">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username" autocomplete="off"/>
+    <input id="password" type="password" placeholder="Password"/>
+    <button onclick="doLogin()">Login</button>
+    <p class="hint">Login as admin to access the admin panel.</p>
+</div>
+<script>
+console.log(window.location.pathname)
+const __base = window.location.pathname.replace(/login$/, "");
+console.log(__base);
+fetch(__base + "logout", { method: "POST" });
 
-  <input id="username" placeholder="Username"/><br/><br/>
-  <input id="password" type="password" placeholder="Password"/><br/><br/>
-  <button onclick="doLogin()">Login</button>
-
-  <script>
-    const base = window.location.pathname;
-
-    async function doLogin() {
-      const r = await fetch(base + "/login", {
+async function doLogin() {
+    const r = await fetch(__base + "/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: document.getElementById("username").value,
-          password: document.getElementById("password").value
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
         })
-      });
-
-      if (r.redirected) {
-        window.location.href = r.url;
-      } else {
+    });
+    if (r.ok) {
+        window.location.href = __base + "/2fa";
+    } else {
         alert("Invalid credentials");
-      }
     }
-  </script>
-  `);
+}
+</script>
+</body></html>`);
 });
 
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  const user = users[username];
-
-  if (!user || user.password !== password) {
-    return res.status(401).json({ error: "Invalid credentials" });
-  }
-
-  // 🚨 Vulnerability: client-controlled identity
-  res.cookie("account", username);
-
-  res.redirect(req.baseUrl + "/2fa");
+    const { username, password } = req.body;
+    const user = users[username];
+    if (!user || user.password !== password) {
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
+    req.session.tmpUser = username;
+    res.json({ success: true });
 });
 
-/* ========================
-   2FA
-======================== */
+app.get("/inbox", (req, res) => {
+    if (!req.session.tmpUser) {
+        return res.redirect(req.baseUrl + "/login");
+    }
+    const username = req.session.tmpUser;
+    const otp = users[username].otp;
+    res.send(`<!doctype html><html>
+<head><title>Aran360 — Inbox</title><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:Arial,sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+.card { background:#fff; border-radius:10px; padding:32px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:420px; display:flex; flex-direction:column; gap:16px; }
+h2 { color:#1a1a2e; }
+.email-item { border:1px solid #eee; border-radius:8px; padding:16px; background:#f9f9f9; }
+.email-from { font-size:12px; color:#888; margin-bottom:6px; }
+.email-subject { font-size:15px; font-weight:bold; color:#1a1a2e; margin-bottom:8px; }
+.email-body { font-size:14px; color:#333; line-height:1.6; }
+.otp-code { font-size:28px; font-weight:bold; letter-spacing:8px; color:#1877f2; text-align:center; padding:16px; background:#f0f6ff; border-radius:8px; margin-top:8px; }
+</style></head>
+<body>
+<div class="card">
+    <h2>📬 Inbox</h2>
+    <div class="email-item">
+        <p class="email-from">From: no-reply@aran360.com</p>
+        <p class="email-subject">Your One-Time Password</p>
+        <div class="email-body">
+            <p>Hi ${username},</p>
+            <p>Use the OTP below to complete your login. It expires in 2 minutes.</p>
+            <div class="otp-code">${otp}</div>
+            <p style="margin-top:12px;font-size:12px;color:#888;">If you did not request this, please ignore this email.</p>
+        </div>
+    </div>
+</div>
+</body></html>`);
+});
 
 app.get("/2fa", (req, res) => {
-  if (!req.cookies.account) {
-    return res.redirect(req.baseUrl + "/login");
-  }
+    if (!req.session.tmpUser) {
+        return res.redirect(req.baseUrl + "/login");
+    }
+    res.send(`<!doctype html><html>
+<head><title>Aran360 — 2FA</title><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:Arial,sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+.card { background:#fff; border-radius:10px; padding:32px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:360px; display:flex; flex-direction:column; gap:16px; }
+h2 { color:#1a1a2e; }
+p { font-size:14px; color:#555; }
+a { color:#1877f2; }
+input { padding:10px 14px; border:1px solid #ccc; border-radius:8px; font-size:14px; outline:none; width:100%; }
+input:focus { border-color:#1877f2; }
+button { padding:10px; background:#1877f2; color:#fff; border:none; border-radius:8px; font-size:14px; cursor:pointer; }
+button:hover { background:#166fe0; }
+</style></head>
+<body>
+<div class="card">
+    <h2>Two-Factor Authentication</h2>
+    <p>An OTP has been sent to your registered email. <a id="inbox-link" href="#">Check Inbox</a></p>
+    <input id="otp" placeholder="Enter OTP"/>
+    <button onclick="verifyOTP()">Verify</button>
+</div>
+<script>
+const __base = window.location.pathname.replace(/\\/2fa$/, "");
+document.getElementById("inbox-link").href = __base + "/inbox";
 
-  res.send(`
-  <h2>Two-Factor Authentication</h2>
+(async () => {
+    const s = await fetch(__base + "/session-status").then(r => r.json());
+    if (s.user) window.location.href = __base + "/dashboard";
+    else if (!s.tmpUser) window.location.href = __base + "/login";
+})();
 
-  <input id="otp" placeholder="4-digit OTP"/><br/><br/>
-  <button onclick="verifyOTP()">Verify</button>
-
-  <script>
-    const base = window.location.pathname;
-
-    async function verifyOTP() {
-      const r = await fetch(base + "/2fa", {
+async function verifyOTP() {
+    const r = await fetch(__base + "/2fa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          otp: document.getElementById("otp").value
+            username: "${req.session.tmpUser}",
+            otp: document.getElementById("otp").value
         })
-      });
-
-      if (r.redirected) {
-        window.location.href = r.url;
-      } else {
+    });
+    if (r.ok) {
+        window.location.href = __base + "/dashboard";
+    } else {
         alert("Invalid OTP");
-      }
     }
-  </script>
-  `);
+}
+</script>
+</body></html>`);
 });
 
 app.post("/2fa", (req, res) => {
-  const username = req.cookies.account;
-  const user = users[username];
-
-  if (!user) {
-    return res.status(400).json({ error: "Invalid account context" });
-  }
-
-  if (user.otpAttempts >= 3) {
-    return res.status(403).json({ error: "Too many attempts" });
-  }
-
-  if (req.body.otp === user.otp) {
-    req.session.user = username;
-    return res.redirect(req.baseUrl + "/dashboard");
-  }
-
-  user.otpAttempts++;
-  res.status(401).json({ error: "Invalid OTP" });
+    const realUser = req.session.tmpUser;
+    if (!realUser) return res.status(401).json({ error: "Unauthorized" });
+    const { otp } = req.body;
+    if (users[realUser].otp !== otp) {
+        return res.status(401).json({ error: "Invalid OTP" });
+    }
+    req.session.user = realUser;
+    res.json({ success: true });
 });
-
-/* ========================
-   DASHBOARD
-======================== */
 
 app.get("/dashboard", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect(req.baseUrl + "/login");
-  }
-
-  const user = users[req.session.user];
-
-  if (user.role === "admin") {
-    res.cookie("lab_solved", "true", {
-      httpOnly: true,
-      sameSite: "Strict",
-    });
-  }
-
-  res.send(`
-  <h2>Dashboard</h2>
-  <p>User: ${req.session.user}</p>
-  <p>Role: ${user.role}</p>
-  ${user.role === "admin" ? "<h3>🚩 Admin Access Achieved</h3>" : ""}
-
-  <button onclick="completeLab()">Complete Lab</button>
-
-  <script>
-    async function completeLab() {
-      const r = await fetch("/lab/complete", { method: "POST" });
-
-      if (r.ok) {
-        alert("Lab Completed");
-      } else {
-        alert("Not solved yet");
-      }
+    if (!req.session.tmpUser) {
+        return res.redirect(req.baseUrl + "/login");
     }
-  </script>
-  `);
+    const username = req.session.tmpUser;
+    const user = users[username];
+    res.send(`<!doctype html><html>
+<head><title>Aran360 — Dashboard</title><style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:Arial,sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+.card { background:#fff; border-radius:10px; padding:32px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:420px; display:flex; flex-direction:column; gap:16px; }
+h2 { color:#1a1a2e; }
+p { font-size:14px; color:#555; }
+.admin-box { background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:16px; }
+.admin-box h3 { color:#856404; margin-bottom:8px; }
+.admin-box p { color:#856404; }
+button { padding:10px 20px; background:#1877f2; color:#fff; border:none; border-radius:8px; font-size:14px; cursor:pointer; align-self:flex-start; }
+button:hover { background:#166fe0; }
+#solved { background:#e6ffed; border:1px solid #34c759; border-radius:8px; padding:16px; display:none; }
+#solved p { color:#1a7f37; font-weight:bold; }
+</style></head>
+<body>
+<div class="card">
+    <h2>Dashboard</h2>
+    <p>Logged in as: <strong>${username}</strong></p>
+    <p>Role: <strong>${user.role}</strong></p>
+    ${user.role === "admin" ? `
+    <div class="admin-box">
+        <h3>🔐 Admin Panel</h3>
+        <p>You have full administrative access.</p>
+    </div>
+    <button onclick="completeLab()">Mark Lab Complete</button>
+    ` : `<p>You do not have admin access.</p>`}
+    <div id="solved">
+        <p>🎉 Lab Solved! You bypassed 2FA successfully.</p>
+    </div>
+</div>
+<script>
+const __base = window.location.pathname.replace(/\\/dashboard$/, "");
+
+(async () => {
+    const s = await fetch(__base + "/session-status").then(r => r.json());
+    if (!s.tmpUser) window.location.href = __base + "/login";
+})();
+
+async function completeLab() {
+    const r = await fetch(__base + "/complete", { method: "POST" });
+    if (r.ok) {
+        await fetch("/lab/complete", { method: "POST" });
+        document.getElementById("solved").style.display = "block";
+    } else {
+        alert("Not solved yet — make sure you are logged in as admin.");
+    }
+}
+</script>
+</body></html>`);
 });
 
-/* ======================== */
+app.post("/complete", (req, res) => {
+    if (!req.session.tmpUser || users[req.session.tmpUser].role !== "admin") {
+        return res.status(403).json({ error: "Not solved" });
+    }
+    res.json({ status: "ok" });
+});
 
-app.listen(3000, () =>
-  console.log("auth-basic-1 running")
-);
+app.listen(3000, () => console.log("auth-basic-1 running on port 3000"));

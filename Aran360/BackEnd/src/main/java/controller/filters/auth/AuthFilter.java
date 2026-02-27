@@ -48,6 +48,8 @@ public class AuthFilter implements Filter {
 		}
 		System.out.println("Username: " + username);
 		req.setAttribute("AUTHENTICATED_USER", username);
+		if (req.getSession(false) == null)
+			req.getSession(true);
 
 		chain.doFilter(request, response);
 	}

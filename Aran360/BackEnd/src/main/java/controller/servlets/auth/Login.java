@@ -39,7 +39,6 @@ public class Login extends HttpServlet {
 
 			if (rs.next() && PBKDF2_Service.object.verify(rs.getString("password_hash"), password)) {
 				String token = SessionManager.createSession(username, request, DBService.getConnection());
-				System.out.println("login token: " + token);
 				setAuthCookie(response, token);
 				response.getWriter()
 						.write(JSONResponse.response(JSONResponse.SUCCESS, "Login Successful", csrfNew).toString());

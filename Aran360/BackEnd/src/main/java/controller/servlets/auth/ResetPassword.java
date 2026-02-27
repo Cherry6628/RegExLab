@@ -71,7 +71,6 @@ public class ResetPassword extends HttpServlet {
 						.write(JSONResponse.response(JSONResponse.ERROR, "Invalid Token", csrfNew).toString());
 				return;
 			}
-			System.out.println(pass);
 			pstmt.setString(2, email);
 			pstmt.setString(1, PBKDF2_Service.object.hash(pass));
 			pstmt2.setString(1, email);

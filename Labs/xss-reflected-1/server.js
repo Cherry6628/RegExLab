@@ -75,7 +75,12 @@ app.get("/search", (req, res) => {
         document.getElementById("searchInput").addEventListener("keypress", (e) => {
             if (e.key === "Enter") doSearch();
         });
-    </script>    <script>
+    </script>    
+    
+    
+    
+    
+    <script>
   const basePath = window.location.pathname.split("?")[0];
   const link = document.createElement("link");
   link.rel = "stylesheet";

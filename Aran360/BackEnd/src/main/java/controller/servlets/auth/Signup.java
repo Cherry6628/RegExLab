@@ -61,14 +61,12 @@ public class Signup extends HttpServlet {
 		String hashedPass = PBKDF2_Service.object.hash(pass);
 
 		try {
-			System.out.println("Inserting into users");
 			String query = "INSERT INTO " + ParamsAndDBLoader.TABLE_USERS
 					+ " (username, email, password_hash) VALUES (?, ?, ?)";
 			PreparedStatement pstmt = DBService.getConnection().prepareStatement(query);
 			pstmt.setString(1, user);
 			pstmt.setString(2, email);
 			pstmt.setString(3, hashedPass);
-			System.out.println(pstmt.executeUpdate() + " Result after insert");
 
 			String token = SessionManager.createSession(user, request, DBService.getConnection());
 			Login.setAuthCookie(response, token);

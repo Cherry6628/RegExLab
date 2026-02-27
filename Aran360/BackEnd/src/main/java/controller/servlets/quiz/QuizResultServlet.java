@@ -39,11 +39,10 @@ public class QuizResultServlet extends HttpServlet {
                 int quizId = entry.getKey();
                 String userAnswer = entry.getValue();
                 
-                System.out.println("===========================================");
-                System.out.println("Processing Quiz ID: " + quizId);
-                System.out.println("User Answer: '" + userAnswer + "'");
+                // System.out.println("===========================================");
+                // System.out.println("Processing Quiz ID: " + quizId);
+                // System.out.println("User Answer: '" + userAnswer + "'");
                 
-                // Get the correct index for this quiz
                 ps1.setInt(1, quizId);
                 ResultSet rs1 = ps1.executeQuery();
                 
@@ -51,7 +50,6 @@ public class QuizResultServlet extends HttpServlet {
                     int correctIndex = rs1.getInt("correct_index");
                     System.out.println("Correct Index: " + correctIndex);
                     
-                    // Get the correct option text based on the correct index
                     ps2.setInt(1, quizId);
                     ps2.setInt(2, correctIndex);
                     ResultSet rs2 = ps2.executeQuery();
@@ -60,36 +58,35 @@ public class QuizResultServlet extends HttpServlet {
                         String correctOption = rs2.getString("option_text");
                         System.out.println("Correct Option: '" + correctOption + "'");
                         
-                        // Trim both strings to handle potential whitespace issues
                         String trimmedUserAnswer = userAnswer.trim();
                         String trimmedCorrectOption = correctOption.trim();
                         
-                        System.out.println("Comparing (trimmed):");
-                        System.out.println("  User: '" + trimmedUserAnswer + "'");
-                        System.out.println("  Correct: '" + trimmedCorrectOption + "'");
+                        // System.out.println("Comparing (trimmed):");
+                        // System.out.println("  User: '" + trimmedUserAnswer + "'");
+                        // System.out.println("  Correct: '" + trimmedCorrectOption + "'");
                         
-                        if (trimmedCorrectOption.equals(trimmedUserAnswer)) {
+                        if (trimmedCorrectOption.equals(trimmedUserAnswer))// {
                             score++;
-                            System.out.println("✓ CORRECT! Current Score: " + score);
-                        } else {
-                            System.out.println("✗ INCORRECT");
-                            System.out.println("  Length comparison: user=" + trimmedUserAnswer.length() + 
-                                             ", correct=" + trimmedCorrectOption.length());
-                        }
+                            // System.out.println("✓ CORRECT! Current Score: " + score);
+                        //} else {
+                        //     System.out.println("✗ INCORRECT");
+                        //     System.out.println("  Length comparison: user=" + trimmedUserAnswer.length() + 
+                        //                      ", correct=" + trimmedCorrectOption.length());
+                        // }
                     } else {
-                        System.out.println("✗ ERROR: No option found for quiz_id=" + quizId + 
-                                         ", option_order=" + correctIndex);
+                        // System.out.println("✗ ERROR: No option found for quiz_id=" + quizId + 
+                                        //  ", option_order=" + correctIndex);
                     }
                     rs2.close();
                 } else {
-                    System.out.println("✗ ERROR: No quiz found with id=" + quizId);
+                    // System.out.println("✗ ERROR: No quiz found with id=" + quizId);
                 }
                 rs1.close();
             }
             
-            System.out.println("===========================================");
-            System.out.println("FINAL SCORE: " + score + "/" + answers.size());
-            System.out.println("===========================================");
+            // System.out.println("===========================================");
+            // System.out.println("FINAL SCORE: " + score + "/" + answers.size());
+            // System.out.println("===========================================");
             
             return score;
         }
@@ -108,7 +105,7 @@ public class QuizResultServlet extends HttpServlet {
             sb.append(line);
         }
         
-        System.out.println("Received Request Body: " + sb.toString());
+        // System.out.println("Received Request Body: " + sb.toString());
         
         JSONObject body = new JSONObject(sb.toString());
         Map<Integer, String> answers = new HashMap<>();
@@ -122,14 +119,14 @@ public class QuizResultServlet extends HttpServlet {
                 int quizId = Integer.parseInt(key);
                 String answer = body.getString(key);
                 answers.put(quizId, answer);
-                System.out.println("Parsed Answer: Quiz ID=" + quizId + ", Answer='" + answer + "'");
+                // System.out.println("Parsed Answer: Quiz ID=" + quizId + ", Answer='" + answer + "'");
             } catch (NumberFormatException e) {
-                System.err.println("Invalid quiz ID format: " + key);
+                // System.err.println("Invalid quiz ID format: " + key);
                 continue;
             }
         }
         
-        System.out.println("Total Answers Received: " + answers.size());
+        // System.out.println("Total Answers Received: " + answers.size());
         
         try {
             int result = getResult(answers);

@@ -62,12 +62,9 @@ public class CSRFFilter extends HttpFilter {
 	private static final boolean isValidCSRFToken(HttpServletRequest req, String csrfToken) {
 		HttpSession session = req.getSession(false);
 		if (session == null) {
-			System.out.println("No session found for ID: " + req.getRequestedSessionId());
 			return false;
 		}
-		System.out.println("Session ID in Filter: " + session.getId());
 		String storedToken = (String) session.getAttribute("csrfToken");
-		System.out.println(storedToken);
 		return csrfToken.equals(storedToken);
 	}
 }

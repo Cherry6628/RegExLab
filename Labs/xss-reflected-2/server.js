@@ -1,84 +1,105 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import crypto from "crypto";
 
 const app = express();
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/", express.static(path.join(__dirname, "public")));
 
-app.get("/xss-fired", (req, res) => {
-    res.cookie("lab_solved", "true", { httpOnly: true, sameSite: "Strict" });
-    res.json({ status: "ok" });
-});
+/* ============================= */
 
-app.post("/complete", (req, res) => {
-    if (req.cookies?.lab_solved !== "true") {
-        return res.status(403).json({ error: "Lab not solved yet" });
-    }
-    res.json({ status: "completed" });
-});
+const activeTokens = new Set();
+
 function partialEncode(str) {
-    return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+/* ============================= */
+
 app.get("/", (req, res) => {
-    const q = partialEncode(req.query.q || "");
-    res.send(`<!doctype html>
+  const q = partialEncode(req.query.q || "");
+
+  const token = crypto.randomUUID();
+  activeTokens.add(token);
+
+  res.send(`<!doctype html>
 <html>
 <head>
-    <title>Aran360 — Search</title>
-    <link rel="stylesheet" href="style.css">
+<title>XSS Lab</title>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🔍 Product Search</h1>
-            <p class="subtitle">Search our catalog below</p>
-        </div>
-        <div class="card">
-            <div class="search-form">
-                <input type="text" id="searchInput" value="${q}" placeholder="Search products..." class="input" autocomplete="off"/>
-                <button type="button" onclick="doSearch()" class="btn">Search</button>
-            </div>
-            ${q ? `<p class="result-text">You searched for: ${q}</p><div class="no-results">No products found.</div>` : ""}
-        </div>
-        <div id="solved-banner" class="solved-banner">
-            <p>🎉 Lab Solved! XSS executed successfully.</p>
-        </div>
-    </div>
-    <script>
-        const __triggerCompletion = async () => {
-            try {
-                await fetch(window.location.pathname + "/xss-fired");
-                const r = await fetch(window.location.pathname + "/complete", { method: "POST" });
-                if (r.ok) {
-                    await fetch("/lab/complete", { method: "POST" });
-                    document.getElementById("solved-banner").style.display = "block";
-                }
-            } catch(e) {}
-        };
-        const __realAlert = window.alert.bind(window);
-        window.alert = function(msg) { __realAlert(msg); __triggerCompletion(); };
-        const __realConfirm = window.confirm.bind(window);
-        window.confirm = function(msg) { __realConfirm(msg); __triggerCompletion(); };
-        const __realPrint = window.print.bind(window);
-        window.print = function() { __realPrint(); __triggerCompletion(); };
 
-        function doSearch() {
-            const q = document.getElementById("searchInput").value;
-            window.location.href = window.location.pathname + "?q=" + encodeURIComponent(q);
+<h2>Search</h2>
+
+<input id="searchInput" value="${q}" placeholder="Search..."/>
+<button onclick="doSearch()">Search</button>
+
+${q ? `<p>You searched for: ${q}</p>` : ""}
+
+<div id="solved" style="display:none;color:green">
+🎉 Lab Solved!
+</div>
+
+<script>
+  const __LAB_TOKEN = "${token}";
+  const base = window.location.pathname;
+
+  async function __complete(){
+    try{
+      const r = await fetch(base + "/complete", {
+        method:"POST",
+        headers:{
+          "X-Lab-Token": __LAB_TOKEN
         }
+      });
 
-        document.getElementById("searchInput").addEventListener("keypress", (e) => {
-            if (e.key === "Enter") doSearch();
-        });
-    </script>    <script>
+      if(r.ok){
+        await fetch("/lab/complete",{method:"POST"});
+        document.getElementById("solved").style.display="block";
+      }
+    }catch(e){}
+  }
+
+  /* ========= HOOK COMMON SINKS ========= */
+
+  const __realAlert = window.alert.bind(window);
+  window.alert = function(...args){
+    __realAlert(...args);
+    __complete();
+  };
+
+  const __realConfirm = window.confirm.bind(window);
+  window.confirm = function(...args){
+    const r = __realConfirm(...args);
+    __complete();
+    return r;
+  };
+
+  const __realPrint = window.print.bind(window);
+  window.print = function(...args){
+    __realPrint(...args);
+    __complete();
+  };
+
+  /* Optional: console proof */
+  const __realLog = console.log.bind(console);
+  console.log = function(...args){
+    __realLog(...args);
+    __complete();
+  };
+
+  function doSearch(){
+    const q = document.getElementById("searchInput").value;
+    location.href = base + "?q=" + encodeURIComponent(q);
+  }
+
+  document.getElementById("searchInput")
+    .addEventListener("keypress", e=>{
+      if(e.key==="Enter") doSearch();
+    });
+
+</script>
+<script>
   const basePath = window.location.pathname.split("?")[0];
   const link = document.createElement("link");
   link.rel = "stylesheet";
@@ -88,5 +109,27 @@ app.get("/", (req, res) => {
 </body>
 </html>`);
 });
+
+/* ============================= */
+
+app.post("/complete", (req, res) => {
+  const token = req.headers["x-lab-token"];
+
+  if (!activeTokens.has(token)) {
+    return res.status(403).json({ error: "Not solved" });
+  }
+
+  activeTokens.delete(token);
+
+  res.cookie("lab_solved", "true", {
+    httpOnly: true,
+    sameSite: "Strict"
+  });
+
+  res.json({ status: "ok" });
+});
+
+/* ============================= */
+
 
 app.listen(3000, () => console.log("xss-reflected-2 running"));

@@ -25,8 +25,8 @@ public class LabOrchestratorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        System.out.println("\t\t\t\tSession Doesn't Exists");
         if (session == null) {
+            System.out.println("\t\t\t\tSession Doesn't Exists");
             resp.sendRedirect(req.getContextPath() + "/dashboard");
             return;
         }
@@ -78,22 +78,20 @@ public class LabOrchestratorServlet extends HttpServlet {
                     Connection con = DBService.getConnection();
 
                     PreparedStatement userPs = con.prepareStatement(
-                        "SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?"
-                    );
+                            "SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?");
                     userPs.setString(1, username);
                     ResultSet rs = userPs.executeQuery();
 
                     if (rs.next()) {
                         int userId = rs.getInt("id");
                         PreparedStatement ps = con.prepareStatement(
-                            "INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS +
-                            " (user_id, lab_id, status) " +
-                            " SELECT ?, l.id, 'Attempted' FROM " + ParamsAndDBLoader.TABLE_LABS +
-                            " l WHERE l.image = ? " +
-                            " ON DUPLICATE KEY UPDATE " +
-                            " status = IF(status = 'Completed', 'Completed', 'Attempted'), " +
-                            " attempted_at = CURRENT_TIMESTAMP"
-                        );
+                                "INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS +
+                                        " (user_id, lab_id, status) " +
+                                        " SELECT ?, l.id, 'Attempted' FROM " + ParamsAndDBLoader.TABLE_LABS +
+                                        " l WHERE l.image = ? " +
+                                        " ON DUPLICATE KEY UPDATE " +
+                                        " status = IF(status = 'Completed', 'Completed', 'Attempted'), " +
+                                        " attempted_at = CURRENT_TIMESTAMP");
                         ps.setInt(1, userId);
                         ps.setString(2, labName);
                         ps.executeUpdate();

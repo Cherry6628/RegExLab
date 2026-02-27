@@ -27,7 +27,7 @@ public class QuizHintServlet extends HttpServlet {
 		while ((line = reader.readLine()) != null) {
 			sb.append(line);
 		}
-		System.out.println("Received Request Body: " + sb.toString());
+		// System.out.println("Received Request Body: " + sb.toString());
 		JSONObject body = new JSONObject(sb.toString());
 		String question = body.getString("question");
 		JSONArray optionsArray = body.getJSONArray("options");
@@ -38,17 +38,17 @@ public class QuizHintServlet extends HttpServlet {
 		}
 		String combined = question + " Options: " + optionsBuilder.toString();
 		String key = ParamsAndDBLoader.AI_HINT_KEY;
-		System.out.println("Input : "+combined);
+		// System.out.println("Input : "+combined);
 		JSONObject payload = new JSONObject();
 		payload.put("prompt", combined);
 		payload.put("x-api-key", key);
 		String json = payload.toString();
-		System.out.println(json);
+		// System.out.println(json);
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest req = HttpRequest.newBuilder().uri(URI.create(ParamsAndDBLoader.AI_HINT_API)).header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(json)).build();
 		try {
 			JSONObject jsonResponse = new JSONObject(client.send(req, HttpResponse.BodyHandlers.ofString()).body());
-			System.out.println("Output"+jsonResponse);
+			// System.out.println("Output"+jsonResponse);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(JSONResponse.response(JSONResponse.SUCCESS, "hint given", csrfNew,jsonResponse).toString());

@@ -17,14 +17,11 @@ public class CSRFServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		HttpSession session = req.getSession(false);
 		if (session != null) {
-			System.out.println(session.getId() + " exists and was invalidated.");
 			session.invalidate();
 		}
 		session = req.getSession(true);
-		System.out.println(session.getId() + " session created");
 		String csrfToken = CSRFService.csrfToken();
 		session.setAttribute("csrfToken", csrfToken);
-		System.out.println(session.getId() + " " + csrfToken);
 		resp.setContentType("application/json");
 		resp.getWriter().write(JSONResponse.response("success", "CSRF Token Generated.", csrfToken).toString());
 	}

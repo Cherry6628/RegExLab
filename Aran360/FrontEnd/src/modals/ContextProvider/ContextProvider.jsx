@@ -164,9 +164,9 @@ export default function ContextProvider({ children }) {
             url: "path-traversal",
             subTitles: {
                 "Path Traversal": { comp: PathTraversalMaterial },
-                "View All XSS Labs": {
-                    url: frontendbasename + "all-labs#path-traversal",
-                },
+                // "View All XSS Labs": {
+                //     url: frontendbasename + "all-labs#path-traversal",
+                // },
             },
         },
     };
