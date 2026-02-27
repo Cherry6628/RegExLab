@@ -69,7 +69,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 //
 //			{ "Access Control", "Unprotected admin functionality exposed in robots.txt", "ac-basic-1" },
 //			{ "Access Control", "User role controlled by request parameter", "ac-basic-2" },
-//			{ "Access Control", "Insecure direct object reference on user data endpoint", "ac-basic-3" },
+			{ "Access Control", "Insecure direct object reference on user's note endpoint", "ac-basic-1" },
 //			{ "Access Control", "Surprise Lab - Access Control", "ac-surprise-1" },
 //
 //			{ "Authentication", "Username enumeration via different responses", "auth-basic-1" },

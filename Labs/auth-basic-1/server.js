@@ -30,7 +30,7 @@ setInterval(() => {
     for (const u in users) users[u].otp = generateOTP();
 }, 3e4);
 
-app.get("/", (req, res) => res.redirect(req.baseUrl + "/login"));
+app.get("/", (req, res) => res.send("<script>window.location.href=window.location.pathname+'/login'</script>"));
 
 app.get("/session-status", (req, res) => {
     res.json({
