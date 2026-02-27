@@ -1,59 +1,52 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session";
-
 const app = express();
-
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({
-    secret: "lab-secret",
-    resave: false,
-    saveUninitialized: true,
-}));
-
+app.use(
+    session({
+        secret: "lab-secret",
+        resave: false,
+        saveUninitialized: true,
+    }),
+);
 const users = {
     attacker: { password: "attacker123", role: "user", userId: 123414 },
     admin: { password: "AdminPass123!", role: "admin", userId: 123415 },
 };
-
 const notes = {
     123414: {
         "Note 1": ["This is default text - Lorem Ipsum"],
-        "Weekend Party": ["I went to Party", "Had a great fun"]
+        "Weekend Party": ["I went to Party", "Had a great fun"],
     },
     123415: {
-        "Credentials": [
+        Credentials: [
             "Account Username: admin",
-            "Account Password: AdminPass123!"
-        ]
-    }
+            "Account Password: AdminPass123!",
+        ],
+    },
 };
-
 const baseScript = `<script>const __base = window.location.pathname.split("/").slice(0,-1).join("/");</script>`;
-
 app.get("/", (req, res) => {
-    res.send("<script>window.location.href=window.location.pathname+'/login'</script>");
+    res.send(
+        "<script>window.location.href=window.location.pathname+'/login'</script>",
+    );
 });
-
 app.get("/session-status", (req, res) => {
     if (!req.session.user) return res.json({ user: null });
-
     const user = users[req.session.user];
-
     res.json({
         user: req.session.user,
         role: user.role,
-        userId: user.userId
+        userId: user.userId,
     });
 });
-
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
         res.json({ success: true });
     });
 });
-
 app.get("/login", (req, res) => {
     res.send(`<!doctype html>
 <html>
@@ -94,20 +87,16 @@ async function login() {
 </body>
 </html>`);
 });
-
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
     const user = users[username];
-    if (!user || user.password !== password) {
+    if (!user || user.password !== password)
         return res.status(401).json({ error: "Invalid credentials" });
-    }
     req.session.user = username;
     res.json({ success: true });
 });
-
 app.get("/dashboard", (req, res) => {
     if (!req.session.user) return res.redirect(req.baseUrl + "/login");
-
     res.send(`<!doctype html>
 <html>
 <head>
@@ -126,7 +115,6 @@ ${baseScript}
 <div id="notes"></div>
 <div id="solved">🎉 Lab Solved! You accessed admin data.</div>
 </div>
-
 <script>
 (async () => {
     const status = await fetch(__base + "/session-status").then(r => r.json());
@@ -134,24 +122,19 @@ ${baseScript}
         window.location.href = __base + "/login";
         return;
     }
-
     loadNotes(status.userId);
 })();
-
 async function loadNotes(userId) {
     const r = await fetch(__base + "/api/user-notes?userId=" + userId);
     const data = await r.json();
     if (data.error) return alert(data.error);
-
     const container = document.getElementById("notes");
-
     Object.entries(data).forEach(([title, lines]) => {
         const div = document.createElement("div");
         div.className = "note-view";
         div.innerHTML = "<h3>" + title + "</h3><p>" + lines.join("<br>") + "</p>";
         container.appendChild(div);
     });
-
     if (data["Credentials"]) {
         document.getElementById("solved").style.display = "block";
     }
@@ -160,17 +143,14 @@ async function loadNotes(userId) {
 </body>
 </html>`);
 });
-
 app.get("/api/user-notes", (req, res) => {
-    if (!req.session.user) return res.status(401).json({ error: "Unauthorized" });
-
+    if (!req.session.user)
+        return res.status(401).json({ error: "Unauthorized" });
     const userId = parseInt(req.query.userId);
     const userNotes = notes[userId];
     if (!userNotes) return res.status(404).json({ error: "Not found" });
-
     res.json(userNotes);
 });
-
 app.listen(3000, () => {
     console.log("ac-basic-1 running on port 3000");
 });

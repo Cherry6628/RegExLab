@@ -21,6 +21,11 @@ body {
         #051728 75%,
         #030f1a 100%
     );
+    font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        sans-serif;
 }
 :root {
     --action-color: #137fec;
@@ -64,17 +69,16 @@ body {
     --cb1: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-
-input::placeholder{
+input::placeholder {
     color: var(--text-muted);
     font-weight: 100;
 }
 ::selection {
-  background: transparent;
-  color: inherit;
+    background: transparent;
+    color: inherit;
 }
 
 ::-moz-selection {
-  background: transparent;
-  color: inherit;
+    background: transparent;
+    color: inherit;
 }

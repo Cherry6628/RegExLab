@@ -13,13 +13,6 @@
     font-weight: bold;
     font-size: var(--large-size);
 }
-body {
-    font-family:
-        "Inter",
-        system-ui,
-        -apple-system,
-        sans-serif;
-}
 #Quiz .describe {
     font-size: var(--normal-size);
     opacity: 0.7;
