@@ -3,6 +3,8 @@
   border: 1px solid var(--border-light);
   font-family: Inter, monospace !important;
   overflow: hidden;
+  width: min(100%, 1024px);
+  margin-bottom: 10px;
 }
 .header {
   display: flex;
@@ -12,7 +14,6 @@
   font-size: var(--normal-size);
   color: var(--text-dim);
   border-bottom: 1px solid var(--border-light);
-  width: 1024px;
 }
 .fileName {
   font-weight: 500;
@@ -24,6 +25,5 @@
   margin: 0 !important;
   padding: 20px !important;
   background: var(--primary-bgcolor) !important;
-  width: min(100%, 1024px);
   scrollbar-width: none;
 }

@@ -53,13 +53,29 @@ export default function Quiz({
                 });
         }
     };
+    let ques={
+        question:question,
+        options:options
+    }
+        async function getHint(ques) {
+            await backendFetch("/quiz-hint", {
+                method: "POST",
+                body: ques,
+            })
+                .then((res) => {
+                    let result = JSON.parse(res);
+                    let hint = result.hint;
+                    let explain = result.explanation;
+                    console.log(hint,explanation);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     return (
         <div id="Quiz">
             <h1 className="headline">{count + 1 + ". " + headline}</h1>
             <p className="describe">{description}</p>
-            {hasCode && (
-                <CodeSnippet code={code} language={language}></CodeSnippet>
-            )}
             <p
                 className="question"
                 style={
@@ -76,6 +92,9 @@ export default function Quiz({
             >
                 {question}
             </p>
+            {hasCode && (
+                <CodeSnippet code={code} language={language}></CodeSnippet>
+            )}
             {options.map((r, i) => {
                 return (
                     <Option
@@ -99,7 +118,10 @@ export default function Quiz({
                 >
                     Submit
                 </Button>
-                <Button>Get Answer</Button>
+                <Button onClick={async () => {await getHint(ques);}} icon="wand_stars" >Get Hint </Button>
+            </div>
+            <div className="hint">
+                <p>{explain}</p>
             </div>
         </div>
     );

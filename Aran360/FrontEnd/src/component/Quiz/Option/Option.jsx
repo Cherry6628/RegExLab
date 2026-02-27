@@ -7,6 +7,10 @@ export default function Option({
     checked,
     onChange,
 }) {
+    const addSpace = (text, ch)=>text.replaceAll(ch, "\u200B"+ch);
+    children = addSpace(children, ".");
+    children = addSpace(children, "(");
+    children = addSpace(children, "-");
     return (
         <label htmlFor={id} className="box">
             <p>{children}</p>

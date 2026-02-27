@@ -35,6 +35,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static int PBKDF2_ITERATIONS, PBKDF2_KEY_LENGTH, PBKDF2_SALT_LENGTH;
 	public static int LAB_TIMEOUT_SECONDS;
 	public static int QUIZ_COUNT_PER_ATTEMPT;
+	public static String AI_HINT_API, AI_HINT_KEY;
 	public static String[][] LABS	 = {
 			{ "Cross Site Scripting (XSS)", "Reflected XSS into HTML context with nothing encoded",
 					"xss-reflected-1" },
@@ -373,6 +374,8 @@ public class ParamsAndDBLoader implements ServletContextListener {
 			// EMAIL_DOMAIN = getProperty("EMAIL_DOMAIN");
 			// EMAIL_API_KEY = getProperty("EMAIL_API_KEY");
 			EMAIL_ADDRESS = getProperty("EMAIL_ADDRESS");
+			AI_HINT_API = getProperty("AI_HINT_API");
+			AI_HINT_KEY = getProperty("AI_HINT_KEY");
 			EMAIL_PASSWORD = getProperty("EMAIL_PASSWORD");
 			APP_NAME = getProperty("APP_NAME");
 			FRONTEND_URL = getProperty("FRONTEND_URL");
