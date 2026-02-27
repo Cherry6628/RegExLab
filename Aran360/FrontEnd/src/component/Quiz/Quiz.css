@@ -32,3 +32,12 @@ body {
     justify-content: space-between;
     flex-direction: row-reverse;
 }
+#Quiz .hint{
+    background-color: var(--primary-bgcolor);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    width: min(100%, 1024px);
+    margin: auto;
+    padding: 15px;
+    margin-top: 20px;
+}
