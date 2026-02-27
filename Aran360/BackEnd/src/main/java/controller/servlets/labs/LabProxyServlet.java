@@ -36,7 +36,7 @@ public class LabProxyServlet extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         if (session == null) {
-            resp.sendRedirect(req.getContextPath() + "/dashboard");
+            redirectToDashboard(req, resp, session, "No Session Found");
             return;
         }
 
@@ -122,6 +122,6 @@ public class LabProxyServlet extends HttpServlet {
     private void redirectToDashboard(HttpServletRequest req, HttpServletResponse resp,
             HttpSession session, String message) throws IOException {
         session.setAttribute("FLASH_ERROR", message);
-        resp.sendRedirect(req.getContextPath() + "/dashboard");
+        resp.sendRedirect(req.getContextPath() + "/all-labs");
     }
 }

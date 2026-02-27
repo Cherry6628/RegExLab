@@ -73,7 +73,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 //			{ "Access Control", "Surprise Lab - Access Control", "ac-surprise-1" },
 //
 //			{ "Authentication", "Username enumeration via different responses", "auth-basic-1" },
-			{ "Authentication", "Broken 2FA verification context leading to account takeover", "auth-basic-1" },
+			{ "Authentication", "Broken 2FA Session Binding leading to account takeover", "auth-basic-1" },
 //			{ "Authentication", "Password brute force protection bypass via account lockout", "auth-basic-2" },
 //			{ "Authentication", "2FA simple bypass via direct URL navigation", "auth-basic-3" },
 //			{ "Authentication", "Surprise Lab - Authentication", "auth-surprise-1" },

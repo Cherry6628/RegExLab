@@ -84,6 +84,7 @@ public class LabOrchestratorServlet extends HttpServlet {
 
                     if (rs.next()) {
                         int userId = rs.getInt("id");
+                        System.out.println(userId);
                         PreparedStatement ps = con.prepareStatement(
                                 "INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS +
                                         " (user_id, lab_id, status) " +
@@ -95,10 +96,18 @@ public class LabOrchestratorServlet extends HttpServlet {
                         ps.setInt(1, userId);
                         ps.setString(2, labName);
                         ps.executeUpdate();
+                        System.out.println("LAB inserted");
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                final Map<String, LabInstance> mapRef = labMap;
+                scheduler.schedule(() -> {
+                    runtimeClient.cleanupLab(containerName);
+                    mapRef.remove(labName);
+                    LabRegistry.deregister(containerName);
+                }, 0, TimeUnit.SECONDS);
+                return;
             }
 
             final Map<String, LabInstance> mapRef = labMap;

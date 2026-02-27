@@ -5,11 +5,13 @@ import session from "express-session";
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({
-    secret: "lab-secret",
-    resave: false,
-    saveUninitialized: true,
-}));
+app.use(
+    session({
+        secret: "lab-secret",
+        resave: false,
+        saveUninitialized: true,
+    }),
+);
 
 function generateOTP() {
     return Math.floor(1000 + Math.random() * 9000).toString();
@@ -17,12 +19,16 @@ function generateOTP() {
 
 const users = {
     attacker: { password: "attacker123", otp: generateOTP(), role: "user" },
-    admin:    { password: "AdminPass123!", otp: generateOTP(), role: "admin" },
+    admin: {
+        password: "E9evWPfHGuyDer0bONKivhrDQ3IvXXdy",
+        otp: generateOTP(),
+        role: "admin",
+    },
 };
 
 setInterval(() => {
     for (const u in users) users[u].otp = generateOTP();
-}, 120000);
+}, 3e4);
 
 app.get("/", (req, res) => res.redirect(req.baseUrl + "/login"));
 
@@ -61,9 +67,9 @@ button:hover { background:#166fe0; }
 </div>
 <script>
 console.log(window.location.pathname)
-const __base = window.location.pathname.replace(/login$/, "");
+const __base = window.location.pathname.replace(/\\/dashboard$/, "").replace(/\\/login/,"").replace(/\\/session-status/,"").replace(/\\/logout/,"").replace(/\\/inbox/,"").replace(/\\/2fa/,"").replace(/\\/complete/,"");
 console.log(__base);
-fetch(__base + "logout", { method: "POST" });
+fetch(__base + "/logout", { method: "POST" });
 
 async function doLogin() {
     const r = await fetch(__base + "/login", {
@@ -95,9 +101,8 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/inbox", (req, res) => {
-    if (!req.session.tmpUser) {
-        return res.redirect(req.baseUrl + "/login");
-    }
+    if (!req.session.tmpUser) return res.redirect(req.baseUrl + "/login");
+
     const username = req.session.tmpUser;
     const otp = users[username].otp;
     res.send(`<!doctype html><html>
@@ -120,7 +125,7 @@ h2 { color:#1a1a2e; }
         <p class="email-subject">Your One-Time Password</p>
         <div class="email-body">
             <p>Hi ${username},</p>
-            <p>Use the OTP below to complete your login. It expires in 2 minutes.</p>
+            <p>Use the OTP below to complete your login. It expires in 30 seconds</p>
             <div class="otp-code">${otp}</div>
             <p style="margin-top:12px;font-size:12px;color:#888;">If you did not request this, please ignore this email.</p>
         </div>
@@ -130,9 +135,8 @@ h2 { color:#1a1a2e; }
 });
 
 app.get("/2fa", (req, res) => {
-    if (!req.session.tmpUser) {
-        return res.redirect(req.baseUrl + "/login");
-    }
+    if (!req.session.tmpUser) return res.redirect(req.baseUrl + "/login");
+
     res.send(`<!doctype html><html>
 <head><title>Aran360 — 2FA</title><style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -149,12 +153,12 @@ button:hover { background:#166fe0; }
 <body>
 <div class="card">
     <h2>Two-Factor Authentication</h2>
-    <p>An OTP has been sent to your registered email. <a id="inbox-link" href="#">Check Inbox</a></p>
+    <p>An OTP has been sent to your registered email. <a id="inbox-link" target="_blank" href="#">Check Inbox</a></p>
     <input id="otp" placeholder="Enter OTP"/>
     <button onclick="verifyOTP()">Verify</button>
 </div>
 <script>
-const __base = window.location.pathname.replace(/\\/2fa$/, "");
+const __base = window.location.pathname.replace(/\\/dashboard$/, "").replace(/\\/login/,"").replace(/\\/session-status/,"").replace(/\\/logout/,"").replace(/\\/inbox/,"").replace(/\\/2fa/,"").replace(/\\/complete/,"");
 document.getElementById("inbox-link").href = __base + "/inbox";
 
 (async () => {
@@ -182,21 +186,37 @@ async function verifyOTP() {
 </body></html>`);
 });
 
+// app.post("/2fa", (req, res) => {
+//     const { username, otp } = req.body;
+//     const realUser = username;
+
+//     if (!req.session.tmpUser) return res.status(401).json({ error: "Unauthorized" });
+
+//     if (users[realUser].otp !== otp) {
+//         return res.status(401).json({ error: "Invalid OTP" });
+//     }
+
+//     req.session.user = realUser;
+//     req.session.tmpUser = realUser;
+//     res.json({ success: true });
+// });
+
 app.post("/2fa", (req, res) => {
+    const { username, otp } = req.body;
     const realUser = req.session.tmpUser;
+
     if (!realUser) return res.status(401).json({ error: "Unauthorized" });
-    const { otp } = req.body;
-    if (users[realUser].otp !== otp) {
+
+    if (users[realUser].otp !== otp)
         return res.status(401).json({ error: "Invalid OTP" });
-    }
-    req.session.user = realUser;
+
+    req.session.user = username;
+    req.session.tmpUser = username;
     res.json({ success: true });
 });
-
 app.get("/dashboard", (req, res) => {
-    if (!req.session.tmpUser) {
-        return res.redirect(req.baseUrl + "/login");
-    }
+    if (!req.session.tmpUser) return res.redirect(req.baseUrl + "/login");
+
     const username = req.session.tmpUser;
     const user = users[username];
     res.send(`<!doctype html><html>
@@ -219,19 +239,23 @@ button:hover { background:#166fe0; }
     <h2>Dashboard</h2>
     <p>Logged in as: <strong>${username}</strong></p>
     <p>Role: <strong>${user.role}</strong></p>
-    ${user.role === "admin" ? `
+    ${
+        user.role === "admin"
+            ? `
     <div class="admin-box">
         <h3>🔐 Admin Panel</h3>
         <p>You have full administrative access.</p>
     </div>
     <button onclick="completeLab()">Mark Lab Complete</button>
-    ` : `<p>You do not have admin access.</p>`}
+    `
+            : `<p>You do not have admin access.</p>`
+    }
     <div id="solved">
         <p>🎉 Lab Solved! You bypassed 2FA successfully.</p>
     </div>
 </div>
 <script>
-const __base = window.location.pathname.replace(/\\/dashboard$/, "");
+const __base = window.location.pathname.replace(/\\/dashboard$/, "").replace(/\\/login/,"").replace(/\\/session-status/,"").replace(/\\/logout/,"").replace(/\\/inbox/,"").replace(/\\/2fa/,"").replace(/\\/complete/,"");
 
 (async () => {
     const s = await fetch(__base + "/session-status").then(r => r.json());
@@ -252,9 +276,9 @@ async function completeLab() {
 });
 
 app.post("/complete", (req, res) => {
-    if (!req.session.tmpUser || users[req.session.tmpUser].role !== "admin") {
+    if (!req.session.tmpUser || users[req.session.tmpUser].role !== "admin")
         return res.status(403).json({ error: "Not solved" });
-    }
+
     res.json({ status: "ok" });
 });
 

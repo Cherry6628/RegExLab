@@ -141,8 +141,9 @@
     .header-navbar .dropdown-menu {
         position: static;
         box-shadow: none;
+        left: 0;
+        transform: translateX(0);
         border: none;
-        padding-left: 15px;
         width: 100%;
     }
 }
