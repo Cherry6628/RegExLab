@@ -2,18 +2,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../component/Button/Button";
 import Header from "../../component/Header/Header";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
-import {
-    backendFetch,
-    isValidPassword,
-    refreshCsrfToken,
-} from "../../utils/helpers";
+import { backendFetch, isValidPassword } from "../../utils/helpers";
 import "./Profile.css";
 import { useToast } from "../../component/Toast/ToastContext";
 import { useState, useRef } from "react";
 
 export default function Profile() {
     const context = useGlobalContext();
-    refreshCsrfToken();
     const navigate = useNavigate();
     const { showToast } = useToast();
 

@@ -2,7 +2,7 @@ import "./LoginContainer.css";
 import Button from "../../component/Button/Button";
 import { login } from "../../utils/authHelpers";
 import { useRef } from "react";
-import { isValidPassword, refreshCsrfToken } from "../../utils/helpers";
+import { isValidPassword } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { error, success } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
@@ -29,7 +29,6 @@ export default function LoginContainer({ setModal, autoFocus }) {
                 showToast(r.message, error);
             });
     }
-    refreshCsrfToken();
     return (
         <div className="login-container">
             <div className="login-header">

@@ -4,26 +4,20 @@ export const backendURL = "http://localhost:8765" + backendbasename;
 
 const client = new (class BackendClient {
     #csrfToken = null;
-
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
     }
-
     async refreshCsrfToken() {
         try {
             const res = await fetch(`${this.baseUrl}csrf`);
             const data = await res.json();
-            if (data && data.csrfToken) {
-                this.#csrfToken = data.csrfToken;
-            }
+            if (data && data.csrfToken) this.#csrfToken = data.csrfToken;
         } catch (e) {
             console.error(e);
         }
     }
-
     async fetch(endpoint, { method = "GET", body = {}, headers } = {}) {
         const url = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
-
         const makeRequest = async () => {
             const options = {
                 method,
@@ -34,34 +28,28 @@ const client = new (class BackendClient {
                     ...headers,
                 },
             };
-
             if (this.#csrfToken)
                 options.headers["X-CSRF-Token"] = this.#csrfToken;
-
-            if (method !== "GET" && body !== undefined) {
+            if (method !== "GET" && body !== undefined)
                 options.body = JSON.stringify({
                     ...body,
                     ...(this.#csrfToken && { csrfToken: this.#csrfToken }),
                 });
-            }
-
             return fetch(`${this.baseUrl}${url}`, options);
         };
-
-        let res = await makeRequest();
-        let data;
+        let res = await makeRequest(),
+            data;
         try {
             data = await res.json();
         } catch {
             return res;
         }
-        console.log("data: " + data);
         if (
             data?.status === error &&
             (data?.message === "Invalid CSRF Token" ||
                 data?.message === "CSRF Token Missing")
         ) {
-            console.log("refetching " + data);
+            console.log("refetching ");
             await this.refreshCsrfToken();
             res = await makeRequest();
             try {
@@ -71,14 +59,11 @@ const client = new (class BackendClient {
                 return res;
             }
         }
-
         return data;
     }
 })(backendURL);
-
 export const backendFetch = client.fetch.bind(client);
 export const refreshCsrfToken = client.refreshCsrfToken.bind(client);
-
 export const isValidPassword = function (pwd) {
     if (pwd.length < 8)
         return {

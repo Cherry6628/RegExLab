@@ -15,6 +15,9 @@
     gap: 10px;
     margin-top: 20px;
 }
+#profile .profile-input-error{
+    color: var(--text-main)
+}
 #profile .profile-input-group label {
     font-size: var(--semi-normal-size);
     font-weight: 700;

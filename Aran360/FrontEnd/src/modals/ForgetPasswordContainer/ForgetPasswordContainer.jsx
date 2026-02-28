@@ -1,7 +1,7 @@
 import Button from "../../component/Button/Button.jsx";
 import "./ForgetPasswordContainer.css";
 import { useRef } from "react";
-import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
+import { backendFetch } from "../../utils/helpers.js";
 import { error } from "../../utils/params.js";
 import { useToast } from "../../component/Toast/ToastContext.jsx";
 import { useGlobalContext } from "../ContextProvider/ContextProvider.jsx";
@@ -22,8 +22,6 @@ export default function ForgetPasswordContainer({ setModal }) {
                 showToast(r.message, error);
             });
     }
-
-    refreshCsrfToken();
     return (
         <div className="forget-password-container">
             <div className="forget-password-header">

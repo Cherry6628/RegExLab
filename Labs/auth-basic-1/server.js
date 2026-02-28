@@ -12,25 +12,31 @@ app.use(
         saveUninitialized: true,
     }),
 );
-
+const expiry = 6e4;
 function generateOTP() {
     return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
 const users = {
-    attacker: { password: "attacker123", otp: generateOTP(), role: "user" },
+    attacker: {
+        password: "attacker123",
+        otp: null,
+        expiry: null,
+        role: "user",
+    },
     admin: {
         password: "E9evWPfHGuyDer0bONKivhrDQ3IvXXdy",
-        otp: generateOTP(),
+        otp: null,
+        expiry: null,
         role: "admin",
     },
 };
 
-setInterval(() => {
-    for (const u in users) users[u].otp = generateOTP();
-}, 3e4);
-
-app.get("/", (req, res) => res.send("<script>window.location.href=window.location.pathname+'/login'</script>"));
+app.get("/", (req, res) =>
+    res.send(
+        "<script>window.location.href=window.location.pathname+'/login'</script>",
+    ),
+);
 
 app.get("/session-status", (req, res) => {
     res.json({
@@ -45,6 +51,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
+    req.session?.destroy();
     res.send(`<!doctype html><html>
 <head><title>Aran360 — Login</title><style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -66,9 +73,7 @@ button:hover { background:#166fe0; }
     <p class="hint">Login as admin to access the admin panel.</p>
 </div>
 <script>
-console.log(window.location.pathname)
 const __base = window.location.pathname.replace(/\\/dashboard$/, "").replace(/\\/login/,"").replace(/\\/session-status/,"").replace(/\\/logout/,"").replace(/\\/inbox/,"").replace(/\\/2fa/,"").replace(/\\/complete/,"");
-console.log(__base);
 fetch(__base + "/logout", { method: "POST" });
 
 async function doLogin() {
@@ -91,6 +96,7 @@ async function doLogin() {
 });
 
 app.post("/login", (req, res) => {
+    req.session?.destroy();
     const { username, password } = req.body;
     const user = users[username];
     if (!user || user.password !== password) {
@@ -101,10 +107,13 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/inbox", (req, res) => {
-    if (!req.session.tmpUser) return res.redirect(req.baseUrl + "/login");
-
+    if (!req.session?.tmpUser) return res.redirect(req.baseUrl + "/login");
     const username = req.session.tmpUser;
+    if (!username) return res.redirect(req.baseUrl + "/login");
+    users[username].otp = generateOTP();
+    users[username].expiry = Date.now()+expiry;
     const otp = users[username].otp;
+
     res.send(`<!doctype html><html>
 <head><title>Aran360 — Inbox</title><style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -125,7 +134,7 @@ h2 { color:#1a1a2e; }
         <p class="email-subject">Your One-Time Password</p>
         <div class="email-body">
             <p>Hi ${username},</p>
-            <p>Use the OTP below to complete your login. It expires in 30 seconds</p>
+            <p>Use the OTP below to complete your login. It expires in `+(expiry/1000)+` seconds</p>
             <div class="otp-code">${otp}</div>
             <p style="margin-top:12px;font-size:12px;color:#888;">If you did not request this, please ignore this email.</p>
         </div>
@@ -186,28 +195,12 @@ async function verifyOTP() {
 </body></html>`);
 });
 
-// app.post("/2fa", (req, res) => {
-//     const { username, otp } = req.body;
-//     const realUser = username;
-
-//     if (!req.session.tmpUser) return res.status(401).json({ error: "Unauthorized" });
-
-//     if (users[realUser].otp !== otp) {
-//         return res.status(401).json({ error: "Invalid OTP" });
-//     }
-
-//     req.session.user = realUser;
-//     req.session.tmpUser = realUser;
-//     res.json({ success: true });
-// });
 
 app.post("/2fa", (req, res) => {
     const { username, otp } = req.body;
-    const realUser = req.session.tmpUser;
-
+    const realUser = req.session?.tmpUser;
     if (!realUser) return res.status(401).json({ error: "Unauthorized" });
-
-    if (users[realUser].otp !== otp)
+    if (users[realUser].otp !== otp || users[realUser].expiry<Date.now())
         return res.status(401).json({ error: "Invalid OTP" });
 
     req.session.user = username;

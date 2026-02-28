@@ -67,6 +67,7 @@ public class Signup extends HttpServlet {
 			pstmt.setString(1, user);
 			pstmt.setString(2, email);
 			pstmt.setString(3, hashedPass);
+			pstmt.executeUpdate();
 
 			String token = SessionManager.createSession(user, request, DBService.getConnection());
 			Login.setAuthCookie(response, token);
@@ -85,7 +86,7 @@ public class Signup extends HttpServlet {
 
 			response.setStatus(500);
 			response.getWriter()
-					.write(JSONResponse.response(JSONResponse.ERROR, "Internal Server Error", csrfNew).toString());
+					.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong", csrfNew).toString());
 		}
 	}
 }

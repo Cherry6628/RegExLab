@@ -3,7 +3,7 @@ import "./QuizMain.css";
 import { useState } from "react";
 import QuizContainer from "./QuizContainer";
 import Header from "../Header/Header";
-import { backendFetch, refreshCsrfToken } from "../../utils/helpers.js";
+import { backendFetch } from "../../utils/helpers.js";
 import { useToast } from "../Toast/ToastContext.jsx";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider.jsx";
 export default function QuizMain() {
@@ -12,7 +12,6 @@ export default function QuizMain() {
     const [response, setResponse] = useState({});
     const context = useGlobalContext();
     async function takeTest(topicName) {
-        refreshCsrfToken();
         if (!context.uname) {
             showToast("Login to take a test");
             return;
