@@ -70,7 +70,7 @@ export default function LearningMaterials({ list, topic_url }) {
                     style={{
                         position: "relative",
                         bottom: "200px",
-                        height: "1px",
+                        height: "0.052083333333333336vw",
                         backgroundColor: "transparent",
                         width: "100vw",
                     }}

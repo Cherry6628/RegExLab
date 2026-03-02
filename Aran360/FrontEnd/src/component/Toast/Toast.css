@@ -38,7 +38,7 @@
 
 #toast.toast-error {
     background-color: var(--error-bg);
-    border: 1px solid var(--error-border);
+    border: 0.052083333333333336vw solid var(--error-border);
 }
 
 #toast.toast-error .toast-icon {
@@ -51,7 +51,7 @@
 
 #toast.toast-success {
     background-color: var(--success-bg);
-    border: 1px solid var(--success-border);
+    border: 0.052083333333333336vw solid var(--success-border);
 }
 
 #toast.toast-success .toast-icon {
@@ -64,7 +64,7 @@
 
 #toast.toast-info {
     background-color: var(--info-bg);
-    border: 1px solid var(--info-border);
+    border: 0.052083333333333336vw solid var(--info-border);
 }
 
 #toast.toast-info .toast-icon {
@@ -77,7 +77,7 @@
 
 #toast .toast-warning {
     background-color: var(--warning-bg);
-    border: 1px solid var(--warning-border);
+    border: 0.052083333333333336vw solid var(--warning-border);
 }
 
 #toast .toast-warning .toast-icon {

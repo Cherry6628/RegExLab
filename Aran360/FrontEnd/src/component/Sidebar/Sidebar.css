@@ -73,7 +73,7 @@
     transform: rotate(180deg);
     font-weight: bold;
     font-size: var(--normal-size);
-    letter-spacing: 1px;
+    letter-spacing: 0.052083333333333336vw;
     display: flex;
     align-items: center;
     gap: 8px;

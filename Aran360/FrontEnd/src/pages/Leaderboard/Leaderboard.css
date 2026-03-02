@@ -1,104 +1,104 @@
 #leaderboard .leaderboard-container {
-  width: 1200px;
-  margin: 0 auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 #leaderboard .leaderboard-table td {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 #leaderboard .leaderboard-container h1 {
-  color: var(--text-main);
-  margin-bottom: 8px;
-  font-size: var(--large-size);
+    color: var(--text-main);
+    margin-bottom: 0.4166666666666667vw;
+    font-size: var(--large-size);
 }
 #leaderboard .leaderboard-container p {
-  color: var(--text-dim);
-  font-size: var(--normal-size);
+    color: var(--text-dim);
+    font-size: var(--normal-size);
 }
 #leaderboard .leaderboard-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
 }
 #leaderboard .table {
-  width: 1200px;
-  border: 2px solid var(--border-light);
-  border-radius: 12px;
-  margin: 0 auto;
+    width: 1200px;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    margin: 0 auto;
 }
 #leaderboard .leaderboard-table th {
-  text-align: center;
-  color: var(--text-main);
-  padding: 10px 15px;
-  font-weight: 700;
-  font-size: var(--semi-large-size);
+    text-align: center;
+    color: var(--text-main);
+    padding: 10px 15px;
+    font-weight: 700;
+    font-size: var(--semi-large-size);
 }
 #leaderboard .leaderboard-table td {
-  padding: 12px 15px;
-  text-align: center;
-  border-top: 1px solid var(--border-light);
-  vertical-align: middle;
-  color: var(--text-dim);
-  font-size: var(--normal-size);
+    padding: 12px 15px;
+    text-align: center;
+    border-top: 0.052083333333333336vw solid var(--border-light);
+    vertical-align: middle;
+    color: var(--text-dim);
+    font-size: var(--normal-size);
 }
 #leaderboard .leaderboard-table tbody tr:nth-child(even) {
-  background-color: #141f3a;
+    background-color: #141f3a;
 }
 @media screen and (max-width: 1024px) {
-  #leaderboard .table {
-    width: 90%;
-  }
-  #leaderboard .leaderboard-table th,
-  #leaderboard .leaderboard-table td {
-    padding: 8px 10px;
-    font-size: 14px;
-  }
+    #leaderboard .table {
+        width: 90%;
+    }
+    #leaderboard .leaderboard-table th,
+    #leaderboard .leaderboard-table td {
+        padding: 0.4166666666666667vw 10px;
+        font-size: 14px;
+    }
 }
 @media screen and (max-width: 768px) {
-  #leaderboard .table {
-    width: 100%;
-    border: 1px solid var(--border-light);
-  }
-  #leaderboard .leaderboard-table th,
-  #leaderboard .leaderboard-table td {
-    padding: 8px 10px;
-    font-size: 13px;
-  }
+    #leaderboard .table {
+        width: 100%;
+        border: 0.052083333333333336vw solid var(--border-light);
+    }
+    #leaderboard .leaderboard-table th,
+    #leaderboard .leaderboard-table td {
+        padding: 0.4166666666666667vw 10px;
+        font-size: 13px;
+    }
 }
 .popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 .popup {
-  background: var(--primary-bgcolor);
-  padding: 30px;
-  border-radius: 8px;
-  max-width: 1000px;
-  text-align: center;
-  color: var(--text-main);
-  border: 2px solid var(--border-light);
+    background: var(--primary-bgcolor);
+    padding: 30px;
+    border-radius: 0.4166666666666667vw;
+    max-width: 1000px;
+    text-align: center;
+    color: var(--text-main);
+    border: 2px solid var(--border-light);
 }
 .popup input {
-  width: 100%;
-  padding: 10px 15px;
-  margin: 15px 0;
-  font-size: var(--semi-normal-size);
-  border-radius: 12px;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 15px 0;
+    font-size: var(--semi-normal-size);
+    border-radius: 12px;
 }
 .popup-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

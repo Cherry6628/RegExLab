@@ -1,7 +1,7 @@
 #lab .practice {
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid var(--border-light);
+    border: 0.052083333333333336vw solid var(--border-light);
     border-radius: 35px;
     display: flex;
 }

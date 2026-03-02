@@ -29,11 +29,9 @@ public class LabOrchestratorServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		if (session == null) {
-			System.out.println("\t\t\t\tSession Doesn't Exists");
 			resp.sendRedirect(req.getContextPath() + "/dashboard");
 			return;
 		}
-		System.out.println("\t\t\t\tSession Exists");
 		String pathInfo = req.getPathInfo();
 		if (pathInfo == null || pathInfo.length() <= 1) {
 			redirectToDashboard(req, resp, session, "Invalid lab name.");
@@ -44,20 +42,16 @@ public class LabOrchestratorServlet extends HttpServlet {
 			redirectToDashboard(req, resp, session, "Invalid lab name.");
 			return;
 		}
-
 		if (!runtimeClient.labExists(labName)) {
 			redirectToDashboard(req, resp, session, "No such lab exists: " + labName);
 			return;
 		}
-
-		System.out.println("\t\t\t\tLab Exists");
 		@SuppressWarnings("unchecked")
 		Map<String, LabInstance> labMap = (Map<String, LabInstance>) session.getAttribute(SESSION_LAB_MAP);
 		if (labMap == null) {
 			labMap = new ConcurrentHashMap<>();
 			session.setAttribute(SESSION_LAB_MAP, labMap);
 		}
-
 		LabInstance existing = labMap.get(labName);
 		if (existing != null) {
 			if (!existing.isExpired()) {
@@ -68,71 +62,51 @@ public class LabOrchestratorServlet extends HttpServlet {
 				labMap.remove(labName);
 			}
 		}
-
 		try {
 			String containerName = runtimeClient.createLab(labName);
 			LabInstance lab = new LabInstance(labName, labName, containerName, ParamsAndDBLoader.LAB_TIMEOUT_SECONDS);
 			labMap.put(labName, lab);
 			LabRegistry.register(containerName);
-
 			try {
 				String username = (String) req.getAttribute("AUTHENTICATED_USER");
-
 				if (username != null) {
-
 					Connection con = DBService.getConnection();
-
 					PreparedStatement userPs = con.prepareStatement(
 							"SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?");
 					userPs.setString(1, username);
 					ResultSet userRs = userPs.executeQuery();
-
 					if (userRs.next()) {
-
 						int userId = userRs.getInt("id");
-
 						PreparedStatement labPs = con.prepareStatement(
 								"SELECT id FROM " + ParamsAndDBLoader.TABLE_LABS + " WHERE image = ?");
 						labPs.setString(1, labName);
 						ResultSet labRs = labPs.executeQuery();
-
 						if (labRs.next()) {
-
 							int labId = labRs.getInt("id");
-
 							PreparedStatement checkPs = con.prepareStatement("SELECT id FROM "
 									+ ParamsAndDBLoader.TABLE_LAB_ATTEMPTS + " WHERE user_id = ? AND lab_id = ?");
 							checkPs.setInt(1, userId);
 							checkPs.setInt(2, labId);
-
 							ResultSet checkRs = checkPs.executeQuery();
-
 							if (checkRs.next()) {
-
-								PreparedStatement updatePs = con
-										.prepareStatement("UPDATE " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
-												+ " SET status = 'Attempted', attempted_at = CURRENT_TIMESTAMP, completed_at = NULL "
-												+ " WHERE user_id = ? AND lab_id = ?");
+								PreparedStatement updatePs = con.prepareStatement("UPDATE "
+										+ ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
+										+ " SET status = 'Attempted', attempted_at = CURRENT_TIMESTAMP, completed_at = NULL "
+										+ " WHERE user_id = ? AND lab_id = ?");
 								updatePs.setInt(1, userId);
 								updatePs.setInt(2, labId);
 
 								updatePs.executeUpdate();
 								System.out.println("Updated existing attempt");
-								
 							} else {
-
-								PreparedStatement insertPs = con
-										.prepareStatement("INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
-												+ " (user_id, lab_id, status, completed_At) VALUES (?, ?, 'Attempted', NULL)");
+								PreparedStatement insertPs = con.prepareStatement("INSERT INTO "
+										+ ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
+										+ " (user_id, lab_id, status, completed_At) VALUES (?, ?, 'Attempted', NULL)");
 								insertPs.setInt(1, userId);
 								insertPs.setInt(2, labId);
 
 								insertPs.executeUpdate();
-								System.out.println("Inserted new attempt");
 							}
-
-						} else {
-							System.out.println("Lab not found.");
 						}
 					}
 				}
@@ -146,16 +120,13 @@ public class LabOrchestratorServlet extends HttpServlet {
 				}, 0, TimeUnit.SECONDS);
 				return;
 			}
-
 			final Map<String, LabInstance> mapRef = labMap;
 			scheduler.schedule(() -> {
 				runtimeClient.cleanupLab(containerName);
 				mapRef.remove(labName);
 				LabRegistry.deregister(containerName);
 			}, ParamsAndDBLoader.LAB_TIMEOUT_SECONDS, TimeUnit.SECONDS);
-
 			resp.sendRedirect(req.getContextPath() + "/lab/view/" + containerName);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectToDashboard(req, resp, session, "Lab creation failed: " + e.getMessage());
