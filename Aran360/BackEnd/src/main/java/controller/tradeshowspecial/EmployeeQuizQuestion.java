@@ -57,6 +57,37 @@ public class EmployeeQuizQuestion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String csrfNew = CSRFService.setCSRFToken(request);
+		String username = (String) request.getAttribute("AUTHENTICATED_USER");
+
+		if (username == null) {
+		    response.getWriter()
+		        .write(JSONResponse.response(JSONResponse.ERROR, "Not Authenticated", csrfNew).toString());
+		    return;
+		}
+
+		Connection con = DBService.getConnection();
+
+		try (PreparedStatement ps = con.prepareStatement(
+		        "SELECT 1 FROM " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS +
+		        " WHERE user_id = (SELECT id FROM " +
+		        ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?)")) {
+
+		    ps.setString(1, username);
+		    ResultSet rs = ps.executeQuery();
+
+		    if (rs.next()) {
+		        response.getWriter()
+		            .write(JSONResponse.response(JSONResponse.ERROR, "Already Attempted", csrfNew).toString());
+		        return;
+		    }
+
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    response.setStatus(500);
+		    response.getWriter()
+		        .write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong", csrfNew).toString());
+		    return;
+		}
 		StringBuilder sb = new StringBuilder();
 		BufferedReader reader = request.getReader();
 		String line;
