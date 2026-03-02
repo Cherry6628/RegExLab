@@ -41,6 +41,7 @@ public class QuizQuestionServlet extends HttpServlet {
 			if (rs.next()) {
 				id = rs.getInt("id");
 			}
+
 			ps1.setInt(1, id);
 			ResultSet rs1 = ps1.executeQuery();
 			while (rs1.next()) {
@@ -97,7 +98,6 @@ public class QuizQuestionServlet extends HttpServlet {
 				qJson.put("options", q.getOptions());
 				questionsArray.put(qJson);
 			}
-
 			JSONObject responseData = new JSONObject();
 			responseData.put("questions", questionsArray);
 			response.setContentType("application/json");

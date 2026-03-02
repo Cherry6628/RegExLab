@@ -155,6 +155,18 @@ export default function Header() {
                             </NavLink>
                         </li>
 
+                        <li>
+                            <NavLink
+                                to="/leaderboard"
+                                className={({ isActive }) =>
+                                    `navitem ${isActive ? "active" : ""}`
+                                }
+                                onClick={closeAll}
+                            >
+                                LeaderBoard
+                            </NavLink>
+                        </li>
+
                         <li ref={profileRef} className="navitem-container">
                             {context.uname ? (
                                 <>

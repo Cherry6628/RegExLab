@@ -49,7 +49,6 @@ public class QuizResultServlet extends HttpServlet {
 					ps2.setInt(1, quizId);
 					ps2.setInt(2, correctIndex);
 					ResultSet rs2 = ps2.executeQuery();
-
 					if (rs2.next()) {
 						String correctOption = rs2.getString("option_text");
 						System.out.println("Correct Option: '" + correctOption + "'");
@@ -58,7 +57,6 @@ public class QuizResultServlet extends HttpServlet {
 						String trimmedCorrectOption = correctOption.trim();
 						if (trimmedCorrectOption.equals(trimmedUserAnswer))
 							score++;
-					} else {
 					}
 					rs2.close();
 				}
@@ -86,10 +84,8 @@ public class QuizResultServlet extends HttpServlet {
 		Map<Integer, String> answers = new HashMap<>();
 
 		for (String key : body.keySet()) {
-			if (key.equals("csrfToken")) {
+			if (key.equals("csrfToken"))
 				continue;
-			}
-
 			try {
 				int quizId = Integer.parseInt(key);
 				String answer = body.getString(key);
