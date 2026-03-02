@@ -19,7 +19,7 @@ import service.utils.manager.DBService;
 import service.utils.manager.JWTService;
 
 @WebFilter(urlPatterns = { "/lab", "/lab/*", "/user-data", "/logout", "/quiz-results", "/quiz-questions",
-		"/saveLearningProgress", "/lab/complete", "/update-password", "/test", "/employee-quiz-results",
+		"/saveLearningProgress", "/lab/complete", "/update-password", "/test",
 		"/employee-quiz-questions" })
 public class AuthFilter implements Filter {
 	@Override
