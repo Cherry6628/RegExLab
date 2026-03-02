@@ -139,7 +139,7 @@
 }
 @media only screen and (max-width: 440px) {
   #dashboard {
-    padding: 8px;
+    padding: 0.4166666666666667vw;
   }
 }
 @media only screen and (max-width: 400px) {

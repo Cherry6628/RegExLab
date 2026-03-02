@@ -1,6 +1,6 @@
 .wrapper {
   border-radius: 12px;
-  border: 1px solid var(--border-light);
+  border: 0.052083333333333336vw solid var(--border-light);
   font-family: Inter, monospace !important;
   overflow: hidden;
   width: min(100%, 1024px);
@@ -13,7 +13,7 @@
   background: var(--secondary-bgcolor);
   font-size: var(--normal-size);
   color: var(--text-dim);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 0.052083333333333336vw solid var(--border-light);
 }
 .fileName {
   font-weight: 500;

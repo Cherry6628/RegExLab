@@ -1,6 +1,6 @@
 .box {
     background-color: var(--primary-bgcolor);
-    border: 1px solid var(--border-light);
+    border: 0.052083333333333336vw solid var(--border-light);
     border-radius: 12px;
     width: min(100%, 1024px);
     margin: auto;
@@ -14,7 +14,7 @@
     appearance: none;
     -webkit-appearance: none;
     background-color: var(--primary-bgcolor);
-    border: 1px solid var(--border-light);
+    border: 0.052083333333333336vw solid var(--border-light);
     border-radius: 50%;
     min-height: 30px;
     min-width: 30px;

@@ -18,7 +18,7 @@ function CodeSnippet({ code, language }) {
         lineNumberStyle={{
           minWidth: "50px",
           marginRight: "12px",
-          borderRight: "1px solid var( --border-light)",
+          borderRight: "0.052083333333333336vw solid var( --border-light)",
           textAlign: "center",
         }}
       >
