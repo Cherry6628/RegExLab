@@ -17,6 +17,7 @@ app.get("/xss-fired", (req, res) => {
     res.json({ status: "ok" });
 });
 
+const baseScript = `<script>const __base = window.location.pathname.split("/").slice(0,-1).join("/");</script>`;
 app.post("/complete", (req, res) => {
     if (req.cookies?.lab_solved !== "true") {
         return res.status(403).json({ error: "Lab not solved yet" });
@@ -49,11 +50,11 @@ app.get("/search", (req, res) => {
             <p>🎉 Lab Solved! XSS executed successfully.</p>
         </div>
     </div>
-    <script>
+    `+baseScript+`<script>
         const __triggerCompletion = async () => {
             try {
-                await fetch(window.location.pathname + "/xss-fired");
-                const r = await fetch(window.location.pathname + "/complete", { method: "POST" });
+                await fetch(__base + "/xss-fired");
+                const r = await fetch(__base + "/complete", { method: "POST" });
                 if (r.ok) {
                     await fetch("/lab/complete", { method: "POST" });
                     document.getElementById("solved-banner").style.display = "block";
@@ -76,10 +77,6 @@ app.get("/search", (req, res) => {
             if (e.key === "Enter") doSearch();
         });
     </script>    
-    
-    
-    
-    
     <script>
   const basePath = window.location.pathname.split("?")[0];
   const link = document.createElement("link");

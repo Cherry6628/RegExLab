@@ -8,6 +8,7 @@ app.use(cookieParser());
 
 const activeTokens = new Set();
 
+const baseScript = `<script>const __base = window.location.pathname</script>`;
 function partialEncode(str) {
   return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -37,13 +38,13 @@ ${q ? `<p>You searched for: ${q}</p>` : ""}
 🎉 Lab Solved!
 </div>
 
-<script>
+`+baseScript+`<script>
   const __LAB_TOKEN = "${token}";
-  const base = window.location.pathname;
+  
 
   async function __complete(){
     try{
-      const r = await fetch(base + "/complete", {
+      const r = await fetch(__base + "/complete", {
         method:"POST",
         headers:{
           "X-Lab-Token": __LAB_TOKEN
@@ -86,7 +87,7 @@ ${q ? `<p>You searched for: ${q}</p>` : ""}
 
   function doSearch(){
     const q = document.getElementById("searchInput").value;
-    location.href = base + "?q=" + encodeURIComponent(q);
+    location.href = __base + "?q=" + encodeURIComponent(q);
   }
 
   document.getElementById("searchInput")
@@ -96,10 +97,10 @@ ${q ? `<p>You searched for: ${q}</p>` : ""}
 
 </script>
 <script>
-  const basePath = window.location.pathname.split("?")[0];
+  const __Path = window.location.pathname.split("?")[0];
   const link = document.createElement("link");
   link.rel = "stylesheet";
-  link.href = basePath + "/style.css";
+  link.href = __Path + "/style.css";
   document.head.appendChild(link);
 </script>
 </body>

@@ -46,12 +46,10 @@ app.get("/session-status", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-    req.session.destroy();
     res.json({ success: true });
 });
 
 app.get("/login", (req, res) => {
-    req.session?.destroy();
     res.send(`<!doctype html><html>
 <head><title>Aran360 — Login</title><style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -96,14 +94,17 @@ async function doLogin() {
 });
 
 app.post("/login", (req, res) => {
-    req.session?.destroy();
-    const { username, password } = req.body;
-    const user = users[username];
-    if (!user || user.password !== password) {
-        return res.status(401).json({ error: "Invalid credentials" });
-    }
-    req.session.tmpUser = username;
-    res.json({ success: true });
+    req.session.destroy((err) => {
+        if (err) return res.status(500).json({ error: "Session error" });
+        req.session = null;
+        req.sessionStore.generate(req);
+        const { username, password } = req.body;
+        const user = users[username];
+        if (!user || user.password !== password)
+            return res.status(401).json({ error: "Invalid credentials" });
+        req.session.tmpUser = username;
+        res.json({ success: true });
+    });
 });
 
 app.get("/inbox", (req, res) => {
@@ -111,10 +112,11 @@ app.get("/inbox", (req, res) => {
     const username = req.session.tmpUser;
     if (!username) return res.redirect(req.baseUrl + "/login");
     users[username].otp = generateOTP();
-    users[username].expiry = Date.now()+expiry;
+    users[username].expiry = Date.now() + expiry;
     const otp = users[username].otp;
 
-    res.send(`<!doctype html><html>
+    res.send(
+        `<!doctype html><html>
 <head><title>Aran360 — Inbox</title><style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:Arial,sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
@@ -134,13 +136,16 @@ h2 { color:#1a1a2e; }
         <p class="email-subject">Your One-Time Password</p>
         <div class="email-body">
             <p>Hi ${username},</p>
-            <p>Use the OTP below to complete your login. It expires in `+(expiry/1000)+` seconds</p>
+            <p>Use the OTP below to complete your login. It expires in ` +
+            expiry / 1000 +
+            ` seconds</p>
             <div class="otp-code">${otp}</div>
             <p style="margin-top:12px;font-size:12px;color:#888;">If you did not request this, please ignore this email.</p>
         </div>
     </div>
 </div>
-</body></html>`);
+</body></html>`,
+    );
 });
 
 app.get("/2fa", (req, res) => {
@@ -195,12 +200,11 @@ async function verifyOTP() {
 </body></html>`);
 });
 
-
 app.post("/2fa", (req, res) => {
     const { username, otp } = req.body;
     const realUser = req.session?.tmpUser;
     if (!realUser) return res.status(401).json({ error: "Unauthorized" });
-    if (users[realUser].otp !== otp || users[realUser].expiry<Date.now())
+    if (users[realUser].otp !== otp || users[realUser].expiry < Date.now())
         return res.status(401).json({ error: "Invalid OTP" });
 
     req.session.user = username;

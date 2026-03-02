@@ -122,9 +122,7 @@ ${baseScript}
         window.location.href = __base + "/login";
         return;
     }
-    loadNotes(status.userId);
-})();
-async function loadNotes(userId) {
+    userId = status.userId;
     const r = await fetch(__base + "/api/user-notes?userId=" + userId);
     const data = await r.json();
     if (data.error) return alert(data.error);
@@ -137,8 +135,9 @@ async function loadNotes(userId) {
     });
     if (data["Credentials"]) {
         document.getElementById("solved").style.display = "block";
+        
     }
-}
+})();
 </script>
 </body>
 </html>`);

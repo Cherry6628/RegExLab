@@ -118,8 +118,10 @@ public class LabComplete extends HttpServlet {
 			.write(JSONResponse
 					.response(JSONResponse.SUCCESS, "Status Updated", csrfNew, null)
 					.toString());
+			System.out.println("COmpleted: "+labId+" "+activeLab);
 			return;
 		} catch (Exception e) {
+			System.out.println(activeLab+" error labid");
 			e.printStackTrace();
 			response.getWriter()
 					.write(JSONResponse

@@ -111,7 +111,7 @@ public class LabOrchestratorServlet extends HttpServlet {
 
 								PreparedStatement updatePs = con
 										.prepareStatement("UPDATE " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
-												+ " SET status = 'Attempted', attempted_at = CURRENT_TIMESTAMP "
+												+ " SET status = 'Attempted', attempted_at = CURRENT_TIMESTAMP, completed_at = NULL "
 												+ " WHERE user_id = ? AND lab_id = ?");
 								updatePs.setInt(1, userId);
 								updatePs.setInt(2, labId);
@@ -123,7 +123,7 @@ public class LabOrchestratorServlet extends HttpServlet {
 
 								PreparedStatement insertPs = con
 										.prepareStatement("INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
-												+ " (user_id, lab_id, status) VALUES (?, ?, 'Attempted')");
+												+ " (user_id, lab_id, status, completed_At) VALUES (?, ?, 'Attempted', NULL)");
 								insertPs.setInt(1, userId);
 								insertPs.setInt(2, labId);
 

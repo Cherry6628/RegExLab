@@ -14,6 +14,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 const db = new sqlite3.Database("./data/db.db");
+
 db.serialize(() => {
     db.run(`CREATE TABLE IF NOT EXISTS comments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
