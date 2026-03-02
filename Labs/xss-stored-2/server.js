@@ -45,7 +45,6 @@ app.get("/api/users", (req, res) => {
     });
 });
 
-// encodes quotes but NOT javascript: protocol
 app.post("/api/profile", (req, res) => {
     const { username, website, bio } = req.body;
     if (!username) return res.status(400).json({ error: "Missing username" });
