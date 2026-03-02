@@ -49,7 +49,7 @@ export default function Header() {
     <>
       <header className="header-navbar">
         <div className="header-nav-logo">
-          <Logo />
+          <Logo/>
         </div>
         <div className="hamburger" onClick={() => setMenuOpen((prev) => !prev)}>
           <span className="material-symbols-outlined">

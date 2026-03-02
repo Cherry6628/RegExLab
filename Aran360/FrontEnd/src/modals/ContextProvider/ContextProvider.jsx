@@ -28,8 +28,7 @@ export default function ContextProvider({ children }) {
     const [uname, setUname] = useState(undefined);
     const [email, setEmail] = useState(undefined);
     const [leaderboardData, setLeaderboardData] = useState([]);
-    const [currentUserLeaderboardRank, setCurrentUserLeaderboardRank] =
-        useState(-1);
+    const [currentUserLeaderboardRank, setCurrentUserLeaderboardRank] = useState(-1);
     const [darkTheme, setDarkTheme] = useState(true);
     const [labs, setLabs] = useState({});
     const [labsStat, setLabsStat] = useState({
@@ -104,9 +103,6 @@ export default function ContextProvider({ children }) {
             setLastLearnt({ topic_url: r.topic_url, page_id });
         });
     }, []);
-    // useEffect(() => {
-    //     fetchLeaderData();
-    // });
     const learningData = {
         "Cross Site Scripting (XSS)": {
             url: "xss",
