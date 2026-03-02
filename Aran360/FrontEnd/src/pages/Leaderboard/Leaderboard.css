@@ -1,23 +1,23 @@
-#leaderboard .leaderboard-container{
-    width: 1200px;
-    margin: 0 auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+#leaderboard .leaderboard-container {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 #leaderboard .leaderboard-table td {
   vertical-align: middle;
 }
-#leaderboard .leaderboard-container h1{
-    color: var(--text-main);
-    margin-bottom: 8px;
-    font-size: var(--large-size);
+#leaderboard .leaderboard-container h1 {
+  color: var(--text-main);
+  margin-bottom: 8px;
+  font-size: var(--large-size);
 }
-#leaderboard .leaderboard-container p{
-    color: var(--text-dim);
-    font-size: var(--normal-size);
+#leaderboard .leaderboard-container p {
+  color: var(--text-dim);
+  font-size: var(--normal-size);
 }
 #leaderboard .leaderboard-table {
   width: 100%;
@@ -68,4 +68,35 @@
     padding: 8px 10px;
     font-size: 13px;
   }
+}
+#leaderboard .popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#leaderboard .popup {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+#leaderboard .popup input {
+  width: 100%;
+  padding: 8px;
+  margin: 15px 0;
+}
+
+#leaderboard .popup-buttons {
+  display: flex;
+  justify-content: flex-end;
 }
