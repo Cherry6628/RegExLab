@@ -62,7 +62,7 @@ export default function Leaderboard() {
           <>
             <div className="leaderboard-container">
               <div>
-                <h1>TradeShow Special LeaderBoard</h1>
+                <h1>TradeShow Special Leaderboard</h1>
                 <p>
                   Competitive ranking of elite security speciality.
                 </p>
