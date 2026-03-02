@@ -30,7 +30,7 @@ public class ParamsAndDBLoader implements ServletContextListener {
 	public static final String TABLE_USERS = "users", TABLE_LOGIN_SESSIONS = "login_sessions",
 			TABLE_PASSWORD_RESET = "password_reset", TABLE_LABS = "labs", TABLE_LEARNING_TOPICS = "learning_topics",
 			TABLE_LAB_ATTEMPTS = "lab_attempts", TABLE_LEARNING_PROGRESS = "learning_progress",
-			TABLE_QUIZZES = "quiz", TABLE_QUIZ_OPTIONS = "quiz_options";
+			TABLE_QUIZZES = "quiz", TABLE_QUIZ_OPTIONS = "quiz_options", TABLE_EMPLOYEE_TEST_DETAILS="employee_test_details";
 
 	public static int JWT_EXPIRY;
 	public static int MAX_SESSIONS_PER_USER;
@@ -551,6 +551,17 @@ public class ParamsAndDBLoader implements ServletContextListener {
 					    page_id VARCHAR(255),
 					    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 					    FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
+					    (id) ON DELETE CASCADE
+					)""");
+			
+			con.createStatement().execute("CREATE TABLE IF NOT EXISTS "+ TABLE_EMPLOYEE_TEST_DETAILS + """
+					(
+						id INT AUTO_INCREMENT PRIMARY KEY,
+						user_id INT UNIQUE NOT NULL,
+						team VARCHAR(255) NOT NULL,
+						score INT NOT NULL,
+						time INT NOT NULL,
+						FOREIGN KEY (user_id) REFERENCES""" + " " + TABLE_USERS + """
 					    (id) ON DELETE CASCADE
 					)""");
 		} catch (Exception e) {

@@ -1,4 +1,4 @@
-package controller.servlets.quiz;
+package controller.tradeshowspecial;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,27 +21,16 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@WebServlet("/quiz-questions")
-public class QuizQuestionServlet extends HttpServlet {
+@WebServlet("/employee-quiz-questions")
+public class EmployeeQuizQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public static List<Quiz> getQuiz(String name) throws SQLException {
+	public static List<Quiz> getQuiz() throws SQLException {
 		Connection con = DBService.getConnection();
 		ArrayList<Quiz> questions = new ArrayList<>();
-		String query = "Select id from learning_topics where topic = ?";
-		String query1 = "SELECT * from quiz WHERE topic_id = ? ORDER BY RAND() LIMIT "
-				+ ParamsAndDBLoader.QUIZ_COUNT_PER_ATTEMPT;
-		String query2 = "SELECT * from quiz_options WHERE quiz_id = ?";
-		try (PreparedStatement ps = con.prepareStatement(query);
-				PreparedStatement ps1 = con.prepareStatement(query1);
-				PreparedStatement ps2 = con.prepareStatement(query2)) {
-			ps.setString(1, name);
-			ResultSet rs = ps.executeQuery();
-			int id = 0;
-			if (rs.next()) {
-				id = rs.getInt("id");
-			}
-			ps1.setInt(1, id);
+		try (PreparedStatement ps1 = con.prepareStatement(
+				"SELECT * FROM quiz ORDER BY RAND() LIMIT " + ParamsAndDBLoader.QUIZ_COUNT_PER_ATTEMPT);
+				PreparedStatement ps2 = con.prepareStatement("SELECT * FROM quiz_options WHERE quiz_id = ?")) {
 			ResultSet rs1 = ps1.executeQuery();
 			while (rs1.next()) {
 				int qid = rs1.getInt("id");
@@ -56,10 +45,8 @@ public class QuizQuestionServlet extends HttpServlet {
 				ps2.setInt(1, qid);
 				ResultSet rs2 = ps2.executeQuery();
 				ArrayList<String> options = new ArrayList<>();
-				while (rs2.next()) {
-					String option = rs2.getString("option_text");
-					options.add(option);
-				}
+				while (rs2.next())
+					options.add(rs2.getString("option_text"));
 				Quiz q = new Quiz(qid, topicId, headline, description, question, language, hasCode, code, options);
 				questions.add(q);
 			}
@@ -76,13 +63,17 @@ public class QuizQuestionServlet extends HttpServlet {
 		while ((line = reader.readLine()) != null)
 			sb.append(line);
 		JSONObject body = new JSONObject(sb.toString());
-		String title = body.getString("topic");
-		if (title == null || title.isBlank()) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Topic is missing");
+		String team = body.getString("team");
+		if (team == null || team.isBlank()) {
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Team Name Required", csrfNew).toString());
 			return;
 		}
+		long start = System.currentTimeMillis();
+		request.setAttribute("START_TIME", start);
+		request.setAttribute("TEAM_NAME", team);
 		try {
-			List<Quiz> question = getQuiz(title);
+			List<Quiz> question = getQuiz();
 			JSONArray questionsArray = new JSONArray();
 			for (Quiz q : question) {
 				JSONObject qJson = new JSONObject();
