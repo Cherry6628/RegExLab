@@ -3,17 +3,17 @@
     flex-direction: column;
     gap: 0.4166666666666667vw;
     flex: 1;
-    margin-bottom: 20px;
+    margin-bottom: 1.0416666666666667vw;
 }
 #profile .main {
-    padding: 20px;
+    padding: 1.0416666666666667vw;
     width: 55vw;
     margin: auto;
 }
 #profile .personInfo {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 0.5208333333333334vw;
+    margin-top: 1.0416666666666667vw;
 }
 #profile .profile-input-error{
     color: var(--text-main)
@@ -24,8 +24,8 @@
     color: var(--text-main);
 }
 #profile .profile-input-group input {
-    padding: 14px 18px;
-    border-radius: 12px;
+    padding: 0.7291666666666667vw 0.9375vw;
+    border-radius: 0.625vw;
     border: 1.5px solid var(--border-light);
     background-color: var(--card-white);
     font-size: var(--default-size);
@@ -37,7 +37,7 @@
 }
 #profile h1 {
     color: var(--text-main);
-    margin-bottom: 10px;
+    margin-bottom: 0.5208333333333334vw;
     font-size: var(--large-size);
 }
 #profile p {
@@ -50,8 +50,8 @@
 }
 #profile .secure {
     border: 2px solid var(--border-light);
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 0.625vw;
+    padding: 1.0416666666666667vw;
     background-color: var(--primary-bgcolor);
 }
 #profile Button i {
@@ -70,8 +70,8 @@
 #profile hr {
     background-color: var(--border-light);
     height: 0.052083333333333336vw;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 1.0416666666666667vw;
+    margin-bottom: 1.0416666666666667vw;
 }
 #profile i {
     color: var(--action-color);
@@ -79,12 +79,12 @@
 }
 #profile .changePassword {
     display: flex;
-    gap: 20px;
+    gap: 1.0416666666666667vw;
     flex-wrap: wrap;
 }
 #profile .logout {
     display: flex;
-    gap: 20px;
+    gap: 1.0416666666666667vw;
     justify-content: center;
     align-items: center;
 }

@@ -119,7 +119,7 @@ export default function Dashboard() {
           >
             <div className="user">
               <Tagline />
-              <div className="goal" style={{ marginTop: "20px" }}>
+              <div className="goal" style={{ marginTop: "1.0416666666666667vw" }}>
                 <LearningStatus />
               </div>
             </div>

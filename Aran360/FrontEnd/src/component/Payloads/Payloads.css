@@ -1,10 +1,10 @@
 #payloads .code {
     background-color: #ebf0f2;
     color: black;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 1.0416666666666667vw;
+    border-radius: 0.625vw;
+    margin-top: 1.0416666666666667vw;
+    margin-bottom: 1.0416666666666667vw;
 }
 #payloads .code p {
     color: black;

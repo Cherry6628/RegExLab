@@ -1,12 +1,12 @@
 #dashboard {
-  padding: 20px;
+  padding: 1.0416666666666667vw;
   max-width: 1111px;
   margin: auto;
 }
 #dashboard .topBox {
   background: linear-gradient(90deg, #0e1f33 0%, #162447 50%, #1b1f4a 100%);
   border: 2px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: 0.625vw;
   padding: 30px;
   margin-bottom: 30px;
 }
@@ -21,8 +21,8 @@
 }
 #dashboard .goal {
   background-color: var(--primary-bgcolor);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 0.625vw;
+  padding: 1.0416666666666667vw;
   border: 2px solid var(--border-light);
 }
 #dashboard .goal p {
@@ -34,20 +34,20 @@
   width: 100%;
   height: 3px;
   border-radius: 999px;
-  margin-bottom: 20px;
+  margin-bottom: 1.0416666666666667vw;
 }
 #dashboard .complete {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 1.0416666666666667vw;
   flex-wrap: wrap;
 }
 #dashboard .labName {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 1.0416666666666667vw;
 }
 #dashboard .complete h1 {
   font-size: var(--large-size);
@@ -64,37 +64,37 @@
 #dashboard p {
   color: var(--text-dim);
   font-size: var(--normal-size);
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1.0416666666666667vw;
+  margin-bottom: 1.0416666666666667vw;
 }
 #dashboard .btn {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1.0416666666666667vw;
+  margin-bottom: 1.0416666666666667vw;
 }
 #dashboard .lab {
   background-color: var(--primary-bgcolor);
   border: 2px solid var(--border-light);
-  border-radius: 12px;
+  border-radius: 0.625vw;
   padding: 50px;
 }
 #dashboard .icon span {
   color: var(--action-color);
-  padding: 15px;
-  border-radius: 12px;
+  padding: 0.78125vw;
+  border-radius: 0.625vw;
   background-color: var(--secondary-bgcolor);
   font-size: var(--extra-large-size);
 }
 #dashboard .doLab {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.0416666666666667vw;
   flex-wrap: wrap;
 }
 #dashboard .count {
   border: 2px solid var(--border-light);
-  border-radius: 12px;
-  margin-top: 20px;
-  padding: 20px;
+  border-radius: 0.625vw;
+  margin-top: 1.0416666666666667vw;
+  padding: 1.0416666666666667vw;
   flex: 1;
 }
 #dashboard .notfull {
@@ -121,7 +121,7 @@
     justify-content: center;
   }
   #dashboard .user {
-    margin-bottom: 20px;
+    margin-bottom: 1.0416666666666667vw;
   }
 }
 @media only screen and (max-width: 750px) {
@@ -129,7 +129,7 @@
     justify-content: center;
   }
   #dashboard .labCount {
-    margin-top: 20px;
+    margin-top: 1.0416666666666667vw;
   }
 }
 @media only screen and (max-width: 700px) {
@@ -144,15 +144,15 @@
 }
 @media only screen and (max-width: 400px) {
   #dashboard .lab {
-    padding: 10px;
+    padding: 0.5208333333333334vw;
   }
 }
 @media only screen and (max-width: 380px) {
   #dashboard .topBox {
-    padding: 10px;
+    padding: 0.5208333333333334vw;
   }
   #dashboard .goal {
-    padding: 10px;
+    padding: 0.5208333333333334vw;
   }
   #dashboard .user h1 {
     text-align: center;
@@ -163,27 +163,27 @@
 }
 .quizReleaseCard {
   background-color: var(--primary-bgcolor);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 0.625vw;
+  padding: 1.0416666666666667vw;
   max-width: 1111px;
   margin-top: 30px;
   color: #e0e7ff;
-  box-shadow: 0 6px 15px rgba(30, 64, 175, 0.5);
+  box-shadow: 0 6px 0.78125vw rgba(30, 64, 175, 0.5);
   border: 1.5px solid var(--action-color);
 }
 .quizTitle {
-  margin: 0 0 14px 0;
+  margin: 0 0 0.7291666666666667vw 0;
   font-weight: 700;
   font-size: var(--semi-large-size);
   color: var(--action-color);
 }
 .quizDescription {
-  margin-bottom: 22px;
+  margin-bottom: 1.1458333333333335vw;
   font-weight: 400;
   font-size: var(--normal-size);
   color: var(--text-dim);
 }
 .quizButtons {
   display: flex;
-  gap: 14px;
+  gap: 0.7291666666666667vw;
 }

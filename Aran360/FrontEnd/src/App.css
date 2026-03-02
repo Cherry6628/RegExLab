@@ -56,11 +56,11 @@ body {
 
     --danger-red: var(--error-red);
 
-    --small-size: 13px;
-    --label-size: 14px;
-    --default-size: 16px;
-    --semi-normal-size: 20px;
-    --normal-size: 20px;
+    --small-size: 0.6770833333333334vw;
+    --label-size: 0.7291666666666667vw;
+    --default-size: 0.8333333333333334vw;
+    --semi-normal-size: 19px;
+    --normal-size: 1.0416666666666667vw;
     --semi-large-size: 28px;
     --large-size: 35px;
     --semi-extra-large: 42px;

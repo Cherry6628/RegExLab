@@ -22,23 +22,23 @@
 #leaderboard .leaderboard-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 15px;
+    font-size: 0.78125vw;
 }
 #leaderboard .table {
     width: 1200px;
     border: 2px solid var(--border-light);
-    border-radius: 12px;
+    border-radius: 0.625vw;
     margin: 0 auto;
 }
 #leaderboard .leaderboard-table th {
     text-align: center;
     color: var(--text-main);
-    padding: 10px 15px;
+    padding: 0.5208333333333334vw 0.78125vw;
     font-weight: 700;
     font-size: var(--semi-large-size);
 }
 #leaderboard .leaderboard-table td {
-    padding: 12px 15px;
+    padding: 0.625vw 0.78125vw;
     text-align: center;
     border-top: 0.052083333333333336vw solid var(--border-light);
     vertical-align: middle;
@@ -54,8 +54,8 @@
     }
     #leaderboard .leaderboard-table th,
     #leaderboard .leaderboard-table td {
-        padding: 0.4166666666666667vw 10px;
-        font-size: 14px;
+        padding: 0.4166666666666667vw 0.5208333333333334vw;
+        font-size: 0.7291666666666667vw;
     }
 }
 @media screen and (max-width: 768px) {
@@ -65,8 +65,8 @@
     }
     #leaderboard .leaderboard-table th,
     #leaderboard .leaderboard-table td {
-        padding: 0.4166666666666667vw 10px;
-        font-size: 13px;
+        padding: 0.4166666666666667vw 0.5208333333333334vw;
+        font-size: var(--small-size);
     }
 }
 .popup-overlay {
@@ -92,10 +92,10 @@
 }
 .popup input {
     width: 100%;
-    padding: 10px 15px;
-    margin: 15px 0;
+    padding: 0.5208333333333334vw 0.78125vw;
+    margin: 0.78125vw 0;
     font-size: var(--semi-normal-size);
-    border-radius: 12px;
+    border-radius: 0.625vw;
 }
 .popup-buttons {
     display: flex;

@@ -153,7 +153,7 @@ export default function Header() {
                     className={`dropdown-menu ${profileOpen ? "show" : ""}`}
                     style={{
                       width: "100px",
-                      marginTop: "15px !important",
+                      marginTop: "0.78125vw !important",
                     }}
                   >
                     <li>

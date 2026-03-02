@@ -42,21 +42,21 @@ body {
     color: white;
     font-size: var(--semi-large-size);
     margin-bottom: 7px;
-    margin-top: 10px;
+    margin-top: 0.5208333333333334vw;
 }
 #learning-material-main-box .labbox h3 {
     margin-top: 0 !important;
 }
 #learning-material-main-box p + p {
-    margin-top: 15px;
+    margin-top: 0.78125vw;
 }
 #learning-material-main-box li + li {
     margin-top: 5px;
 }
 #learning-material-main-box section h1 {
     font-size: var(--large-size);
-    margin-bottom: 15px;
-    margin-top: 20px;
+    margin-bottom: 0.78125vw;
+    margin-top: 1.0416666666666667vw;
     color: var(--text-main);
 }
 #learning-material-main-box .mainbar {
@@ -65,22 +65,22 @@ body {
     padding-right: 80px;
 }
 #learning-material-main-box section ul {
-    margin-top: 20px;
+    margin-top: 1.0416666666666667vw;
     margin-left: 100px;
-    margin-bottom: 10px;
+    margin-bottom: 0.5208333333333334vw;
 }
 #learning-material-main-box section ol {
-    margin-top: 20px;
+    margin-top: 1.0416666666666667vw;
     margin-left: 100px;
-    margin-bottom: 10px;
+    margin-bottom: 0.5208333333333334vw;
 }
 #learning-material-main-box .labbox {
     background-color: var(--secondary-bgcolor);
-    border-left: 15px solid var(--action-color) !important;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    border-left: 0.78125vw solid var(--action-color) !important;
+    border-radius: 0.625vw;
+    padding: 1.0416666666666667vw;
+    margin-top: 1.0416666666666667vw;
+    margin-bottom: 1.0416666666666667vw;
     border: 0.052083333333333336vw solid var(--border-light);
 }
 #learning-material-main-box .labbox h1 {
@@ -90,10 +90,10 @@ body {
 #learning-material-main-box .code {
     background-color: #ebf0f2;
     color: black;
-    padding: 20px;
-    border-radius: 12px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 1.0416666666666667vw;
+    border-radius: 0.625vw;
+    margin-top: 1.0416666666666667vw;
+    margin-bottom: 1.0416666666666667vw;
 }
 #learning-material-main-box .code p {
     color: black;
@@ -145,12 +145,12 @@ body {
     height: 680px;
 }
 #learning-material-main-box .query {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.5208333333333334vw;
+    margin-bottom: 0.5208333333333334vw;
     color: var(--text-dim);
     font-size: var(--normal-size);
     border: 2px solid var(--border-light);
-    padding: 10px;
-    border-radius: 12px;
+    padding: 0.5208333333333334vw;
+    border-radius: 0.625vw;
     line-height: 40px;
 }

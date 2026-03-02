@@ -34,7 +34,7 @@ export function ToastProvider({ children }) {
                     zIndex: 9999,
                     display: "flex",
                     flexDirection: "column",
-                    gap: "12px",
+                    gap: "0.625vw",
                     height: "350px",
                     width: "fit-content",
                 }}

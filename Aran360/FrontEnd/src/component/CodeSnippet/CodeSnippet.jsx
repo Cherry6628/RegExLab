@@ -17,7 +17,7 @@ function CodeSnippet({ code, language }) {
         className="codeBlock"
         lineNumberStyle={{
           minWidth: "50px",
-          marginRight: "12px",
+          marginRight: "0.625vw",
           borderRight: "0.052083333333333336vw solid var( --border-light)",
           textAlign: "center",
         }}

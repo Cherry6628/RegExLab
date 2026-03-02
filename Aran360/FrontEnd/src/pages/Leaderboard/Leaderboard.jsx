@@ -139,7 +139,7 @@ export default function Leaderboard() {
               </Button>
               <Button
                 onClick={() => setShowPopup(false)}
-                style={{ marginLeft: "10px", background: "#ccc" }}
+                style={{ marginLeft: "0.5208333333333334vw", background: "#ccc" }}
               >
                 Cancel
               </Button>

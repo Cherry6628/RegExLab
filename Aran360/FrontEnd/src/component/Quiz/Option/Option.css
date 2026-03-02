@@ -1,14 +1,14 @@
 .box {
     background-color: var(--primary-bgcolor);
     border: 0.052083333333333336vw solid var(--border-light);
-    border-radius: 12px;
+    border-radius: 0.625vw;
     width: min(100%, 1024px);
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 1.0416666666666667vw;
 }
 .click {
     appearance: none;

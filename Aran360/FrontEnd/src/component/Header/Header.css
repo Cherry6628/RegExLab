@@ -39,7 +39,7 @@
     justify-content: center;
 }
 .header-navbar .navitem {
-    padding: 10px 0;
+    padding: 0.5208333333333334vw 0;
     border-bottom: 3px solid transparent;
     font-weight: bold;
     cursor: pointer;
@@ -66,7 +66,7 @@
     padding: 0;
     margin: 0;
     border: 0.052083333333333336vw solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 0.8333333333333334vw rgba(0, 0, 0, 0.5);
     display: none;
     cursor: pointer;
 }
@@ -75,7 +75,7 @@
 }
 .header-navbar .dropdown-menu li a {
     display: block;
-    padding: 12px 20px;
+    padding: 0.625vw 1.0416666666666667vw;
     color: white;
     text-decoration: none;
     font-size: var(--label-size);
@@ -86,7 +86,7 @@
     color: var(--action-color);
 }
 .header-navbar .nav-profile {
-    padding: 10px 20px;
+    padding: 0.5208333333333334vw 1.0416666666666667vw;
     border: 3px solid transparent;
     border-radius: 24px;
     font-weight: bold;
@@ -123,7 +123,7 @@
         transition: right 0.3s ease-in-out;
         z-index: 1001;
         padding-top: 100px;
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        box-shadow: -0.5208333333333334vw 0 30px rgba(0, 0, 0, 0.5);
         overflow-y: auto;
     }
     .header-navbar .nav-menu.open {
@@ -133,7 +133,7 @@
         flex-direction: column;
         align-items: flex-start;
         padding-left: 40px;
-        gap: 15px;
+        gap: 0.78125vw;
     }
     .header-navbar .navitem-container {
         width: 100%;

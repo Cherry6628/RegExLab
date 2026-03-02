@@ -10,9 +10,9 @@
     /* min-width: 340px; */
     /* max-width: 420px; */
     width: 420px;
-    border-radius: 14px;
-    padding: 16px 20px;
-    box-shadow: 0 12px 30px var(--shadow-dark);
+    border-radius: 0.7291666666666667vw;
+    padding: 0.8333333333333334vw 1.0416666666666667vw;
+    box-shadow: 0 0.625vw 30px var(--shadow-dark);
     overflow: hidden;
 
     display: flex;
@@ -23,7 +23,7 @@
 #toast .toast-content {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.625vw;
 }
 
 #toast .toast-icon {

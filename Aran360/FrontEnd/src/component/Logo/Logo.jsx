@@ -7,7 +7,7 @@ export default function Logo({ showTitle = true, showTagline = true }) {
             style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "12px",
+                gap: "0.625vw",
                 userSelect: "none",
             }}
         >

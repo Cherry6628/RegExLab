@@ -1,12 +1,12 @@
 #lab .practice {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 1.0416666666666667vw;
+    margin-bottom: 1.0416666666666667vw;
     border: 0.052083333333333336vw solid var(--border-light);
     border-radius: 35px;
     display: flex;
 }
 #lab .leftColor {
-    padding: 15px 30px;
+    padding: 0.78125vw 30px;
     color: white;
     font-weight: bold;
     font-size: var(--default-size);
@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0.5208333333333334vw;
 }
 #lab a:hover {
     color: var(--text-main) !important;
@@ -26,8 +26,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 20px;
-    padding-right: 20px;
+    gap: 1.0416666666666667vw;
+    padding-right: 1.0416666666666667vw;
     min-width: 0;
 }
 #lab .rightColor a {

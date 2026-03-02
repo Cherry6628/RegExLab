@@ -2,7 +2,7 @@
     width: 320px;
     height: 100vh;
     background-color: var(--primary-bgcolor);
-    padding: 24px 16px;
+    padding: 24px 0.8333333333333334vw;
     box-sizing: border-box;
     left: 0;
     position: fixed;
@@ -27,9 +27,9 @@
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 12px 16px;
+    padding: 0.625vw 0.8333333333333334vw;
     border: none;
-    border-radius: 10px;
+    border-radius: 0.5208333333333334vw;
     background: transparent;
     cursor: pointer;
     text-align: left;
@@ -81,7 +81,7 @@
 .sidebar-header-mobile {
     display: none;
     justify-content: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 1.0416666666666667vw;
 }
 .close-btn {
     background: transparent;
@@ -98,7 +98,7 @@
     .sidebar.expanded {
         transform: translateX(0);
         width: 320px;
-        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+        box-shadow: 5px 0 0.78125vw rgba(0, 0, 0, 0.5);
     }
     #clear-sidebar-position {
         min-width: 40px;

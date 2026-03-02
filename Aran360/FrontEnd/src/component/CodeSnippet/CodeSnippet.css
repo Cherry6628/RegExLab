@@ -1,15 +1,15 @@
 .wrapper {
-  border-radius: 12px;
+  border-radius: 0.625vw;
   border: 0.052083333333333336vw solid var(--border-light);
   font-family: Inter, monospace !important;
   overflow: hidden;
   width: min(100%, 1024px);
-  margin-bottom: 10px;
+  margin-bottom: 0.5208333333333334vw;
 }
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 0.5208333333333334vw 0.8333333333333334vw;
   background: var(--secondary-bgcolor);
   font-size: var(--normal-size);
   color: var(--text-dim);
@@ -23,7 +23,7 @@
 }
 .codeBlock {
   margin: 0 !important;
-  padding: 20px !important;
+  padding: 1.0416666666666667vw !important;
   background: var(--primary-bgcolor) !important;
   scrollbar-width: none;
 }
