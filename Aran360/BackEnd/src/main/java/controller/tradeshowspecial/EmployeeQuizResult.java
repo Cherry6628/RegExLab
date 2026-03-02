@@ -90,7 +90,7 @@ public class EmployeeQuizResult extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		JSONObject json = new JSONObject();
-		Connection con = DBService.getConnection()
+		Connection con = DBService.getConnection();
 		try {
 
 			try (PreparedStatement ps = con.prepareStatement("SELECT u.username, e.team, "
