@@ -23,200 +23,197 @@ import OtherAuth from "../../component/LearningMaterials/Authentication/OtherAut
 import SecureAuthentication from "../../component/LearningMaterials/Authentication/SecureAuthentication";
 import { backendFetch } from "../../utils/helpers";
 import RaceCondition from "../../component/LearningMaterials/RaceCondition/RaceCondition";
-
 const GlobalContext = createContext();
-
-
 export default function ContextProvider({ children }) {
-    const [uname, setUname] = useState(undefined);
-    const [email, setEmail] = useState(undefined);
-    const [darkTheme, setDarkTheme] = useState(true);
-    const [labs, setLabs] = useState({});
-    const [labsStat, setLabsStat] = useState({
-        labsCompleted: 0,
-        labsAbandoned: 0,
-        labsAttempted: 0,
-        totalLabs: 0,
+  const [uname, setUname] = useState(undefined);
+  const [email, setEmail] = useState(undefined);
+  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [currentUserLeaderboardRank, setCurrentUserLeaderboardRank] = useState(-1);
+  const [darkTheme, setDarkTheme] = useState(true);
+  const [labs, setLabs] = useState({});
+  const [labsStat, setLabsStat] = useState({
+    labsCompleted: 0,
+    labsAbandoned: 0,
+    labsAttempted: 0,
+    totalLabs: 0,
+  });
+  const [lastLearnt, setLastLearnt] = useState({
+    topic_url: undefined,
+    page_id: undefined,
+  });
+  const fetchLeaderData = () => {
+    backendFetch("/employee-quiz-results", { method: "GET" }).then((r) => {
+      console.log(r.topUsers);
+        setLeaderboardData(r.topUsers);
+        setCurrentUserLeaderboardRank(r.rank);
     });
-    const [lastLearnt, setLastLearnt] = useState({
-        topic_url: undefined,
-        page_id: undefined,
+  };
+  const fetchUserData = () => {
+    backendFetch("/user-data", { method: "GET" }).then((r) => {
+      setUname(r.uname);
+      setEmail(r.email);
+      setLabsStat((prev) => ({
+        ...prev,
+        labsCompleted: r.labsCompleted,
+        labsAbandoned: r.labsAbandoned,
+        labsAttempted: r.labsAttempted,
+      }));
     });
-
-    const fetchUserData = () => {
-        backendFetch("/user-data", { method: "GET" }).then((r) => {
-            setUname(r.uname);
-            setEmail(r.email);
-            setLabsStat((prev) => ({
-                ...prev,
-                labsCompleted: r.labsCompleted,
-                labsAbandoned: r.labsAbandoned,
-                labsAttempted: r.labsAttempted,
-            }));
-        });
-        backendFetch("/saveLearningProgress", { method: "GET" }).then((r) => {
-            const page_id =
-                r.page_id === "null" ||
-                r.page_id === null ||
-                r.page_id === undefined
-                    ? null
-                    : r.page_id;
-            setLastLearnt({ topic_url: r.topic_url, page_id });
-        });
-    };
-    const clearUserData = () => {
-        setUname(undefined);
-        setEmail(undefined);
-        setLastLearnt({ topic_url: undefined, page_id: undefined });
-        setLabsStat((prev) => ({
-            labsCompleted: 0,
-            labsAbandoned: 0,
-            labsAttempted: 0,
-            totalLabs: prev.totalLabs,
-        }));
-    };
-    useEffect(() => {
-        fetchUserData();
-        backendFetch("/info", { method: "GET" }).then((r) => {
-            setLabsStat((prev) => ({ ...prev, totalLabs: r.totalLabs }));
-        });
-    }, []);
-    useEffect(() => {
-        backendFetch("/all-labs-data").then((r) => {
-            if (r.status === "success") setLabs(r.data);
-        });
-    }, []);
-    useEffect(() => {
-        backendFetch("/saveLearningProgress").then((r) => {
-            const page_id =
-                r.page_id === "null" ||
-                r.page_id === null ||
-                r.page_id === undefined
-                    ? null
-                    : r.page_id;
-            setLastLearnt({ topic_url: r.topic_url, page_id });
-        });
-    }, []);
-    const learningData = {
-        "Cross Site Scripting (XSS)": {
-            url: "xss",
-            subTitles: {
-                "What is XSS": { comp: XSSMaterial },
-                "How does XSS works?": { comp: XSSMaterial, hash: "xss-works" },
-                "Proof of Concept": { comp: XSSMaterial, hash: "xss-poc" },
-                "Impact of an attack": {
-                    comp: XSSMaterial,
-                    hash: "xss-impact",
-                },
-                Testing: { comp: XSSMaterial, hash: "xss-test" },
-                "Reflected XSS": { comp: ReflectedXSSMaterial },
-                "Stored XSS": { comp: StoredXSSMaterial },
-                "DOM-based XSS": { comp: DOMBasedXSSMaterial },
-                "XSS Contexts": { comp: XSSContexts },
-                "Exploiting XSS Vulnerabilities": {
-                    comp: ExploitingXSSMaterial,
-                },
-                "Dangling Markup Injection": { comp: DanglingMarkupInjection },
-                "Content Security Policy (CSP)": {
-                    comp: ContentSecurityPolicy,
-                },
-                "Preventing XSS Attacks": { comp: XSSPrevention },
-                "View All XSS Labs": { url: frontendbasename + "all-labs#xss" },
-            },
+    backendFetch("/saveLearningProgress", { method: "GET" }).then((r) => {
+      const page_id =
+        r.page_id === "null" || r.page_id === null || r.page_id === undefined
+          ? null
+          : r.page_id;
+      setLastLearnt({ topic_url: r.topic_url, page_id });
+    });
+  };
+  const clearUserData = () => {
+    setUname(undefined);
+    setEmail(undefined);
+    setLastLearnt({ topic_url: undefined, page_id: undefined });
+    setLabsStat((prev) => ({
+      labsCompleted: 0,
+      labsAbandoned: 0,
+      labsAttempted: 0,
+      totalLabs: prev.totalLabs,
+    }));
+  };
+  useEffect(() => {
+    fetchUserData();
+    backendFetch("/info", { method: "GET" }).then((r) => {
+      setLabsStat((prev) => ({ ...prev, totalLabs: r.totalLabs }));
+    });
+  }, []);
+  useEffect(() => {
+    backendFetch("/all-labs-data").then((r) => {
+      if (r.status === "success") setLabs(r.data);
+    });
+  }, []);
+  useEffect(() => {
+    backendFetch("/saveLearningProgress").then((r) => {
+      const page_id =
+        r.page_id === "null" || r.page_id === null || r.page_id === undefined
+          ? null
+          : r.page_id;
+      setLastLearnt({ topic_url: r.topic_url, page_id });
+    });
+  }, []);
+  useEffect(()=>{
+    fetchLeaderData();
+  })
+  const learningData = {
+    "Cross Site Scripting (XSS)": {
+      url: "xss",
+      subTitles: {
+        "What is XSS": { comp: XSSMaterial },
+        "How does XSS works?": { comp: XSSMaterial, hash: "xss-works" },
+        "Proof of Concept": { comp: XSSMaterial, hash: "xss-poc" },
+        "Impact of an attack": {
+          comp: XSSMaterial,
+          hash: "xss-impact",
         },
-        "SQL Injection (SQLi)": {
-            url: "sql-injection",
-            subTitles: {
-                "SQL-Injection": { comp: SQLMain },
-                "Examining the database": { comp: ExaminingDatabase },
-                "UNION Attacks": { comp: UnionAttack },
-                "Blind SQL Injection": { comp: BlindSql },
-                "View All XSS Labs": {
-                    url: frontendbasename + "all-labs#sql-injection",
-                },
-            },
+        Testing: { comp: XSSMaterial, hash: "xss-test" },
+        "Reflected XSS": { comp: ReflectedXSSMaterial },
+        "Stored XSS": { comp: StoredXSSMaterial },
+        "DOM-based XSS": { comp: DOMBasedXSSMaterial },
+        "XSS Contexts": { comp: XSSContexts },
+        "Exploiting XSS Vulnerabilities": {
+          comp: ExploitingXSSMaterial,
         },
-        "Access Control": {
-            url: "access-control",
-            subTitles: {
-                "Access Control": { comp: AccessControl },
-                "Insecure direct object references (IDOR)": { comp: IDOR },
-                "View All XSS Labs": {
-                    url: frontendbasename + "all-labs#access-control",
-                },
-            },
+        "Dangling Markup Injection": { comp: DanglingMarkupInjection },
+        "Content Security Policy (CSP)": {
+          comp: ContentSecurityPolicy,
         },
-        "Authentication": {
-            url: "authentication",
-            subTitles: {
-                Authentication: { comp: Authentication },
-                "Password-based Authentication": { comp: passwordAuth },
-                "Multi-factor Authentication": { comp: MultiFactor },
-                "Other Authentication": { comp: OtherAuth },
-                "Secure authentication mechanisms": {
-                    comp: SecureAuthentication,
-                },
-                "View All XSS Labs": {
-                    url: frontendbasename + "all-labs#authentication",
-                },
-            },
+        "Preventing XSS Attacks": { comp: XSSPrevention },
+        "View All XSS Labs": { url: frontendbasename + "all-labs#xss" },
+      },
+    },
+    "SQL Injection (SQLi)": {
+      url: "sql-injection",
+      subTitles: {
+        "SQL-Injection": { comp: SQLMain },
+        "Examining the database": { comp: ExaminingDatabase },
+        "UNION Attacks": { comp: UnionAttack },
+        "Blind SQL Injection": { comp: BlindSql },
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#sql-injection",
         },
-        "Path Traversal": {
-            url: "path-traversal",
-            subTitles: {
-                "Path Traversal": { comp: PathTraversalMaterial },
-            },
+      },
+    },
+    "Access Control": {
+      url: "access-control",
+      subTitles: {
+        "Access Control": { comp: AccessControl },
+        "Insecure direct object references (IDOR)": { comp: IDOR },
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#access-control",
         },
-        "Race Condition": {
-            url: "race-condition",
-            subTitles: {
-                "Race Condition": { comp: RaceCondition },
-            },
+      },
+    },
+    Authentication: {
+      url: "authentication",
+      subTitles: {
+        Authentication: { comp: Authentication },
+        "Password-based Authentication": { comp: passwordAuth },
+        "Multi-factor Authentication": { comp: MultiFactor },
+        "Other Authentication": { comp: OtherAuth },
+        "Secure authentication mechanisms": {
+          comp: SecureAuthentication,
         },
-    };
-    const saveProgress = ({ topic_url, page_id }) => {
-        if (!topic_url || !page_id) return;
-
-        const topic = Object.values(learningData).find(
-            (t) => t.url === topic_url,
-        );
-        if (!topic) return;
-
-        const pages = Object.entries(topic.subTitles).filter(([, v]) => v.comp);
-        const currentIndex = pages.findIndex(([id]) => id === page_id);
-        const nextPage = pages[currentIndex + 1];
-
-        const nextPageId = nextPage ? nextPage[0] : null;
-
-        setLastLearnt({ topic_url, page_id: nextPageId });
-        backendFetch("/saveLearningProgress", {
-            method: "POST",
-            body: { topic_url, page_id: nextPageId },
-        }).then((r) => console.log(r));
-    };
-    const value = {
-        uname,
-        setUname,
-        email,
-        setEmail,
-        darkTheme,
-        setDarkTheme,
-        learningData,
-        labsStat,
-        setLabsStat,
-        fetchUserData,
-        clearUserData,
-        labs,
-        setLabs,
-        saveProgress,
-        lastLearnt,
-    };
-
-    return (
-        <GlobalContext.Provider value={value}>
-            {children}
-        </GlobalContext.Provider>
-    );
+        "View All XSS Labs": {
+          url: frontendbasename + "all-labs#authentication",
+        },
+      },
+    },
+    "Path Traversal": {
+      url: "path-traversal",
+      subTitles: {
+        "Path Traversal": { comp: PathTraversalMaterial },
+      },
+    },
+    "Race Condition": {
+      url: "race-condition",
+      subTitles: {
+        "Race Condition": { comp: RaceCondition },
+      },
+    },
+  };
+  const saveProgress = ({ topic_url, page_id }) => {
+    if (!topic_url || !page_id) return;
+    const topic = Object.values(learningData).find((t) => t.url === topic_url);
+    if (!topic) return;
+    const pages = Object.entries(topic.subTitles).filter(([, v]) => v.comp);
+    const currentIndex = pages.findIndex(([id]) => id === page_id);
+    const nextPage = pages[currentIndex + 1];
+    const nextPageId = nextPage ? nextPage[0] : null;
+    setLastLearnt({ topic_url, page_id: nextPageId });
+    backendFetch("/saveLearningProgress", {
+      method: "POST",
+      body: { topic_url, page_id: nextPageId },
+    }).then((r) => console.log(r));
+  };
+  const value = {
+    uname,
+    setUname,
+    email,
+    setEmail,
+    darkTheme,
+    setDarkTheme,
+    learningData,
+    labsStat,
+    setLabsStat,
+    fetchUserData,
+    clearUserData,
+    labs,
+    setLabs,
+    saveProgress,
+    lastLearnt,
+    fetchLeaderData,
+    leaderboardData,
+    currentUserLeaderboardRank,
+  };
+  return (
+    <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>
+  );
 }
-
 export const useGlobalContext = () => useContext(GlobalContext);

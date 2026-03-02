@@ -14,14 +14,8 @@ export default function Leaderboard() {
   const [response, setResponse] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [teamName, setTeamName] = useState("");
-  const data = [
-    { username: "Venkat", team: "Zoho Schools", score: 1000 },
-    { username: "Arjun", team: "Zoho Corp", score: 950 },
-    { username: "Rahul", team: "Zoho Schools", score: 900 },
-    { username: "Karthik", team: "Zoho Corp", score: 850 },
-    { username: "Meena", team: "Zoho Schools", score: 800 },
-  ];
-  const sortedData = [...data].sort((a, b) => b.score - a.score);
+  const data = context.leaderboardData;
+  const sortedData = [...data].sort((a, b) => b.points - a.points);
   const getMedalColor = (rank) => {
     if (rank === 1) return "gold";
     if (rank === 2) return "silver";
@@ -86,7 +80,7 @@ export default function Leaderboard() {
                     <th>Rank</th>
                     <th>UserName</th>
                     <th>TeamName</th>
-                    <th>Score</th>
+                    <th>points</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -116,7 +110,7 @@ export default function Leaderboard() {
                         </td>
                         <td data-label="UserName">{user.username}</td>
                         <td data-label="TeamName">{user.team}</td>
-                        <td data-label="Score">{user.score}</td>
+                        <td data-label="points">{user.points}</td>
                       </tr>
                     );
                   })}

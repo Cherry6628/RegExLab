@@ -85,7 +85,7 @@
   background: var(--primary-bgcolor);
   padding: 30px;
   border-radius: 8px;
-  max-width: 700px;
+  max-width: 1000px;
   text-align: center;
   color: var(--text-main);
   border: 2px solid var(--border-light);

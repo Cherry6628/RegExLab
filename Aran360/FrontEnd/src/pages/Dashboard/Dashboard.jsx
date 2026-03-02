@@ -4,7 +4,6 @@ import ProgressBar from "../../component/ProgressBar/ProgressBar";
 import Button from "../../component/Button/Button";
 import { useGlobalContext } from "../../modals/ContextProvider/ContextProvider";
 import { useNavigate } from "react-router-dom";
-
 export default function Dashboard() {
   const context = useGlobalContext();
   const navigate = useNavigate();
@@ -14,43 +13,36 @@ export default function Dashboard() {
     isLoggedIn && hasStarted && !context.lastLearnt?.page_id;
   const isInProgress =
     isLoggedIn && hasStarted && !!context.lastLearnt?.page_id;
-
   const currentTopicTitle = hasStarted
     ? Object.keys(context.learningData).find(
         (r) => context.learningData[r].url === context.lastLearnt.topic_url
       )
     : null;
-
   const currentTopicData = hasStarted
     ? Object.values(context.learningData).find(
         (t) => t.url === context.lastLearnt.topic_url
       )
     : null;
-
   const realPages = currentTopicData
     ? Object.keys(currentTopicData.subTitles).filter(
         (k) => currentTopicData.subTitles[k].comp
       )
     : [];
-
   const currentIndex = realPages.indexOf(context.lastLearnt?.page_id);
   const progressValue =
     currentIndex >= 0 ? Math.round((currentIndex / realPages.length) * 100) : 0;
-
   const labsAttemptedPct = context.labsStat.totalLabs
     ? (
         (context.labsStat.labsAttempted * 100) /
         context.labsStat.totalLabs
       ).toFixed(1)
     : "0.0";
-
   const labsAbandonedPct = context.labsStat.labsAttempted
     ? (
         (context.labsStat.labsAbandoned * 100) /
         context.labsStat.labsAttempted
       ).toFixed(1)
     : "0.0";
-
   function LearningStatus() {
     if (!isLoggedIn) {
       return (
@@ -101,18 +93,15 @@ export default function Dashboard() {
       </p>
     );
   }
-
   function WelcomeMessage() {
     if (!isLoggedIn) return <h1>Hello, Guest</h1>;
     const greeting = hasStarted ? "Welcome back, " : "Welcome, ";
     return <h1>{greeting + context.uname}</h1>;
   }
-
   function Tagline() {
     if (!isLoggedIn || !hasStarted) return null;
     return <p>You're doing a great job, keep it up!</p>;
   }
-
   return (
     <>
       <div style={{ height: "100px" }}>
@@ -136,7 +125,6 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
         <div className="lab">
           <div className="complete">
             <div className="labName">
@@ -159,7 +147,6 @@ export default function Dashboard() {
               <p>LABS COMPLETED</p>
             </div>
           </div>
-
           <div className="doLab">
             <div className="count">
               <p>LABS ATTEMPTED</p>
@@ -190,7 +177,9 @@ export default function Dashboard() {
             chance to shine!
           </p>
           <div className="quizButtons">
-            <Button onClick={() => navigate("/leaderboard")}>Climb the Ranks</Button>
+            <Button onClick={() => navigate("/leaderboard")}>
+              Climb the Ranks
+            </Button>
           </div>
         </div>
       </div>
