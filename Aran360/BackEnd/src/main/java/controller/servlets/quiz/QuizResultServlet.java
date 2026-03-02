@@ -28,12 +28,8 @@ public class QuizResultServlet extends HttpServlet {
 	public static int getResult(Map<Integer, String> answers) throws SQLException {
 		Connection con = DBService.getConnection();
 		int score = 0;
-
-		String query1 = "SELECT correct_index FROM quiz WHERE id = ?";
-		String query2 = "SELECT option_text FROM quiz_options WHERE quiz_id = ? AND option_order = ?";
-
-		try (PreparedStatement ps1 = con.prepareStatement(query1);
-				PreparedStatement ps2 = con.prepareStatement(query2)) {
+		try (PreparedStatement ps1 = con.prepareStatement("SELECT correct_index FROM quiz WHERE id = ?");
+				PreparedStatement ps2 = con.prepareStatement("SELECT option_text FROM quiz_options WHERE quiz_id = ? AND option_order = ?")) {
 
 			for (Entry<Integer, String> entry : answers.entrySet()) {
 				int quizId = entry.getKey();

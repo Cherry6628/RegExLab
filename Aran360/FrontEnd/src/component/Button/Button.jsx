@@ -14,7 +14,7 @@ export default function Button({
     async function onClickHandler() {
         if (clicked) return;
         setClicked(true);
-        await onClick();
+        if (onClick) await onClick();
         setClicked(false);
     }
     return (

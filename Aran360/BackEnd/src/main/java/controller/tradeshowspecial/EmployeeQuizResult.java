@@ -15,12 +15,126 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
-@WebServlet("/employee-test-result")
+@WebServlet("/employee-quiz-results")
 public class EmployeeQuizResult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static int getResult(Map<Integer, String> answers) throws SQLException {
+		Connection con = DBService.getConnection();
+		int score = 0;
+		try (PreparedStatement ps1 = con.prepareStatement("SELECT correct_index FROM quiz WHERE id = ?");
+				PreparedStatement ps2 = con.prepareStatement(
+						"SELECT option_text FROM quiz_options WHERE quiz_id = ? AND option_order = ?")) {
+
+			for (Entry<Integer, String> entry : answers.entrySet()) {
+				int quizId = entry.getKey();
+				String userAnswer = entry.getValue();
+
+				ps1.setInt(1, quizId);
+				ResultSet rs1 = ps1.executeQuery();
+
+				if (rs1.next()) {
+					int correctIndex = rs1.getInt("correct_index");
+					System.out.println("Correct Index: " + correctIndex);
+
+					ps2.setInt(1, quizId);
+					ps2.setInt(2, correctIndex);
+					ResultSet rs2 = ps2.executeQuery();
+					if (rs2.next()) {
+						String correctOption = rs2.getString("option_text");
+						System.out.println("Correct Option: '" + correctOption + "'");
+
+						String trimmedUserAnswer = userAnswer.trim();
+						String trimmedCorrectOption = correctOption.trim();
+						if (trimmedCorrectOption.equals(trimmedUserAnswer))
+							score++;
+					}
+					rs2.close();
+				}
+				rs1.close();
+			}
+
+			return score;
+		}
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String csrfNew = CSRFService.setCSRFToken(request);
+		String username = (String) request.getAttribute("AUTHENTICATED_USER");
+
+		if (username == null) {
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Not Authenticated", csrfNew).toString());
+			return;
+		}
+
+		Connection con = DBService.getConnection();
+		JSONObject json = new JSONObject();
+
+		try (PreparedStatement ps = con
+				.prepareStatement("SELECT score, time FROM " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS
+						+ " WHERE user_id=(SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username=?)")) {
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int score = rs.getInt("score");
+				int time = rs.getInt("time");
+				double points = (100.0 * score) / time;
+				json.put("points", points);
+			} else {
+				json.put("points", -1);
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong", csrfNew).toString());
+			return;
+		}
+		try (PreparedStatement ps = con
+				.prepareStatement("SELECT u.username, e.team, e.score, e.time, (100.0 * e.score / e.time) as points "
+						+ "FROM " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS + " e " + "JOIN "
+						+ ParamsAndDBLoader.TABLE_USERS + " u ON e.user_id = u.id "
+						+ "ORDER BY points DESC LIMIT 10")) {
+			ResultSet rs = ps.executeQuery();
+
+			org.json.JSONArray topUsers = new org.json.JSONArray();
+			while (rs.next()) {
+				JSONObject user = new JSONObject();
+				user.put("username", rs.getString("username"));
+				user.put("team", rs.getString("team"));
+				user.put("points", rs.getDouble("points"));
+				topUsers.put(user);
+			}
+			json.put("topUsers", topUsers);
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong", csrfNew).toString());
+			return;
+		}
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter()
+				.write(JSONResponse.response(JSONResponse.SUCCESS, "Data retrieved", csrfNew, json).toString());
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -33,7 +147,6 @@ public class EmployeeQuizResult extends HttpServlet {
 					.write(JSONResponse.response(JSONResponse.ERROR, "Not Authenticated", csrfNew).toString());
 			return;
 		}
-
 		Connection con = DBService.getConnection();
 		try (PreparedStatement ps = con
 				.prepareStatement("SELECT * FROM " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS
@@ -56,55 +169,87 @@ public class EmployeeQuizResult extends HttpServlet {
 		StringBuilder sb = new StringBuilder();
 		BufferedReader reader = request.getReader();
 		String line;
-		while ((line = reader.readLine()) != null)
+		while ((line = reader.readLine()) != null) {
 			sb.append(line);
+		}
+		reader.close();
 		JSONObject body = new JSONObject(sb.toString());
-		String team = (String) request.getAttribute("TEAM_NAME");
-		if (team == null) {
-			response.getWriter()
-					.write(JSONResponse.response(JSONResponse.ERROR, "Team Name Required", csrfNew).toString());
-			return;
+
+		Map<Integer, String> answers = new HashMap<>();
+
+		for (String key : body.keySet()) {
+			if (key.equals("csrfToken"))
+				continue;
+			try {
+				int quizId = Integer.parseInt(key);
+				String answer = body.getString(key);
+				answers.put(quizId, answer);
+			} catch (NumberFormatException e) {
+				continue;
+			}
 		}
 
-		long start = -1;
 		try {
-			start = (long) request.getAttribute("START_TIME");
-		} catch (Exception e) {
-		}
-		if (start == -1) {
-			response.getWriter()
-					.write(JSONResponse.response(JSONResponse.ERROR, "Starting Time Required", csrfNew).toString());
-			return;
-		}
+			int result = getResult(answers);
+			String team = (String) request.getAttribute("TEAM_NAME");
+			if (team == null) {
+				response.getWriter()
+						.write(JSONResponse.response(JSONResponse.ERROR, "Team Name Required", csrfNew).toString());
+				return;
+			}
 
-		int score = body.getInt("score"); // TODO
-		int time = (int) (end - start);
-		team = team.strip();
-		try (PreparedStatement ps = con
-				.prepareStatement("INSERT INTO IGNORE " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS
-						+ "(user_id, team, score, time) VALUES ((SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS
-						+ " WHERE username=?), ?, ?, ?)")) {
-			ps.setString(1, username);
-			ps.setString(2, team);
-			ps.setInt(3, score);
-			ps.setInt(4, time);
-			ps.executeUpdate();
-			response.setStatus(201);
-			JSONObject json = new JSONObject();
-			json.put("score", score);
-			json.put("time", time);
-			json.put("points", (1.0 * score) / time);
-			response.getWriter()
-					.write(JSONResponse.response(JSONResponse.SUCCESS, "Updated", csrfNew, json).toString());
-			return;
-		} catch (Exception e) {
+			long start = -1;
+			try {
+				start = (long) request.getAttribute("START_TIME");
+			} catch (Exception e) {
+			}
+			if (start == -1) {
+				response.getWriter()
+						.write(JSONResponse.response(JSONResponse.ERROR, "Starting Time Required", csrfNew).toString());
+				return;
+			}
+
+			int score = result;
+			int time = (int) (end - start);
+			team = team.strip();
+			try (PreparedStatement ps = con
+					.prepareStatement("INSERT IGNORE INTO " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS
+							+ "(user_id, team, score, time) VALUES ((SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS
+							+ " WHERE username=?), ?, ?, ?)")) {
+				ps.setString(1, username);
+				ps.setString(2, team);
+				ps.setInt(3, score);
+				ps.setInt(4, time);
+				ps.executeUpdate();
+				response.setStatus(201);
+				JSONObject json = new JSONObject();
+				json.put("score", score);
+				json.put("time", time);
+				json.put("points", (100.0 * score) / time);
+				json.put("correctAnswerCount", result);
+				json.put("totalQuestions", answers.size());
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(
+						JSONResponse.response(JSONResponse.SUCCESS, "Answers Validated", csrfNew, json).toString());
+				return;
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.setStatus(500);
+				response.getWriter()
+						.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong", csrfNew).toString());
+				return;
+			}
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-			response.setStatus(500);
-			response.getWriter()
-					.write(JSONResponse.response(JSONResponse.ERROR, "Something went wrong", csrfNew).toString());
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(JSONResponse
+					.response(JSONResponse.ERROR, "Something went wrong, Please try again later.", csrfNew).toString());
 			return;
 		}
 
 	}
-
 }
