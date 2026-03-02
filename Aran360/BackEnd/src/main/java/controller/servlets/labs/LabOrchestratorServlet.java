@@ -77,37 +77,63 @@ public class LabOrchestratorServlet extends HttpServlet {
 
 			try {
 				String username = (String) req.getAttribute("AUTHENTICATED_USER");
+
 				if (username != null) {
+
 					Connection con = DBService.getConnection();
 
 					PreparedStatement userPs = con.prepareStatement(
 							"SELECT id FROM " + ParamsAndDBLoader.TABLE_USERS + " WHERE username = ?");
 					userPs.setString(1, username);
-					ResultSet rs = userPs.executeQuery();
+					ResultSet userRs = userPs.executeQuery();
 
-					if (rs.next()) {
-						int userId = rs.getInt("id");
-						System.out.println(userId);
-						PreparedStatement ps = con.prepareStatement(
-								"INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS + " (user_id, lab_id, status) "
-										+ " SELECT ?, l.id, 'Attempted' FROM " + ParamsAndDBLoader.TABLE_LABS
-										+ " l WHERE l.image = ? " + " ON DUPLICATE KEY UPDATE "
-										+ " status = 'Attempted', " + " attempted_at = CURRENT_TIMESTAMP");
-						ps.setInt(1, userId);
-						ps.setString(2, labName);
-						System.out.println("Lab: " + labName);
+					if (userRs.next()) {
 
-						ps.executeUpdate();
-						
-						
-						try{ps.getWarnings().iterator().forEachRemaining(new Consumer() {
-							public void accept(Object t) {
-								System.out.println(t.toString());
+						int userId = userRs.getInt("id");
+
+						PreparedStatement labPs = con.prepareStatement(
+								"SELECT id FROM " + ParamsAndDBLoader.TABLE_LABS + " WHERE image = ?");
+						labPs.setString(1, labName);
+						ResultSet labRs = labPs.executeQuery();
+
+						if (labRs.next()) {
+
+							int labId = labRs.getInt("id");
+
+							PreparedStatement checkPs = con.prepareStatement("SELECT id FROM "
+									+ ParamsAndDBLoader.TABLE_LAB_ATTEMPTS + " WHERE user_id = ? AND lab_id = ?");
+							checkPs.setInt(1, userId);
+							checkPs.setInt(2, labId);
+
+							ResultSet checkRs = checkPs.executeQuery();
+
+							if (checkRs.next()) {
+
+								PreparedStatement updatePs = con
+										.prepareStatement("UPDATE " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
+												+ " SET status = 'Attempted', attempted_at = CURRENT_TIMESTAMP "
+												+ " WHERE user_id = ? AND lab_id = ?");
+								updatePs.setInt(1, userId);
+								updatePs.setInt(2, labId);
+
+								updatePs.executeUpdate();
+								System.out.println("Updated existing attempt");
+								
+							} else {
+
+								PreparedStatement insertPs = con
+										.prepareStatement("INSERT INTO " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS
+												+ " (user_id, lab_id, status) VALUES (?, ?, 'Attempted')");
+								insertPs.setInt(1, userId);
+								insertPs.setInt(2, labId);
+
+								insertPs.executeUpdate();
+								System.out.println("Inserted new attempt");
 							}
-						});}catch(Exception e) {
-							e.printStackTrace();
+
+						} else {
+							System.out.println("Lab not found.");
 						}
-						System.out.println("LAB inserted");
 					}
 				}
 			} catch (Exception e) {
