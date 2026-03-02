@@ -90,12 +90,9 @@ public class EmployeeQuizResult extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		JSONObject json = new JSONObject();
+		Connection con = DBService.getConnection()
+		try {
 
-		try (Connection con = DBService.getConnection()) {
-
-			/*
-			 * ========================= 1️⃣ Always Fetch Top 10 =========================
-			 */
 			try (PreparedStatement ps = con.prepareStatement("SELECT u.username, e.team, "
 					+ "(100000.0 * e.score / NULLIF(e.time,0)) AS points " + "FROM "
 					+ ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS + " e " + "JOIN " + ParamsAndDBLoader.TABLE_USERS

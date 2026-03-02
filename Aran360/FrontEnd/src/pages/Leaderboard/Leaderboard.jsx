@@ -64,7 +64,7 @@ export default function Leaderboard() {
               <div>
                 <h1>TradeShow Special LeaderBoard</h1>
                 <p>
-                  Competitive ranking of elite security speciality worldwide.
+                  Competitive ranking of elite security speciality.
                 </p>
               </div>
               <div>
@@ -78,9 +78,9 @@ export default function Leaderboard() {
                 <thead>
                   <tr>
                     <th>Rank</th>
-                    <th>UserName</th>
-                    <th>TeamName</th>
-                    <th>points</th>
+                    <th>Username</th>
+                    <th>Team Name</th>
+                    <th>Points</th>
                   </tr>
                 </thead>
                 <tbody>
