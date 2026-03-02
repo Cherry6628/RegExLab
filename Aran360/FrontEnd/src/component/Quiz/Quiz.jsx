@@ -17,6 +17,7 @@ export default function Quiz({
   next = () => {},
   length,
   time,
+  url,
 }) {
   hasCode = hasCode == 1;
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function Quiz({
       setSelected(null);
     }
     async function getResult(answers) {
-      await backendFetch("/quiz-results", {
+      await backendFetch(url || "/quiz-results", {
         method: "POST",
         body: answers,
       })

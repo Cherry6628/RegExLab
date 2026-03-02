@@ -69,7 +69,7 @@
     font-size: 13px;
   }
 }
-#leaderboard .popup-overlay {
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -81,22 +81,24 @@
   align-items: center;
   z-index: 1000;
 }
-
-#leaderboard .popup {
-  background: white;
+.popup {
+  background: var(--primary-bgcolor);
   padding: 30px;
   border-radius: 8px;
-  width: 300px;
+  max-width: 700px;
   text-align: center;
+  color: var(--text-main);
+  border: 2px solid var(--border-light);
 }
-
-#leaderboard .popup input {
+.popup input {
   width: 100%;
-  padding: 8px;
+  padding: 10px 15px;
   margin: 15px 0;
+  font-size: var(--semi-normal-size);
+  border-radius: 12px;
 }
-
-#leaderboard .popup-buttons {
+.popup-buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }

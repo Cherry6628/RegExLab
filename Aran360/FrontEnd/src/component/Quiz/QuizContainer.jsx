@@ -3,7 +3,7 @@ import Quiz from "./Quiz";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../Toast/ToastContext";
 import { error } from "../../utils/params";
-export default function QuizContainer({ quiz }) {
+export default function QuizContainer({ quiz, url="/quiz-results" }) {
     const navigate = useNavigate();
     const {showToast} = useToast();
     console.log(quiz);
@@ -16,7 +16,7 @@ export default function QuizContainer({ quiz }) {
     const incrementQuestion = () => setCurrentQuestion(currentQuestion + 1);
     const start = Date.now();
     return (
-        <Quiz
+        <Quiz url={url}
             {...quiz[currentQuestion]}
             length={length}
             time={start}

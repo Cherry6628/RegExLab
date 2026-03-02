@@ -24,8 +24,15 @@ import org.json.JSONObject;
 
 @WebServlet("/employee-quiz-results")
 public class EmployeeQuizResult extends HttpServlet {
+	private static class Team{
+		String team; long time;
+		Team(String team, long time){this.team=team;this.time=time;}
+	}
+	private static HashMap<String, Team> map = new HashMap<>();
 	private static final long serialVersionUID = 1L;
-
+	public static void updateTeam(String username, String team, long time){
+		map.put(username, new Team(team, time));
+	}
 	public static int getResult(Map<Integer, String> answers) throws SQLException {
 		Connection con = DBService.getConnection();
 		int score = 0;
@@ -191,18 +198,16 @@ public class EmployeeQuizResult extends HttpServlet {
 
 		try {
 			int result = getResult(answers);
-			String team = (String) request.getAttribute("TEAM_NAME");
+			Team t = map.get(username);
+			map.remove(username);
+			String team = t.team;
+			System.out.println("team: "+team);
 			if (team == null) {
 				response.getWriter()
 						.write(JSONResponse.response(JSONResponse.ERROR, "Team Name Required", csrfNew).toString());
 				return;
 			}
-
-			long start = -1;
-			try {
-				start = (long) request.getAttribute("START_TIME");
-			} catch (Exception e) {
-			}
+			long start = t.time;
 			if (start == -1) {
 				response.getWriter()
 						.write(JSONResponse.response(JSONResponse.ERROR, "Starting Time Required", csrfNew).toString());

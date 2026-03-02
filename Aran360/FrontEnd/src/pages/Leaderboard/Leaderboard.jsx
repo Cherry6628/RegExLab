@@ -74,10 +74,7 @@ export default function Leaderboard() {
                 </p>
               </div>
               <div>
-                <Button
-                   onClick={openTeamPopup} 
-                  icon="content_paste_go"
-                >
+                <Button onClick={openTeamPopup} icon="content_paste_go">
                   Start Quiz
                 </Button>
               </div>
@@ -100,7 +97,7 @@ export default function Leaderboard() {
                       <tr key={index} className={rank <= 3 ? "top-rank" : ""}>
                         <td
                           data-label="Rank"
-                          style={{ display: "flex", alignItems: "center" }}
+                          style={{ display: "flex", alignItems: "center",justifyContent: "center" }}
                         >
                           {rank <= 3 && (
                             <MilitaryTechIcon
@@ -129,7 +126,9 @@ export default function Leaderboard() {
           </>
         </div>
       )}
-      {display == 1 && <QuizContainer quiz={response.questions} />}
+      {display == 1 && (
+        <QuizContainer quiz={response.questions} url="/employee-quiz-results" />
+      )}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup">

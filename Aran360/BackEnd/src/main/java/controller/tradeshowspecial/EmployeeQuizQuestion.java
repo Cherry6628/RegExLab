@@ -70,8 +70,10 @@ public class EmployeeQuizQuestion extends HttpServlet {
 			return;
 		}
 		long start = System.currentTimeMillis();
-		request.setAttribute("START_TIME", start);
-		request.setAttribute("TEAM_NAME", team);
+		// request.setAttribute("START_TIME", start);
+		// request.setAttribute("TEAM_NAME", team);
+		EmployeeQuizResult.updateTeam((String)request.getAttribute("AUTHENTICATED_USER"), team, start);
+		System.out.println("Team name set: "+team+" start: "+start);
 		try {
 			List<Quiz> question = getQuiz();
 			JSONArray questionsArray = new JSONArray();
