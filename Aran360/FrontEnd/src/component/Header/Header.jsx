@@ -130,7 +130,7 @@ export default function Header() {
                     closeAll();
                   }}
               >
-                LeaderBoard
+                Leaderboard
               </NavLink>
             </li>
             <li ref={profileRef} className="navitem-container">
