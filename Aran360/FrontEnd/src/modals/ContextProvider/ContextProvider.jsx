@@ -22,6 +22,7 @@ import MultiFactor from "../../component/LearningMaterials/Authentication/MultiF
 import OtherAuth from "../../component/LearningMaterials/Authentication/OtherAuth";
 import SecureAuthentication from "../../component/LearningMaterials/Authentication/SecureAuthentication";
 import { backendFetch } from "../../utils/helpers";
+import RaceCondition from "../../component/LearningMaterials/RaceCondition/RaceCondition";
 
 const GlobalContext = createContext();
 
@@ -145,7 +146,7 @@ export default function ContextProvider({ children }) {
                 },
             },
         },
-        Authentication: {
+        "Authentication": {
             url: "authentication",
             subTitles: {
                 Authentication: { comp: Authentication },
@@ -164,9 +165,12 @@ export default function ContextProvider({ children }) {
             url: "path-traversal",
             subTitles: {
                 "Path Traversal": { comp: PathTraversalMaterial },
-                // "View All XSS Labs": {
-                //     url: frontendbasename + "all-labs#path-traversal",
-                // },
+            },
+        },
+        "Race Condition": {
+            url: "race-condition",
+            subTitles: {
+                "Race Condition": { comp: RaceCondition },
             },
         },
     };

@@ -11,6 +11,7 @@ import { useGlobalContext } from "../ContextProvider/ContextProvider";
 import AllLabs from "../../pages/AllLabs/AllLabs";
 import Redirect from "../../component/Redirect/Redirect";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
+import Leaderboard from "../../pages/Leaderboard/Leaderboard";
 export default function NavigationModal() {
     const context = useGlobalContext();
 
@@ -40,6 +41,7 @@ export default function NavigationModal() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/all-labs" element={<AllLabs />} />
                 <Route path="/test" element={<QuizMain />} />
+                <Route path="/leaderboard" element={<Leaderboard/>} />
                 <Route path="/result" element={<QuizResult />} />
                 <Route path="/" element={<Redirect path="/dashboard" />} />
                 <Route path="*" element={<NotFound_404 />} />

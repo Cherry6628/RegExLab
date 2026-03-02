@@ -23,11 +23,13 @@ export default function Quiz({
   const [count, setCount] = useState(0);
   const [answer, setAnswer] = useState({});
   const [selected, setSelected] = useState(null);
-  const [data,setData] = useState(null);
+  const [data, setData] = useState(null);
+  const [hide, setHide] = useState(false);
   const handleSubmit = async () => {
     if (!selected) {
       return;
     }
+    setHide(false);
     const updatedAnswer = {
       ...answer,
       [qid]: selected,
@@ -55,8 +57,7 @@ export default function Quiz({
     }
   };
   let ques = {
-    question: question,
-    options: options,
+    id: qid,
   };
   async function getHint(ques) {
     await backendFetch("/quiz-hint", {
@@ -66,6 +67,7 @@ export default function Quiz({
       .then((res) => {
         let result = JSON.parse(res.response);
         setData(result.explanation);
+        setHide(true);
         console.log(result);
       })
       .catch((err) => {
@@ -117,6 +119,8 @@ export default function Quiz({
           Submit
         </Button>
         <Button
+          disabled={hide}
+          style={{ cursor: hide ? "not-allowed" : "pointer" }}
           onClick={async () => {
             await getHint(ques);
           }}
@@ -125,9 +129,11 @@ export default function Quiz({
           Get Hint{" "}
         </Button>
       </div>
-      <div className="hint">
-        <p>{data}</p>
-      </div>
+      {hide && (
+        <div id="hintBox" className="hint">
+          <p>{data}</p>
+        </div>
+      )}
     </div>
   );
 }

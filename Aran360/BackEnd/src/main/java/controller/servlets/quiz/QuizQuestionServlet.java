@@ -29,13 +29,11 @@ public class QuizQuestionServlet extends HttpServlet {
 		String query2 = "SELECT * from quiz_options where quiz_id = ?";
 		try (PreparedStatement ps = con.prepareStatement(query); PreparedStatement ps1 = con.prepareStatement(query1);PreparedStatement ps2 = con.prepareStatement(query2)){
 			ps.setString(1, name);
-			// System.out.println(name);
 			ResultSet rs = ps.executeQuery();
 			int id = 0;
 			if(rs.next()) {
 				id = rs.getInt("id");
    			}
-			// System.out.println(id);
 			ps1.setInt(1, id);
 			ResultSet rs1 = ps1.executeQuery();
 			while(rs1.next()) {
@@ -59,7 +57,6 @@ public class QuizQuestionServlet extends HttpServlet {
 					options.add(option);
 				}
 				Quiz q = new Quiz(qid, topicId, headline, description, question, language, hasCode, code, options);
-				// System.out.println(q);
 				questions.add(q);
 			}
 			return questions;
@@ -78,7 +75,6 @@ public class QuizQuestionServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Topic is missing");
 		    return;
 		}
-		// System.out.println(title);
 		try {
 			List<Quiz> question = getQuiz(title);
 			JSONArray questionsArray = new JSONArray();
@@ -95,7 +91,6 @@ public class QuizQuestionServlet extends HttpServlet {
 			    qJson.put("options", q.getOptions());
 			    questionsArray.put(qJson);
 			}
-
 			JSONObject responseData = new JSONObject();
 			responseData.put("questions", questionsArray);
 	        response.setContentType("application/json");
