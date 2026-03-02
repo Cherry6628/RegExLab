@@ -1,7 +1,7 @@
 #all-labs .lab-list {
-    margin-left: 320px !important;
+    margin-left: 16.666666666666668vw !important;
 
-    width: calc(100vw - 320px);
+    width: calc(100vw - 16.666666666666668vw);
 }
 
 @media only screen and (max-width: 1024px) {

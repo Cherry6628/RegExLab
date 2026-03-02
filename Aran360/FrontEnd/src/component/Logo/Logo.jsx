@@ -27,7 +27,7 @@ export default function Logo({ showTitle = true, showTagline = true }) {
                                 fontSize: "var(--normal-size)",
                                 fontWeight: "800",
                                 color: "var(--text-main)",
-                                letterSpacing: "-0.5px",
+                                letterSpacing: "-0.026041666666666668vw",
                             }}
                         >
                             Aran&nbsp;360

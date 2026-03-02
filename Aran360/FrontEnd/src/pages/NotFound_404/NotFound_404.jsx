@@ -9,13 +9,13 @@ export default function NotFound_404() {
     };
     return (
         <>
-            <div style={{ height: "100px" }}>
+            <div style={{ height: "5.208333333333334vw" }}>
                 <Header />
             </div>
             <div id="notFound">
                 <h1 className="found">404</h1>
                 <h1>Not Found</h1>
-                <p style={{ width: "min(535px, 100%)" }}>
+                <p style={{ width: "min(27.864583333333336vw, 100%)" }}>
                     The resource you are looking for has been moved, deleted, or
                     never existed. please verify the URL and try again.
                 </p>

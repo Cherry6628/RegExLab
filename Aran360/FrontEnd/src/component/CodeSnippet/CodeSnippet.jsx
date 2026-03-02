@@ -16,7 +16,7 @@ function CodeSnippet({ code, language }) {
         codeTagProps={{ style: { fontSize: "var(--default-size)" } }}
         className="codeBlock"
         lineNumberStyle={{
-          minWidth: "50px",
+          minWidth: "2.604166666666667vw",
           marginRight: "0.625vw",
           borderRight: "0.052083333333333336vw solid var( --border-light)",
           textAlign: "center",

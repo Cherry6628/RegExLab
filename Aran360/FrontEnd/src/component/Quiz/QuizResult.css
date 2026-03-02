@@ -25,7 +25,7 @@
     background-color: transparent !important;
     font-size: var(--large-size) !important;
     padding: 0 !important;
-    margin-right: 2px;
+    margin-right: 0.10416666666666667vw;
 }
 #result .btns {
     display: flex;
@@ -48,7 +48,7 @@
 #result i {
     color: var(--action-color);
     font-size: var(--large-size);
-    margin-bottom: 8px;
+    margin-bottom: 0.4166666666666667vw;
 }
 #result p {
     color: var(--text-dim);
@@ -63,28 +63,28 @@
     padding: 1.0416666666666667vw;
 }
 #result .percentage {
-    border: 2px solid var(--border-light);
+    border: 0.10416666666666667vw solid var(--border-light);
     border-radius: 0.625vw;
-    padding: 50px;
+    padding: 2.604166666666667vw;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--primary-bgcolor);
 }
 #result .perform {
-    border: 2px solid var(--border-light);
+    border: 0.10416666666666667vw solid var(--border-light);
     border-radius: 0.625vw;
-    padding: 30px;
+    padding: 1.5625vw;
     background-color: var(--primary-bgcolor);
 }
 #result .point {
-    border: 2px solid var(--border-light);
+    border: 0.10416666666666667vw solid var(--border-light);
     border-radius: 0.625vw;
     padding: 1.0416666666666667vw;
     background-color: var(--primary-bgcolor);
 }
 #result .time {
-    border: 2px solid var(--border-light);
+    border: 0.10416666666666667vw solid var(--border-light);
     border-radius: 0.625vw;
     padding: 1.0416666666666667vw;
     background-color: var(--primary-bgcolor);

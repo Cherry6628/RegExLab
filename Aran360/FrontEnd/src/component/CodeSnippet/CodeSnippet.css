@@ -3,7 +3,7 @@
   border: 0.052083333333333336vw solid var(--border-light);
   font-family: Inter, monospace !important;
   overflow: hidden;
-  width: min(100%, 1024px);
+  width: min(100%, 53.333333333333336vw);
   margin-bottom: 0.5208333333333334vw;
 }
 .header {

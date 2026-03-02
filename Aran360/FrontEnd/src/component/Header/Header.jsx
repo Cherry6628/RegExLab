@@ -139,7 +139,7 @@ export default function Header() {
                   <span
                     className="material-symbols-outlined"
                     style={{
-                      fontSize: "40px",
+                      fontSize: "2.0833333333333335vw",
                       cursor: "pointer",
                     }}
                     onClick={(e) => {
@@ -152,7 +152,7 @@ export default function Header() {
                   <ul
                     className={`dropdown-menu ${profileOpen ? "show" : ""}`}
                     style={{
-                      width: "100px",
+                      width: "5.208333333333334vw",
                       marginTop: "0.78125vw !important",
                     }}
                   >

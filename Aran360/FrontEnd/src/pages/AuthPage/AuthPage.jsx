@@ -22,6 +22,7 @@ export default function AuthPage() {
                                 transform: "scale(19)",
                                 zIndex: -1,
                                 color: "var(--action-color2)",
+                                fontSize: "var(--semi-large-size)",
                             }}
                         >
                             fingerprint
@@ -63,8 +64,7 @@ export default function AuthPage() {
                     ©&nbsp;2026&nbsp;Aran&nbsp;360&nbsp;
                     All&nbsp;rights&nbsp;reserved.
                 </p>
-                <div className="auth-legal-links">
-                </div>
+                <div className="auth-legal-links"></div>
             </footer>
         </div>
     );

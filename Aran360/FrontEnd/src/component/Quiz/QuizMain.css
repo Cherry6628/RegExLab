@@ -5,23 +5,23 @@
 }
 #QuizMain {
     width: 100vw;
-    padding: 30px;
+    padding: 1.5625vw;
 }
 #QuizMain .separate {
     display: grid;
     width: 90%;
-    max-width: 1500px;
+    max-width: 78.125vw;
     margin: 0 auto;
-    grid-template-columns: repeat(auto-fit, 420px);
+    grid-template-columns: repeat(auto-fit, 21.875vw);
     justify-content: center;
-    gap: 30px;
-    padding-bottom: 50px;
+    gap: 1.5625vw;
+    padding-bottom: 2.604166666666667vw;
 }
 #QuizMain p {
     color: var(--text-dim);
     text-align: center;
     margin-top: 1.0416666666666667vw;
-    margin-bottom: 30px;
+    margin-bottom: 1.5625vw;
     font-size: var(--normal-size);
 }
 #QuizMain h1 {

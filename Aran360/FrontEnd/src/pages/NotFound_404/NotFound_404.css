@@ -11,15 +11,15 @@
     font-size: var(--large-size);
 }
 #notFound .found {
-    font-size: 300px;
+    font-size: 15.625vw;
     opacity: 0.2;
     color: var(--action-color);
 }
-@media only screen and (max-width: 500px) {
+/* @media only screen and (max-width: 500px) {
     #notFound .found {
         font-size: 200px;
     }
-}
+} */
 #notFound p {
     color: var(--text-dim);
     font-size: var(--normal-size);

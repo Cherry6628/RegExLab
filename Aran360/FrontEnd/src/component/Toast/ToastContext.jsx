@@ -29,13 +29,13 @@ export function ToastProvider({ children }) {
                 className="toaster-wrapper"
                 style={{
                     position: "fixed",
-                    top: "124px",
-                    right: "24px",
+                    top: "6.458333333333334vw",
+                    right: "1.25vw",
                     zIndex: 9999,
                     display: "flex",
                     flexDirection: "column",
                     gap: "0.625vw",
-                    height: "350px",
+                    height: "18.229166666666668vw",
                     width: "fit-content",
                 }}
             >

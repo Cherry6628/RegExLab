@@ -11,13 +11,12 @@ export default function Icon({ size = "var(--large-size)" }) {
                 }}
             ></img> */}
             <svg
-                id="svg"
-                version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                width="50"
-                height="50"
-                viewBox="0, 0, 400,400"
+                viewBox="0 0 400 400"
+                style={{
+                    width: size,
+                    height: size,
+                }}
             >
                 <g id="svgg">
                     <path

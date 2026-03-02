@@ -35,7 +35,7 @@ export default function QuizResult() {
     };
     return (
         <>
-            <div style={{ height: "100px" }}>
+            <div style={{ height: "5.208333333333334vw" }}>
                 <Header />
             </div>
             <div id="result">

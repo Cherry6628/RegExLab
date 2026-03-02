@@ -59,12 +59,12 @@ body {
     --small-size: 0.6770833333333334vw;
     --label-size: 0.7291666666666667vw;
     --default-size: 0.8333333333333334vw;
-    --semi-normal-size: 19px;
+    --semi-normal-size: 0.9895833333333334vw;
     --normal-size: 1.0416666666666667vw;
-    --semi-large-size: 28px;
-    --large-size: 35px;
-    --semi-extra-large: 42px;
-    --extra-large-size: 50px;
+    --semi-large-size: 1.4583333333333335vw;
+    --large-size: 1.8229166666666667vw;
+    --semi-extra-large: 2.1875vw;
+    --extra-large-size: 2.604166666666667vw;
 
     --cb1: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -77,8 +77,10 @@ input::placeholder {
     background: transparent;
     color: inherit;
 }
-
 ::-moz-selection {
     background: transparent;
     color: inherit;
+}
+.material-symbols-outlined{
+    font-size: var(--large-size);
 }

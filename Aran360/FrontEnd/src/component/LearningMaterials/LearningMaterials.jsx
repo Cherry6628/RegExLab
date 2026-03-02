@@ -47,7 +47,7 @@ export default function LearningMaterials({ list, topic_url }) {
 
     return (
         <>
-            <div style={{ height: "100px" }}>
+            <div style={{ height: "5.208333333333334vw" }}>
                 <Header setActiveId={setActiveId} />
             </div>
             <div>
@@ -69,7 +69,7 @@ export default function LearningMaterials({ list, topic_url }) {
                     id="progress-trigger"
                     style={{
                         position: "relative",
-                        bottom: "200px",
+                        bottom: "10.416666666666668vw",
                         height: "0.052083333333333336vw",
                         backgroundColor: "transparent",
                         width: "100vw",

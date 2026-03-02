@@ -104,9 +104,9 @@ export default function ContextProvider({ children }) {
             setLastLearnt({ topic_url: r.topic_url, page_id });
         });
     }, []);
-    useEffect(() => {
-        fetchLeaderData();
-    });
+    // useEffect(() => {
+    //     fetchLeaderData();
+    // });
     const learningData = {
         "Cross Site Scripting (XSS)": {
             url: "xss",

@@ -1,13 +1,13 @@
 .login-container {
     width: 100%;
-    max-width: 480px;
-    background: var(--primary-bgcolor);
-    padding: 40px;
-    border-radius: 32px;
-    box-shadow: 0 1.0416666666666667vw 50px var(--shadow-dark);
+    max-width: 25.0vw;
+    background: 25.0vw(--primary-bgcolor);
+    padding: 2.0833333333333335vw;
+    border-radius: 1.6666666666666667vw;
+    box-shadow: 0 1.0416666666666667vw 2.604166666666667vw var(--shadow-dark);
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 1.5625vw;
 }
 
 .login-header {
@@ -60,7 +60,7 @@
 .login-input-group input {
     padding: 0.7291666666666667vw 0.9375vw;
     border-radius: 0.625vw;
-    border: 1.5px solid var(--border-light);
+    border: 0.078125vw solid var(--border-light);
     background-color: transparent;
     font-size: var(--label-size);
     outline: none;

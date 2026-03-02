@@ -55,7 +55,7 @@ export default function Profile() {
 
     return (
         <>
-            <div style={{ height: "100px" }}>
+            <div style={{ height: "5.208333333333334vw" }}>
                 <Header />
             </div>
             <div id="profile">

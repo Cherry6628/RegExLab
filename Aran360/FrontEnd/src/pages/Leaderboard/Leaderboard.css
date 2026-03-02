@@ -1,8 +1,8 @@
 #leaderboard .leaderboard-container {
-    width: 1200px;
+    width: 62.5vw;
     margin: 0 auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 2.0833333333333335vw;
+    margin-bottom: 2.0833333333333335vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,8 +25,8 @@
     font-size: 0.78125vw;
 }
 #leaderboard .table {
-    width: 1200px;
-    border: 2px solid var(--border-light);
+    width: 62.5vw;
+    border: 0.10416666666666667vw solid var(--border-light);
     border-radius: 0.625vw;
     margin: 0 auto;
 }
@@ -54,18 +54,18 @@
     }
     #leaderboard .leaderboard-table th,
     #leaderboard .leaderboard-table td {
-        padding: 0.4166666666666667vw 0.5208333333333334vw;
-        font-size: 0.7291666666666667vw;
+        padding: 8px 10px;
+        font-size: var(--label-size);
     }
 }
 @media screen and (max-width: 768px) {
     #leaderboard .table {
         width: 100%;
-        border: 0.052083333333333336vw solid var(--border-light);
+        border: 1px solid var(--border-light);
     }
     #leaderboard .leaderboard-table th,
     #leaderboard .leaderboard-table td {
-        padding: 0.4166666666666667vw 0.5208333333333334vw;
+        padding: 8px 10px;
         font-size: var(--small-size);
     }
 }
@@ -83,12 +83,12 @@
 }
 .popup {
     background: var(--primary-bgcolor);
-    padding: 30px;
+    padding: 1.5625vw;
     border-radius: 0.4166666666666667vw;
-    max-width: 1000px;
+    max-width: 52.083333333333336vw;
     text-align: center;
     color: var(--text-main);
-    border: 2px solid var(--border-light);
+    border: 0.10416666666666667vw solid var(--border-light);
 }
 .popup input {
     width: 100%;

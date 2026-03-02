@@ -38,7 +38,7 @@ export default function Toast({
             onAnimationEnd={handleAnimationEnd}
         >
             <div className="toast-content">
-                <span className="material-symbols-rounded toast-icon">
+                <span className="material-symbols-outlined toast-icon">
                     {iconMap[type]}
                 </span>
                 <p className="toast-message">{message}</p>

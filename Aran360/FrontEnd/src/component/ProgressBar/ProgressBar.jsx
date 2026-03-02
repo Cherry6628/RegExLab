@@ -18,7 +18,7 @@ export default function ProgressBar({ answer, value, isPass }) {
     let color = isPass ? "var(--action-color)" : "var(--text-dim)";
     return (
         <>
-            <div className="answerType">
+            <div className="answerType" style={{fontSize: "var(--semi-large-size)"}}>
                 <div>{answer}</div>
                 <div>{progress.toFixed(1)}%</div>
             </div>

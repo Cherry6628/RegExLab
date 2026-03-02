@@ -1,14 +1,14 @@
 #dashboard {
   padding: 1.0416666666666667vw;
-  max-width: 1111px;
+  max-width: 57.864583333333336vw;
   margin: auto;
 }
 #dashboard .topBox {
   background: linear-gradient(90deg, #0e1f33 0%, #162447 50%, #1b1f4a 100%);
-  border: 2px solid var(--border-light);
+  border: 0.10416666666666667vw solid var(--border-light);
   border-radius: 0.625vw;
-  padding: 30px;
-  margin-bottom: 30px;
+  padding: 1.5625vw;
+  margin-bottom: 1.5625vw;
 }
 #dashboard .bar {
   flex: 1;
@@ -23,7 +23,7 @@
   background-color: var(--primary-bgcolor);
   border-radius: 0.625vw;
   padding: 1.0416666666666667vw;
-  border: 2px solid var(--border-light);
+  border: 0.10416666666666667vw solid var(--border-light);
 }
 #dashboard .goal p {
   color: var(--action-color);
@@ -32,8 +32,8 @@
 #dashboard hr {
   background-color: var(--border-light);
   width: 100%;
-  height: 3px;
-  border-radius: 999px;
+  height: 0.15625vw;
+  border-radius: 52.03125vw;
   margin-bottom: 1.0416666666666667vw;
 }
 #dashboard .complete {
@@ -73,9 +73,9 @@
 }
 #dashboard .lab {
   background-color: var(--primary-bgcolor);
-  border: 2px solid var(--border-light);
+  border: 0.10416666666666667vw solid var(--border-light);
   border-radius: 0.625vw;
-  padding: 50px;
+  padding: 2.604166666666667vw;
 }
 #dashboard .icon span {
   color: var(--action-color);
@@ -91,7 +91,7 @@
   flex-wrap: wrap;
 }
 #dashboard .count {
-  border: 2px solid var(--border-light);
+  border: 0.10416666666666667vw solid var(--border-light);
   border-radius: 0.625vw;
   margin-top: 1.0416666666666667vw;
   padding: 1.0416666666666667vw;
@@ -117,19 +117,13 @@
   font-size: var(--large-size);
 }
 @media only screen and (max-width: 920px) {
-  #dashboard .topBox {
-    justify-content: center;
-  }
   #dashboard .user {
-    margin-bottom: 1.0416666666666667vw;
+    margin-bottom: 20px;
   }
 }
 @media only screen and (max-width: 750px) {
-  #dashboard .complete {
-    justify-content: center;
-  }
   #dashboard .labCount {
-    margin-top: 1.0416666666666667vw;
+    margin-top: 20px;
   }
 }
 @media only screen and (max-width: 700px) {
@@ -139,20 +133,20 @@
 }
 @media only screen and (max-width: 440px) {
   #dashboard {
-    padding: 0.4166666666666667vw;
+    padding: 8px;
   }
 }
 @media only screen and (max-width: 400px) {
   #dashboard .lab {
-    padding: 0.5208333333333334vw;
+    padding: 10px;
   }
 }
 @media only screen and (max-width: 380px) {
   #dashboard .topBox {
-    padding: 0.5208333333333334vw;
+    padding: 10px;
   }
   #dashboard .goal {
-    padding: 0.5208333333333334vw;
+    padding: 10px;
   }
   #dashboard .user h1 {
     text-align: center;
@@ -165,11 +159,11 @@
   background-color: var(--primary-bgcolor);
   border-radius: 0.625vw;
   padding: 2.0833333333333335vw;
-  max-width: 1111px;
-  margin-top: 30px;
+  max-width: 57.864583333333336vw;
+  margin-top: 1.5625vw;
   color: #e0e7ff;
-  box-shadow: 0 6px 0.78125vw rgba(30, 64, 175, 0.5);
-  border: 1.5px solid var(--action-color);
+  box-shadow: 0 0.3125vw 0.78125vw rgba(30, 64, 175, 0.5);
+  border: 0.078125vw solid var(--action-color);
 }
 .quizTitle {
   margin: 0 0 0.7291666666666667vw 0;

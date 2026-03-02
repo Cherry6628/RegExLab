@@ -22,7 +22,7 @@ export default function ResetPassword() {
     async function sendResetReq() {
         const pass = pwd.current.value;
         const pass2 = repwd.current.value;
-        if (pass!=pass2){
+        if (pass != pass2) {
             await showToast("Password doesn't match", info);
             return;
         }
@@ -60,6 +60,7 @@ export default function ResetPassword() {
                                 transform: "scale(19)",
                                 zIndex: -1,
                                 color: "var(--action-color2)",
+                                fontSize: "var(--semi-large-size)",
                             }}
                         >
                             fingerprint
@@ -95,7 +96,7 @@ export default function ResetPassword() {
                 </div>
 
                 <div className="reset-form-section">
-                    <div style={{ height: "100px" }}>
+                    <div style={{ height: "5.208333333333334vw" }}>
                         <Header />
                     </div>
                     <div className="reset-container">

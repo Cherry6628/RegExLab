@@ -25,7 +25,7 @@ export default function AllLabs() {
     );
     return (
         <div id="all-labs">
-            <div style={{ height: "100px" }}>
+            <div style={{ height: "5.208333333333334vw" }}>
                 <Header />
             </div>
             <div
@@ -48,12 +48,12 @@ export default function AllLabs() {
                                     key={title}
                                     id={data.url}
                                     style={{
-                                        marginLeft: "0px",
+                                        marginLeft: "0",
                                         background: "none",
-                                        padding: "40px 40px 0",
+                                        padding: "2.0833333333333335vw 2.0833333333333335vw 0",
                                     }}
                                 >
-                                    <h1 style={{ color: "var(--text-main)" }}>
+                                    <h1 style={{ color: "var(--text-main)", fontSize: "var(--large-size)"}}>
                                         {title}
                                     </h1>
                                     {labList.map((lab) => (

@@ -89,7 +89,7 @@ export default function Quiz({
             : {
                 fontSize: "var(--large-size)",
                 textAlign: "center",
-                marginBottom: "40px",
+                marginBottom: "2.0833333333333335vw",
               }
         }
       >

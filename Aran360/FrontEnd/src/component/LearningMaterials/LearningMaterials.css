@@ -2,12 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scroll-margin-top: 100px;
+    scroll-margin-top: 5.208333333333334vw;
 }
 #learning-material-main-box {
     background-color: var(--secondary-bgcolor);
-    width: calc(100vw - 320px);
-    margin-left: 320px;
+    width: calc(100vw - 16.666666666666668vw);
+    margin-left: 16.666666666666668vw;
 }
 @media only screen and (max-width: 1024px) {
     #learning-material-main-box {
@@ -21,14 +21,14 @@ body {
 }
 #learning-material-main-box h4 {
     color: var(--text-main);
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin-top: 0.4166666666666667vw;
+    margin-bottom: 0.4166666666666667vw;
     font-size: var(--normal-size);
 }
 #learning-material-main-box img {
-    width: min(1100px, 100%);
-    padding-top: 30px;
-    padding-bottom: 30px;
+    width: min(57.29166666666667vw, 100%);
+    padding-top: 1.5625vw;
+    padding-bottom: 1.5625vw;
     display: block;
     margin: 0 auto;
 }
@@ -36,12 +36,12 @@ body {
 #learning-material-main-box li {
     font-size: var(--normal-size);
     color: var(--text-dim);
-    line-height: 29px;
+    line-height: 1.5104166666666667vw;
 }
 #learning-material-main-box h3 {
     color: white;
     font-size: var(--semi-large-size);
-    margin-bottom: 7px;
+    margin-bottom: 0.36458333333333337vw;
     margin-top: 0.5208333333333334vw;
 }
 #learning-material-main-box .labbox h3 {
@@ -51,7 +51,7 @@ body {
     margin-top: 0.78125vw;
 }
 #learning-material-main-box li + li {
-    margin-top: 5px;
+    margin-top: 0.026041666666666668vw;
 }
 #learning-material-main-box section h1 {
     font-size: var(--large-size);
@@ -60,18 +60,18 @@ body {
     color: var(--text-main);
 }
 #learning-material-main-box .mainbar {
-    padding: 30px;
-    padding-left: 60px;
-    padding-right: 80px;
+    padding: 1.5625vw;
+    padding-left: 3.125vw;
+    padding-right: 4.166666666666667vw;
 }
 #learning-material-main-box section ul {
     margin-top: 1.0416666666666667vw;
-    margin-left: 100px;
+    margin-left: 5.208333333333334vw;
     margin-bottom: 0.5208333333333334vw;
 }
 #learning-material-main-box section ol {
     margin-top: 1.0416666666666667vw;
-    margin-left: 100px;
+    margin-left: 5.208333333333334vw;
     margin-bottom: 0.5208333333333334vw;
 }
 #learning-material-main-box .labbox {
@@ -84,7 +84,7 @@ body {
     border: 0.052083333333333336vw solid var(--border-light);
 }
 #learning-material-main-box .labbox h1 {
-    margin-top: 5px !important;
+    margin-top: 0.026041666666666668vw !important;
     color: var(--text-main);
 }
 #learning-material-main-box .code {
@@ -107,7 +107,7 @@ body {
 }
 #learning-material-main-box .labbox ul li {
     text-decoration: underline;
-    text-underline-offset: 5px;
+    text-underline-offset: 0.026041666666666668vw;
 }
 #learning-material-main-box .labbox ul li:hover {
     color: white;
@@ -116,7 +116,7 @@ body {
     color: var(--text-main);
 }
 #learning-material-main-box u {
-    text-underline-offset: 5px;
+    text-underline-offset: 0.026041666666666668vw;
 }
 #learning-material-main-box u:hover {
     color: white;
@@ -127,9 +127,9 @@ body {
 }
 #learning-material-main-box span {
     background-color: var(--primary-bgcolor);
-    margin: 2px;
-    border-radius: 7px;
-    padding: 5px 7px;
+    margin: 0.10416666666666667vw;
+    border-radius: 0.36458333333333337vw;
+    padding: 0.026041666666666668vw 0.36458333333333337vw;
     color: white;
     font-weight: 600;
 }
@@ -137,20 +137,20 @@ body {
     background-color: unset;
 }
 #learning-material-main-box iframe {
-    width: min(1100px, 100%);
-    padding-top: 30px;
-    padding-bottom: 30px;
+    width: min(57.29166666666667vw, 100%);
+    padding-top: 1.5625vw;
+    padding-bottom: 1.5625vw;
     display: block;
     margin: 0 auto;
-    height: 680px;
+    height: 35.41666666666667vw;
 }
 #learning-material-main-box .query {
     margin-top: 0.5208333333333334vw;
     margin-bottom: 0.5208333333333334vw;
     color: var(--text-dim);
     font-size: var(--normal-size);
-    border: 2px solid var(--border-light);
+    border: 0.10416666666666667vw solid var(--border-light);
     padding: 0.5208333333333334vw;
     border-radius: 0.625vw;
-    line-height: 40px;
+    line-height: 2.0833333333333335vw;
 }

@@ -2,17 +2,17 @@
     margin-top: 1.0416666666666667vw;
     margin-bottom: 1.0416666666666667vw;
     border: 0.052083333333333336vw solid var(--border-light);
-    border-radius: 35px;
+    border-radius: 1.8229166666666667vw;
     display: flex;
 }
 #lab .leftColor {
-    padding: 0.78125vw 30px;
+    padding: 0.78125vw 1.5625vw;
     color: white;
     font-weight: bold;
     font-size: var(--default-size);
     background-color: var(--action-color);
-    border-top-left-radius: 35px;
-    border-bottom-left-radius: 35px;
+    border-top-left-radius: 1.8229166666666667vw;
+    border-bottom-left-radius: 1.8229166666666667vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
     color: var(--text-main) !important;
 }
 #lab .rightColor {
-    padding-left: 30px;
+    padding-left: 1.5625vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
