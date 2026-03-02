@@ -91,9 +91,9 @@ app.get("/search", (req, res) => {
 </html>`);
 });
 
-app.get("/", (req, res) => {
-    const fullPath = req.originalUrl || req.url;
-    const basePath = fullPath.endsWith('/') ? fullPath.slice(0, -1) : fullPath;
-    res.redirect(basePath + "/search");
-});
+app.get("/", (req, res) =>
+    res.send(
+        "<script>window.location.href=window.location.pathname+'/search'</script>",
+    ),
+);
 app.listen(3000, () => console.log("xss-reflected-1 running"));

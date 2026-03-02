@@ -6,15 +6,12 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-/* ============================= */
-
 const activeTokens = new Set();
 
 function partialEncode(str) {
   return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-/* ============================= */
 
 app.get("/", (req, res) => {
   const q = partialEncode(req.query.q || "");
@@ -60,7 +57,6 @@ ${q ? `<p>You searched for: ${q}</p>` : ""}
     }catch(e){}
   }
 
-  /* ========= HOOK COMMON SINKS ========= */
 
   const __realAlert = window.alert.bind(window);
   window.alert = function(...args){
@@ -110,7 +106,6 @@ ${q ? `<p>You searched for: ${q}</p>` : ""}
 </html>`);
 });
 
-/* ============================= */
 
 app.post("/complete", (req, res) => {
   const token = req.headers["x-lab-token"];
@@ -128,8 +123,6 @@ app.post("/complete", (req, res) => {
 
   res.json({ status: "ok" });
 });
-
-/* ============================= */
 
 
 app.listen(3000, () => console.log("xss-reflected-2 running"));

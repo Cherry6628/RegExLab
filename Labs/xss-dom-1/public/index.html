@@ -49,13 +49,15 @@
             if (e.key === "Enter") doSearch();
         });
 
-        // vulnerability — document.write with raw location.search
+        // vulnerability — innerHTML with raw location.search
+        // <script> won't execute via innerHTML — must use <img src=x onerror=alert(1)>
         const params = new URLSearchParams(window.location.search);
         const q = params.get("q");
         if (q) {
             document.getElementById("q").value = q;
-            document.write("<p class='result-text'>You searched for: " + q + "</p>");
-            document.write("<div class='no-results'>No products found.</div>");
+            document.getElementById("results").innerHTML =
+                "<p class='result-text'>You searched for: " + q + "</p>" +
+                "<div class='no-results'>No products found.</div>";
         }
     </script>    <script>
   const basePath = window.location.pathname.split("?")[0];
