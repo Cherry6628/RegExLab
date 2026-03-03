@@ -1,5 +1,3 @@
-import React from "react";
-
 const Spinner = ({
   size = 60,
   color = "#ffffff",

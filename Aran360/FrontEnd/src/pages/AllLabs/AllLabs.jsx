@@ -31,11 +31,11 @@ export default function AllLabs() {
             <div
                 style={{
                     width: "100vw",
-                    display: "flex",
-                    flexDirection: "row-reverse",
+                    // display: "flex",
+                    // flexDirection: "row-reverse",
                 }}
             >
-                <Sidebar list={sidebarList}></Sidebar>
+                {/* <Sidebar list={sidebarList}></Sidebar> */}
                 <div className="lab-list">
                     {Object.entries(context.learningData).map(
                         ([title, data]) => {

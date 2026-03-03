@@ -102,3 +102,41 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.my-rank-float {
+    position: fixed;
+    bottom: 1.5625vw;
+    right: 1.5625vw;
+    background: var(--primary-bgcolor);
+    border: 0.10416666666666667vw solid var(--border-light);
+    border-radius: 0.625vw;
+    padding: 0.78125vw 1.25vw;
+    display: flex;
+    align-items: center;
+    gap: 0.78125vw;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.my-rank-position {
+    font-size: var(--large-size);
+    font-weight: 700;
+    color: #1877f2;
+}
+
+.my-rank-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vw;
+}
+
+.my-rank-label {
+    font-size: var(--small-size);
+    color: var(--text-dim);
+}
+
+.my-rank-points {
+    font-size: var(--semi-normal-size);
+    color: var(--text-main);
+    font-weight: 600;
+}

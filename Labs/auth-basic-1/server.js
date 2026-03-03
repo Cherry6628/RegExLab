@@ -68,7 +68,7 @@ button:hover { background:#166fe0; }
     <input id="username" placeholder="Username" autocomplete="off"/>
     <input id="password" type="password" placeholder="Password"/>
     <button onclick="doLogin()">Login</button>
-    <p class="hint">Login as admin to access the admin panel.</p>
+    <p class="hint">Your Credentials: attacker/attacker123<br>Login as admin to access the admin panel.</p>
 </div>
 <script>
 const __base = window.location.pathname.replace(/\\/dashboard$/, "").replace(/\\/login/,"").replace(/\\/session-status/,"").replace(/\\/logout/,"").replace(/\\/inbox/,"").replace(/\\/2fa/,"").replace(/\\/complete/,"");

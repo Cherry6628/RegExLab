@@ -67,7 +67,7 @@ ${baseScript}
 <input id="username" placeholder="Username">
 <input id="password" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
-<small>attacker / attacker123</small>
+<small>Your Credentials: attacker/attacker123<br>Access Admin's Notes.</small>
 </div>
 <script>
 async function login() {

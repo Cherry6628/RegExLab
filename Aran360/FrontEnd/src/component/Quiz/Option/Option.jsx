@@ -13,7 +13,7 @@ export default function Option({
     children = addSpace(children, "-");
     return (
         <label htmlFor={id} className="box">
-            <p>{children}</p>
+            <p style={{fontSize: "var(--normal-size)"}}>{children}</p>
             <input
                 id={id}
                 name={name}

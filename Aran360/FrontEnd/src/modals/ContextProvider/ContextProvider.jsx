@@ -29,6 +29,7 @@ export default function ContextProvider({ children }) {
     const [email, setEmail] = useState(undefined);
     const [leaderboardData, setLeaderboardData] = useState([]);
     const [currentUserLeaderboardRank, setCurrentUserLeaderboardRank] = useState(-1);
+    const [currentUserLeaderboardData, setCurrentUserLeaderboardData] = useState({})
     const [darkTheme, setDarkTheme] = useState(true);
     const [labs, setLabs] = useState({});
     const [labsStat, setLabsStat] = useState({
@@ -42,11 +43,14 @@ export default function ContextProvider({ children }) {
         page_id: undefined,
     });
     const fetchLeaderData = () => {
-        backendFetch("/employee-quiz-results", { method: "GET" }).then((r) => {
-            console.log(r);
+        backendFetch("/employee-quiz-leaderboard").then((r) => {
+            console.log(r.currentUser);
             console.log(r.topUsers);
+            console.log(r)
             setLeaderboardData(r.topUsers);
-            setCurrentUserLeaderboardRank(r.rank);
+            setCurrentUserLeaderboardRank(r.currentUser?.rank||-1);
+            setCurrentUserLeaderboardData(r.currentIndex||{});
+
         });
     };
     const fetchUserData = () => {

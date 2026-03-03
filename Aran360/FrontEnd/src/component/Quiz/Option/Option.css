@@ -27,7 +27,7 @@
 .click:checked::after {
     content: "✔";
     color: var(--action-color2);
-    font-size: 250%;
+    font-size: max(250%, 1.3vw);
     position: absolute;
     bottom: -25%;
     left: 3%;
