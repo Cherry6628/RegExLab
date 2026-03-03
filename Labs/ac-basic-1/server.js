@@ -134,14 +134,23 @@ ${baseScript}
         container.appendChild(div);
     });
     if (data["Credentials"]) {
-        document.getElementById("solved").style.display = "block";
-        
+    document.getElementById("solved").style.display = "block";
+    const r = await fetch(__base + "/complete", { method: "POST" });
+    if (r.ok) {
+        await fetch("/lab/complete", { method: "POST" });
     }
+}
 })();
 </script>
 </body>
 </html>`);
 });
+app.post("/complete", (req, res) => {
+    if (!req.session.user)
+        return res.status(401).json({ error: "Unauthorized" });
+    res.json({ status: "ok" });
+});
+
 app.get("/api/user-notes", (req, res) => {
     if (!req.session.user)
         return res.status(401).json({ error: "Unauthorized" });

@@ -52,6 +52,15 @@ public class LabOrchestratorServlet extends HttpServlet {
 			labMap = new ConcurrentHashMap<>();
 			session.setAttribute(SESSION_LAB_MAP, labMap);
 		}
+		
+		for (Map.Entry<String, LabInstance> entry : labMap.entrySet()) {
+		    if (!entry.getKey().equals(labName)) {
+		        runtimeClient.cleanupLab(entry.getValue().containerId);
+		        LabRegistry.deregister(entry.getValue().containerId);
+		        labMap.remove(entry.getKey());
+		    }
+		}
+		
 		LabInstance existing = labMap.get(labName);
 		if (existing != null) {
 			if (!existing.isExpired()) {
@@ -66,6 +75,7 @@ public class LabOrchestratorServlet extends HttpServlet {
 			String containerName = runtimeClient.createLab(labName);
 			LabInstance lab = new LabInstance(labName, labName, containerName, ParamsAndDBLoader.LAB_TIMEOUT_SECONDS);
 			labMap.put(labName, lab);
+			session.setAttribute("ACTIVE_LAB", labName);
 			LabRegistry.register(containerName);
 			try {
 				String username = (String) req.getAttribute("AUTHENTICATED_USER");

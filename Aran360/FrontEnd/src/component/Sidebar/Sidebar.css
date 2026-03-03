@@ -105,7 +105,7 @@
     }
     .mobile-toggle-bar {
         display: flex;
-        margin-top: 100px;
+        margin-top: 5.208333333vw;
     }
     .mobile-toggle-bar.hidden {
         display: none;

@@ -33,27 +33,32 @@ public class LabComplete extends HttpServlet {
 
 		@SuppressWarnings("unchecked")
 		Map<String, LabInstance> labMap = (Map<String, LabInstance>) session.getAttribute("LAB_MAP");
-
+		System.out.println(labMap);
 		if (labMap == null || labMap.isEmpty()) {
 			response.getWriter()
 					.write(JSONResponse.response(JSONResponse.ERROR, "No active lab", csrfNew, null).toString());
 			return;
 		}
 
-		LabInstance activeLab = null;
-		for (LabInstance lab : labMap.values()) {
-			if (!lab.isExpired()) {
-				activeLab = lab;
-				break;
-			}
-		}
-
-		if (activeLab == null) {
+//		LabInstance activeLab = null;
+//		for (LabInstance lab : labMap.values()) {
+//			if (!lab.isExpired()) {
+//				activeLab = lab;
+//				break;
+//			}
+//		}
+		String activeLabName = (String) session.getAttribute("ACTIVE_LAB");
+		if (activeLabName == null) {
 			response.getWriter()
 					.write(JSONResponse.response(JSONResponse.ERROR, "No active lab", csrfNew, null).toString());
 			return;
 		}
-
+		LabInstance activeLab = labMap.get(activeLabName);
+		if (activeLab == null || activeLab.isExpired()) {
+			response.getWriter()
+					.write(JSONResponse.response(JSONResponse.ERROR, "Lab expired", csrfNew, null).toString());
+			return;
+		}
 		try {
 			String username = (String) request.getAttribute("AUTHENTICATED_USER");
 			if (username == null) {
@@ -74,7 +79,7 @@ public class LabComplete extends HttpServlet {
 				return;
 			}
 			int userId = rs.getInt("id");
-			System.out.println("userId: "+userId);
+			System.out.println("userId: " + userId);
 			PreparedStatement labPs = con
 					.prepareStatement("SELECT id FROM " + ParamsAndDBLoader.TABLE_LABS + " WHERE image = ?");
 			labPs.setString(1, activeLab.imageId);
@@ -88,7 +93,7 @@ public class LabComplete extends HttpServlet {
 			}
 
 			int labId = labRs.getInt("id");
-
+			System.out.println("ImageId: " + activeLab.imageId);
 			PreparedStatement checkPs = con.prepareStatement(
 					"SELECT id FROM " + ParamsAndDBLoader.TABLE_LAB_ATTEMPTS + " WHERE user_id = ? AND lab_id = ?");
 			checkPs.setInt(1, userId);
@@ -102,7 +107,7 @@ public class LabComplete extends HttpServlet {
 						+ " SET status = 'Completed', completed_at = NOW() " + " WHERE user_id = ? AND lab_id = ?");
 				updatePs.setInt(1, userId);
 				updatePs.setInt(2, labId);
-
+				System.out.println("updated");
 				updatePs.executeUpdate();
 
 			} else {
@@ -111,17 +116,15 @@ public class LabComplete extends HttpServlet {
 						+ " (user_id, lab_id, status, completed_at) VALUES (?, ?, 'Completed', NOW())");
 				insertPs.setInt(1, userId);
 				insertPs.setInt(2, labId);
-
+				System.out.println("inserted");
 				insertPs.executeUpdate();
 			}
 			response.getWriter()
-			.write(JSONResponse
-					.response(JSONResponse.SUCCESS, "Status Updated", csrfNew, null)
-					.toString());
-			System.out.println("COmpleted: "+labId+" "+activeLab);
+					.write(JSONResponse.response(JSONResponse.SUCCESS, "Status Updated", csrfNew, null).toString());
+			System.out.println("COmpleted: " + labId + " " + activeLab.imageId);
 			return;
 		} catch (Exception e) {
-			System.out.println(activeLab+" error labid");
+			System.out.println(activeLab + " error labid");
 			e.printStackTrace();
 			response.getWriter()
 					.write(JSONResponse

@@ -116,11 +116,6 @@
 #dashboard .count h1 {
   font-size: var(--large-size);
 }
-@media only screen and (max-width: 920px) {
-  #dashboard .user {
-    margin-bottom: 20px;
-  }
-}
 @media only screen and (max-width: 750px) {
   #dashboard .labCount {
     margin-top: 20px;
@@ -168,7 +163,7 @@
 .quizTitle {
   margin: 0 0 0.7291666666666667vw 0;
   font-weight: 700;
-  font-size: var(--semi-large-size);
+  font-size: var(--normal-size);
   color: var(--action-color);
 }
 .quizDescription {
