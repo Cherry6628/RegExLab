@@ -31,7 +31,7 @@ public class EmployeeQuizLeaderboard extends HttpServlet {
 		try {
 
 			try (PreparedStatement ps = con.prepareStatement("SELECT u.username, e.team, "
-					+ "(100000.0 * e.score / NULLIF(e.time,0)) AS points " + "FROM "
+					+ "(1000.0 * POW(e.score, 2) / SQRT(e.time + 1)) AS points " + "FROM "
 					+ ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS + " e " + "JOIN " + ParamsAndDBLoader.TABLE_USERS
 					+ " u ON e.user_id = u.id " + "WHERE e.time > 0 " + "ORDER BY points DESC LIMIT 10")) {
 
@@ -52,23 +52,22 @@ public class EmployeeQuizLeaderboard extends HttpServlet {
 			String username = (String) request.getAttribute("AUTHENTICATED_USER");
 			System.out.println("Is Logged in " + username);
 			if (username != null) {
-
 				try (PreparedStatement currentUserPs = con.prepareStatement(
-						"SELECT u.username, e.team, " + "(100000.0 * e.score / NULLIF(e.time,0)) AS points " + "FROM "
-								+ ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS + " e " + "JOIN "
-								+ ParamsAndDBLoader.TABLE_USERS + " u ON e.user_id = u.id "
-								+ "WHERE u.username = ? AND e.time > 0")) {
-
+						"SELECT u.username, e.team, " +
+								"(1000.0 * POW(e.score, 2) / SQRT(e.time + 1)) AS points " +
+								"FROM " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS + " e " +
+								"JOIN " + ParamsAndDBLoader.TABLE_USERS + " u ON e.user_id = u.id " +
+								"WHERE u.username = ? AND e.time > 0")) {
 					currentUserPs.setString(1, username);
 					ResultSet currentRs = currentUserPs.executeQuery();
-
 					if (currentRs.next()) {
-
 						double points = currentRs.getDouble("points");
-
+						System.out.println(points);
 						try (PreparedStatement rankPs = con.prepareStatement(
-								"SELECT COUNT(*) + 1 AS `rank` FROM " + ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS
-										+ " WHERE (100000.0 * score / NULLIF(time,0)) > ?")) {
+								"SELECT COUNT(*) + 1 AS `rank` FROM " +
+										ParamsAndDBLoader.TABLE_EMPLOYEE_TEST_DETAILS +
+										" WHERE (1000.0 * POW(score, 2) / SQRT(time + 1)) > ?")) {
+
 							rankPs.setDouble(1, points);
 							ResultSet rankRs = rankPs.executeQuery();
 
