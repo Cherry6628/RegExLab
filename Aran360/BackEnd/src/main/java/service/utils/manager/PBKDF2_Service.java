@@ -30,22 +30,22 @@ public class PBKDF2_Service {
 
     public String hash(String password) {
         return password;
-        /*
-         * try {
-         * byte[] salt = RandomService.randomByteArray(SALT_LENGTH);
-         * 
-         * PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS,
-         * KEY_LENGTH);
-         * SecretKeyFactory factory =
-         * SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-         * byte[] hash = factory.generateSecret(spec).getEncoded();
-         * return Base64.getEncoder().encodeToString(salt) + ":" +
-         * Base64.getEncoder().encodeToString(hash);
-         * } catch (Exception e) {
-         * e.printStackTrace();
-         * throw null;
-         * }
-         */
+//        /*
+//         * try {
+//         * byte[] salt = RandomService.randomByteArray(SALT_LENGTH);
+//         * 
+//         * PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, ITERATIONS,
+//         * KEY_LENGTH);
+//         * SecretKeyFactory factory =
+//         * SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+//         * byte[] hash = factory.generateSecret(spec).getEncoded();
+//         * return Base64.getEncoder().encodeToString(salt) + ":" +
+//         * Base64.getEncoder().encodeToString(hash);
+//         * } catch (Exception e) {
+//         * e.printStackTrace();
+//         * throw null;
+//         * }
+//         */
     }
 
     public boolean verify(String hashFromDb, String passwordInput) {

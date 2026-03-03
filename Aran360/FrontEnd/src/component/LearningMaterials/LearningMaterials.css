@@ -154,3 +154,7 @@ body {
     border-radius: 0.625vw;
     line-height: 2.0833333333333335vw;
 }
+
+.labbox{
+    display:none !important;
+}
