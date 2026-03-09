@@ -10,7 +10,7 @@ import model.dao.PasswordResetDAO;
 import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
-import service.utils.manager.PBKDF2_Service;
+import service.utils.manager.BCrypt_Service;
 import service.utils.manager.ValidatorService;
 
 import java.io.BufferedReader;
@@ -72,7 +72,7 @@ public class ResetPassword extends HttpServlet {
 				return;
 			}
 			pstmt.setString(2, email);
-			pstmt.setString(1, PBKDF2_Service.object.hash(pass));
+			pstmt.setString(1, BCrypt_Service.object.hash(pass));
 			pstmt2.setString(1, email);
 			pstmt.executeUpdate();
 			pstmt2.executeUpdate();

@@ -49,8 +49,6 @@
             if (e.key === "Enter") doSearch();
         });
 
-        // vulnerability — innerHTML with raw location.search
-        // <script> won't execute via innerHTML — must use <img src=x onerror=alert(1)>
         const params = new URLSearchParams(window.location.search);
         const q = params.get("q");
         if (q) {

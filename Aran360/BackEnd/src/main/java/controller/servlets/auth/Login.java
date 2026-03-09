@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();
 
-			if (rs.next() && PBKDF2_Service.object.verify(rs.getString("password_hash"), password)) {
+			if (rs.next() && BCrypt_Service.object.verify(rs.getString("password_hash"), password)) {
 				String token = SessionManager.createSession(username, request, DBService.getConnection());
 				setAuthCookie(response, token);
 				response.getWriter()

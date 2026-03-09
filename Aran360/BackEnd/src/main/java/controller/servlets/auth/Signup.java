@@ -9,7 +9,7 @@ import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
-import service.utils.manager.PBKDF2_Service;
+import service.utils.manager.BCrypt_Service;
 import service.utils.auth.SessionManager;
 import service.utils.manager.ValidatorService;
 
@@ -58,7 +58,7 @@ public class Signup extends HttpServlet {
 			return;
 		}
 
-		String hashedPass = PBKDF2_Service.object.hash(pass);
+		String hashedPass = BCrypt_Service.object.hash(pass);
 
 		try {
 			String query = "INSERT INTO " + ParamsAndDBLoader.TABLE_USERS

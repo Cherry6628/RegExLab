@@ -13,7 +13,7 @@ import listener.configLoader.ParamsAndDBLoader;
 import model.helper.JSONResponse;
 import service.utils.manager.CSRFService;
 import service.utils.manager.DBService;
-import service.utils.manager.PBKDF2_Service;
+import service.utils.manager.BCrypt_Service;
 import org.json.JSONObject;
 
 @WebServlet("/update-password")
@@ -68,13 +68,13 @@ String csrfNew = CSRFService.setCSRFToken(request);
 
             String storedHash = rs.getString("password_hash");
 
-            if (!PBKDF2_Service.object.verify(oldPassword, storedHash)) {
+            if (!BCrypt_Service.object.verify(oldPassword, storedHash)) {
                 response.getWriter().write(JSONResponse.response(
                     JSONResponse.ERROR, "Old password is incorrect", csrfNew, null).toString());
                 return;
             }
 
-            String newHash = PBKDF2_Service.object.hash(newPassword);
+            String newHash = BCrypt_Service.object.hash(newPassword);
             PreparedStatement updatePs = con.prepareStatement(
                 "UPDATE " + ParamsAndDBLoader.TABLE_USERS +
                 " SET password_hash = ? WHERE username = ?"
